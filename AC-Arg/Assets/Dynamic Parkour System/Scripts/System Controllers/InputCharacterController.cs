@@ -63,7 +63,8 @@ namespace Climbing
             controls.Player.Drop.canceled += ctx => drop = ctx.ReadValueAsButton();
             controls.Player.Run.performed += ctx => run = ctx.ReadValueAsButton();
             controls.Player.Run.canceled += ctx => run = ctx.ReadValueAsButton();
-            controls.GameManager.Exit.performed += ctx => Exit();
+            controls.GameManager.Exit.performed += ctx => Pause();
+            //controls.GameManager.Pause.performed += ctx => PauseMenuTrigger();
         }
 
         void ToggleRun()
@@ -74,9 +75,11 @@ namespace Climbing
                 run = false;
         }
 
-        void Exit()
+        void Pause()
         {
-            Application.Quit();
+            Debug.Log("toque esc");
+            EventManager.Trigger(Evento.OnPlayerPressedEsc);
+            //Application.Quit();
         }
     }
 
