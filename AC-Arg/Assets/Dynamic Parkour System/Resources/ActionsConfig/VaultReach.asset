@@ -22,5 +22,5 @@ MonoBehaviour:
     m_Bits: 4294967295
   tag: Reach
   midHeight: 1.2
-  maxHeight: 2
+  maxHeight: 3
   HandAnimVariableName: LHandCurve
