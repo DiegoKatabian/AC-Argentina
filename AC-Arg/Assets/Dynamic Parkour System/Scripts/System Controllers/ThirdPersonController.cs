@@ -51,6 +51,8 @@ namespace Climbing
         [HideInInspector] public bool inSlope = false;
         [HideInInspector] public bool isVaulting = false;
         [HideInInspector] public bool dummy = false;
+        [HideInInspector] public bool isOnVehicle = false;
+        [HideInInspector] private Vector3 vehicleVelocity;
 
         [Header("Cameras")]
         public CameraController cameraController;
@@ -106,6 +108,12 @@ namespace Climbing
                     ToggleWalk();
                 }
             }
+
+            if (isOnVehicle)
+            {
+                Debug.Log("3rd Person Controller: aviso al movementcontroller que toy arriba del auto y debe moverme");
+                characterMovement.AddVelocity(vehicleVelocity);
+            }
         }
 
         private bool OnGround()
@@ -119,7 +127,7 @@ namespace Climbing
 
             translation = GroundMovement(direction);
 
-            characterMovement.SetVelocity(Vector3.ClampMagnitude(translation, 1.0f));
+            characterMovement.SetVelocity(Vector3.ClampMagnitude(translation, 1.0f)); //deberia sumar la velocity del auto aca
         }
 
         Vector3 GroundMovement(Vector2 input)
@@ -187,6 +195,23 @@ namespace Climbing
                 characterAnimation.animator.SetBool("Run", false);
             }
         }
+        public void EnableVehicleInteraction()
+        {
+            isOnVehicle = true;
+        }
+        public void DisableVehicleInteraction()
+        {
+            isOnVehicle = false;
+        }
+        public bool IsOnVehicle()
+        {
+            return isOnVehicle;
+        }
+        public void ApplyVehicleVelocity(Vector3 velocity)
+        {
+            vehicleVelocity = velocity;
+        }
+
 
 
         public float GetCurrentVelocity()
