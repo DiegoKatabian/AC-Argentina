@@ -15,25 +15,25 @@ public class Deactivate : MonoBehaviour
         ts = GameObject.FindObjectOfType<TrafficSystem>();
     }
 
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Space)){
-            if(isActive){
-                isActive = false;
-                ts.SaveTrafficSystem();
-                foreach(GameObject vehicle in vehicles){
-                    vehicle.SetActive(false);
-                }
-            }
-            else{
-                isActive = true;
+    //void Update()
+    //{
+    //    if(Input.GetKeyDown(KeyCode.Space)){
+    //        if(isActive){
+    //            isActive = false;
+    //            ts.SaveTrafficSystem();
+    //            foreach(GameObject vehicle in vehicles){
+    //                vehicle.SetActive(false);
+    //            }
+    //        }
+    //        else{
+    //            isActive = true;
 
-                foreach(GameObject vehicle in vehicles){
-                    vehicle.SetActive(true);
+    //            foreach(GameObject vehicle in vehicles){
+    //                vehicle.SetActive(true);
                     
-                }
-                ts.ResumeTrafficSystem();
-            }
-        }
-    }
+    //            }
+    //            ts.ResumeTrafficSystem();
+    //        }
+    //    }
+    //}
 }

@@ -281,7 +281,7 @@ namespace Climbing
 
         public void SetVelocity(Vector3 value)
         {
-            Debug.Log("Movement Character Controller: velocity Set " + value);
+            //Debug.Log("Movement Character Controller: velocity Set " + value);
             velocity = value;
         }
 
