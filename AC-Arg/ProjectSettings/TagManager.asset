@@ -11,6 +11,9 @@ TagManager:
   - Reach
   - Pole
   - Vehicle
+  - Waypoint
+  - AutonomousVehicle
+  - EnterVehicleBox
   layers:
   - Default
   - TransparentFX

@@ -5,15 +5,15 @@ using TrafficSimulation;
 
 public class Deactivate : MonoBehaviour
 {
-    bool isActive = true;
+    //bool isActive = true;
 
-    GameObject[] vehicles;
-    TrafficSystem ts;
+    //GameObject[] vehicles;
+    //TrafficSystem ts;
 
-    void Start(){
-        vehicles = GameObject.FindGameObjectsWithTag("AutonomousVehicle");
-        ts = GameObject.FindObjectOfType<TrafficSystem>();
-    }
+    //void Start(){
+    //    vehicles = GameObject.FindGameObjectsWithTag("AutonomousVehicle");
+    //    ts = GameObject.FindObjectOfType<TrafficSystem>();
+    //}
 
     //void Update()
     //{

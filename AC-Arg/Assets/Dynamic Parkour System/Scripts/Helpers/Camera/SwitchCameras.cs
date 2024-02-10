@@ -1,68 +1,43 @@
-﻿/*
-MIT License
-
-Copyright (c) 2023 Èric Canela
-Contact: knela96@gmail.com or @knela96 twitter
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (Dynamic Parkour System), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-*/
-
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
-using Cinemachine.Utility;
 
 namespace Climbing
 {
     public class SwitchCameras : MonoBehaviour
     {
-        // Start is called before the first frame update
         Animator animator;
 
         enum CameraType
         {
             None,
-            Freelook,
-            Slide
+            FreeLook,
+            Slide,
+            Vehicle // Agregamos el nuevo tipo de cámara
         }
 
         CameraType curCam = CameraType.None;
 
-        [SerializeField] private CinemachineFreeLook FreeLook;
-        [SerializeField] private CinemachineVirtualCamera Slide;
-
+        [SerializeField] private CinemachineVirtualCameraBase FreeLook;
+        [SerializeField] private CinemachineVirtualCameraBase Slide;
+        [SerializeField] private CinemachineVirtualCameraBase Vehicle; // Agregamos referencia a la nueva cámara
 
         void Start()
         {
             animator = GetComponent<Animator>();
-
             FreeLookCam();
         }
 
         //Switches To FreeLook Cam
         public void FreeLookCam()
         {
-            if (curCam != CameraType.Freelook)
+            if (curCam != CameraType.FreeLook)
             {
                 Slide.Priority = 0;
                 FreeLook.Priority = 1;
+                Vehicle.Priority = 0; // Aseguramos que la cámara Vehicle tenga prioridad 0
+                curCam = CameraType.FreeLook; // Actualizamos el tipo de cámara actual
             }
         }
 
@@ -73,6 +48,20 @@ namespace Climbing
             {
                 FreeLook.Priority = 0;
                 Slide.Priority = 1;
+                Vehicle.Priority = 0; // Aseguramos que la cámara Vehicle tenga prioridad 0
+                curCam = CameraType.Slide; // Actualizamos el tipo de cámara actual
+            }
+        }
+
+        //Switches To Vehicle Cam
+        public void VehicleCam()
+        {
+            if (curCam != CameraType.Vehicle)
+            {
+                FreeLook.Priority = 0;
+                Slide.Priority = 0;
+                Vehicle.Priority = 1;
+                curCam = CameraType.Vehicle; // Actualizamos el tipo de cámara actual
             }
         }
     }

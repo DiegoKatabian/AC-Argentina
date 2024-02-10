@@ -41,12 +41,10 @@ namespace Climbing
         private float curTime = 0.0f;
         private bool anim = false;
 
-
         void Start()
         {
             cameraOffset = GetComponent<CinemachineCameraOffset>();
         }
-
 
         void Update()
         {

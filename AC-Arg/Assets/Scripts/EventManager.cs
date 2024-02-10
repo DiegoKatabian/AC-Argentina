@@ -4,7 +4,8 @@ using UnityEngine;
 
 public enum Evento //LOS EVENTOS SE AGREGAN AL FINAL. NO EN EL MEDIO, PORQUE ARRUINAN LA NUMERACION
 {
-    OnPlayerPressedEsc
+    OnPlayerPressedEsc,
+    OnPlayerPressedE
 }
 
 public class EventManager
