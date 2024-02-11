@@ -42,6 +42,8 @@ namespace Climbing
 
         private MatchTargetWeightMask matchTargetWeightMask = new MatchTargetWeightMask(Vector3.one, 0);
 
+        public GameObject playerMeshesParent;
+
         void Start()
         {
             controller = GetComponent<ThirdPersonController>();
@@ -197,6 +199,12 @@ namespace Climbing
 
             animator.SetTarget(avatarTarget, targetNormalizedTime); //Sets Target Bone for reference motion
             animator.MatchTarget(targetPos + offset, targetRot, avatarTarget, matchTargetWeightMask, startnormalizedTime, targetNormalizedTime, true);
+        }
+
+        public void EnableMesh(bool state)
+        {
+            //Debug.Log("enable mesh: " + state);
+            playerMeshesParent.SetActive(state);
         }
     }
 

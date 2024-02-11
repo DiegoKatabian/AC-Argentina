@@ -63,6 +63,8 @@ namespace TrafficSimulation {
         private Target currentTarget;
         private Target futureTarget;
 
+        public bool canInteract;
+
         void Start()
         {
             wheelDrive = this.GetComponent<WheelDrive>();
@@ -127,11 +129,13 @@ namespace TrafficSimulation {
                 acc = 0;
                 brake = 1;
                 wheelDrive.maxSpeed = Mathf.Min(wheelDrive.maxSpeed / 2f, 5f);
+                canInteract = true;
             }
             else{
-                
+                canInteract = false;
+
                 //Not full acceleration if have to slow down
-                if(vehicleStatus == Status.SLOW_DOWN){
+                if (vehicleStatus == Status.SLOW_DOWN){
                     acc = .3f;
                     brake = 0f;
                 }

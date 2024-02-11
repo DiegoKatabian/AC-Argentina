@@ -19,9 +19,9 @@ namespace Climbing
 
         CameraType curCam = CameraType.None;
 
-        [SerializeField] private CinemachineVirtualCameraBase FreeLook;
-        [SerializeField] private CinemachineVirtualCameraBase Slide;
-        [SerializeField] private CinemachineVirtualCameraBase Vehicle; // Agregamos referencia a la nueva cámara
+        [SerializeField] private CinemachineVirtualCameraBase freeLookCamera;
+        [SerializeField] private CinemachineVirtualCameraBase slideCamera;
+        [SerializeField] private CinemachineVirtualCameraBase vehicleCamera; // Agregamos referencia a la nueva cámara
 
         void Start()
         {
@@ -34,9 +34,9 @@ namespace Climbing
         {
             if (curCam != CameraType.FreeLook)
             {
-                Slide.Priority = 0;
-                FreeLook.Priority = 1;
-                Vehicle.Priority = 0; // Aseguramos que la cámara Vehicle tenga prioridad 0
+                slideCamera.Priority = 0;
+                freeLookCamera.Priority = 1;
+                vehicleCamera.Priority = 0; // Aseguramos que la cámara Vehicle tenga prioridad 0
                 curCam = CameraType.FreeLook; // Actualizamos el tipo de cámara actual
             }
         }
@@ -46,21 +46,23 @@ namespace Climbing
         {
             if (curCam != CameraType.Slide)
             {
-                FreeLook.Priority = 0;
-                Slide.Priority = 1;
-                Vehicle.Priority = 0; // Aseguramos que la cámara Vehicle tenga prioridad 0
+                freeLookCamera.Priority = 0;
+                slideCamera.Priority = 1;
+                vehicleCamera.Priority = 0; // Aseguramos que la cámara Vehicle tenga prioridad 0
                 curCam = CameraType.Slide; // Actualizamos el tipo de cámara actual
             }
         }
 
         //Switches To Vehicle Cam
-        public void VehicleCam()
+        public void VehicleCam(Transform targetVehicle)
         {
             if (curCam != CameraType.Vehicle)
             {
-                FreeLook.Priority = 0;
-                Slide.Priority = 0;
-                Vehicle.Priority = 1;
+                freeLookCamera.Priority = 0;
+                slideCamera.Priority = 0;
+                vehicleCamera.Priority = 1;
+                vehicleCamera.Follow = targetVehicle;
+                vehicleCamera.LookAt = targetVehicle;
                 curCam = CameraType.Vehicle; // Actualizamos el tipo de cámara actual
             }
         }

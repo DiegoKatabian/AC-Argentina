@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TrafficSimulation;
 using UnityEngine;
 
 namespace Climbing
@@ -12,18 +13,19 @@ namespace Climbing
         [HideInInspector] public bool insideCar = false;
         Transform player; //el player general, no el playermodel
         Transform originalParent; //la escena
-        Transform vehicle;
+        VehicleAI vehicle;
 
         //escena
         //  player
         //      playermodel
-        //auto
+        //  auto
 
         //se convierte en
 
-        //auto
-        //  player
-        //      playermodel
+        //escena
+        //  auto
+        //      player
+        //          playermodel
 
         private void Start()
         {
@@ -34,17 +36,20 @@ namespace Climbing
             EventManager.Subscribe(Evento.OnPlayerPressedE, TryInteract);
         }
 
-        //private void Update()
-        //{
-        //    if (insideCar)
-        //    {
-        //        player.position = vehicle.position;
-        //    }
-        //}
-
         private void TryInteract(object[] parameters)
         {
             Debug.Log("tratando de interactuar...");
+
+            if (!vehicle.canInteract)
+            {
+                Debug.Log("las puertas estan cerradas!");
+                return;
+            }
+            else
+            {
+                Debug.Log("ok, podes subir o bajar, ni idea que querias hacer pero podes");
+            }
+
             if (insideBox || insideCar)
             {
                 InteractWithVehicle();
@@ -53,8 +58,8 @@ namespace Climbing
 
         private void InteractWithVehicle()
         {
-            Debug.Log("Interact with vehicle");
-            player.parent = vehicle;
+            //Debug.Log("Interact with vehicle");
+            player.parent = vehicle.transform;
 
             if (!insideCar)
             {
@@ -68,29 +73,42 @@ namespace Climbing
 
         void GetOutOfCar()
         {
-            Debug.Log("me bajo del coche");
+            //Debug.Log("me bajo del coche");
             player.parent = originalParent;
+            insideBox = false;
             insideCar = false;
             playerController.EnableController();
             playerController.characterAnimation.switchCameras.FreeLookCam();
-            player.position = vehicle.position;
+            playerController.characterAnimation.EnableMesh(true);
         }
 
         void GetInsideCar()
         {
-            Debug.Log("me subo al coche");
-            player.parent = vehicle;
+            //Debug.Log("me subo al coche");
+            player.parent = vehicle.transform;
+            insideBox = false;
             insideCar = true;
             playerController.DisableController();
-            playerController.characterAnimation.switchCameras.VehicleCam(/* el coche en cuestion*/);
+            playerController.characterAnimation.switchCameras.VehicleCam(vehicle.transform);
+            playerController.characterAnimation.EnableMesh(false);
         }
 
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("EnterVehicleBox") && !insideBox)
             {
-                vehicle = other.transform; //el padre de la box collider es el auto en sí.
-                Debug.Log("OnTriggerEnter: Entraste a la caja");
+                vehicle = other.transform.GetComponentInParent<VehicleAI>();
+                if (vehicle != null)
+                {
+                    Debug.Log("obtuve vehicleAI " + vehicle.gameObject.name);
+                }
+                else
+                {
+                    Debug.Log("che no pude agarrar el vehicleAI");
+                }
+
+
+                //Debug.Log("OnTriggerEnter: Entraste a la caja");
                 insideBox = true;
             }
         }
@@ -101,7 +119,7 @@ namespace Climbing
             {
                 //cuando salgo del trigger, el player vuelve a ser hijo de la escena, como era originalmente.
                 //vehicle = null;
-                Debug.Log("OnTriggerExit: Saliste de la caja");
+                //Debug.Log("OnTriggerExit: Saliste de la caja");
                 insideBox = false;
             }
         }
