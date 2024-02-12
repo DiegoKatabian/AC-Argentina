@@ -309,7 +309,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -1.591, y: 1.4500003, z: -11.499}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2828697415681922416}
@@ -359,13 +359,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   downForce: 100
   maxAngle: 60
-  steeringLerp: 5
-  steeringSpeedMax: 8
+  steeringLerp: 10
+  steeringSpeedMax: 16
   maxTorque: 200
   brakeTorque: 100000
   unitType: 0
-  minSpeed: 2
-  maxSpeed: 15
+  minSpeed: 4
+  maxSpeed: 16
   leftWheelShape: {fileID: 100002, guid: e573176e04888a947a9a7b761514096e, type: 3}
   rightWheelShape: {fileID: 100004, guid: e573176e04888a947a9a7b761514096e, type: 3}
   animateWheels: 1
@@ -391,7 +391,7 @@ MonoBehaviour:
   emergencyBrakeThresh: 1.5
   slowDownThresh: 5
   vehicleStatus: 0
-  rideZone: {fileID: 7902649380750684319}
+  canInteract: 0
 --- !u!65 &8086635028328435146
 BoxCollider:
   m_ObjectHideFlags: 0
