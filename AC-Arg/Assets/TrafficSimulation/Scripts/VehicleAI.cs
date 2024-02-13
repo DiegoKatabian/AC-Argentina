@@ -69,8 +69,6 @@ namespace TrafficSimulation {
         private float stopTimer = 0f;
         private bool playerDetected = false;
 
-
-
         void Start()
         {
             wheelDrive = this.GetComponent<WheelDrive>();
@@ -89,7 +87,6 @@ namespace TrafficSimulation {
             WaypointChecker();
             MoveVehicle();
         }
-
 
         void WaypointChecker(){
             GameObject waypoint = trafficSystem.segments[currentTarget.segment].waypoints[currentTarget.waypoint].gameObject;
@@ -257,7 +254,6 @@ namespace TrafficSimulation {
 
         }
 
-
         GameObject GetDetectedObstacles(out float _hitDist){
             GameObject detectedObstacle = null;
             float minDist = 1000f;
@@ -284,7 +280,6 @@ namespace TrafficSimulation {
             return detectedObstacle;
         }
 
-        
         void CastRay(Vector3 _anchor, float _angle, Vector3 _dir, float _length, out GameObject _outObstacle, out float _outHitDistance){
             _outObstacle = null;
             _outHitDistance = -1f;
@@ -357,5 +352,6 @@ namespace TrafficSimulation {
             }
             return vehicleSegment;
         }
+
     }
 }

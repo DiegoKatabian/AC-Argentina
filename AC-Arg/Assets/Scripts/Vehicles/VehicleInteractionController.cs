@@ -13,7 +13,7 @@ namespace Climbing
         [HideInInspector] public bool insideCar = false;
         Transform player; //el player general, no el playermodel
         Transform originalParent; //la escena
-        VehicleAI vehicle;
+        VehicleAI currentInteractableVehicle;
 
         //escena
         //  player
@@ -40,13 +40,13 @@ namespace Climbing
         {
             Debug.Log("tratando de interactuar...");
 
-            if (vehicle == null)
+            if (currentInteractableVehicle == null)
             {
                 Debug.Log("no hay ningun auto a mano");
                 return;
             }
 
-            if (!vehicle.canInteract)
+            if (!currentInteractableVehicle.canInteract)
             {
                 Debug.Log("las puertas estan cerradas!");
                 return;
@@ -61,7 +61,7 @@ namespace Climbing
         private void InteractWithVehicle()
         {
             //Debug.Log("Interact with vehicle");
-            player.parent = vehicle.transform;
+            player.parent = currentInteractableVehicle.transform;
 
             if (!insideCar)
             {
@@ -87,32 +87,28 @@ namespace Climbing
         void GetInsideCar()
         {
             //Debug.Log("me subo al coche");
-            player.parent = vehicle.transform;
+            player.parent = currentInteractableVehicle.transform;
             insideBox = false;
             insideCar = true;
             playerController.DisableController();
-            playerController.characterAnimation.switchCameras.VehicleCam(vehicle.transform);
+            playerController.characterAnimation.switchCameras.VehicleCam(currentInteractableVehicle.transform);
             playerController.characterAnimation.EnableMesh(false);
         }
 
         private void OnTriggerEnter(Collider other)
         {
+
             if (other.CompareTag("EnterVehicleBox") && !insideBox)
             {
-                vehicle = other.transform.GetComponentInParent<VehicleAI>();
-                if (vehicle != null)
+                if (other.transform.GetComponentInParent<VehicleAI>() != null)
                 {
-                    Debug.Log("obtuve vehicleAI " + vehicle.gameObject.name);
+                    currentInteractableVehicle = other.transform.GetComponentInParent<VehicleAI>();
                 }
-                else
-                {
-                    Debug.Log("che no pude agarrar el vehicleAI");
-                }
-
 
                 //Debug.Log("OnTriggerEnter: Entraste a la caja");
                 insideBox = true;
             }
+
         }
 
         private void OnTriggerExit(Collider other)
