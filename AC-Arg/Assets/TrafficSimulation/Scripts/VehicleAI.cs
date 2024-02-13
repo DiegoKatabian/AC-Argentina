@@ -65,6 +65,12 @@ namespace TrafficSimulation {
 
         public bool canInteract;
 
+        private float stopTimer = 0f;
+        private bool playerDetected = false;
+        private bool busStopDetected = false;
+
+
+
         void Start()
         {
             wheelDrive = this.GetComponent<WheelDrive>();
@@ -148,9 +154,17 @@ namespace TrafficSimulation {
                 //2. Check if there are obstacles which are detected by the radar
                 float hitDist;
                 GameObject obstacle = GetDetectedObstacles(out hitDist);
-
+                //Debug.Log("current obstacle - " + obstacle);
                 //Check if we hit something
                 if(obstacle != null){
+
+                    if (obstacle.CompareTag("Player"))
+                    {
+                        // Si se detecta un obstáculo con la etiqueta "Player", establece el estado del vehículo en "STOP"
+                        Debug.Log("GetDetectedObstacles - detecto al player y me detengo");
+                        vehicleStatus = Status.STOP;
+                        playerDetected = true;
+                    }
 
                     WheelDrive otherVehicle = null;
                     otherVehicle = obstacle.GetComponent<WheelDrive>();
@@ -222,10 +236,25 @@ namespace TrafficSimulation {
                     steering = Mathf.Clamp(this.transform.InverseTransformDirection(desiredVel.normalized).x, -1f, 1f);
                 }
 
-            }
+            }//everything else the car does
 
             //Move the car
             wheelDrive.Move(acc, steering, brake);
+
+            if (playerDetected)
+            {
+                stopTimer += Time.deltaTime;
+
+                if (stopTimer >= 5f)
+                {
+                    // Después de 5 segundos, reanuda la marcha normal
+                    Debug.Log("MoveVehicle - ya pasaron 5 segundos, reanuda la marcha");
+                    vehicleStatus = Status.GO;
+                    playerDetected = false;
+                    stopTimer = 0f;
+                }
+            }
+
         }
 
 
@@ -241,6 +270,7 @@ namespace TrafficSimulation {
                 if(detectedObstacle == null) continue;
 
                 float dist = Vector3.Distance(this.transform.position, detectedObstacle.transform.position);
+
                 if(dist < minDist) {
                     minDist = dist;
                     break;
@@ -248,6 +278,9 @@ namespace TrafficSimulation {
             }
 
             _hitDist = hitDist;
+
+            
+
             return detectedObstacle;
         }
 
