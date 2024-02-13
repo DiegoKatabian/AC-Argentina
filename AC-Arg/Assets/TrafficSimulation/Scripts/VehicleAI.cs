@@ -67,8 +67,6 @@ namespace TrafficSimulation {
 
         private float stopTimer = 0f;
         private bool playerDetected = false;
-        private bool busStopDetected = false;
-
 
 
         void Start()
