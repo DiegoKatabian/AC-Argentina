@@ -110,6 +110,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RequestBusStop"",
+                    ""type"": ""Button"",
+                    ""id"": ""74493c18-04f4-425d-8377-c09cc3b5445d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -255,6 +264,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7d5361b3-cda2-4193-ac40-2ef27e76c236"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard n Mouse"",
+                    ""action"": ""RequestBusStop"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -327,6 +347,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_Drop = m_Player.FindAction("Drop", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
+        m_Player_RequestBusStop = m_Player.FindAction("RequestBusStop", throwIfNotFound: true);
         // GameManager
         m_GameManager = asset.FindActionMap("GameManager", throwIfNotFound: true);
         m_GameManager_Exit = m_GameManager.FindAction("Exit", throwIfNotFound: true);
@@ -442,6 +463,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Drop;
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Interact;
+    private readonly InputAction m_Player_RequestBusStop;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -451,6 +473,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Drop => m_Wrapper.m_Player_Drop;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
+        public InputAction @RequestBusStop => m_Wrapper.m_Player_RequestBusStop;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -475,6 +498,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
+            @RequestBusStop.started += instance.OnRequestBusStop;
+            @RequestBusStop.performed += instance.OnRequestBusStop;
+            @RequestBusStop.canceled += instance.OnRequestBusStop;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -494,6 +520,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
+            @RequestBusStop.started -= instance.OnRequestBusStop;
+            @RequestBusStop.performed -= instance.OnRequestBusStop;
+            @RequestBusStop.canceled -= instance.OnRequestBusStop;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -586,6 +615,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnDrop(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnRequestBusStop(InputAction.CallbackContext context);
     }
     public interface IGameManagerActions
     {

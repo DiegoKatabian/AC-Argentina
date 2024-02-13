@@ -392,6 +392,7 @@ MonoBehaviour:
   slowDownThresh: 5
   vehicleStatus: 0
   canInteract: 0
+  stopInFrontOfPlayerTime: 3
 --- !u!65 &8086635028328435146
 BoxCollider:
   m_ObjectHideFlags: 0

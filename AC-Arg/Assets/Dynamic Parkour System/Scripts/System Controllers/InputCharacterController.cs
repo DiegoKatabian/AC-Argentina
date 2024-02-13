@@ -65,7 +65,7 @@ namespace Climbing
             controls.Player.Run.canceled += ctx => run = ctx.ReadValueAsButton();
             controls.GameManager.Exit.performed += ctx => Pause();
             controls.Player.Interact.performed += ctx => Interact();
-            //controls.GameManager.Pause.performed += ctx => PauseMenuTrigger();
+            controls.Player.RequestBusStop.performed += ctx => RequestBusStop();
         }
 
         void ToggleRun()
@@ -80,14 +80,18 @@ namespace Climbing
         {
             Debug.Log("toque esc");
             EventManager.Trigger(Evento.OnPlayerPressedEsc);
-            //Application.Quit();
         }
 
         void Interact()
         {
             Debug.Log("toque E");
             EventManager.Trigger(Evento.OnPlayerPressedE);
-            //Application.Quit();
+        }
+
+        void RequestBusStop()
+        {
+            Debug.Log("toque R");
+            EventManager.Trigger(Evento.OnPlayerPressedR);
         }
     }
 

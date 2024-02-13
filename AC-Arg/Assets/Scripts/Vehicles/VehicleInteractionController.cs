@@ -40,14 +40,16 @@ namespace Climbing
         {
             Debug.Log("tratando de interactuar...");
 
+            if (vehicle == null)
+            {
+                Debug.Log("no hay ningun auto a mano");
+                return;
+            }
+
             if (!vehicle.canInteract)
             {
                 Debug.Log("las puertas estan cerradas!");
                 return;
-            }
-            else
-            {
-                Debug.Log("ok, podes subir o bajar, ni idea que querias hacer pero podes");
             }
 
             if (insideBox || insideCar)

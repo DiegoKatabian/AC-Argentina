@@ -64,9 +64,11 @@ namespace TrafficSimulation {
         private Target futureTarget;
 
         public bool canInteract;
+        public float stopInFrontOfPlayerTime = 5f;
 
         private float stopTimer = 0f;
         private bool playerDetected = false;
+
 
 
         void Start()
@@ -243,7 +245,7 @@ namespace TrafficSimulation {
             {
                 stopTimer += Time.deltaTime;
 
-                if (stopTimer >= 5f)
+                if (stopTimer >= stopInFrontOfPlayerTime)
                 {
                     // Después de 5 segundos, reanuda la marcha normal
                     Debug.Log("MoveVehicle - ya pasaron 5 segundos, reanuda la marcha");

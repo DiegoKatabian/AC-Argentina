@@ -88,6 +88,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "RequestBusStop",
+                    "type": "Button",
+                    "id": "74493c18-04f4-425d-8377-c09cc3b5445d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -231,6 +240,17 @@
                     "processors": "",
                     "groups": "Keyboard n Mouse",
                     "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7d5361b3-cda2-4193-ac40-2ef27e76c236",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard n Mouse",
+                    "action": "RequestBusStop",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
