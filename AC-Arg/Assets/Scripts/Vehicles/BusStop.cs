@@ -22,8 +22,8 @@ namespace TrafficSimulation
         {
             if (playerIsInside)
             {
-                Debug.Log("busstop: stop requested");
-                Debug.Log("current stop chance: " + currentStopChance);
+                //Debug.Log("busstop: stop requested");
+                //Debug.Log("current stop chance: " + currentStopChance);
 
                 currentStopChance = 1;
             }
@@ -34,9 +34,8 @@ namespace TrafficSimulation
             if (other.CompareTag("AutonomousVehicle"))
             {
                 willStop = (currentStopChance >= Random.Range(0f, 1f));
-                Debug.Log("current stop chance: " + currentStopChance);
-
-                Debug.Log(gameObject.name + " - willstop: " + willStop);
+                //Debug.Log("current stop chance: " + currentStopChance);
+                //Debug.Log(gameObject.name + " - willstop: " + willStop);
 
                 if (willStop) 
                 { 
@@ -46,7 +45,7 @@ namespace TrafficSimulation
 
             if (other.CompareTag("Player"))
             {
-                Debug.Log("el player entro a la parada");
+                //Debug.Log("el player entro a la parada");
                 playerIsInside = true;
             }
         }
@@ -55,7 +54,7 @@ namespace TrafficSimulation
         {
             if (other.CompareTag("Player"))
             {
-                Debug.Log("el player salio de la parada");
+                //Debug.Log("el player salio de la parada");
                 playerIsInside = false;
             }
         }
@@ -74,7 +73,7 @@ namespace TrafficSimulation
             VehicleAI vehicleAI = vehicle.GetComponent<VehicleAI>();
             vehicleAI.vehicleStatus = Status.GO;
             currentStopChance = stopChance;
-            Debug.Log("current stop chance: " + currentStopChance);
+            //Debug.Log("current stop chance: " + currentStopChance);
 
         }
 

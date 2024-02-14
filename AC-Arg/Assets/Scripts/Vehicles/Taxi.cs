@@ -1,18 +1,33 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Taxi : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+namespace TrafficSimulation
+{
+
+    public class Taxi : VehicleAI
     {
-        
+        public Rigidbody myRB;
+
+        public override void OnPlayerHopOn()
+        {
+            base.OnPlayerHopOn();
+            TaxiManager.instance.StartTrip(this);
+            canInteract = false;
+        }
+
+        public override void OnPlayerHopOff()
+        {
+            base.OnPlayerHopOff();
+            InduceGo();
+        }
+
+        public void Teleport(TaxiDestination taxiDestination)
+        {
+            myRB.Move(taxiDestination.position, Quaternion.Euler(taxiDestination.rotation));
+            canInteract = true;
+        }
     }
 }

@@ -353,5 +353,29 @@ namespace TrafficSimulation {
             return vehicleSegment;
         }
 
+        public virtual void OnPlayerHopOn()
+        {
+            Debug.Log("OnPlayerHopOn");
+        }
+
+        public virtual void OnPlayerHopOff()
+        {
+            Debug.Log("OnPlayerHopOff");
+        }
+
+        public virtual void InduceStop()
+        {
+            vehicleStatus = Status.STOP;
+        }
+
+        public virtual void InduceSlowDown()
+        {
+            vehicleStatus = Status.SLOW_DOWN;
+        }
+
+        public virtual void InduceGo()
+        {
+            vehicleStatus = Status.GO;
+        }
     }
 }

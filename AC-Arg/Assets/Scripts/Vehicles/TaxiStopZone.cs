@@ -65,14 +65,14 @@ namespace TrafficSimulation
             Debug.Log("espero un toque antes de frenar...");
             yield return new WaitForSeconds(waitingBeforeStopTime);
             Debug.Log("dale subite pibe");
-            vehicle.vehicleStatus = Status.STOP;
+            vehicle.InduceStop();
         }
 
         public IEnumerator Resume(VehicleAI vehicle)
         {
             yield return new WaitForSeconds(timeUntilResume);
             Debug.Log("resume taxi");
-            vehicle.vehicleStatus = Status.GO;
+            vehicle.InduceGo();
             currentStopChance = stopChance;
             wasRequested = false;
             Debug.Log("current stop chance: " + currentStopChance);

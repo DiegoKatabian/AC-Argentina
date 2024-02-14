@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89f51e29746394f40b112f3d7403fa13, type: 3}
   m_Name: Obelisco
   m_EditorClassIdentifier: 
-  position: {x: 0, y: 0, z: 0}
+  position: {x: 57, y: 0, z: -30}
+  rotation: {x: 0, y: 300, z: 0}
   destinationName: obelisco

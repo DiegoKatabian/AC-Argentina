@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89f51e29746394f40b112f3d7403fa13, type: 3}
   m_Name: Joyeria Libertad
   m_EditorClassIdentifier: 
-  position: {x: 100, y: 100, z: 100}
+  position: {x: -48.5, y: 0, z: -93}
+  rotation: {x: 0, y: 180, z: 0}
   destinationName: joyeria libertad

@@ -8,6 +8,7 @@ using UnityEngine;
 public class TaxiDestination : ScriptableObject
 {
     public Vector3 position;
+    public Vector3 rotation;
     public string destinationName;
 
 }

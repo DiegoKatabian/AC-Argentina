@@ -82,6 +82,7 @@ namespace Climbing
             playerController.EnableController();
             playerController.characterAnimation.switchCameras.FreeLookCam();
             playerController.characterAnimation.EnableMesh(true);
+            currentInteractableVehicle.OnPlayerHopOff();
         }
 
         void GetInsideCar()
@@ -93,6 +94,8 @@ namespace Climbing
             playerController.DisableController();
             playerController.characterAnimation.switchCameras.VehicleCam(currentInteractableVehicle.transform);
             playerController.characterAnimation.EnableMesh(false);
+            currentInteractableVehicle.OnPlayerHopOn();
+
         }
 
         private void OnTriggerEnter(Collider other)
