@@ -287,9 +287,7 @@ namespace Climbing
 
         public void AddVelocity(Vector3 value)
         {
-            Debug.Log("Movement Character Controller: velocity Add " + value);
             velocity += value;
-            Debug.Log("current player velocity = " + velocity);
         }
 
         public void ResetSpeed()

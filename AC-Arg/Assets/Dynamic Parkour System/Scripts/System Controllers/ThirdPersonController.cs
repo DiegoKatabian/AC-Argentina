@@ -52,7 +52,7 @@ namespace Climbing
         [HideInInspector] public bool isVaulting = false;
         [HideInInspector] public bool dummy = false;
         [HideInInspector] public bool isOnVehicle = false;
-        [HideInInspector] private Vector3 vehicleVelocity;
+        [HideInInspector] public Rigidbody vehicleBelowMe;
 
         [Header("Cameras")]
         public CameraController cameraController;
@@ -108,11 +108,14 @@ namespace Climbing
                     ToggleWalk();
                 }
             }
+        }
 
+        private void FixedUpdate()
+        {
             if (isOnVehicle)
             {
-                Debug.Log("3rd Person Controller: aviso al movementcontroller que toy arriba del auto y debe moverme");
-                characterMovement.AddVelocity(vehicleVelocity);
+                Debug.Log("FixedUpdate: agrego velocity = " + vehicleBelowMe.velocity);
+                characterMovement.rb.AddForce(vehicleBelowMe.velocity, ForceMode.VelocityChange);
             }
         }
 
@@ -120,7 +123,6 @@ namespace Climbing
         {
             return characterDetection.IsGrounded(stepHeight);
         }
-
         public void AddMovementInput(Vector2 direction)
         {
             Vector3 translation = Vector3.zero;
@@ -129,7 +131,6 @@ namespace Climbing
 
             characterMovement.SetVelocity(Vector3.ClampMagnitude(translation, 1.0f)); //deberia sumar la velocity del auto aca
         }
-
         Vector3 GroundMovement(Vector2 input)
         {
             Vector3 direction = new Vector3(input.x, 0f, input.y).normalized;
@@ -195,21 +196,16 @@ namespace Climbing
                 characterAnimation.animator.SetBool("Run", false);
             }
         }
-        public void EnableVehicleInteraction()
+        public void EnterVehicleRoof(Rigidbody veh)
         {
+            vehicleBelowMe = veh;
             isOnVehicle = true;
+            Debug.Log("is on vehicle true");
         }
-        public void DisableVehicleInteraction()
+        public void ExitVehicleRoof()
         {
             isOnVehicle = false;
-        }
-        public bool IsOnVehicle()
-        {
-            return isOnVehicle;
-        }
-        public void ApplyVehicleVelocity(Vector3 velocity)
-        {
-            vehicleVelocity = velocity;
+            Debug.Log("is on vehicle false");
         }
 
 
@@ -218,7 +214,6 @@ namespace Climbing
         {
             return characterMovement.GetVelocity().magnitude;
         }
-
         public void DisableController()
         {
             characterMovement.SetKinematic(true);
