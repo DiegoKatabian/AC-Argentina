@@ -57,19 +57,21 @@ namespace TrafficSimulation {
 
         [HideInInspector] public Status vehicleStatus = Status.GO;
 
-        private WheelDrive wheelDrive;
-        private float initMaxSpeed = 0;
-        private int pastTargetSegment = -1;
-        private Target currentTarget;
-        private Target futureTarget;
+        protected WheelDrive wheelDrive;
+        protected float initMaxSpeed = 0;
+        protected int pastTargetSegment = -1;
+        protected Target currentTarget;
+        protected Target futureTarget;
 
         public bool canInteract;
         public float stopInFrontOfPlayerTime = 5f;
 
-        private float stopTimer = 0f;
-        private bool playerDetected = false;
+        protected float stopTimer = 0f;
+        protected bool playerDetected = false;
 
-        void Start()
+        public bool playerIsInside = false;
+
+        public virtual void Start()
         {
             wheelDrive = this.GetComponent<WheelDrive>();
 
@@ -80,7 +82,8 @@ namespace TrafficSimulation {
             SetWaypointVehicleIsOn();
         }
 
-        void Update(){
+        public void Update()
+        {
             if(trafficSystem == null)
                 return;
 
@@ -88,7 +91,7 @@ namespace TrafficSimulation {
             MoveVehicle();
         }
 
-        void WaypointChecker(){
+        public void WaypointChecker(){
             GameObject waypoint = trafficSystem.segments[currentTarget.segment].waypoints[currentTarget.waypoint].gameObject;
 
             //Position of next waypoint relative to the car
@@ -113,7 +116,7 @@ namespace TrafficSimulation {
             }
         }
 
-        void MoveVehicle(){
+        public void MoveVehicle(){
 
             //Default, full acceleration, no break and no steering
             float acc = 1;
@@ -128,14 +131,18 @@ namespace TrafficSimulation {
             float futureSteering = Mathf.Clamp(this.transform.InverseTransformDirection(futureVel.normalized).x, -1, 1);
 
             //Check if the car has to stop
-            if(vehicleStatus == Status.STOP){
+            if(vehicleStatus == Status.STOP)
+            {
                 acc = 0;
                 brake = 1;
                 wheelDrive.maxSpeed = Mathf.Min(wheelDrive.maxSpeed / 2f, 5f);
                 canInteract = true;
+                //Debug.Log("can interact true");
             }
-            else{
-                canInteract = false;
+            else
+            {
+                //canInteract = false;
+                //Debug.Log("can interact false");
 
                 //Not full acceleration if have to slow down
                 if (vehicleStatus == Status.SLOW_DOWN){
@@ -144,7 +151,7 @@ namespace TrafficSimulation {
                 }
 
                 //If planned to steer, decrease the speed
-                if(futureSteering > .3f || futureSteering < -.3f){
+                if (futureSteering > .3f || futureSteering < -.3f){
                     wheelDrive.maxSpeed = Mathf.Min(wheelDrive.maxSpeed, wheelDrive.steeringSpeedMax);
                 }
 
@@ -355,12 +362,14 @@ namespace TrafficSimulation {
 
         public virtual void OnPlayerHopOn()
         {
-            Debug.Log("OnPlayerHopOn");
+            playerIsInside = true;
+            Debug.Log("BASE OnPlayerHopOn" + playerIsInside);
         }
 
         public virtual void OnPlayerHopOff()
         {
-            Debug.Log("OnPlayerHopOff");
+            playerIsInside = false;
+            Debug.Log("BASE OnPlayerHopOff" + playerIsInside);
         }
 
         public virtual void InduceStop()
@@ -376,6 +385,16 @@ namespace TrafficSimulation {
         public virtual void InduceGo()
         {
             vehicleStatus = Status.GO;
+        }
+
+        public virtual void GetReadyToStop()
+        {
+            //Debug.Log("GetReadyToStop");
+        }
+
+        public virtual void TriggerStopChance()
+        {
+            //Debug.Log("TriggerStop");
         }
     }
 }

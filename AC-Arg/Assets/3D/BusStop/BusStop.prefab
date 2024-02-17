@@ -69,7 +69,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stoppingTime: 6
-  stopChance: 0.5
+  stopChance: 1
 --- !u!1 &4461562178622087854
 GameObject:
   m_ObjectHideFlags: 0
@@ -195,7 +195,7 @@ GameObject:
   - component: {fileID: 6475508415301421972}
   m_Layer: 0
   m_Name: BusStop
-  m_TagString: Untagged
+  m_TagString: BusStop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -292,6 +292,7 @@ GameObject:
   - component: {fileID: 8727551084867479938}
   - component: {fileID: 3798786429472356411}
   - component: {fileID: 8086635028328435146}
+  - component: {fileID: 7153592147930284806}
   m_Layer: 9
   m_Name: Car Van 2
   m_TagString: AutonomousVehicle
@@ -318,6 +319,7 @@ Transform:
   - {fileID: 1234986205841661266}
   - {fileID: 2942488505405567016}
   - {fileID: 3110487466249289462}
+  - {fileID: 2730287789243763006}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -90.00001, z: 0}
 --- !u!54 &1682072212523484819
@@ -366,7 +368,7 @@ MonoBehaviour:
   maxTorque: 200
   brakeTorque: 100000
   unitType: 0
-  minSpeed: 5
+  minSpeed: 10
   maxSpeed: 100
   leftWheelShape: {fileID: 100002, guid: e573176e04888a947a9a7b761514096e, type: 3}
   rightWheelShape: {fileID: 100004, guid: e573176e04888a947a9a7b761514096e, type: 3}
@@ -379,7 +381,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4319730919756859883}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cde2d72bdb21e8542bfb0a4516cc158b, type: 3}
   m_Name: 
@@ -416,6 +418,63 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.96, y: 0.85, z: 2.13}
   m_Center: {x: 0, y: 0.55, z: -0.07}
+--- !u!114 &7153592147930284806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4319730919756859883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 386e9a6d25ce9bc498db1d81c9df3ece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trafficSystem: {fileID: 0}
+  waypointThresh: 2.5
+  raycastAnchor: {fileID: 1252842795690273605}
+  raycastLength: 6
+  raySpacing: 4
+  raysNumber: 10
+  emergencyBrakeThresh: 1.5
+  slowDownThresh: 5
+  vehicleStatus: 0
+  canInteract: 0
+  stopInFrontOfPlayerTime: 3
+  willStop: 0
+  stoppingTime: 4
+  stopChance: 0.5
+--- !u!1 &4980704456801621572
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2730287789243763006}
+  m_Layer: 9
+  m_Name: Bondi_Model
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2730287789243763006
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4980704456801621572}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3023973381166594336}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6301354553627284897
 GameObject:
   m_ObjectHideFlags: 0
@@ -444,7 +503,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3023973381166594336}

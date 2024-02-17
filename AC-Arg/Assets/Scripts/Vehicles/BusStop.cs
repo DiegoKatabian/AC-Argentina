@@ -5,16 +5,12 @@ namespace TrafficSimulation
 {
     public class BusStop : MonoBehaviour
     {
-        public float stoppingTime = 6f;
-        public float stopChance = 0.5f;
-        bool willStop = true;
         bool playerIsInside = false;
-        float currentStopChance = 0.5f;
+        bool busIsInside = false;
 
         private void Start()
         {
-            currentStopChance = stopChance;
-            //Debug.Log("current stop chance: " + currentStopChance);
+            BusManager.Instance.AddBusStop(this);
             EventManager.Subscribe(Evento.OnPlayerPressedR, OnStopRequested);
         }
 
@@ -22,31 +18,26 @@ namespace TrafficSimulation
         {
             if (playerIsInside)
             {
-                //Debug.Log("busstop: stop requested");
-                //Debug.Log("current stop chance: " + currentStopChance);
-
-                currentStopChance = 1;
+                Debug.Log("on stop requested");
+                BusManager.Instance.StopRequestAccepted();
             }
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("AutonomousVehicle"))
-            {
-                willStop = (currentStopChance >= Random.Range(0f, 1f));
-                //Debug.Log("current stop chance: " + currentStopChance);
-                //Debug.Log(gameObject.name + " - willstop: " + willStop);
-
-                if (willStop) 
-                { 
-                    TriggerBusStop(other.gameObject);
-                }
-            }
-
             if (other.CompareTag("Player"))
             {
                 //Debug.Log("el player entro a la parada");
                 playerIsInside = true;
+            }
+
+            if (other.CompareTag("AutonomousVehicle") && !busIsInside)
+            {
+                Debug.Log("entro el bondi a la parada");
+                Bus bus = other.GetComponent<Bus>();
+                bus.TriggerStopChance();
+                busIsInside = true;
+
             }
         }
 
@@ -57,24 +48,10 @@ namespace TrafficSimulation
                 //Debug.Log("el player salio de la parada");
                 playerIsInside = false;
             }
-        }
-
-        private void TriggerBusStop(GameObject vehicle)
-        {
-            VehicleAI vehicleAI = vehicle.GetComponent<VehicleAI>();
-            vehicleAI.vehicleStatus = Status.STOP;
-            StartCoroutine(Resume(vehicleAI));
-        }
-
-        public IEnumerator Resume(VehicleAI vehicle) 
-        {
-            yield return new WaitForSeconds(stoppingTime);
-
-            VehicleAI vehicleAI = vehicle.GetComponent<VehicleAI>();
-            vehicleAI.vehicleStatus = Status.GO;
-            currentStopChance = stopChance;
-            //Debug.Log("current stop chance: " + currentStopChance);
-
+            if (other.CompareTag("AutonomousVehicle"))
+            {
+                busIsInside = false;
+            }
         }
 
         private void OnDestroy()

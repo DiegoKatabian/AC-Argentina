@@ -13,7 +13,7 @@ namespace Climbing
         [HideInInspector] public bool insideCar = false;
         Transform player; //el player general, no el playermodel
         Transform originalParent; //la escena
-        VehicleAI currentInteractableVehicle;
+        public VehicleAI currentInteractableVehicle;
 
         //escena
         //  player
@@ -38,19 +38,19 @@ namespace Climbing
 
         private void TryInteract(object[] parameters)
         {
-            Debug.Log("tratando de interactuar...");
+            //Debug.Log("tratando de interactuar...");
 
             if (currentInteractableVehicle == null)
             {
-                Debug.Log("no hay ningun auto a mano");
+                //Debug.Log("no hay ningun auto a mano");
                 return;
             }
 
-            if (!currentInteractableVehicle.canInteract)
-            {
-                Debug.Log("las puertas estan cerradas!");
-                return;
-            }
+            //if (!currentInteractableVehicle.canInteract)
+            //{
+            //    Debug.Log("las puertas estan cerradas!");
+            //    return;
+            //}
 
             if (insideBox || insideCar)
             {
@@ -75,11 +75,12 @@ namespace Climbing
 
         void GetOutOfCar()
         {
-            //Debug.Log("me bajo del coche");
+            Debug.Log("me bajo del coche");
             player.parent = originalParent;
             insideBox = false;
             insideCar = false;
             playerController.EnableController();
+            playerController.characterAnimation.StartExitVehicleAnimation();
             playerController.characterAnimation.switchCameras.FreeLookCam();
             playerController.characterAnimation.EnableMesh(true);
             currentInteractableVehicle.OnPlayerHopOff();
@@ -87,11 +88,12 @@ namespace Climbing
 
         void GetInsideCar()
         {
-            //Debug.Log("me subo al coche");
+            Debug.Log("me subo al coche");
             player.parent = currentInteractableVehicle.transform;
             insideBox = false;
             insideCar = true;
             playerController.DisableController();
+            playerController.characterAnimation.StartEnterVehicleAnimation();
             playerController.characterAnimation.switchCameras.VehicleCam(currentInteractableVehicle.transform);
             playerController.characterAnimation.EnableMesh(false);
             currentInteractableVehicle.OnPlayerHopOn();
@@ -100,7 +102,6 @@ namespace Climbing
 
         private void OnTriggerEnter(Collider other)
         {
-
             if (other.CompareTag("EnterVehicleBox") && !insideBox)
             {
                 if (other.transform.GetComponentInParent<VehicleAI>() != null)
@@ -118,9 +119,6 @@ namespace Climbing
         {
             if (other.CompareTag("EnterVehicleBox") && insideBox)
             {
-                //cuando salgo del trigger, el player vuelve a ser hijo de la escena, como era originalmente.
-                //vehicle = null;
-                //Debug.Log("OnTriggerExit: Saliste de la caja");
                 insideBox = false;
             }
         }

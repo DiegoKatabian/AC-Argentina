@@ -18,7 +18,7 @@ namespace TrafficSimulation
         private void Start()
         {
             currentStopChance = stopChance;
-            Debug.Log("current stop chance: " + currentStopChance);
+            //Debug.Log("current stop chance: " + currentStopChance);
             EventManager.Subscribe(Evento.OnPlayerPressedR, OnStopRequested);
         }
 

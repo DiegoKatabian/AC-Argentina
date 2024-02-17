@@ -39,6 +39,7 @@ namespace Climbing
         [HideInInspector] public bool jump;
         [HideInInspector] public bool drop;
 
+
         private void OnEnable()
         {
             if(controls != null)
@@ -78,13 +79,13 @@ namespace Climbing
 
         void Pause()
         {
-            Debug.Log("toque esc");
+            //Debug.Log("toque esc");
             EventManager.Trigger(Evento.OnPlayerPressedEsc);
         }
 
         void Interact()
         {
-            Debug.Log("toque E");
+            //Debug.Log("toque E");
             EventManager.Trigger(Evento.OnPlayerPressedE);
         }
 

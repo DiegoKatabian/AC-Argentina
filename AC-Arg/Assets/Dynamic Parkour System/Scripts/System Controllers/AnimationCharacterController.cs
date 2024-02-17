@@ -49,6 +49,7 @@ namespace Climbing
             controller = GetComponent<ThirdPersonController>();
             animator = GetComponent<Animator>();
             switchCameras = Camera.main.GetComponent<SwitchCameras>();
+            EventManager.Subscribe(Evento.OnPlayerStopsVehicle, TriggerStopVehicleAnimation);
         }
 
         void Update()
@@ -178,6 +179,27 @@ namespace Climbing
             animator.SetBool("Crouch", state);
         }
 
+        public void TriggerStopVehicleAnimation(params object[] parameters)
+        {
+            //chequear que no este en el aire o algo asi
+            //if (controller.characterMovement.IsGrounded())
+
+            // animator.SetTrigger("RequestStop");
+            Debug.Log("se triggerea la anim de request stop");
+        }
+
+        public void StartEnterVehicleAnimation()
+        {
+            Debug.Log("start enter vehicle anim");
+            //animator.SetBool("enterVehicle", true);
+        }
+
+        public void StartExitVehicleAnimation()
+        {
+            Debug.Log("start exit vehicle anim");
+            //animator.SetBool("enterVehicle", false);
+        }
+
         public void EnableIKSolver()
         {
             controller.characterMovement.EnableFeetIK();
@@ -186,7 +208,6 @@ namespace Climbing
         {
             controller.EnableController();
         }
-
         public void SetMatchTarget(AvatarTarget avatarTarget, Vector3 targetPos, Quaternion targetRot, Vector3 offset, float startnormalizedTime, float targetNormalizedTime)
         {
             if (animator.isMatchingTarget)
@@ -200,7 +221,6 @@ namespace Climbing
             animator.SetTarget(avatarTarget, targetNormalizedTime); //Sets Target Bone for reference motion
             animator.MatchTarget(targetPos + offset, targetRot, avatarTarget, matchTargetWeightMask, startnormalizedTime, targetNormalizedTime, true);
         }
-
         public void EnableMesh(bool state)
         {
             //Debug.Log("enable mesh: " + state);
