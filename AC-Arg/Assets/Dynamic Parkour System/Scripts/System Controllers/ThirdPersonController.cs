@@ -99,11 +99,11 @@ namespace Climbing
                 AddMovementInput(characterInput.movement);
 
                 //Detects if Joystick is being pushed hard
-                if (characterInput.run && characterInput.movement.magnitude > 0.5f)
+                if (/*characterInput.run && */characterInput.movement.magnitude > 0.5f)
                 {
                     ToggleRun();
                 }
-                else if (!characterInput.run)
+                else /*if (!characterInput.run)*/
                 {
                     ToggleWalk();
                 }

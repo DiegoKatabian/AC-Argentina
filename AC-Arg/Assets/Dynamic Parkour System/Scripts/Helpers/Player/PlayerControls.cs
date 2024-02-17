@@ -235,7 +235,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""6c37eeec-2b72-403a-8412-4fea044f9e53"",
-                    ""path"": ""<Keyboard>/space"",
+                    ""path"": ""<Keyboard>/leftAlt"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard n Mouse"",
