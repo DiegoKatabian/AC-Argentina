@@ -290,7 +290,6 @@ GameObject:
   - component: {fileID: 3023973381166594336}
   - component: {fileID: 1682072212523484819}
   - component: {fileID: 8727551084867479938}
-  - component: {fileID: 3798786429472356411}
   - component: {fileID: 8086635028328435146}
   - component: {fileID: 7153592147930284806}
   m_Layer: 9
@@ -374,29 +373,6 @@ MonoBehaviour:
   rightWheelShape: {fileID: 100004, guid: e573176e04888a947a9a7b761514096e, type: 3}
   animateWheels: 1
   driveType: 0
---- !u!114 &3798786429472356411
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4319730919756859883}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cde2d72bdb21e8542bfb0a4516cc158b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  trafficSystem: {fileID: 0}
-  waypointThresh: 2.5
-  raycastAnchor: {fileID: 1252842795690273605}
-  raycastLength: 6
-  raySpacing: 4
-  raysNumber: 10
-  emergencyBrakeThresh: 1.5
-  slowDownThresh: 5
-  vehicleStatus: 0
-  canInteract: 0
-  stopInFrontOfPlayerTime: 3
 --- !u!65 &8086635028328435146
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -441,6 +417,7 @@ MonoBehaviour:
   vehicleStatus: 0
   canInteract: 0
   stopInFrontOfPlayerTime: 3
+  playerIsInside: 0
   willStop: 0
   stoppingTime: 4
   stopChance: 0.5

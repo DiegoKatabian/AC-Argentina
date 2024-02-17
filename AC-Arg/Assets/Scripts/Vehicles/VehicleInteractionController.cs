@@ -46,11 +46,11 @@ namespace Climbing
                 return;
             }
 
-            //if (!currentInteractableVehicle.canInteract)
-            //{
-            //    Debug.Log("las puertas estan cerradas!");
-            //    return;
-            //}
+            if (!currentInteractableVehicle.canInteract)
+            {
+                Debug.Log("las puertas estan cerradas!");
+                return;
+            }
 
             if (insideBox || insideCar)
             {

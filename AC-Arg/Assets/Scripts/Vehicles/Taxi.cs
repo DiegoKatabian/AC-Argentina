@@ -27,7 +27,7 @@ namespace TrafficSimulation
         public void Teleport(TaxiDestination taxiDestination)
         {
             myRB.Move(taxiDestination.position, Quaternion.Euler(taxiDestination.rotation));
-            canInteract = true;
+            //canInteract = true;
         }
     }
 }
