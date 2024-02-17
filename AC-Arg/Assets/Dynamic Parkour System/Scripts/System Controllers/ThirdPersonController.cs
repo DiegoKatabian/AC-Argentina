@@ -114,7 +114,7 @@ namespace Climbing
         {
             if (isOnVehicle)
             {
-                Debug.Log("FixedUpdate: agrego velocity = " + vehicleBelowMe.velocity);
+                //Debug.Log("FixedUpdate: agrego velocity = " + vehicleBelowMe.velocity);
                 characterMovement.rb.AddForce(vehicleBelowMe.velocity, ForceMode.VelocityChange);
             }
         }

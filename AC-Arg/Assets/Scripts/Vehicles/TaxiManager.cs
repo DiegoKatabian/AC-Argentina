@@ -18,6 +18,8 @@ public class TaxiManager : MonoBehaviour
     Taxi _currentTaxi;
     TaxiDestination _currentDestination;
 
+    public float canvasDelayTime = 2.5f;
+
     private void Awake()
     {
         if (instance == null)
@@ -49,14 +51,25 @@ public class TaxiManager : MonoBehaviour
 
     internal void EnableDestinationCanvas()
     {
-        destinationPopup.SetActive(true);
+        //reaplace with corrouite
+        StartCoroutine(WaitBeforeCanvas(true, canvasDelayTime));
     }
 
     internal void DisableDestinationPopup()
     {
-        destinationPopup.SetActive(false);
+        //reaplace with corrouite
+        StartCoroutine(WaitBeforeCanvas(false, 0.5f));
         MoveTaxi(_currentDestination);
     }
+
+    //an ienumerator that waits 1 seconds before doing destinationPopup.SetActive(state);
+
+    public IEnumerator WaitBeforeCanvas(bool state, float time)
+    {
+        yield return new WaitForSeconds(time);
+        destinationPopup.SetActive(state);
+    }
+
 
     public IEnumerator WaitForBlackScreenLerp()
     {

@@ -15,6 +15,10 @@ namespace Climbing
         Transform originalParent; //la escena
         public VehicleAI currentInteractableVehicle;
 
+        public float hopAnimationLockTime = 2.5f;
+
+        bool currentVehicleIsTaxi = false;
+
         //escena
         //  player
         //      playermodel
@@ -73,6 +77,33 @@ namespace Climbing
             }
         }
 
+        void GetInsideCar()
+        {
+            Debug.Log("me subo al coche");
+            player.parent = currentInteractableVehicle.transform;
+            insideBox = false;
+            insideCar = true;
+            TriggerEnterCarAnimation();
+            currentInteractableVehicle.OnPlayerHopOn();
+        }
+
+        void TriggerEnterCarAnimation()
+        {
+            playerController.DisableController();
+
+            if (currentVehicleIsTaxi)
+            {
+                playerController.characterAnimation.StartEnterVehicleAnimation();
+            }
+            else
+            {
+                Debug.Log("disparar animacion corta, sin puerta, para bondi");
+            }
+
+            playerController.characterAnimation.switchCameras.VehicleCam(currentInteractableVehicle.transform);
+            StartCoroutine(WaitUntilEnableMesh(false));
+        }
+
         void GetOutOfCar()
         {
             Debug.Log("me bajo del coche");
@@ -86,18 +117,16 @@ namespace Climbing
             currentInteractableVehicle.OnPlayerHopOff();
         }
 
-        void GetInsideCar()
+        public IEnumerator WaitUntilEnableMesh(bool state)
         {
-            Debug.Log("me subo al coche");
-            player.parent = currentInteractableVehicle.transform;
-            insideBox = false;
-            insideCar = true;
-            playerController.DisableController();
-            playerController.characterAnimation.StartEnterVehicleAnimation();
-            playerController.characterAnimation.switchCameras.VehicleCam(currentInteractableVehicle.transform);
-            playerController.characterAnimation.EnableMesh(false);
-            currentInteractableVehicle.OnPlayerHopOn();
+            yield return new WaitForSeconds(hopAnimationLockTime);
+            playerController.characterAnimation.EnableMesh(state);
+        }
 
+        public IEnumerator WaitUntilEnableController()
+        {
+            yield return new WaitForSeconds(hopAnimationLockTime);
+            playerController.EnableController();
         }
 
         private void OnTriggerEnter(Collider other)
@@ -107,6 +136,10 @@ namespace Climbing
                 if (other.transform.GetComponentInParent<VehicleAI>() != null)
                 {
                     currentInteractableVehicle = other.transform.GetComponentInParent<VehicleAI>();
+                    if (other.transform.GetComponentInParent<Taxi>() != null)
+                    {
+                        currentVehicleIsTaxi = true;
+                    }
                 }
 
                 //Debug.Log("OnTriggerEnter: Entraste a la caja");
@@ -120,6 +153,7 @@ namespace Climbing
             if (other.CompareTag("EnterVehicleBox") && insideBox)
             {
                 insideBox = false;
+                currentVehicleIsTaxi = false;
             }
         }
 

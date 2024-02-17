@@ -44,6 +44,8 @@ namespace Climbing
 
         public GameObject playerMeshesParent;
 
+        public float handRaiseLockDuration = 2f;
+
         void Start()
         {
             controller = GetComponent<ThirdPersonController>();
@@ -184,20 +186,30 @@ namespace Climbing
             //chequear que no este en el aire o algo asi
             //if (controller.characterMovement.IsGrounded())
 
-            // animator.SetTrigger("RequestStop");
             Debug.Log("se triggerea la anim de request stop");
+            controller.DisableController();
+            animator.CrossFade("Hand Raise", 0.1f);
+            StartCoroutine(EnableControllerAfterTime(handRaiseLockDuration));
+        }
+
+        //a coroutine that waits before enabling controller again
+
+        public IEnumerator EnableControllerAfterTime(float time)
+        {
+            yield return new WaitForSeconds(time);
+            controller.EnableController();
         }
 
         public void StartEnterVehicleAnimation()
         {
             Debug.Log("start enter vehicle anim");
-            //animator.SetBool("enterVehicle", true);
+            animator.CrossFade("Entering Car", 0.1f);
         }
 
         public void StartExitVehicleAnimation()
         {
             Debug.Log("start exit vehicle anim");
-            //animator.SetBool("enterVehicle", false);
+            animator.CrossFade("Exiting Car", 0.1f);
         }
 
         public void EnableIKSolver()

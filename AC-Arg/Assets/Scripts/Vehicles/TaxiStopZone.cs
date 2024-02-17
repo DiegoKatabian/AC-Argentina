@@ -31,6 +31,7 @@ namespace TrafficSimulation
                 //currentStopChance = 1;
                 TriggerTaxiStop(thisTaxi);
                 wasRequested = true;
+                EventManager.Trigger(Evento.OnPlayerStopsVehicle);
             }
         }
 
