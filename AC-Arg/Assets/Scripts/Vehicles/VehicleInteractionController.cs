@@ -90,16 +90,7 @@ namespace Climbing
         void TriggerEnterCarAnimation()
         {
             playerController.DisableController();
-
-            if (currentVehicleIsTaxi)
-            {
-                playerController.characterAnimation.StartEnterVehicleAnimation();
-            }
-            else
-            {
-                Debug.Log("disparar animacion corta, sin puerta, para bondi");
-            }
-
+            playerController.characterAnimation.StartEnterVehicleAnimation(currentVehicleIsTaxi);
             playerController.characterAnimation.switchCameras.VehicleCam(currentInteractableVehicle.transform);
             StartCoroutine(WaitUntilEnableMesh(false));
         }

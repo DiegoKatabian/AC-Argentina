@@ -361,15 +361,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5021f9004f348d74abb4f0ae3ed02375, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  downForce: 50
+  downForce: 5
   maxAngle: 60
-  steeringLerp: 50
-  steeringSpeedMax: 100
-  maxTorque: 200
+  steeringLerp: 100
+  steeringSpeedMax: 200
+  maxTorque: 400
   brakeTorque: 100000
   unitType: 0
-  minSpeed: 10
-  maxSpeed: 100
+  minSpeed: 50
+  maxSpeed: 200
   leftWheelShape: {fileID: 100002, guid: e573176e04888a947a9a7b761514096e, type: 3}
   rightWheelShape: {fileID: 100004, guid: e573176e04888a947a9a7b761514096e, type: 3}
   animateWheels: 1

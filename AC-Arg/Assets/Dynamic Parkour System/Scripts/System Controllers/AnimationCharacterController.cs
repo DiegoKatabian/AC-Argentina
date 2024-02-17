@@ -200,10 +200,17 @@ namespace Climbing
             controller.EnableController();
         }
 
-        public void StartEnterVehicleAnimation()
+        public void StartEnterVehicleAnimation(bool isTaxi)
         {
             Debug.Log("start enter vehicle anim");
-            animator.CrossFade("Entering Car", 0.1f);
+            if (isTaxi)
+            {
+                animator.CrossFade("Entering Car", 0.1f);
+            }
+            else
+            {
+                animator.CrossFade("Entering Bus", 0.1f);
+            }
         }
 
         public void StartExitVehicleAnimation()
