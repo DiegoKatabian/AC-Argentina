@@ -516,8 +516,8 @@ MonoBehaviour:
   raycastLength: 6
   raySpacing: 4
   raysNumber: 10
-  emergencyBrakeThresh: 1.5
-  slowDownThresh: 5
+  emergencyBrakeThresh: 2
+  slowDownThresh: 6
   vehicleStatus: 0
   canInteract: 0
   stopInFrontOfPlayerTime: 3
