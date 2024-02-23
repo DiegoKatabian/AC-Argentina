@@ -7,10 +7,8 @@ public class LevelManager : MonoBehaviour
 {
     [SerializeField] GameObject pauseMenu;
 
-    // Update is called once per frame
-    private void Start()
+    private void Awake()
     {
-        //subscribe to eventmanger only event with the pausemenutrigger method
         EventManager.Subscribe(Evento.OnPlayerPressedEsc, PauseMenuTrigger);
     }
 
@@ -19,7 +17,7 @@ public class LevelManager : MonoBehaviour
         if (Time.timeScale == 1)
         {
             Time.timeScale = 0;
-            pauseMenu.SetActive(true);
+             pauseMenu.SetActive(true);
         }
         else
         {

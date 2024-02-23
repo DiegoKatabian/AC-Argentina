@@ -11,7 +11,6 @@ namespace TrafficSimulation
     {
         public Rigidbody myRB;
 
-
         public override void OnPlayerHopOn()
         {
             base.OnPlayerHopOn();
@@ -30,7 +29,7 @@ namespace TrafficSimulation
 
         public void Teleport(TaxiDestination taxiDestination)
         {
-            Debug.Log("teleport player");
+            Debug.Log("teleport taxi");
             myRB.Move(taxiDestination.position, Quaternion.Euler(taxiDestination.rotation));
         }
     }

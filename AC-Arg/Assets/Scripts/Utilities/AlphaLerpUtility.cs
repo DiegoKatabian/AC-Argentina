@@ -16,7 +16,6 @@ public static class AlphaLerpUtility
         while (elapsedTime < time)
         {
             image.color = Color.Lerp(startColor, targetColor, elapsedTime / time);
-            //Debug.Log("image color = " + image.color);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
