@@ -11,9 +11,11 @@ namespace TrafficSimulation
     {
         public Rigidbody myRB;
 
+
         public override void OnPlayerHopOn()
         {
             base.OnPlayerHopOn();
+            Debug.Log("taxi on player hop on");
             TaxiManager.instance.StartTrip(this);
             canInteract = false;
         }
@@ -21,11 +23,14 @@ namespace TrafficSimulation
         public override void OnPlayerHopOff()
         {
             base.OnPlayerHopOff();
+            Debug.Log("taxi on player hop off");
+
             InduceGo();
         }
 
         public void Teleport(TaxiDestination taxiDestination)
         {
+            Debug.Log("teleport player");
             myRB.Move(taxiDestination.position, Quaternion.Euler(taxiDestination.rotation));
         }
     }

@@ -10,6 +10,7 @@ public class Bus : VehicleAI
     public float stopChance = 0.5f;
     float currentStopChance;
 
+
     public override void Start()
     {
         base.Start();

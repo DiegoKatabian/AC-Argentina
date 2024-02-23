@@ -419,6 +419,7 @@ MonoBehaviour:
   canInteract: 0
   stopInFrontOfPlayerTime: 3
   playerIsInside: 0
+  rideZone: {fileID: 7902649380750684319}
   willStop: 0
   stoppingTime: 4
   stopChance: 0.5

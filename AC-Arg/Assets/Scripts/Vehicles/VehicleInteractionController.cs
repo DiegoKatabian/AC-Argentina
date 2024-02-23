@@ -18,6 +18,7 @@ namespace Climbing
         public float hopAnimationLockTime = 2.5f;
 
         bool currentVehicleIsTaxi = false;
+        public Rigidbody myRB;
 
         //escena
         //  player
@@ -83,7 +84,10 @@ namespace Climbing
             player.parent = currentInteractableVehicle.transform;
             insideBox = false;
             insideCar = true;
-            TriggerEnterCarAnimation();
+            playerController.DisableController();
+            playerController.characterAnimation.StartEnterVehicleAnimation(currentVehicleIsTaxi);
+            playerController.characterAnimation.switchCameras.VehicleCam(currentInteractableVehicle.transform);
+            StartCoroutine(WaitUntilEnableMesh(false));
             currentInteractableVehicle.OnPlayerHopOn();
         }
 
@@ -99,6 +103,7 @@ namespace Climbing
         {
             Debug.Log("me bajo del coche");
             player.parent = originalParent;
+
             insideBox = false;
             insideCar = false;
             playerController.EnableController();

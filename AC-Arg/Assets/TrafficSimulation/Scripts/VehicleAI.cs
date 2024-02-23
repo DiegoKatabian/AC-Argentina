@@ -70,6 +70,8 @@ namespace TrafficSimulation {
         protected bool playerDetected = false;
 
         public bool playerIsInside = false;
+        public GameObject rideZone;
+        public Vector3 rideZonePosition;
 
         public virtual void Start()
         {
@@ -80,6 +82,11 @@ namespace TrafficSimulation {
 
             initMaxSpeed = wheelDrive.maxSpeed;
             SetWaypointVehicleIsOn();
+
+            if(rideZone != null)
+            {
+                rideZonePosition = rideZone.transform.position;
+            }
         }
 
         public void Update()

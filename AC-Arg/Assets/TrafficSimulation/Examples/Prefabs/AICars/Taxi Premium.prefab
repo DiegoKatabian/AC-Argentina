@@ -522,6 +522,7 @@ MonoBehaviour:
   canInteract: 0
   stopInFrontOfPlayerTime: 3
   playerIsInside: 0
+  rideZone: {fileID: 1979840441457630871}
   myRB: {fileID: 6213558591840950488}
 --- !u!1 &4486636633732877732
 GameObject:
