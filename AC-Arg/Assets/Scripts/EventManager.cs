@@ -8,7 +8,8 @@ public enum Evento //LOS EVENTOS SE AGREGAN AL FINAL. NO EN EL MEDIO, PORQUE ARR
     OnPlayerPressedE,
     OnPlayerPressedR,
     OnPlayerStopsVehicle,
-    OnPlayerHealthUpdate
+    OnPlayerHealthUpdate,
+    OnPlayerDied
 }
 
 public class EventManager
