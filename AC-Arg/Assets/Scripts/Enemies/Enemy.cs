@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public PlayerDetection playerDetection;
+    public float moveSpeed = 5;
+    public float attackRecoveryTime = 2;
+    public float attackDamage = 1;
 
-    // Update is called once per frame
-    void Update()
+    public virtual void TryAttack()
     {
-        
+        Debug.Log("base enemy try attack");
     }
 }

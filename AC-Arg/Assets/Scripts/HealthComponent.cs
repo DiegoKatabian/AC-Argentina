@@ -17,7 +17,7 @@ public class HealthComponent : MonoBehaviour
         TakeDamage(1);
     }
 
-    public virtual void TakeDamage(int damageAmount)
+    public virtual void TakeDamage(float damageAmount)
     {
         currentHealth -= damageAmount;
         if (currentHealth <= 0)

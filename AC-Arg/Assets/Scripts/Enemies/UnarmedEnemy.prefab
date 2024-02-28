@@ -137,8 +137,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fieldOfViewAngle: 110
-  viewDistance: 10
-  meleeDistance: 4
+  viewDistance: 9
+  meleeDistance: 2
   playerLayer:
     serializedVersion: 2
     m_Bits: 1024
@@ -156,7 +156,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 793c8d3737962b6428e2ab305424e316, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitBox: {fileID: 5552432481976277359}
+  playerDetection: {fileID: 4634813238154738667}
+  moveSpeed: 5
+  attackRecoveryTime: 2
+  attackDamage: 1
+  punchHitBox: {fileID: 238874318750794313}
 --- !u!1 &5552432481976277359
 GameObject:
   m_ObjectHideFlags: 0
@@ -167,6 +171,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8593842899025348468}
   - component: {fileID: 8476479176991052178}
+  - component: {fileID: 238874318750794313}
   m_Layer: 0
   m_Name: PunchHitbox
   m_TagString: Untagged
@@ -210,6 +215,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.75, y: 0.61, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &238874318750794313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5552432481976277359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cff697b58cc563142ac9b9db0e13787b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPlayerInside: 0
 --- !u!1 &6106448614845163094
 GameObject:
   m_ObjectHideFlags: 0

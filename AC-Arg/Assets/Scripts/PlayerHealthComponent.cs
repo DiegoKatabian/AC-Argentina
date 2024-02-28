@@ -17,7 +17,7 @@ public class PlayerHealthComponent : HealthComponent
         TakeDamage(1);
     }
 
-    public override void TakeDamage(int damageAmount)
+    public override void TakeDamage(float damageAmount)
     {
         currentHealth -= damageAmount;
         EventManager.Trigger(Evento.OnPlayerHealthUpdate, currentHealth, maxHealth);

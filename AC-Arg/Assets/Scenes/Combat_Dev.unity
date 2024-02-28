@@ -5444,7 +5444,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1342952102}
-  anyEnemyIsAttackingPlayer: 0
+  isAnyoneAttackingPlayer: 0
 --- !u!1001 &774448404
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14230,17 +14230,17 @@ PrefabInstance:
     - target: {fileID: 5556358533144897771, guid: 9e70d0b595d510742bfdf66867f64069,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.0012179269
+      value: 0.0007569689
       objectReference: {fileID: 0}
     - target: {fileID: 5556358533144897771, guid: 9e70d0b595d510742bfdf66867f64069,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.00011487589
+      value: -0.000067763416
       objectReference: {fileID: 0}
     - target: {fileID: 5556358533144897771, guid: 9e70d0b595d510742bfdf66867f64069,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.0011012682
+      value: -0.00064962014
       objectReference: {fileID: 0}
     - target: {fileID: 5556358533144897771, guid: 9e70d0b595d510742bfdf66867f64069,
         type: 3}
@@ -24019,6 +24019,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4634813238154738667, guid: db8b88ad26756d4498ba8cb7992e9d97,
+        type: 3}
+      propertyPath: viewDistance
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4634813238154738667, guid: db8b88ad26756d4498ba8cb7992e9d97,
+        type: 3}
+      propertyPath: meleeDistance
+      value: 1.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 4634813238154738667, guid: db8b88ad26756d4498ba8cb7992e9d97,
+        type: 3}
+      propertyPath: fieldOfViewAngle
+      value: 110
+      objectReference: {fileID: 0}
     - target: {fileID: 5991467297516281079, guid: db8b88ad26756d4498ba8cb7992e9d97,
         type: 3}
       propertyPath: freeCamera
@@ -24088,6 +24103,11 @@ PrefabInstance:
         type: 3}
       propertyPath: switchCameras
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8476479176991052178, guid: db8b88ad26756d4498ba8cb7992e9d97,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

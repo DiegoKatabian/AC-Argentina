@@ -2,34 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyIdle : IState
+public class EnemyAttack : IState
 {
+
     FiniteStateMachine _fsm;
     Enemy _me;
 
-    public EnemyIdle(FiniteStateMachine fsm, Enemy enemy)
+    public EnemyAttack(FiniteStateMachine fsm, Enemy enemy)
     {
         _fsm = fsm;
         _me = enemy;
     }
 
-
     public void OnEnter()
     {
-        Debug.Log("entro a idle");
+        Debug.Log("entro a attack");    
     }
 
     public void OnExit()
     {
-        Debug.Log("salgo de idle");
+        Debug.Log("salgo de attack");
     }
 
     public void OnUpdate()
     {
-        if (_me.playerDetection.isPlayerInFOV)
+        if (!_me.playerDetection.isPlayerInMeleeRange)
         {
             _fsm.ChangeState(State.EnemyChase);
         }
-    }
 
+        _me.TryAttack();
+    }
 }
