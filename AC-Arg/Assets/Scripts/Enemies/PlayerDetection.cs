@@ -7,16 +7,22 @@ public class PlayerDetection : MonoBehaviour
     public float meleeDistance = 5f; // Distancia de ataque melee
     public LayerMask playerLayer; // Capa del jugador
 
-    private bool isPlayerInFOV = false; // Variable para detectar si el jugador está en el campo de visión
-    private bool isPlayerInMeleeDistance = false; // Variable para detectar si el jugador está en distancia melee
+    public bool isPlayerInFOV = false; // Variable para detectar si el jugador está en el campo de visión
+    public bool isPlayerInMeleeRange = false; // Variable para detectar si el jugador está en distancia melee
 
     private void Start()
     {
-        // Llama a las funciones de detección cada segundo
         InvokeRepeating("CheckPlayerInFOV", 0f, 1f);
         InvokeRepeating("CheckPlayerInMeleeDistance", 0f, 1f);
     }
 
+    private void Update()
+    {
+        if (isPlayerInFOV)
+        {
+            RotateTowardsPlayer();
+        }
+    }
     private void CheckPlayerInFOV()
     {
         Collider[] playerColliders = Physics.OverlapSphere(transform.position, viewDistance, playerLayer);
@@ -34,6 +40,7 @@ public class PlayerDetection : MonoBehaviour
                     if (hit.collider.CompareTag("Player"))
                     {
                         isPlayerInFOV = true;
+
                         Debug.Log("player in fov");
                         return;
                     }
@@ -50,12 +57,13 @@ public class PlayerDetection : MonoBehaviour
 
         if (playerColliders.Length > 0)
         {
-            isPlayerInMeleeDistance = true;
+            isPlayerInMeleeRange = true;
+            isPlayerInFOV = true;
             Debug.Log("player in melee distance");
         }
         else
         {
-            isPlayerInMeleeDistance = false;
+            isPlayerInMeleeRange = false;
         }
     }
 
@@ -75,5 +83,19 @@ public class PlayerDetection : MonoBehaviour
 
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, meleeDistance);
+    }
+
+    public void RotateTowardsPlayer()
+    {
+        Vector3 directionToPlayer = (EnemyManager.Instance.player.transform.position - transform.position).normalized;
+        float angle = Vector3.Angle(transform.forward, directionToPlayer);
+
+        if (angle > 5f)
+        {
+            Quaternion lookRotation = Quaternion.LookRotation(directionToPlayer);
+            lookRotation.eulerAngles = new Vector3(0, lookRotation.eulerAngles.y, 0);   
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+        }
+        
     }
 }
