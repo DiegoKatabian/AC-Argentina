@@ -15,23 +15,25 @@ public class EnemyChase : IState
 
     public void OnEnter()
     {
-        Debug.Log("entro a chase");
+        //Debug.Log("entro a chase");
     }
 
     public void OnExit()
     {
-        Debug.Log("salgo de chase");
+        //Debug.Log("salgo de chase");
     }
 
     public void OnUpdate()
     {
         if (_me.playerDetection.isPlayerInMeleeRange)
         {
+            Debug.Log("che me paso a attack porque lo tengo al lado");
             _fsm.ChangeState(State.EnemyAttack);
         }
         
         if (!_me.playerDetection.isPlayerInFOV)
         {
+            Debug.Log("che me vuelvo a idle xq no veo al player");
             _fsm.ChangeState(State.EnemyIdle);
         }
 

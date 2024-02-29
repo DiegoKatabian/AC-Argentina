@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class PlayerDetection : MonoBehaviour
 {
@@ -10,10 +11,12 @@ public class PlayerDetection : MonoBehaviour
     public bool isPlayerInFOV = false; // Variable para detectar si el jugador está en el campo de visión
     public bool isPlayerInMeleeRange = false; // Variable para detectar si el jugador está en distancia melee
 
+    public float raycastCheckDelay = 0.5f; // Tiempo entre chequeos de raycast
+
     private void Start()
     {
-        InvokeRepeating("CheckPlayerInFOV", 0f, 1f);
-        InvokeRepeating("CheckPlayerInMeleeDistance", 0f, 1f);
+        InvokeRepeating("CheckPlayerInFOV", 0f, raycastCheckDelay);
+        InvokeRepeating("CheckPlayerInMeleeDistance", 0f, raycastCheckDelay);
     }
 
     private void Update()
@@ -23,6 +26,7 @@ public class PlayerDetection : MonoBehaviour
             RotateTowardsPlayer();
         }
     }
+
     private void CheckPlayerInFOV()
     {
         Collider[] playerColliders = Physics.OverlapSphere(transform.position, viewDistance, playerLayer);
@@ -40,15 +44,17 @@ public class PlayerDetection : MonoBehaviour
                     if (hit.collider.CompareTag("Player"))
                     {
                         isPlayerInFOV = true;
-
-                        Debug.Log("player in fov");
                         return;
                     }
                 }
             }
         }
 
-        isPlayerInFOV = false;
+        if (playerColliders.Length == 0)
+        {
+            isPlayerInFOV = false;
+        }
+
     }
 
     private void CheckPlayerInMeleeDistance()
@@ -58,7 +64,7 @@ public class PlayerDetection : MonoBehaviour
         if (playerColliders.Length > 0)
         {
             isPlayerInMeleeRange = true;
-            isPlayerInFOV = true;
+            //isPlayerInFOV = true;
             Debug.Log("player in melee distance");
         }
         else

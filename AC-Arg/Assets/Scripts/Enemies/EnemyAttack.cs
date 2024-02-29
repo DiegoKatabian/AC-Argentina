@@ -16,12 +16,12 @@ public class EnemyAttack : IState
 
     public void OnEnter()
     {
-        Debug.Log("entro a attack");    
+        //Debug.Log("entro a attack");    
     }
 
     public void OnExit()
     {
-        Debug.Log("salgo de attack");
+        //Debug.Log("salgo de attack");
     }
 
     public void OnUpdate()

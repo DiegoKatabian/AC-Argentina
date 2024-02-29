@@ -16,12 +16,12 @@ public class EnemyIdle : IState
 
     public void OnEnter()
     {
-        Debug.Log("entro a idle");
+        //Debug.Log("entro a idle");
     }
 
     public void OnExit()
     {
-        Debug.Log("salgo de idle");
+        //Debug.Log("salgo de idle");
     }
 
     public void OnUpdate()
