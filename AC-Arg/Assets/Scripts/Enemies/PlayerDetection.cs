@@ -11,12 +11,12 @@ public class PlayerDetection : MonoBehaviour
     public bool isPlayerInFOV = false; // Variable para detectar si el jugador está en el campo de visión
     public bool isPlayerInMeleeRange = false; // Variable para detectar si el jugador está en distancia melee
 
-    public float raycastCheckDelay = 0.5f; // Tiempo entre chequeos de raycast
+    public float checkDelay = 0.5f; // Tiempo entre chequeos de raycast
 
     private void Start()
     {
-        InvokeRepeating("CheckPlayerInFOV", 0f, raycastCheckDelay);
-        InvokeRepeating("CheckPlayerInMeleeDistance", 0f, raycastCheckDelay);
+        InvokeRepeating("CheckPlayerInFOV", 0f, checkDelay);
+        InvokeRepeating("CheckPlayerInMeleeDistance", 0f, checkDelay);
     }
 
     private void Update()

@@ -7,7 +7,7 @@ public class UnarmedEnemy : Enemy
     public PunchHitbox punchHitBox;
     protected FiniteStateMachine _fsm;
 
-    private void Start()
+    public void Start()
     {
         _fsm = new FiniteStateMachine();
         _fsm.AddState(State.EnemyIdle, new EnemyIdle(_fsm, this));
@@ -68,6 +68,24 @@ public class UnarmedEnemy : Enemy
         //isHitting = false;
     }
 
-   
+    public override void StartChasingPlayer()
+    {
+        InvokeRepeating("ChasePlayer", 0, playerDetection.checkDelay);
+
+        //stop the invoke repeating
+    }
+
+    public override void CancelChasePlayer()
+    {
+        CancelInvoke("ChasePlayer");
+    }
+
+    public void ChasePlayer()
+    {
+        Debug.Log("movinggg");
+        navMeshAgent.SetDestination(EnemyManager.Instance.player.transform.position);
+        //_me.transform.position = Vector3.MoveTowards(_me.transform.position, EnemyManager.Instance.player.transform.position, _me.moveSpeed * Time.deltaTime);
+    }
+
 
 }

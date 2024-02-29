@@ -15,16 +15,19 @@ public class EnemyChase : IState
 
     public void OnEnter()
     {
-        //Debug.Log("entro a chase");
+        Debug.Log("entro a chase");
+        //invoke chaseplayer repeating
+        _me.StartChasingPlayer();
     }
 
     public void OnExit()
     {
-        //Debug.Log("salgo de chase");
+        Debug.Log("salgo de chase");
     }
 
     public void OnUpdate()
     {
+        //Debug.Log("chase update");
         if (_me.playerDetection.isPlayerInMeleeRange)
         {
             Debug.Log("che me paso a attack porque lo tengo al lado");
@@ -36,13 +39,6 @@ public class EnemyChase : IState
             Debug.Log("che me vuelvo a idle xq no veo al player");
             _fsm.ChangeState(State.EnemyIdle);
         }
-
-        ChasePlayer();
     }
 
-    void ChasePlayer()
-    {
-        //_me.navMeshAgent.SetDestination(_me.playerDetection.playerTransform.position);
-        _me.transform.position = Vector3.MoveTowards(_me.transform.position, EnemyManager.Instance.player.transform.position, _me.moveSpeed * Time.deltaTime);
-    }
 }
