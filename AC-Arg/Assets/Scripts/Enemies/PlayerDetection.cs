@@ -65,7 +65,7 @@ public class PlayerDetection : MonoBehaviour
         {
             isPlayerInMeleeRange = true;
             //isPlayerInFOV = true;
-            Debug.Log("player in melee distance");
+            //Debug.Log("player in melee distance");
         }
         else
         {

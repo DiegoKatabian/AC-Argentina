@@ -16,12 +16,18 @@ public class EnemyAttack : IState
 
     public void OnEnter()
     {
-        //Debug.Log("entro a attack");    
+        //Debug.Log("entro a attack");
+        _me.EnableObject(_me.isAttackingMarker, true);
+
+        //set destination to null, stay in place
+        _me.navMeshAgent.SetDestination(_me.transform.position);
     }
 
     public void OnExit()
     {
         //Debug.Log("salgo de attack");
+        _me.EnableObject(_me.isAttackingMarker, false);
+        _me.finishedAttacking = false;
     }
 
     public void OnUpdate()
@@ -31,6 +37,14 @@ public class EnemyAttack : IState
             _fsm.ChangeState(State.EnemyChase);
         }
 
-        _me.TryAttack();
+        if (!_me.isAttacking)
+        {
+            _me.TryAttack();
+        }
+
+        if (_me.finishedAttacking)
+        {
+            _fsm.ChangeState(State.EnemyIdle);
+        }
     }
 }

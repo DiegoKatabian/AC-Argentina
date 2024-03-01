@@ -2,24 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum State
-{
-    EnemyIdle,
-    EnemyPatrol,
-    EnemyChase,
-    EnemyWait,
-    EnemyAttack
-}
+
 public class FiniteStateMachine
 {
-    IState _currentState;
-    Dictionary<State, IState> allStates = new Dictionary<State, IState>();
+    public IState _currentState;
+    protected Dictionary<State, IState> allStates = new Dictionary<State, IState>();
 
     public void Update()
     {
         _currentState.OnUpdate();
     }
-    public void ChangeState(State state)
+    public virtual void ChangeState(State state)
     {
         if (_currentState != null)
         {
