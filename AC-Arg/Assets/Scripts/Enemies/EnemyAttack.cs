@@ -31,7 +31,7 @@ public class EnemyAttack : IState
     {
         if (_me.finishedAttacking)
         {
-            _fsm.ChangeState(State.EnemyIdle);
+            _fsm.ChangeState(State.EnemyReadyToAttack);
         }
 
         //deberia salir de attack una vez que termina su primer ataque

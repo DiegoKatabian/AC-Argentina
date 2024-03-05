@@ -14,7 +14,7 @@ public class StealthStatusBar : MonoBehaviour
 
     void Start()
     {
-        EventManager.Subscribe(Evento.OnPlayerStealthUpdate, UpdateStealthStatus);
+        EventManager.Subscribe(Evento.OnStealthUpdate, UpdateStealthStatus);
     }
 
     private void UpdateStealthStatus(object[] parameters)
@@ -29,7 +29,7 @@ public class StealthStatusBar : MonoBehaviour
     {
         if (!gameObject.scene.isLoaded)
         {
-            EventManager.Unsubscribe(Evento.OnPlayerStealthUpdate, UpdateStealthStatus);
+            EventManager.Unsubscribe(Evento.OnStealthUpdate, UpdateStealthStatus);
         }
     }
 }

@@ -13,7 +13,6 @@ public class EnemyManager : Singleton<EnemyManager>
     Dictionary<Enemy, IState> enemyStates = new Dictionary<Enemy, IState>();
     //Queue<Enemy> attackingEnemiesQueue = new Queue<Enemy>();
     Queue<Enemy> readyToAttackEnemiesQueue = new Queue<Enemy>();
-    public List<Enemy> readyToAttackEnemiesList = new List<Enemy>();
 
     private void Start()
     {
@@ -45,6 +44,7 @@ public class EnemyManager : Singleton<EnemyManager>
                 //UpdateAttackingEnemiesQueue(enemyFSMEntry.Key, currentState);
             }
         }
+        EmitAlarm(currentState);
     }
 
     //private void UpdateAttackingEnemiesQueue(Enemy enemy, IState currentState)
@@ -85,8 +85,6 @@ public class EnemyManager : Singleton<EnemyManager>
                 //Debug.Log("saqué a " + enemy + " de la cola");
             }
         }
-
-        readyToAttackEnemiesList = new List<Enemy>(readyToAttackEnemiesQueue); 
     }
 
     public bool IsAnyEnemyAttackingPlayer()
@@ -113,5 +111,34 @@ public class EnemyManager : Singleton<EnemyManager>
     {
         return readyToAttackEnemiesQueue.Count > 0 && 
             readyToAttackEnemiesQueue.Peek() == enemy;
+    }
+
+    public bool IsAnyEnemyChasingPlayer()
+    {
+        foreach (KeyValuePair<Enemy, IState> enemyState in enemyStates)
+        {
+            if (enemyState.Value.GetType() == typeof(EnemyChase))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void EmitAlarm(IState state)
+    {
+        if (IsAnyEnemyAttackingPlayer())
+        {
+            EventManager.Trigger(Evento.OnStealthUpdate, "Alert");
+            return;
+        }
+
+        if (IsAnyEnemyChasingPlayer())
+        {
+            EventManager.Trigger(Evento.OnStealthUpdate, "Warning");
+            return;
+        }
+
+        EventManager.Trigger(Evento.OnStealthUpdate, "Anonymous");
     }
 }
