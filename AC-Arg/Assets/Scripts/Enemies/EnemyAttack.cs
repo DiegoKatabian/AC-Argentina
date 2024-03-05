@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EnemyAttack : IState
 {
-
     FiniteStateMachine _fsm;
     Enemy _me;
 
@@ -16,17 +15,15 @@ public class EnemyAttack : IState
 
     public void OnEnter()
     {
-        //Debug.Log("entro a attack");
-        _me.EnableObject(_me.isAttackingMarker, true);
-
-        //set destination to null, stay in place
-        _me.navMeshAgent.SetDestination(_me.transform.position);
+        ObjectEnabler.EnableObject(_me.isAttackingMarker, true);
+        _me.StartAttack();
+        _me.navMeshAgent.SetDestination(_me.transform.position); //me quedo en el lugar
+        _me.navMeshAgent.isStopped = true;
     }
 
     public void OnExit()
     {
-        //Debug.Log("salgo de attack");
-        _me.EnableObject(_me.isAttackingMarker, false);
+        ObjectEnabler.EnableObject(_me.isAttackingMarker, false);
         _me.finishedAttacking = false;
     }
 
@@ -37,14 +34,11 @@ public class EnemyAttack : IState
             _fsm.ChangeState(State.EnemyChase);
         }
 
-        if (!_me.isAttacking)
-        {
-            _me.TryAttack();
-        }
-
         if (_me.finishedAttacking)
         {
             _fsm.ChangeState(State.EnemyIdle);
         }
+
+        //deberia salir de attack una vez que termina su primer ataque
     }
 }

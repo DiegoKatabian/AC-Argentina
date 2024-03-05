@@ -139,8 +139,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fieldOfViewAngle: 110
-  viewDistance: 9
-  meleeDistance: 1.55
+  viewDistance: 8
+  meleeDistance: 3
   playerLayer:
     serializedVersion: 2
     m_Bits: 1024
@@ -160,12 +160,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerDetection: {fileID: 4634813238154738667}
-  moveSpeed: 3
+  moveSpeed: 2
   attackRecoveryTime: 2
   attackDamage: 1
   navMeshAgent: {fileID: 2894612690020636812}
-  isAttackingMarker: {fileID: 9206809220957053198}
+  isAttacking: 0
   finishedAttacking: 0
+  isAttackingMarker: {fileID: 9206809220957053198}
   punchHitBox: {fileID: 238874318750794313}
 --- !u!195 &2894612690020636812
 NavMeshAgent:
@@ -206,7 +207,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8593842899025348468
 Transform:
   m_ObjectHideFlags: 0

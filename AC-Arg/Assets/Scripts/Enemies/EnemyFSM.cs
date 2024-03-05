@@ -5,7 +5,7 @@ public enum State
 {
     EnemyIdle,
     EnemyChase,
-    EnemyWait,
+    EnemyReadyToAttack,
     EnemyAttack
 }
 public class EnemyFSM : FiniteStateMachine

@@ -5661,6 +5661,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: UnarmedEnemy (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 6106448614845163094, guid: db8b88ad26756d4498ba8cb7992e9d97,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6906060185938285435, guid: db8b88ad26756d4498ba8cb7992e9d97,
         type: 3}
       propertyPath: navMeshAgent
@@ -14773,17 +14778,17 @@ PrefabInstance:
     - target: {fileID: 5556358533144897771, guid: 9e70d0b595d510742bfdf66867f64069,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.00033434635
+      value: 0.0027631242
       objectReference: {fileID: 0}
     - target: {fileID: 5556358533144897771, guid: 9e70d0b595d510742bfdf66867f64069,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.000026507978
+      value: -0.0002507678
       objectReference: {fileID: 0}
     - target: {fileID: 5556358533144897771, guid: 9e70d0b595d510742bfdf66867f64069,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.00025412114
+      value: -0.002404008
       objectReference: {fileID: 0}
     - target: {fileID: 5556358533144897771, guid: 9e70d0b595d510742bfdf66867f64069,
         type: 3}
@@ -20901,6 +20906,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: UnarmedEnemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 6106448614845163094, guid: db8b88ad26756d4498ba8cb7992e9d97,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -14,6 +14,7 @@ public class EnemyManager : Singleton<EnemyManager>
     Dictionary<Enemy, FiniteStateMachine> enemyFSMs = new Dictionary<Enemy, FiniteStateMachine>();
     Dictionary<Enemy, IState> enemyStates = new Dictionary<Enemy, IState>();
     Queue<Enemy> attackingEnemiesQueue = new Queue<Enemy>();
+    Queue<Enemy> readyToAttackEnemiesQueue = new Queue<Enemy>();
 
     private void Start()
     {
@@ -33,14 +34,19 @@ public class EnemyManager : Singleton<EnemyManager>
 
     public void UpdateEnemyState(FiniteStateMachine enemyFSM, IState currentState)
     {
+        Debug.Log("EnemyManager: an enemy has updated its state.");
+        Debug.Log("enemy: " + enemyFSM + " state: " + currentState);
+
         foreach (KeyValuePair<Enemy, FiniteStateMachine> enemyFSMEntry in enemyFSMs)
         {
             if (enemyFSMEntry.Value == enemyFSM)
             {
                 enemyStates[enemyFSMEntry.Key] = currentState;
                 UpdateAttackingEnemiesQueue(enemyFSMEntry.Key, currentState);
+                UpdateReadyToAttackEnemiesQueue(enemyFSMEntry.Key, currentState);
             }
         }
+
 
         isAnyEnemyChasingPlayer = IsAnyEnemyChasingPlayer();
         isAnyEnemyAttackingPlayer = IsAnyEnemyAttackingPlayer();
@@ -66,6 +72,26 @@ public class EnemyManager : Singleton<EnemyManager>
         }
     }
 
+    private void UpdateReadyToAttackEnemiesQueue(Enemy enemy, IState currentState)
+    {
+        if (currentState.GetType() == typeof(EnemyReadyToAttack))
+        {
+            if (!readyToAttackEnemiesQueue.Contains(enemy))
+            {
+                readyToAttackEnemiesQueue.Enqueue(enemy);
+                //Debug.Log("agregué " + enemy + " a la cola");
+            }
+        }
+        else
+        {
+            if (readyToAttackEnemiesQueue.Contains(enemy))
+            {
+                readyToAttackEnemiesQueue.Dequeue();
+                //Debug.Log("saqué a " + enemy + " de la cola");
+            }
+        }
+    }
+
     public bool IsAnyEnemyChasingPlayer()
     {
         foreach (KeyValuePair<Enemy, IState> enemyState in enemyStates)
@@ -76,6 +102,31 @@ public class EnemyManager : Singleton<EnemyManager>
             }
         }
         return false;
+    }
+
+    public bool IsAnyEnemyReadyToAttackPlayer()
+    {
+        foreach (KeyValuePair<Enemy, IState> enemyState in enemyStates)
+        {
+            if (enemyState.Value.GetType() == typeof(EnemyReadyToAttack))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public int GetNumberOfEnemiesReadyToAttackPlayer()
+    {
+        int count = 0;
+        foreach (KeyValuePair<Enemy, IState> enemyState in enemyStates)
+        {
+            if (enemyState.Value.GetType() == typeof(EnemyReadyToAttack))
+            {
+                count++;
+            }
+        }
+        return count;
     }
 
     public bool IsAnyEnemyAttackingPlayer()
@@ -89,12 +140,19 @@ public class EnemyManager : Singleton<EnemyManager>
         }
         return false;
     }
-
-    public bool CanEnemyAttack(Enemy enemy)
+    public bool CanIAttackPlayerMisterEnemyManager(Enemy enemy)
     {
-        //Debug.Log(attackingEnemiesQueue.Count);
-        //Debug.Log(attackingEnemiesQueue.Peek().name);
-        //Debug.Log(enemy.name);
-        return attackingEnemiesQueue.Count > 0 && attackingEnemiesQueue.Peek() == enemy;
+        //first, the enemy requesting must be in ReadyToAttack state
+        //second, there has to be no other enemy already attacking the player
+        //third, the enemy must be the first in the queue
+        return enemyStates[enemy].GetType() == typeof(EnemyReadyToAttack) && 
+            !IsAnyEnemyAttackingPlayer() && 
+            IsEnemyNextInLine(enemy);
+    }
+
+    public bool IsEnemyNextInLine(Enemy enemy)
+    {
+        return readyToAttackEnemiesQueue.Count > 0 && 
+            readyToAttackEnemiesQueue.Peek() == enemy;
     }
 }

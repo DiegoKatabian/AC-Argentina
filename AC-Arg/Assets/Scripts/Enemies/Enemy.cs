@@ -11,9 +11,11 @@ public class Enemy : MonoBehaviour
     public float attackDamage = 1;
     public NavMeshAgent navMeshAgent;
     protected EnemyFSM _fsm;
-    public GameObject isAttackingMarker;
-    public bool finishedAttacking = false;
-    public bool isAttacking = false;
+
+    internal bool isMyTurnToAttack = false; //true solo cuando sea mi turno de atacar
+    public bool isAttacking = false; //true durante attack state
+    public bool finishedAttacking = false; //solo true cuando salgo de attack state
+    public GameObject isAttackingMarker; //el cosito en la cabeza del enemy, indica que esta isAttacking
 
     public virtual void Start()
     {
@@ -24,6 +26,11 @@ public class Enemy : MonoBehaviour
         //Debug.Log("base enemy try attack");
     }
 
+    public virtual void StartAttack()
+    {
+        //Debug.Log("base enemy start attack");
+    }
+
     public virtual void StartChasingPlayer()
     {
         //Debug.Log("base start chasing player");
@@ -32,10 +39,5 @@ public class Enemy : MonoBehaviour
     public virtual void CancelChasePlayer()
     {
         //Debug.Log("base cancel chase player");
-    }
-
-    public void EnableObject(GameObject go, bool state)
-    {
-        go.SetActive(state);
     }
 }

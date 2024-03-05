@@ -16,8 +16,6 @@ public class EnemyIdle : IState
 
     public void OnEnter()
     {
-        //Debug.Log("entro a idle");
-        _me.CancelChasePlayer();
     }
 
     public void OnExit()

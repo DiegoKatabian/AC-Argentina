@@ -12,6 +12,7 @@ public class UnarmedEnemy : Enemy
         _fsm.AddState(State.EnemyIdle, new EnemyIdle(_fsm, this));
         _fsm.AddState(State.EnemyChase, new EnemyChase(_fsm, this));
         _fsm.AddState(State.EnemyAttack, new EnemyAttack(_fsm, this));
+        _fsm.AddState(State.EnemyReadyToAttack, new EnemyReadyToAttack(_fsm, this));
         _fsm.ChangeState(State.EnemyIdle);
         EnemyManager.Instance.RegisterEnemy(this, _fsm);
     }
@@ -23,14 +24,10 @@ public class UnarmedEnemy : Enemy
 
     public override void TryAttack()
     {
-        if (!EnemyManager.Instance.CanEnemyAttack(this))
-        {
-            return;
-        }
         StartAttack();
     }
 
-    public void StartAttack()
+    public override void StartAttack()
     {
         Debug.Log("empieza el ataque");
         isAttacking = true;
@@ -46,14 +43,14 @@ public class UnarmedEnemy : Enemy
 
     IEnumerator HitboxCouroutine()
     {
-        EnableObject(punchHitBox.gameObject, true);
+        ObjectEnabler.EnableObject(punchHitBox.gameObject, true);
         yield return new WaitForSeconds(0.2f);
         if (punchHitBox.isPlayerInside)
         {
             EnemyManager.Instance.DamagePlayer(attackDamage);
         }
 
-        EnableObject(punchHitBox.gameObject, false);
+        ObjectEnabler.EnableObject(punchHitBox.gameObject, false);
 
         yield return new WaitForSeconds(attackRecoveryTime);
         FinishAttack();
@@ -72,6 +69,7 @@ public class UnarmedEnemy : Enemy
     public void ChasePlayer()
     {
         //Debug.Log("movinggg");
+        navMeshAgent.isStopped = false;
         navMeshAgent.SetDestination(EnemyManager.Instance.player.transform.position);
     }
 
