@@ -29,11 +29,6 @@ public class EnemyAttack : IState
 
     public void OnUpdate()
     {
-        if (!_me.playerDetection.isPlayerInMeleeRange)
-        {
-            _fsm.ChangeState(State.EnemyChase);
-        }
-
         if (_me.finishedAttacking)
         {
             _fsm.ChangeState(State.EnemyIdle);

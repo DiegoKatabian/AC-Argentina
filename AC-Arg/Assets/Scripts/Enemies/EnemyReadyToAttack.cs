@@ -16,18 +16,23 @@ public class EnemyReadyToAttack : IState
 
     public void OnEnter()
     {
-        Debug.Log("entro a ready to attack");
+        //Debug.Log("entro a ready to attack");
         _me.navMeshAgent.SetDestination(_me.transform.position); //me quedo en el lugar
         _me.navMeshAgent.isStopped = true;
     }
 
     public void OnExit()
     {
-        Debug.Log("salgo de ready to attack");
+        //Debug.Log("salgo de ready to attack");
     }
 
     public void OnUpdate()
     {
+        if (!_me.playerDetection.isPlayerInMeleeRange)
+        {
+            _fsm.ChangeState(State.EnemyChase);
+        }
+
         if (EnemyManager.Instance.CanIAttackPlayerMisterEnemyManager(_me))
         {
             _fsm.ChangeState(State.EnemyAttack);

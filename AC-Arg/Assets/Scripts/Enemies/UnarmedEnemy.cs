@@ -29,14 +29,14 @@ public class UnarmedEnemy : Enemy
 
     public override void StartAttack()
     {
-        Debug.Log("empieza el ataque");
+        //Debug.Log("empieza el ataque");
         isAttacking = true;
         StartCoroutine(HitboxCouroutine()); //en vez de aca, esto deberia dispararse en el momento correcto de la animacion
     }
 
     public void FinishAttack()
     {
-        Debug.Log("termina el ataque");
+        //Debug.Log("termina el ataque");
         finishedAttacking = true;
         isAttacking = false;
     }
