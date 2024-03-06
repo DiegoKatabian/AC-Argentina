@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour
     public float attackDamage = 1;
     public NavMeshAgent navMeshAgent;
     protected EnemyFSM _fsm;
+    public Animator animator;
 
     internal bool isMyTurnToAttack = false; //true solo cuando sea mi turno de atacar
     public bool isAttacking = false; //true durante attack state

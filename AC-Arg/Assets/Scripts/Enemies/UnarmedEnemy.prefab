@@ -164,6 +164,7 @@ MonoBehaviour:
   attackRecoveryTime: 2
   attackDamage: 1
   navMeshAgent: {fileID: 2894612690020636812}
+  animator: {fileID: 159754844027251173}
   isAttacking: 0
   finishedAttacking: 0
   isAttackingMarker: {fileID: 9206809220957053198}

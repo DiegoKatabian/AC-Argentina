@@ -19,6 +19,7 @@ public class EnemyAttack : IState
         _me.StartAttack();
         _me.navMeshAgent.SetDestination(_me.transform.position); //me quedo en el lugar
         _me.navMeshAgent.isStopped = true;
+        _me.animator.CrossFade("Attack", 0.2f);
     }
 
     public void OnExit()

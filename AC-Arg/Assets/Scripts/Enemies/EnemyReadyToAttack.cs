@@ -19,6 +19,7 @@ public class EnemyReadyToAttack : IState
         //Debug.Log("entro a ready to attack");
         _me.navMeshAgent.SetDestination(_me.transform.position); //me quedo en el lugar
         _me.navMeshAgent.isStopped = true;
+        _me.animator.CrossFade("ReadyToAttack", 0.2f);
     }
 
     public void OnExit()

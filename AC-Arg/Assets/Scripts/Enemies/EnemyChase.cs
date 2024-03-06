@@ -16,6 +16,7 @@ public class EnemyChase : IState
     public void OnEnter()
     {
         _me.StartChasingPlayer();
+        _me.animator.CrossFade("Chase", 0.2f);
     }
 
     public void OnExit()
