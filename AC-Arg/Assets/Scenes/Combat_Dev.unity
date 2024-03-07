@@ -1483,9 +1483,9 @@ GameObject:
   - component: {fileID: 577145447}
   - component: {fileID: 577145446}
   - component: {fileID: 577145445}
-  m_Layer: 0
-  m_Name: Cube
-  m_TagString: Untagged
+  m_Layer: 12
+  m_Name: CoverCube
+  m_TagString: Cover
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5728,8 +5728,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1342952102}
-  isAnyEnemyAttackingPlayer: 0
-  isAnyEnemyChasingPlayer: 0
 --- !u!1001 &774448404
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14778,17 +14776,17 @@ PrefabInstance:
     - target: {fileID: 5556358533144897771, guid: 9e70d0b595d510742bfdf66867f64069,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.0027631242
+      value: 0.00029148144
       objectReference: {fileID: 0}
     - target: {fileID: 5556358533144897771, guid: 9e70d0b595d510742bfdf66867f64069,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.0002507678
+      value: -0.000023109518
       objectReference: {fileID: 0}
     - target: {fileID: 5556358533144897771, guid: 9e70d0b595d510742bfdf66867f64069,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.002404008
+      value: -0.0002215415
       objectReference: {fileID: 0}
     - target: {fileID: 5556358533144897771, guid: 9e70d0b595d510742bfdf66867f64069,
         type: 3}
@@ -14855,6 +14853,21 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -119.1
       objectReference: {fileID: 0}
+    - target: {fileID: 5556358534646836587, guid: 9e70d0b595d510742bfdf66867f64069,
+        type: 3}
+      propertyPath: showDebug
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5556358534646836587, guid: 9e70d0b595d510742bfdf66867f64069,
+        type: 3}
+      propertyPath: CoverRayLength
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5556358534646836587, guid: 9e70d0b595d510742bfdf66867f64069,
+        type: 3}
+      propertyPath: coverLayer.m_Bits
+      value: 4096
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -14863,6 +14876,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1342952092}
+    - targetCorrespondingSourceObject: {fileID: 5556358534646836578, guid: 9e70d0b595d510742bfdf66867f64069,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1342952103}
   m_SourcePrefab: {fileID: 100100000, guid: 9e70d0b595d510742bfdf66867f64069, type: 3}
 --- !u!43 &1269488862
 Mesh:
@@ -15424,6 +15441,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3983e0cb5dfc40445bc6676bb1f9c7b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1342952103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342952075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a59fc3831c4c08d4698dcb8de96da110, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isInCover: 0
 --- !u!1 &1373890303
 GameObject:
   m_ObjectHideFlags: 0

@@ -38,6 +38,7 @@ namespace Climbing
         [Header("Layers")]
         public LayerMask ledgeLayer;
         public LayerMask climbLayer;
+        public LayerMask coverLayer;
 
         [Header("Rays")]
         [SerializeField] private Vector3 OriginLedgeRay;
@@ -46,6 +47,7 @@ namespace Climbing
         [SerializeField] private float FeetRayLength = 0.6f;
         [SerializeField] private float FindLedgeNumRays = 7;
         [SerializeField] private float DropLedgeNumRays = 8;
+        [SerializeField] private float CoverRayLength = 0.5f;
 
         public bool FindLedgeCollision(out RaycastHit hit)
         {
@@ -133,6 +135,17 @@ namespace Climbing
             return false;
 
         }
+
+        public bool ThrowRayToCover(Vector3 origin, out RaycastHit hit)
+        {
+            if (showDebug)
+            {
+                Debug.DrawLine(origin, origin + transform.forward * CoverRayLength, Color.green);
+            }
+
+            return Physics.Raycast(origin, transform.forward, out hit, CoverRayLength, coverLayer);
+        }
+
         public bool ThrowClimbRay(Vector3 origin, Vector3 direction, float length, out RaycastHit hit)
         {
 
@@ -162,7 +175,6 @@ namespace Climbing
 
             return false;
         }
-
         public bool ThrowHandRayToLedge(Vector3 origin, Vector3 direction, float length, out RaycastHit hit)
         {
             if (showDebug)
@@ -181,7 +193,6 @@ namespace Climbing
 
             return Physics.Raycast(origin, transform.TransformDirection(direction), out hit, length, climbLayer);
         }
-
         public bool ThrowRayOnDirection(Vector3 origin, Vector3 direction, float length, out RaycastHit hit, LayerMask layer)
         {
             if (showDebug)
@@ -200,7 +211,6 @@ namespace Climbing
 
             return Physics.Raycast(origin, direction, out hit, length);
         }
-
         public bool ThrowRayOnDirection(Vector3 origin, Vector3 direction, float length)
         {
             if (showDebug)
@@ -210,7 +220,6 @@ namespace Climbing
 
             return Physics.Raycast(origin, direction, length);
         }
-
         public bool IsGrounded(float stepHeight) {
             if (showDebug)
             {
@@ -219,7 +228,6 @@ namespace Climbing
             RaycastHit hit;
             return Physics.Raycast(transform.position + new Vector3(0, 0.3f, 0), Vector3.down, out hit, 0.7f);//0.2f
         }
-
         public void FindAheadPoints(ref List<HandlePoints> list)
         {
             Collider[] cols = Physics.OverlapSphere(transform.position, 5);
