@@ -27,6 +27,7 @@ public class CoverController : MonoBehaviour
     {
         RaycastHit hit;
         bool wasInCover = isInCover;
+        // Lanzamos el raycast con la longitud adecuada
         isInCover = characterDetection.ThrowRayToCover(transform.position, out hit);
 
         if (isInCover != wasInCover)
@@ -60,7 +61,7 @@ public class CoverController : MonoBehaviour
         if (isExitingCover)
         {
             OnPlayerExitCover();
-            isExitingCover = false; 
+            isExitingCover = false;
         }
     }
 
@@ -71,10 +72,23 @@ public class CoverController : MonoBehaviour
         //cambio de camara
         //limit movement to only left-right
         //snap to cover
+        SnapToCover();
     }
 
     private void OnPlayerExitCover()
     {
         Debug.Log("Player exited cover");
+        SnapOutOfCover();
+    }
+
+    private void SnapToCover()
+    {
+        //a partir de ahora, el raycast tiene que ir en direccion a la pared, independientemente de la orientacion del jugador
+        //asi el jugador se puede rotar y mover izq-derecha, pero manteniendo el cover y el snap contra la pared
+    }
+
+    private void SnapOutOfCover()
+    {
+        Debug.Log("Snap out of cover");
     }
 }

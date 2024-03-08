@@ -34,7 +34,6 @@ namespace Climbing
 
         private void Start()
         {
-            //yo = transform; jajaj es que este script esta pegado al objeto PlayerModel. Player a secas es el padre.
             player = transform.parent;
             originalParent = player.parent; //originalparent seria la escena, el padre de Player, no de playermodel
             playerController = GetComponent<ThirdPersonController>();

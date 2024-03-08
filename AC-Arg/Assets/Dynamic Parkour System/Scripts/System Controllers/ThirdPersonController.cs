@@ -44,6 +44,7 @@ namespace Climbing
         [HideInInspector] public AnimationCharacterController characterAnimation;
         [HideInInspector] public DetectionCharacterController characterDetection;
         [HideInInspector] public VaultingController vaultingController;
+        [HideInInspector] public CoverController coverController;
         [HideInInspector] public bool isGrounded = false;
         [HideInInspector] public bool allowMovement = true;
         [HideInInspector] public bool onAir = false;
@@ -77,6 +78,7 @@ namespace Climbing
             characterAnimation = GetComponent<AnimationCharacterController>();
             characterDetection = GetComponent<DetectionCharacterController>();
             vaultingController = GetComponent<VaultingController>();
+            coverController = GetComponent<CoverController>();
 
             if (cameraController == null)
                 Debug.LogError("Attach the Camera Controller located in the Free Look Camera");
@@ -98,14 +100,13 @@ namespace Climbing
             {
                 AddMovementInput(characterInput.movement);
 
-                //Detects if Joystick is being pushed hard
-                if (/*characterInput.run && */characterInput.movement.magnitude > 0.5f)
-                {
-                    ToggleRun();
-                }
-                else /*if (!characterInput.run)*/
+                if (coverController.isInCover)
                 {
                     ToggleWalk();
+                }
+                else if (characterInput.movement.magnitude > 0.5f)
+                {
+                    ToggleRun();
                 }
             }
         }
