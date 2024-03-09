@@ -93,7 +93,6 @@ namespace Climbing
             Physics.Raycast(Vector3.zero, Vector3.forward, out hit, 0, -1);
             return false;
         }
-
         public bool FindFootCollision(Vector3 targetPos, Quaternion rot, Vector3 normal)
         {
             bool foundWall = true;
@@ -113,7 +112,6 @@ namespace Climbing
 
             return foundWall;
         }
-
         public bool ThrowRayToLedge(Vector3 origin, out RaycastHit hit)
         {
             if (showDebug)
@@ -135,7 +133,6 @@ namespace Climbing
             return false;
 
         }
-
         public bool ThrowRayToCover(Vector3 origin, out RaycastHit hit)
         {
             if (showDebug)
@@ -145,7 +142,6 @@ namespace Climbing
 
             return Physics.Raycast(origin, transform.forward, out hit, CoverRayLength, coverLayer);
         }
-
         public bool ThrowClimbRay(Vector3 origin, Vector3 direction, float length, out RaycastHit hit)
         {
 

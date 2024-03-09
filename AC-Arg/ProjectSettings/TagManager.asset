@@ -16,6 +16,7 @@ TagManager:
   - EnterVehicleBox
   - BusStop
   - Cover
+  - Enemy
   layers:
   - Default
   - TransparentFX

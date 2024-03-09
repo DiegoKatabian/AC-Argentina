@@ -145,7 +145,7 @@ namespace Climbing
             //Detects if player is moving to any direction
             if (translation.magnitude > 0)
             {
-                RotatePlayer(direction);
+                RotatePlayer(direction); //if !combatMode
                 characterAnimation.animator.SetBool("Released", false);
             }
             else
@@ -174,6 +174,7 @@ namespace Climbing
             //Rotate Mesh to Movement
             return Quaternion.Euler(0f, targetAngle, 0f);
         }
+
 
         public void ResetMovement()
         {
