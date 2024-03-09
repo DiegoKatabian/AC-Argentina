@@ -7,7 +7,7 @@ public class CombatController : MonoBehaviour
 {
     ThirdPersonController controller;
     public bool isInCombatMode = false;
-    Enemy currentEnemy;
+    public Enemy currentEnemy;
 
     public List<GameObject> detectedEnemies = new List<GameObject>();
     bool areEnemiesDetected = false;
@@ -32,19 +32,38 @@ public class CombatController : MonoBehaviour
         Debug.Log("salio de combat mode");
     }
 
-    public void UpdateDetectionStatus()
+    public void UpdateDetectionStatus(GameObject lastDetectedEnemy)
     {
         if (detectedEnemies.Count > 0)
         {
             areEnemiesDetected = true;
             EnterCombatMode();
             Debug.Log("enemies in volume");
+
+            if (currentEnemy == null)
+            {
+                SetCurrentEnemy(lastDetectedEnemy.GetComponent<Enemy>());
+                Debug.Log("current enemy = " + currentEnemy.name);
+            }
         }
         else
         {
             areEnemiesDetected = false;
             ExitCombatMode();
+            SetCurrentEnemy(null);
             Debug.Log("no enemies in volume");
         }
+    }
+
+
+    public void SetCurrentEnemy(Enemy enemy)
+    {
+        if (currentEnemy != null)
+        {
+            ObjectEnabler.EnableObject(currentEnemy.isCurrentEnemyMarker, false);
+        }
+
+        currentEnemy = enemy;
+        ObjectEnabler.EnableObject(currentEnemy.isCurrentEnemyMarker, true);
     }
 }

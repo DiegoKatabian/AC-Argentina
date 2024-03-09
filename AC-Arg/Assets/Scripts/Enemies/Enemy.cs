@@ -16,7 +16,8 @@ public class Enemy : MonoBehaviour
     internal bool isMyTurnToAttack = false; //true solo cuando sea mi turno de atacar
     public bool isAttacking = false; //true durante attack state
     public bool finishedAttacking = false; //solo true cuando salgo de attack state
-    public GameObject isAttackingMarker; //el cosito en la cabeza del enemy, indica que esta isAttacking
+    public GameObject isAttackingMarker; //el cosito rojo en la cabeza del enemy, indica que esta isAttacking
+    public GameObject isCurrentEnemyMarker; //el cosito blanco en la cabeza del enemy, indica que es el current enemy
 
     public virtual void Start()
     {

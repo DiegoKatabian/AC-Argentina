@@ -45,6 +45,7 @@ namespace Climbing
         [HideInInspector] public DetectionCharacterController characterDetection;
         [HideInInspector] public VaultingController vaultingController;
         [HideInInspector] public CoverController coverController;
+        [HideInInspector] public CombatController combatController;
         [HideInInspector] public bool isGrounded = false;
         [HideInInspector] public bool allowMovement = true;
         [HideInInspector] public bool onAir = false;
@@ -80,6 +81,7 @@ namespace Climbing
             characterDetection = GetComponent<DetectionCharacterController>();
             vaultingController = GetComponent<VaultingController>();
             coverController = GetComponent<CoverController>();
+            combatController = GetComponent<CombatController>();
 
             if (cameraController == null)
                 Debug.LogError("Attach the Camera Controller located in the Free Look Camera");
@@ -108,6 +110,14 @@ namespace Climbing
                 else if (characterInput.movement.magnitude > 0.5f)
                 {
                     ToggleRun();
+                }
+            }
+
+            if (combatController.isInCombatMode)
+            {
+                if (combatController.currentEnemy != null)
+                {
+                    RotatePlayerIndependentOfCamera(combatController.currentEnemy.transform.position - transform.position);
                 }
             }
         }
@@ -145,8 +155,16 @@ namespace Climbing
             //Detects if player is moving to any direction
             if (translation.magnitude > 0)
             {
-                RotatePlayer(direction); //if !combatMode
-                characterAnimation.animator.SetBool("Released", false);
+                if (combatController.isInCombatMode)
+                {
+                    //RotatePlayer(combatController.currentEnemy.transform.position - transform.position);
+                }
+                else
+                {
+                    RotatePlayer(direction);
+                    characterAnimation.animator.SetBool("Released", false);
+                }
+
             }
             else
             {
@@ -163,6 +181,13 @@ namespace Climbing
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + mainCamera.eulerAngles.y;
 
             //Rotate Mesh to Movement
+            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+            transform.rotation = Quaternion.Euler(0f, angle, 0f);
+        }
+
+        public void RotatePlayerIndependentOfCamera(Vector3 direction)
+        {
+            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
         }

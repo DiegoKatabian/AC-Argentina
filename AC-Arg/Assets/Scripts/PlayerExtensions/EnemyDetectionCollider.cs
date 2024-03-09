@@ -11,7 +11,7 @@ public class EnemyDetectionCollider : MonoBehaviour
         if (other.gameObject.tag == "Enemy")
         {
             combatController.detectedEnemies.Add(other.gameObject);
-            combatController.UpdateDetectionStatus();
+            combatController.UpdateDetectionStatus(other.gameObject);
             Debug.Log("Enemy Detected");
         }
     }
@@ -21,7 +21,7 @@ public class EnemyDetectionCollider : MonoBehaviour
         if (other.gameObject.tag == "Enemy")
         {
             combatController.detectedEnemies.Remove(other.gameObject);
-            combatController.UpdateDetectionStatus();
+            combatController.UpdateDetectionStatus(other.gameObject);
             Debug.Log("Enemy Lost");
         }
     }
