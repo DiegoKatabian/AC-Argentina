@@ -11,7 +11,6 @@ public class EnemyManager : Singleton<EnemyManager>
 
     Dictionary<Enemy, FiniteStateMachine> enemyFSMs = new Dictionary<Enemy, FiniteStateMachine>();
     Dictionary<Enemy, IState> enemyStates = new Dictionary<Enemy, IState>();
-    //Queue<Enemy> attackingEnemiesQueue = new Queue<Enemy>();
     Queue<Enemy> readyToAttackEnemiesQueue = new Queue<Enemy>();
 
     private void Start()

@@ -224,12 +224,14 @@ namespace Climbing
 
         internal void Crouch()
         {
-            animator.CrossFade("Crouch", 0.1f);
+            //animator.CrossFade("Crouch", 0.1f);
+            Debug.Log("crouch animation");
         }
 
         internal void UnCrouch()
         {
-            animator.CrossFade("UnCrouch", 0.1f);
+            //animator.CrossFade("UnCrouch", 0.1f);
+            Debug.Log("uncrouch animation");
         }
     }
 

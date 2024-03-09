@@ -54,6 +54,7 @@ namespace Climbing
         [HideInInspector] public bool dummy = false;
         [HideInInspector] public bool isOnVehicle = false;
         [HideInInspector] public Rigidbody vehicleBelowMe;
+        [HideInInspector] public bool isCrouch = false;
 
         [Header("Cameras")]
         public CameraController cameraController;

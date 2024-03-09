@@ -9,19 +9,19 @@ public class CrouchController : MonoBehaviour
     ThirdPersonController controller;
     AnimationCharacterController characterAnimation;
 
-    bool isCrouch = false;
     private void Start()
     {
         controller = GetComponent<ThirdPersonController>();
+        characterAnimation = controller.characterAnimation;
     }
 
     void Update()
     {
-        if(controller.characterInput.crouch)
+        if (controller.characterInput.crouch && !controller.isCrouch)
         {
             Crouch();
         }
-        else if (isCrouch)
+        else if (!controller.characterInput.crouch && controller.isCrouch)
         {
             UnCrouch();
         }
@@ -30,12 +30,13 @@ public class CrouchController : MonoBehaviour
     private void Crouch()
     {
         Debug.Log("me agacho");
-        isCrouch = true;
+        controller.isCrouch = true;
         characterAnimation.Crouch();
     }
     private void UnCrouch()
     {
         Debug.Log("me levanto");
+        controller.isCrouch = false;
         characterAnimation.UnCrouch();
     }
 }

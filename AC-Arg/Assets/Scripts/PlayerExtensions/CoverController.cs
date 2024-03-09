@@ -6,15 +6,15 @@ public class CoverController : MonoBehaviour
     public bool isInCover = false;
     private bool isEnteringCover = false;
     private bool isExitingCover = false;
-    private ThirdPersonController characterController;
+    private ThirdPersonController controller;
     private AnimationCharacterController characterAnimation;
     private DetectionCharacterController characterDetection;
 
     void Start()
     {
-        characterController = GetComponent<ThirdPersonController>();
-        characterAnimation = characterController.characterAnimation;
-        characterDetection = characterController.characterDetection;
+        controller = GetComponent<ThirdPersonController>();
+        characterAnimation = controller.characterAnimation;
+        characterDetection = controller.characterDetection;
     }
 
     private void Update()
@@ -25,10 +25,18 @@ public class CoverController : MonoBehaviour
 
     public void CheckCover()
     {
-        RaycastHit hit;
         bool wasInCover = isInCover;
-        // Lanzamos el raycast con la longitud adecuada
-        isInCover = characterDetection.ThrowRayToCover(transform.position, out hit);
+        bool isCrouch = controller.isCrouch;
+
+        if (!isCrouch)
+        {
+            isInCover = false;
+        }
+        else
+        {
+            RaycastHit hit;
+            isInCover = characterDetection.ThrowRayToCover(transform.position, out hit);
+        }
 
         if (isInCover != wasInCover)
         {
