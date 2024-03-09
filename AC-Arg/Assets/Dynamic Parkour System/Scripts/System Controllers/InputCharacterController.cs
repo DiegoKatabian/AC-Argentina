@@ -27,6 +27,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.EnhancedTouch;
 
 namespace Climbing
 {
@@ -38,6 +39,7 @@ namespace Climbing
         [HideInInspector] public bool run;
         [HideInInspector] public bool jump;
         [HideInInspector] public bool drop;
+        [HideInInspector] public bool crouch;
 
 
         private void OnEnable()
@@ -67,6 +69,8 @@ namespace Climbing
             controls.GameManager.Exit.performed += ctx => Pause();
             controls.Player.Interact.performed += ctx => Interact();
             controls.Player.RequestBusStop.performed += ctx => RequestBusStop();
+            controls.Player.Crouch.performed += ctx => crouch = ctx.ReadValueAsButton();
+            controls.Player.Crouch.canceled += ctx => crouch = ctx.ReadValueAsButton();
         }
 
         void ToggleRun()
