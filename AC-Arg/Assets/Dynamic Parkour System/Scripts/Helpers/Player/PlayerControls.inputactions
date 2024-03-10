@@ -106,6 +106,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ChangeCurrentEnemy",
+                    "type": "Value",
+                    "id": "c61c11f7-c3e7-4aa1-a08a-5c3b43e1a017",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -271,6 +280,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Crouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "36f09102-5699-488f-b26f-cb6f22c73850",
+                    "path": "<Mouse>/scroll/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChangeCurrentEnemy",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

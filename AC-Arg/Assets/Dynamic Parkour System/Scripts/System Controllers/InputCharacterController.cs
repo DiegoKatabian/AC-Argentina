@@ -36,6 +36,7 @@ namespace Climbing
         private PlayerControls controls = null;
 
         [HideInInspector] public Vector2 movement;
+        [HideInInspector] public float changeCurrentEnemy;
         [HideInInspector] public bool run;
         [HideInInspector] public bool jump;
         [HideInInspector] public bool drop;
@@ -71,6 +72,8 @@ namespace Climbing
             controls.Player.RequestBusStop.performed += ctx => RequestBusStop();
             controls.Player.Crouch.performed += ctx => crouch = ctx.ReadValueAsButton();
             controls.Player.Crouch.canceled += ctx => crouch = ctx.ReadValueAsButton();
+            controls.Player.ChangeCurrentEnemy.performed += ctx => changeCurrentEnemy = ctx.ReadValue<float>();
+            controls.Player.ChangeCurrentEnemy.canceled += ctx => changeCurrentEnemy = ctx.ReadValue<float>();
         }
 
         void ToggleRun()
