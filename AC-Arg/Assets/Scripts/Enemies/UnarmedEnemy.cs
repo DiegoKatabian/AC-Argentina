@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class UnarmedEnemy : Enemy
 {
-    public PunchHitbox punchHitBox;
+    public Hitbox punchHitBox;
 
     public override void Start()
     {
@@ -45,7 +45,7 @@ public class UnarmedEnemy : Enemy
     {
         ObjectEnabler.EnableObject(punchHitBox.gameObject, true);
         yield return new WaitForSeconds(0.2f);
-        if (punchHitBox.isPlayerInside)
+        if (punchHitBox.isTaggedInside)
         {
             EnemyManager.Instance.DamagePlayer(attackDamage);
         }
@@ -71,6 +71,13 @@ public class UnarmedEnemy : Enemy
         //Debug.Log("movinggg");
         navMeshAgent.isStopped = false;
         navMeshAgent.SetDestination(EnemyManager.Instance.player.transform.position);
+    }
+
+    public override void OnDeath()
+    {
+        base.OnDeath();
+        _fsm.ChangeState(State.EnemyIdle);
+        EnemyManager.Instance.KillEnemy(this);
     }
 
 

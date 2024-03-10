@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 159754844027251173}
   - component: {fileID: 1173732716307850380}
   - component: {fileID: 3703983840911769620}
-  - component: {fileID: 7570350523762280917}
   - component: {fileID: 4634813238154738667}
   - component: {fileID: 6906060185938285435}
   - component: {fileID: 2894612690020636812}
+  - component: {fileID: 3401224968704284618}
   m_Layer: 0
   m_Name: EnemyModel
   m_TagString: Enemy
@@ -113,20 +113,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &7570350523762280917
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 830037809273879512}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fa3895429eb8424681c985b36a42d70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 6
-  currentHealth: 6
 --- !u!114 &4634813238154738667
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,7 +156,7 @@ MonoBehaviour:
   finishedAttacking: 0
   isAttackingMarker: {fileID: 9206809220957053198}
   isCurrentEnemyMarker: {fileID: 914023734510433902}
-  punchHitBox: {fileID: 238874318750794313}
+  punchHitBox: {fileID: 3881397158163303825}
 --- !u!195 &2894612690020636812
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -193,6 +179,20 @@ NavMeshAgent:
   m_BaseOffset: 0.8
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &3401224968704284618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 830037809273879512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38482eebd2667d646855ad583a22e197, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 6
+  currentHealth: 6
 --- !u!1 &914023734510433902
 GameObject:
   m_ObjectHideFlags: 0
@@ -310,9 +310,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8593842899025348468}
   - component: {fileID: 8476479176991052178}
-  - component: {fileID: 238874318750794313}
+  - component: {fileID: 3881397158163303825}
   m_Layer: 0
-  m_Name: PunchHitbox
+  m_Name: EnemyHandHitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -354,7 +354,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.75, y: 0.61, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &238874318750794313
+--- !u!114 &3881397158163303825
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -363,10 +363,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5552432481976277359}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cff697b58cc563142ac9b9db0e13787b, type: 3}
+  m_Script: {fileID: 11500000, guid: 681415f9da832264a87845aafd411bfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPlayerInside: 0
+  tagToHit: Player
+  isTaggedInside: 0
 --- !u!1 &6106448614845163094
 GameObject:
   m_ObjectHideFlags: 0

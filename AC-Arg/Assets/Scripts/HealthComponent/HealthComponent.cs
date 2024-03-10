@@ -11,12 +11,6 @@ public class HealthComponent : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-    public virtual void TakeDamage(object[] parameters)
-    {
-        Debug.Log("take damage = 1");
-        TakeDamage(1);
-    }
-
     public virtual void TakeDamage(float damageAmount)
     {
         currentHealth -= damageAmount;
@@ -28,7 +22,8 @@ public class HealthComponent : MonoBehaviour
 
     public virtual void Die()
     {
-        Debug.Log("you died");
+        Debug.Log(gameObject.name + " died");
+        Destroy(gameObject);
     }
 
 

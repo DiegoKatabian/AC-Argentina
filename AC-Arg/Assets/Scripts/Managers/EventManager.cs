@@ -11,7 +11,8 @@ public enum Evento //LOS EVENTOS SE AGREGAN AL FINAL. NO EN EL MEDIO, PORQUE ARR
     OnPlayerHealthUpdate,
     OnPlayerDied,
     OnStealthUpdate, //0 es un string
-    OnLeftHandInput
+    OnLeftHandInput,
+    OnEnemyKilled //0 es enemy
 }
 
 public class EventManager

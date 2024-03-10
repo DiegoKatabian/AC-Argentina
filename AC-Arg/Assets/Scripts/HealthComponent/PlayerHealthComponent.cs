@@ -8,13 +8,6 @@ public class PlayerHealthComponent : HealthComponent
     public override  void Start()
     {
         base.Start();
-        EventManager.Subscribe(Evento.OnPlayerPressedE, TakeDamageOnE);
-    }
-
-    public void TakeDamageOnE(object[] parameters)
-    {
-        Debug.Log("take damage = 1");
-        TakeDamage(1);
     }
 
     public override void TakeDamage(float damageAmount)
@@ -34,12 +27,5 @@ public class PlayerHealthComponent : HealthComponent
         EventManager.Trigger(Evento.OnPlayerDied);
     }
 
-    private void OnDestroy()
-    {
-        if (!gameObject.scene.isLoaded)
-        {
-            EventManager.Unsubscribe(Evento.OnPlayerPressedE, TakeDamage);
-        }
-    }
 }
 

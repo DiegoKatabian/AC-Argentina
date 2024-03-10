@@ -22,13 +22,35 @@ public class EnemyManager : Singleton<EnemyManager>
     {
         playerHealth.TakeDamage(attackDamage);
     }
+    public void DamageEnemy(Enemy enemy, float damage)
+    {
+        if (enemy == null)
+        {
+            Debug.Log("enemy is null");
+            return;
+        }
+        HealthComponent enemyHealth = enemy.GetComponent<HealthComponent>();
+        enemyHealth.TakeDamage(damage);
+        Debug.Log("damage enemy: le hiciste " + damage + " al enemy " + enemy);
+    }
 
     public void RegisterEnemy(Enemy enemy, FiniteStateMachine enemyFSM)
     {
         enemyFSMs.Add(enemy, enemyFSM);
         enemyStates.Add(enemy, enemyFSM._currentState);
     }
-
+    public void KillEnemy(Enemy enemy)
+    {
+        Debug.Log("killing " + enemy.gameObject.name);
+        enemyFSMs.Remove(enemy);
+        enemyStates.Remove(enemy);
+        if (readyToAttackEnemiesQueue.Contains(enemy))
+        {
+            readyToAttackEnemiesQueue.Dequeue();
+        }
+        EventManager.Trigger(Evento.OnEnemyKilled, enemy);
+        Destroy(enemy.gameObject);
+    }
     public void UpdateEnemyState(FiniteStateMachine enemyFSM, IState currentState)
     {
         //Debug.Log("EnemyManager: an enemy has updated its state.");

@@ -9,11 +9,13 @@ public class CombatController : MonoBehaviour
     ThirdPersonController controller;
     public bool isInCombatMode = false;
     public Enemy currentEnemy;
-
+    public PlayerHandHitbox leftHandHitBox;
     public List<Enemy> detectedEnemies = new List<Enemy>();
     bool areEnemiesDetected = false;
     
     bool leftHandIsOnCooldown = false;
+
+    public float leftHandAttackDamage = 3;
 
     public bool AreEnemiesDetected
     {
@@ -41,20 +43,41 @@ public class CombatController : MonoBehaviour
             return;
         }
 
+        if (!isInCombatMode || currentEnemy == null)
+        {
+            Debug.Log("no estoy en combate o no tengo enemigos");
+            return;
+        }
+
         Debug.Log("ataco mano izquierda");
+        controller.DisableController();
+        controller.characterAnimation.animator.Play("Punch_Left_01", 0, 0);
         leftHandIsOnCooldown = true;
-        StartCoroutine(LeftHandCooldown());
-
     }
 
-    private IEnumerator LeftHandCooldown()
+    public void OnAttackAnimationHit()
     {
-        yield return new WaitForSeconds(2);
-        leftHandIsOnCooldown = false;
+        Debug.Log("attack animation hit");
+        StartCoroutine(HitboxCouroutine());
     }
+
     public void OnAttackAnimationEnded()
     {
+        Debug.Log("on attack animation ended");
         leftHandIsOnCooldown = false;
+        controller.EnableController();
+    }
+
+    IEnumerator HitboxCouroutine()
+    {
+        ObjectEnabler.EnableObject(leftHandHitBox.gameObject, true);
+        yield return new WaitForSeconds(0.2f);
+        if (leftHandHitBox.isTaggedInside)
+        {
+            Debug.Log("daño al enemy");
+            EnemyManager.Instance.DamageEnemy(leftHandHitBox.affectedEnemy, leftHandAttackDamage);
+        }
+        ObjectEnabler.EnableObject(leftHandHitBox.gameObject, false);
     }
 
     private void ChangeCurrentEnemy(float v)

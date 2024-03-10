@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -41,5 +42,10 @@ public class Enemy : MonoBehaviour
     public virtual void CancelChasePlayer()
     {
         //Debug.Log("base cancel chase player");
+    }
+
+    public virtual void OnDeath()
+    {
+        Debug.Log("base enemy on death");
     }
 }
