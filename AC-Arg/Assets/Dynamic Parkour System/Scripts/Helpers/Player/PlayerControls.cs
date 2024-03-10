@@ -137,6 +137,24 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""LeftHand"",
+                    ""type"": ""Button"",
+                    ""id"": ""05b9419d-ef47-4f60-b20b-f2fa599149b9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RightHand"",
+                    ""type"": ""Button"",
+                    ""id"": ""26f0a271-0f4a-4329-a433-645cac416817"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -300,7 +318,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/leftCtrl"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard n Mouse"",
                     ""action"": ""Crouch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -311,8 +329,30 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""path"": ""<Mouse>/scroll/y"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard n Mouse"",
                     ""action"": ""ChangeCurrentEnemy"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1ca99893-5d0e-4691-bb36-5794224e804d"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard n Mouse"",
+                    ""action"": ""LeftHand"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c8731fa8-03a7-42ed-944d-7b1a900a3218"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard n Mouse"",
+                    ""action"": ""RightHand"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -390,6 +430,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_RequestBusStop = m_Player.FindAction("RequestBusStop", throwIfNotFound: true);
         m_Player_Crouch = m_Player.FindAction("Crouch", throwIfNotFound: true);
         m_Player_ChangeCurrentEnemy = m_Player.FindAction("ChangeCurrentEnemy", throwIfNotFound: true);
+        m_Player_LeftHand = m_Player.FindAction("LeftHand", throwIfNotFound: true);
+        m_Player_RightHand = m_Player.FindAction("RightHand", throwIfNotFound: true);
         // GameManager
         m_GameManager = asset.FindActionMap("GameManager", throwIfNotFound: true);
         m_GameManager_Exit = m_GameManager.FindAction("Exit", throwIfNotFound: true);
@@ -508,6 +550,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_RequestBusStop;
     private readonly InputAction m_Player_Crouch;
     private readonly InputAction m_Player_ChangeCurrentEnemy;
+    private readonly InputAction m_Player_LeftHand;
+    private readonly InputAction m_Player_RightHand;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -520,6 +564,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @RequestBusStop => m_Wrapper.m_Player_RequestBusStop;
         public InputAction @Crouch => m_Wrapper.m_Player_Crouch;
         public InputAction @ChangeCurrentEnemy => m_Wrapper.m_Player_ChangeCurrentEnemy;
+        public InputAction @LeftHand => m_Wrapper.m_Player_LeftHand;
+        public InputAction @RightHand => m_Wrapper.m_Player_RightHand;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -553,6 +599,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @ChangeCurrentEnemy.started += instance.OnChangeCurrentEnemy;
             @ChangeCurrentEnemy.performed += instance.OnChangeCurrentEnemy;
             @ChangeCurrentEnemy.canceled += instance.OnChangeCurrentEnemy;
+            @LeftHand.started += instance.OnLeftHand;
+            @LeftHand.performed += instance.OnLeftHand;
+            @LeftHand.canceled += instance.OnLeftHand;
+            @RightHand.started += instance.OnRightHand;
+            @RightHand.performed += instance.OnRightHand;
+            @RightHand.canceled += instance.OnRightHand;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -581,6 +633,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @ChangeCurrentEnemy.started -= instance.OnChangeCurrentEnemy;
             @ChangeCurrentEnemy.performed -= instance.OnChangeCurrentEnemy;
             @ChangeCurrentEnemy.canceled -= instance.OnChangeCurrentEnemy;
+            @LeftHand.started -= instance.OnLeftHand;
+            @LeftHand.performed -= instance.OnLeftHand;
+            @LeftHand.canceled -= instance.OnLeftHand;
+            @RightHand.started -= instance.OnRightHand;
+            @RightHand.performed -= instance.OnRightHand;
+            @RightHand.canceled -= instance.OnRightHand;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -676,6 +734,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnRequestBusStop(InputAction.CallbackContext context);
         void OnCrouch(InputAction.CallbackContext context);
         void OnChangeCurrentEnemy(InputAction.CallbackContext context);
+        void OnLeftHand(InputAction.CallbackContext context);
+        void OnRightHand(InputAction.CallbackContext context);
     }
     public interface IGameManagerActions
     {

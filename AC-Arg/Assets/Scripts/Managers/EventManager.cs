@@ -10,7 +10,8 @@ public enum Evento //LOS EVENTOS SE AGREGAN AL FINAL. NO EN EL MEDIO, PORQUE ARR
     OnPlayerStopsVehicle,
     OnPlayerHealthUpdate,
     OnPlayerDied,
-    OnStealthUpdate //0 es un string
+    OnStealthUpdate, //0 es un string
+    OnLeftHandInput
 }
 
 public class EventManager

@@ -12,6 +12,9 @@ public class CombatController : MonoBehaviour
 
     public List<Enemy> detectedEnemies = new List<Enemy>();
     bool areEnemiesDetected = false;
+    
+    bool leftHandIsOnCooldown = false;
+
     public bool AreEnemiesDetected
     {
         get { return areEnemiesDetected; }
@@ -19,18 +22,39 @@ public class CombatController : MonoBehaviour
     private void Start()
     {
         controller = GetComponent<ThirdPersonController>();
+        EventManager.Subscribe(Evento.OnLeftHandInput, PerformLeftHandAttack);
     }
 
     private void Update()
     {
-        if (controller.characterInput.changeCurrentEnemy > 0)
+        if (controller.characterInput.changeCurrentEnemy != 0)
         {
             ChangeCurrentEnemy(controller.characterInput.changeCurrentEnemy);
         }
-        else if (controller.characterInput.changeCurrentEnemy < 0)
+    }
+
+    private void PerformLeftHandAttack(params object[] parameters)
+    {
+        if (leftHandIsOnCooldown)
         {
-            ChangeCurrentEnemy(controller.characterInput.changeCurrentEnemy);
+            Debug.Log("mano izquierda en cooldown");
+            return;
         }
+
+        Debug.Log("ataco mano izquierda");
+        leftHandIsOnCooldown = true;
+        StartCoroutine(LeftHandCooldown());
+
+    }
+
+    private IEnumerator LeftHandCooldown()
+    {
+        yield return new WaitForSeconds(2);
+        leftHandIsOnCooldown = false;
+    }
+    public void OnAttackAnimationEnded()
+    {
+        leftHandIsOnCooldown = false;
     }
 
     private void ChangeCurrentEnemy(float v)
@@ -65,19 +89,19 @@ public class CombatController : MonoBehaviour
             }
         }
     }
-
     public void EnterCombatMode()
     {
         isInCombatMode = true;
         Debug.Log("entro a combat mode");
+        //reemplazar anim de idle por idle-fight
     }
-
     public void ExitCombatMode()
     {
         isInCombatMode = false;
         Debug.Log("salio de combat mode");
-    }
+        //reemplazar anim de idle-fight por idle
 
+    }
     public void UpdateDetectionStatus(Enemy lastDetectedEnemy)
     {
         if (detectedEnemies.Count > 0)
@@ -100,17 +124,12 @@ public class CombatController : MonoBehaviour
             Debug.Log("no enemies in volume");
         }
     }
-
     public void SetCurrentEnemy(Enemy enemy)
     {
         CurrentEnemyMarkerToggler(false);
-
         currentEnemy = enemy;
-
         CurrentEnemyMarkerToggler(true);
-
     }
-
     private void CurrentEnemyMarkerToggler(bool state)
     {
         if (currentEnemy != null)
@@ -119,5 +138,11 @@ public class CombatController : MonoBehaviour
         }
     }
 
-
+    private void OnDestroy()
+    {
+        if(!gameObject.scene.isLoaded)
+        {
+            EventManager.Unsubscribe(Evento.OnLeftHandInput, PerformLeftHandAttack);
+        }
+    }
 }

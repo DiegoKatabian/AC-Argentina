@@ -23,6 +23,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -41,6 +42,8 @@ namespace Climbing
         [HideInInspector] public bool jump;
         [HideInInspector] public bool drop;
         [HideInInspector] public bool crouch;
+        [HideInInspector] public bool leftHand;
+        [HideInInspector] public bool rightHand;
 
 
         private void OnEnable()
@@ -74,6 +77,12 @@ namespace Climbing
             controls.Player.Crouch.canceled += ctx => crouch = ctx.ReadValueAsButton();
             controls.Player.ChangeCurrentEnemy.performed += ctx => changeCurrentEnemy = ctx.ReadValue<float>();
             controls.Player.ChangeCurrentEnemy.canceled += ctx => changeCurrentEnemy = ctx.ReadValue<float>();
+            controls.Player.LeftHand.performed += ctx => LeftHandInput();
+        }
+
+        private void LeftHandInput()
+        {
+            EventManager.Trigger(Evento.OnLeftHandInput);
         }
 
         void ToggleRun()
