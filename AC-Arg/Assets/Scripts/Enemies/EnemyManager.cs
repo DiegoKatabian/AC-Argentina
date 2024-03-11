@@ -41,7 +41,7 @@ public class EnemyManager : Singleton<EnemyManager>
     }
     public void KillEnemy(Enemy enemy)
     {
-        Debug.Log("killing " + enemy.gameObject.name);
+        //Debug.Log("killing " + enemy.gameObject.name);
         enemyFSMs.Remove(enemy);
         enemyStates.Remove(enemy);
         if (readyToAttackEnemiesQueue.Contains(enemy))
@@ -54,7 +54,7 @@ public class EnemyManager : Singleton<EnemyManager>
     public void UpdateEnemyState(FiniteStateMachine enemyFSM, IState currentState)
     {
         //Debug.Log("EnemyManager: an enemy has updated its state.");
-        Debug.Log("enemy: " + enemyFSM + " state: " + currentState);
+        //Debug.Log("enemy: " + enemyFSM + " state: " + currentState);
 
         foreach (KeyValuePair<Enemy, FiniteStateMachine> enemyFSMEntry in enemyFSMs)
         {

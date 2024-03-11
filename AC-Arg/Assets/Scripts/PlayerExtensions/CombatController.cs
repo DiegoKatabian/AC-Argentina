@@ -6,16 +6,16 @@ using UnityEngine;
 
 public class CombatController : MonoBehaviour
 {
-    ThirdPersonController controller;
-    public bool isInCombatMode = false;
-    public Enemy currentEnemy;
     public PlayerHandHitbox leftHandHitBox;
-    public List<Enemy> detectedEnemies = new List<Enemy>();
-    bool areEnemiesDetected = false;
-    
-    bool leftHandIsOnCooldown = false;
-
     public float leftHandAttackDamage = 3;
+    
+    [HideInInspector] public bool isInCombatMode = false;
+    [HideInInspector] public Enemy currentEnemy;
+    [HideInInspector] public List<Enemy> detectedEnemies = new List<Enemy>();
+    ThirdPersonController controller;
+    bool areEnemiesDetected = false;
+    bool leftHandIsOnCooldown = false;
+    bool comboWindowOpen = false;
 
     public bool AreEnemiesDetected
     {
@@ -37,6 +37,7 @@ public class CombatController : MonoBehaviour
 
     private void PerformLeftHandAttack(params object[] parameters)
     {
+        
         if (leftHandIsOnCooldown)
         {
             Debug.Log("mano izquierda en cooldown");
@@ -45,17 +46,41 @@ public class CombatController : MonoBehaviour
 
         if (!isInCombatMode || currentEnemy == null)
         {
-            Debug.Log("no estoy en combate o no tengo enemigos");
+            //Debug.Log("no estoy en combate o no tengo enemigos");
             return;
         }
 
-        Debug.Log("ataco mano izquierda");
+        if (comboWindowOpen)
+        {
+            PerformNextComboAttack();
+            return;
+        }
+
+        Debug.Log("ataco mano izquierda 1");
         controller.DisableController();
         controller.characterAnimation.animator.Play("Punch_Left_01", 0, 0);
         leftHandIsOnCooldown = true;
     }
 
+    private void PerformNextComboAttack()
+    {
+        Debug.Log("ataco mano izquierda 2");
+        controller.DisableController();
+        controller.characterAnimation.animator.Play("Punch_Left_02", 0, 0);
+        leftHandIsOnCooldown = true;
+        comboWindowOpen = false;
+        //por ahora ambos ataques abren la misma hitbox con el mismo daño
+    }
+
     public void OnAttackAnimationHit()
+    {
+        Debug.Log("attack animation hit");
+        StartCoroutine(HitboxCouroutine());
+        leftHandIsOnCooldown = false;
+        comboWindowOpen = true;
+    }
+
+    public void OnAttackAnimationHitNoCombo()
     {
         Debug.Log("attack animation hit");
         StartCoroutine(HitboxCouroutine());
@@ -64,8 +89,9 @@ public class CombatController : MonoBehaviour
     public void OnAttackAnimationEnded()
     {
         Debug.Log("on attack animation ended");
-        leftHandIsOnCooldown = false;
         controller.EnableController();
+        leftHandIsOnCooldown = false;
+        comboWindowOpen = false;
     }
 
     IEnumerator HitboxCouroutine()
@@ -74,7 +100,7 @@ public class CombatController : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         if (leftHandHitBox.isTaggedInside)
         {
-            Debug.Log("daño al enemy");
+            //Debug.Log("daño al enemy");
             EnemyManager.Instance.DamageEnemy(leftHandHitBox.affectedEnemy, leftHandAttackDamage);
         }
         ObjectEnabler.EnableObject(leftHandHitBox.gameObject, false);
@@ -115,13 +141,13 @@ public class CombatController : MonoBehaviour
     public void EnterCombatMode()
     {
         isInCombatMode = true;
-        Debug.Log("entro a combat mode");
+        //Debug.Log("entro a combat mode");
         //reemplazar anim de idle por idle-fight
     }
     public void ExitCombatMode()
     {
         isInCombatMode = false;
-        Debug.Log("salio de combat mode");
+        //Debug.Log("salio de combat mode");
         //reemplazar anim de idle-fight por idle
 
     }
@@ -131,12 +157,12 @@ public class CombatController : MonoBehaviour
         {
             areEnemiesDetected = true;
             EnterCombatMode();
-            Debug.Log("enemies in volume");
+            //Debug.Log("enemies in volume");
 
             if (currentEnemy == null)
             {
                 SetCurrentEnemy(lastDetectedEnemy);
-                Debug.Log("current enemy = " + currentEnemy.name);
+                //Debug.Log("current enemy = " + currentEnemy.name);
             }
         }
         else
@@ -144,7 +170,7 @@ public class CombatController : MonoBehaviour
             areEnemiesDetected = false;
             ExitCombatMode();
             SetCurrentEnemy(null);
-            Debug.Log("no enemies in volume");
+            //Debug.Log("no enemies in volume");
         }
     }
     public void SetCurrentEnemy(Enemy enemy)

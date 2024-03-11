@@ -33,7 +33,7 @@ public class EnemyDetectionCollider : MonoBehaviour
     {
         combatController.detectedEnemies.Add(detectedEnemy);
         combatController.UpdateDetectionStatus(detectedEnemy);
-        Debug.Log("Enemy Detected");
+        //Debug.Log("Enemy Detected");
     }
 
     private void OnTriggerExit(Collider other)
@@ -52,7 +52,7 @@ public class EnemyDetectionCollider : MonoBehaviour
     {
         combatController.detectedEnemies.Remove(detectedEnemy);
         combatController.UpdateDetectionStatus(detectedEnemy);
-        Debug.Log("Enemy Lost");
+        //Debug.Log("Enemy Lost");
     }
 
     private void OnDestroy()
