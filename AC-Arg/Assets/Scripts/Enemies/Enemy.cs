@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour
 {
     public PlayerDetection playerDetection;
     public float moveSpeed = 5;
-    public float attackRecoveryTime = 2;
+    public float attackRecoveryTime = 2; //este es un menitra y no se usa
     public float attackDamage = 1;
     public NavMeshAgent navMeshAgent;
     protected EnemyFSM _fsm;
