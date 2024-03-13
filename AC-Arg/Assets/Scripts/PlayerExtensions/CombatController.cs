@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class CombatController : MonoBehaviour
 {
-
     public PlayerHandHitbox leftHandHitBox;
     public float leftHandAttackDamage = 1;
 
@@ -31,7 +30,6 @@ public class CombatController : MonoBehaviour
         EventManager.Subscribe(Evento.OnLeftHandInput, PerformLeftHandAttack);
         EventManager.Subscribe(Evento.OnRightHandInput, PerformRightHandAttack);
     }
-
    
     private void Update()
     {
@@ -239,6 +237,14 @@ public class CombatController : MonoBehaviour
         {
             ObjectEnabler.EnableObject(currentEnemy.isCurrentEnemyMarker, state);
         }
+    }
+
+    public void CancelAllAttacks() //due to received damage
+    {
+        Debug.Log("cancelo los ataques porque recibí daño");
+        //controller.EnableController();
+        handsAreOnCooldown = false;
+        comboWindowOpen = false;
     }
 
     private void OnDestroy()

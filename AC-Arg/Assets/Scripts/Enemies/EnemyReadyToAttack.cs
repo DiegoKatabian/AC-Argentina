@@ -34,9 +34,16 @@ public class EnemyReadyToAttack : IState
             _fsm.ChangeState(State.EnemyChase);
         }
 
+        if (_me.isHurting)
+        {
+            _fsm.ChangeState(State.EnemyHurt);
+        }
+
         if (EnemyManager.Instance.CanIAttackPlayerMisterEnemyManager(_me))
         {
             _fsm.ChangeState(State.EnemyAttack);
         }
+
+
     }
 }

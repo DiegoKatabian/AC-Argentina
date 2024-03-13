@@ -31,6 +31,7 @@ public class EnemyManager : Singleton<EnemyManager>
         }
         HealthComponent enemyHealth = enemy.GetComponent<HealthComponent>();
         enemyHealth.TakeDamage(damage);
+        enemy.StartHurt();
         Debug.Log("damage enemy: le hiciste " + damage + " al enemy " + enemy);
     }
 

@@ -17,6 +17,8 @@ public class Enemy : MonoBehaviour
     internal bool isMyTurnToAttack = false; //true solo cuando sea mi turno de atacar
     public bool isAttacking = false; //true durante attack state
     public bool finishedAttacking = false; //solo true cuando salgo de attack state
+    public bool isHurting = false; //true durante hurt state
+    public bool finishedHurting = false; //solo true cuando salgo de hurt state
     public GameObject isAttackingMarker; //el cosito rojo en la cabeza del enemy, indica que esta isAttacking
     public GameObject isCurrentEnemyMarker; //el cosito blanco en la cabeza del enemy, indica que es el current enemy
 
@@ -47,5 +49,11 @@ public class Enemy : MonoBehaviour
     public virtual void OnDeath()
     {
         Debug.Log("base enemy on death");
+    }
+
+    public virtual void StartHurt()
+    {
+        Debug.Log("enemy: i was hit");
+        
     }
 }

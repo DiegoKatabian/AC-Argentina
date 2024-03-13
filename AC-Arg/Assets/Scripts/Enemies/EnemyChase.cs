@@ -35,6 +35,11 @@ public class EnemyChase : IState
         {
             _fsm.ChangeState(State.EnemyIdle);
         }
+
+        if (_me.isHurting)
+        {
+            _fsm.ChangeState(State.EnemyHurt);
+        }
     }
 
 }

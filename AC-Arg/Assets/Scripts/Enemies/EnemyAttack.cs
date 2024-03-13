@@ -30,6 +30,12 @@ public class EnemyAttack : IState
 
     public void OnUpdate()
     {
+        if (_me.isHurting)
+        {
+            _fsm.ChangeState(State.EnemyHurt);
+        }
+
+
         if (_me.finishedAttacking)
         {
             _fsm.ChangeState(State.EnemyReadyToAttack);

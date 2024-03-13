@@ -26,6 +26,12 @@ public class EnemyIdle : IState
 
     public void OnUpdate()
     {
+
+        if (_me.isHurting)
+        {
+            _fsm.ChangeState(State.EnemyHurt);
+        }
+
         if (_me.playerDetection.isPlayerInFOV)
         {
             _fsm.ChangeState(State.EnemyChase);

@@ -6,7 +6,8 @@ public enum State
     EnemyIdle,
     EnemyChase,
     EnemyReadyToAttack,
-    EnemyAttack
+    EnemyAttack,
+    EnemyHurt
 }
 public class EnemyFSM : FiniteStateMachine
 {
