@@ -243,6 +243,7 @@ namespace Climbing
             yield return new WaitForSeconds(1);
             Debug.Log("bueno listo, ya esta");
             isHurting = false;
+            combatController.ResetCooldowns();
             EnableController();
         }
 

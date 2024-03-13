@@ -166,6 +166,10 @@ public class CombatController : MonoBehaviour
         comboWindowOpen = false;
     }
 
+    public void ResetCooldowns()
+    {
+        handsAreOnCooldown = false;
+    }
 
     private void ChangeCurrentEnemy(float v)
     {
