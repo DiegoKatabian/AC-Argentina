@@ -6,15 +6,19 @@ using UnityEngine;
 
 public class CombatController : MonoBehaviour
 {
+
     public PlayerHandHitbox leftHandHitBox;
-    public float leftHandAttackDamage = 3;
+    public float leftHandAttackDamage = 1;
+
+    public PlayerHandHitbox rightHandHitBox;
+    public float rightHandAttackDamage = 2;
     
     [HideInInspector] public bool isInCombatMode = false;
     [HideInInspector] public Enemy currentEnemy;
     [HideInInspector] public List<Enemy> detectedEnemies = new List<Enemy>();
     ThirdPersonController controller;
     bool areEnemiesDetected = false;
-    bool leftHandIsOnCooldown = false;
+    bool handsAreOnCooldown = false;
     bool comboWindowOpen = false;
 
     public bool AreEnemiesDetected
@@ -25,8 +29,10 @@ public class CombatController : MonoBehaviour
     {
         controller = GetComponent<ThirdPersonController>();
         EventManager.Subscribe(Evento.OnLeftHandInput, PerformLeftHandAttack);
+        EventManager.Subscribe(Evento.OnRightHandInput, PerformRightHandAttack);
     }
 
+   
     private void Update()
     {
         if (controller.characterInput.changeCurrentEnemy != 0)
@@ -37,10 +43,9 @@ public class CombatController : MonoBehaviour
 
     private void PerformLeftHandAttack(params object[] parameters)
     {
-        
-        if (leftHandIsOnCooldown)
+        if (handsAreOnCooldown)
         {
-            Debug.Log("mano izquierda en cooldown");
+            //Debug.Log("mano izquierda en cooldown");
             return;
         }
 
@@ -52,58 +57,107 @@ public class CombatController : MonoBehaviour
 
         if (comboWindowOpen)
         {
-            PerformNextComboAttack();
+            PerformNextLeftHandComboAttack();
             return;
         }
 
         Debug.Log("ataco mano izquierda 1");
         controller.DisableController();
         controller.characterAnimation.animator.Play("Punch_Left_01", 0, 0);
-        leftHandIsOnCooldown = true;
+        handsAreOnCooldown = true;
     }
 
-    private void PerformNextComboAttack()
+    private void PerformRightHandAttack(object[] parameters)
+    {
+        if (handsAreOnCooldown)
+        {
+            //Debug.Log("mano izquierda en cooldown");
+            return;
+        }
+
+        if (!isInCombatMode || currentEnemy == null)
+        {
+            //Debug.Log("no estoy en combate o no tengo enemigos");
+            return;
+        }
+
+        if (comboWindowOpen)
+        {
+            PerformNextRightHandComboAttack();
+            return;
+        }
+
+        Debug.Log("ataco mano derecha 1");
+        controller.DisableController();
+        controller.characterAnimation.animator.Play("Punch_Right_01", 0, 0);
+        handsAreOnCooldown = true;
+    }
+
+
+    private void PerformNextLeftHandComboAttack()
     {
         Debug.Log("ataco mano izquierda 2");
         controller.DisableController();
         controller.characterAnimation.animator.Play("Punch_Left_02", 0, 0);
-        leftHandIsOnCooldown = true;
+        handsAreOnCooldown = true;
         comboWindowOpen = false;
-        //por ahora ambos ataques abren la misma hitbox con el mismo daño
     }
 
-    public void OnAttackAnimationHit()
+    private void PerformNextRightHandComboAttack()
     {
-        Debug.Log("attack animation hit");
-        StartCoroutine(HitboxCouroutine());
-        leftHandIsOnCooldown = false;
+        Debug.Log("ataco mano derecha 2");
+        controller.DisableController();
+        controller.characterAnimation.animator.Play("Punch_Right_02", 0, 0);
+        handsAreOnCooldown = true;
+        comboWindowOpen = false;
+    }
+
+    public void ANIMATION_OnLeftHandAttackHit()
+    {
+        //Debug.Log("animation: left hand attack 1 - hit");
+        StartCoroutine(HitboxCouroutine(leftHandHitBox, leftHandAttackDamage));
+        handsAreOnCooldown = false;
         comboWindowOpen = true;
     }
 
-    public void OnAttackAnimationHitNoCombo()
+    public void ANIMATION_OnRightHandAttackHit()
     {
-        Debug.Log("attack animation hit");
-        StartCoroutine(HitboxCouroutine());
+        //Debug.Log("animation: right hand attack 1 - hit");
+        StartCoroutine(HitboxCouroutine(rightHandHitBox, rightHandAttackDamage));
+        handsAreOnCooldown = false;
+        comboWindowOpen = true;
     }
 
-    public void OnAttackAnimationEnded()
+    public void ANIMATION_OnLeftHandAttackHit_EndCombo()
     {
-        Debug.Log("on attack animation ended");
+        //Debug.Log("animation: left hand attack 2 - hit  - ends combo");
+        StartCoroutine(HitboxCouroutine(leftHandHitBox, leftHandAttackDamage));
+    }
+
+    public void ANIMATION_OnRightHandAttackHit_EndCombo()
+    {
+        //Debug.Log("animation: right hand attack 2 - hit - ends combo");
+        StartCoroutine(HitboxCouroutine(rightHandHitBox, rightHandAttackDamage));
+    }
+
+    public void ANIMATION_OnAttackEnd()
+    {
+        //Debug.Log("animation - attack ended");
         controller.EnableController();
-        leftHandIsOnCooldown = false;
+        handsAreOnCooldown = false;
         comboWindowOpen = false;
     }
 
-    IEnumerator HitboxCouroutine()
+    IEnumerator HitboxCouroutine(PlayerHandHitbox hitbox, float damage)
     {
-        ObjectEnabler.EnableObject(leftHandHitBox.gameObject, true);
+        ObjectEnabler.EnableObject(hitbox.gameObject, true);
         yield return new WaitForSeconds(0.2f);
-        if (leftHandHitBox.isTaggedInside)
+        if (hitbox.isTaggedInside)
         {
             //Debug.Log("daño al enemy");
-            EnemyManager.Instance.DamageEnemy(leftHandHitBox.affectedEnemy, leftHandAttackDamage);
+            EnemyManager.Instance.DamageEnemy(hitbox.affectedEnemy, damage);
         }
-        ObjectEnabler.EnableObject(leftHandHitBox.gameObject, false);
+        ObjectEnabler.EnableObject(hitbox.gameObject, false);
     }
 
     private void ChangeCurrentEnemy(float v)
@@ -192,6 +246,7 @@ public class CombatController : MonoBehaviour
         if(!gameObject.scene.isLoaded)
         {
             EventManager.Unsubscribe(Evento.OnLeftHandInput, PerformLeftHandAttack);
+            EventManager.Unsubscribe(Evento.OnRightHandInput, PerformRightHandAttack);
         }
     }
 }

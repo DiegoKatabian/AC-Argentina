@@ -31,7 +31,16 @@ public class UnarmedEnemy : Enemy
     {
         //Debug.Log("empieza el ataque");
         isAttacking = true;
-        StartCoroutine(HitboxCouroutine()); //en vez de aca, esto deberia dispararse en el momento correcto de la animacion
+    }
+
+    public void ANIMATION_OnAttackHit()
+    {
+        StartCoroutine(HitboxCouroutine()); 
+    }
+
+    public void ANIMATION_OnAttackEnd()
+    {
+        FinishAttack();
     }
 
     public void FinishAttack()
@@ -53,7 +62,6 @@ public class UnarmedEnemy : Enemy
         ObjectEnabler.EnableObject(punchHitBox.gameObject, false);
 
         yield return new WaitForSeconds(attackRecoveryTime);
-        FinishAttack();
     }
 
     public override void StartChasingPlayer()

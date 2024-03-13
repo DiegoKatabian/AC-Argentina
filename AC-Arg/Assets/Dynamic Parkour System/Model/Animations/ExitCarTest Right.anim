@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ExitCarTest2
+  m_Name: ExitCarTest Right
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -33754,14 +33754,14 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0.6
-    functionName: OnAttackAnimationHitNoCombo
+    functionName: ANIMATION_OnRightHandAttackHit_EndCombo
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 1.0666667
-    functionName: OnAttackAnimationEnded
+    functionName: ANIMATION_OnAttackEnd
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

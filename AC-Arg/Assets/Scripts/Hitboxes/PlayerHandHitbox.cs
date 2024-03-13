@@ -6,6 +6,7 @@ public class PlayerHandHitbox : Hitbox
 {
     public Enemy affectedEnemy;
 
+
     public override void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag(tagToHit))
