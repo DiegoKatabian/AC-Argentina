@@ -148,12 +148,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerDetection: {fileID: 4634813238154738667}
   moveSpeed: 2
-  attackRecoveryTime: 2
+  attackRecoveryTime: 3
   attackDamage: 1
   navMeshAgent: {fileID: 2894612690020636812}
   animator: {fileID: 159754844027251173}
   isAttacking: 0
   finishedAttacking: 0
+  isHurting: 0
+  finishedHurting: 0
   isAttackingMarker: {fileID: 9206809220957053198}
   isCurrentEnemyMarker: {fileID: 914023734510433902}
   punchHitBox: {fileID: 3881397158163303825}
