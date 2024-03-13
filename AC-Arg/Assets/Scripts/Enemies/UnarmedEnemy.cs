@@ -46,6 +46,7 @@ public class UnarmedEnemy : Enemy
     IEnumerator HitboxCouroutine()
     {
         ObjectEnabler.EnableObject(punchHitBox.gameObject, true);
+        punchHitBox.isTaggedInside = false;
         yield return new WaitForSeconds(0.2f);
         if (punchHitBox.isTaggedInside)
         {

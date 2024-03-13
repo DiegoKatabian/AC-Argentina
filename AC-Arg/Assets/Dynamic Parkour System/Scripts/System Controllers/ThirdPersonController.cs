@@ -56,6 +56,7 @@ namespace Climbing
         [HideInInspector] public bool isOnVehicle = false;
         [HideInInspector] public Rigidbody vehicleBelowMe;
         [HideInInspector] public bool isCrouch = false;
+        [HideInInspector] public bool isHurting = false;
 
         [Header("Cameras")]
         public CameraController cameraController;
@@ -174,7 +175,6 @@ namespace Climbing
 
             return translation;
         }
-
         public void RotatePlayer(Vector3 direction)
         {
             //Get direction with camera rotation
@@ -184,7 +184,6 @@ namespace Climbing
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
         }
-
         public void RotatePlayerIndependentOfCamera(Vector3 direction)
         {
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
@@ -199,13 +198,10 @@ namespace Climbing
             //Rotate Mesh to Movement
             return Quaternion.Euler(0f, targetAngle, 0f);
         }
-
-
         public void ResetMovement()
         {
             characterMovement.ResetSpeed();
         }
-
         public void ToggleRun()
         {
             if (characterMovement.GetState() != MovementState.Running)
@@ -224,6 +220,32 @@ namespace Climbing
                 characterAnimation.animator.SetBool("Run", false);
             }
         }
+
+        public void StartHurt()
+        {
+            Debug.Log("ouch me pegaron");
+            isHurting = true;
+            combatController.CancelAllAttacks();
+            DisableController();
+            //characterAnimation.animator.Play("Hurt", 0, 0);
+            StartCoroutine(HurtRecoveryCouroutine());
+        }
+
+        public void ANIMATION_OnHurtEnd()
+        {
+            isHurting = false;
+            EnableController();
+        }
+
+        IEnumerator HurtRecoveryCouroutine()
+        {
+            Debug.Log("una lloradita y a seguir...");
+            yield return new WaitForSeconds(1);
+            Debug.Log("bueno listo, ya esta");
+            isHurting = false;
+            EnableController();
+        }
+
         public void EnterVehicleRoof(Rigidbody veh)
         {
             vehicleBelowMe = veh;
@@ -235,8 +257,6 @@ namespace Climbing
             isOnVehicle = false;
             Debug.Log("is on vehicle false");
         }
-
-
 
         public float GetCurrentVelocity()
         {

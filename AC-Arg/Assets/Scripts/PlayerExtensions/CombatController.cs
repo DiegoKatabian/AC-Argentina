@@ -158,6 +158,15 @@ public class CombatController : MonoBehaviour
         ObjectEnabler.EnableObject(hitbox.gameObject, false);
     }
 
+    public void CancelAllAttacks() //due to received damage
+    {
+        Debug.Log("cancelo los ataques porque recibí daño");
+        //controller.EnableController();
+        handsAreOnCooldown = true;
+        comboWindowOpen = false;
+    }
+
+
     private void ChangeCurrentEnemy(float v)
     {
         if (detectedEnemies.Count < 2)
@@ -237,14 +246,6 @@ public class CombatController : MonoBehaviour
         {
             ObjectEnabler.EnableObject(currentEnemy.isCurrentEnemyMarker, state);
         }
-    }
-
-    public void CancelAllAttacks() //due to received damage
-    {
-        Debug.Log("cancelo los ataques porque recibí daño");
-        //controller.EnableController();
-        handsAreOnCooldown = false;
-        comboWindowOpen = false;
     }
 
     private void OnDestroy()
