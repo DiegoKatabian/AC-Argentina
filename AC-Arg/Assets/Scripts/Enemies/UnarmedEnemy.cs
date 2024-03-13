@@ -47,15 +47,13 @@ public class UnarmedEnemy : Enemy
     {
         ObjectEnabler.EnableObject(punchHitBox.gameObject, true);
         punchHitBox.isTaggedInside = false;
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.1f);
         if (punchHitBox.isTaggedInside)
         {
             EnemyManager.Instance.DamagePlayer(attackDamage);
         }
 
         ObjectEnabler.EnableObject(punchHitBox.gameObject, false);
-
-        yield return new WaitForSeconds(attackRecoveryTime);
     }
 
    
