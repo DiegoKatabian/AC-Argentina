@@ -227,13 +227,14 @@ namespace Climbing
             isHurting = true;
             combatController.CancelAllAttacks();
             DisableController();
-            //characterAnimation.animator.Play("Hurt", 0, 0);
-            StartCoroutine(HurtRecoveryCouroutine());
+            characterAnimation.animator.CrossFade("Hurt", 0.1f);
+            //StartCoroutine(HurtRecoveryCouroutine());
         }
 
         public void ANIMATION_OnHurtEnd()
         {
             isHurting = false;
+            combatController.ResetCooldowns();
             EnableController();
         }
 
