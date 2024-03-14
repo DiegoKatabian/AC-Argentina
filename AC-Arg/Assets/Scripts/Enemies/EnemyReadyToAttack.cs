@@ -8,7 +8,7 @@ public class EnemyReadyToAttack : IState
     Enemy _me;
 
     float timer = 0;
-    float stateChangeTimeThreshold = 1.5f;
+    float initialAttackCooldown = 1.5f; //cuanto espera desde que entra a este state hasta q ataca
 
     public EnemyReadyToAttack(FiniteStateMachine fsm, Enemy enemy)
     {
@@ -34,20 +34,20 @@ public class EnemyReadyToAttack : IState
 
     public void OnUpdate()
     {
+        if (_me.isHurting)
+        {
+            _fsm.ChangeState(State.EnemyHurt);
+        }
+
+        if (!_me.playerDetection.isPlayerInMeleeRange)
+        {
+            _fsm.ChangeState(State.EnemyChase);
+        }
+
         timer += Time.deltaTime;
 
-        if (timer >= stateChangeTimeThreshold)
+        if (timer >= initialAttackCooldown)
         {
-            if (!_me.playerDetection.isPlayerInMeleeRange)
-            {
-                _fsm.ChangeState(State.EnemyChase);
-            }
-
-            if (_me.isHurting)
-            {
-                _fsm.ChangeState(State.EnemyHurt);
-            }
-
             if (EnemyManager.Instance.CanIAttackPlayerMisterEnemyManager(_me))
             {
                 _fsm.ChangeState(State.EnemyAttack);

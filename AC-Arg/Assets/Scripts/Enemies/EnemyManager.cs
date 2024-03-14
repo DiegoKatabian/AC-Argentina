@@ -1,5 +1,6 @@
 using Climbing;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -148,6 +149,32 @@ public class EnemyManager : Singleton<EnemyManager>
         return false;
     }
 
+    public bool IsAnyEnemyHurting()
+    {
+        foreach (KeyValuePair<Enemy, IState> enemyState in enemyStates)
+        {
+            if (enemyState.Value.GetType() == typeof(EnemyHurt))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //same for readytoattackstate
+
+    public bool IsAnyEnemyReadyToAttack()
+    {
+        foreach (KeyValuePair<Enemy, IState> enemyState in enemyStates)
+        {
+            if (enemyState.Value.GetType() == typeof(EnemyReadyToAttack))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void EmitAlarm(IState state)
     {
         if (IsAnyEnemyAttackingPlayer())
@@ -162,6 +189,59 @@ public class EnemyManager : Singleton<EnemyManager>
             return;
         }
 
+        if (IsAnyEnemyHurting())
+        {
+            EventManager.Trigger(Evento.OnStealthUpdate, "Alert");
+            return;
+        }
+        
+        if (IsAnyEnemyReadyToAttack())
+        {
+            EventManager.Trigger(Evento.OnStealthUpdate, "Alert");
+            return;
+        }
+
         EventManager.Trigger(Evento.OnStealthUpdate, "Anonymous");
     }
+
+    public void RotateTowardsPlayer(Enemy enemy)
+    {
+        StartCoroutine(RotateCoroutine(enemy));
+    }
+
+    private IEnumerator RotateCoroutine(Enemy enemy)
+    {
+        enemy.isRotating = true;
+
+        Vector3 playerPosition = player.transform.position;
+        Vector3 enemyPosition = enemy.transform.position;
+
+        Vector3 directionToPlayer = playerPosition - enemyPosition;
+        directionToPlayer.y = 0f; // Establecer la componente Y a cero para ignorar la elevación
+
+        Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
+        Quaternion initialRotation = enemy.transform.rotation;
+
+        float elapsedTime = 0f;
+
+        while (elapsedTime < enemy.rotationTime)
+        {
+            float t = elapsedTime / enemy.rotationTime;
+            Quaternion lerpedRotation = Quaternion.Slerp(initialRotation, targetRotation, t);
+
+            // Mantener los ejes X y Z sin cambios
+            lerpedRotation.x = initialRotation.x;
+            lerpedRotation.z = initialRotation.z;
+
+            enemy.transform.rotation = lerpedRotation;
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        enemy.transform.rotation = targetRotation;
+        enemy.isRotating = false;
+    }
+
+
 }

@@ -64,13 +64,13 @@ public class UnarmedEnemy : Enemy
         finishedAttacking = true;
         isAttacking = false;
         isHurting = true;
-        StartCoroutine(HurtRecoveryCouroutine());
+        //StartCoroutine(HurtRecoveryCouroutine());
     }
 
     IEnumerator HurtRecoveryCouroutine()
     {
         Debug.Log("espero 2 segunditos...");
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
         Debug.Log("...terminado");
         finishedHurting = true;
     }

@@ -18,14 +18,16 @@ public class EnemyHurt : IState
         Debug.Log("entro a hurt");
         _me.navMeshAgent.SetDestination(_me.transform.position); //me quedo en el lugar
         _me.navMeshAgent.isStopped = true;
-        //_me.animator.CrossFade("Hurt", 0.2f);
+        _me.animator.CrossFade("Hurt", 0.05f);
+        _me.isHurting = false;
+
     }
 
     public void OnExit()
     {
         Debug.Log("salgo de hurt");
-        _me.isHurting = false;
         _me.finishedHurting = false;
+        EnemyManager.Instance.RotateTowardsPlayer(_me);
     }
 
     public void OnUpdate()
@@ -34,6 +36,16 @@ public class EnemyHurt : IState
         {
             _fsm.ChangeState(State.EnemyReadyToAttack);
         }
+
+        if (_me.isHurting)
+        {
+            ResetState();
+        }
     }
 
+    public void ResetState()
+    {   
+        _me.finishedHurting = true;
+        _fsm.ChangeState(State.EnemyHurt);
+    }
 }

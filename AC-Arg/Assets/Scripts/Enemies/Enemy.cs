@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour
 {
     public PlayerDetection playerDetection;
     public float moveSpeed = 5;
-    public float attackRecoveryTime = 2; //este es un menitra y no se usa
+    //public float attackRecoveryTime = 2; //este es un menitra y no se usa
     public float attackDamage = 1;
     public NavMeshAgent navMeshAgent;
     protected EnemyFSM _fsm;
@@ -21,6 +21,8 @@ public class Enemy : MonoBehaviour
     public bool finishedHurting = false; //solo true cuando salgo de hurt state
     public GameObject isAttackingMarker; //el cosito rojo en la cabeza del enemy, indica que esta isAttacking
     public GameObject isCurrentEnemyMarker; //el cosito blanco en la cabeza del enemy, indica que es el current enemy
+    [HideInInspector] public bool isRotating;
+    [HideInInspector] public float rotationTime = 1;
 
     public virtual void Start()
     {
