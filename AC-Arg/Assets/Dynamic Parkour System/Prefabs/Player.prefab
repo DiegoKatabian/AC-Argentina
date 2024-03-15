@@ -192,8 +192,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5556358532925082188}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.027156081, y: -0.6788225, z: 0.04546388, w: -0.7323904}
-  m_LocalPosition: {x: 0.0000514379, y: -0.0000040781506, z: -0.00003909556}
+  m_LocalRotation: {x: -0.037649356, y: -0.0641556, z: 0.004253321, w: 0.99722046}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -275,8 +275,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5556358532959275495}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.018938396, y: -0.72722435, z: 0.02008102, w: -0.6858447}
-  m_LocalPosition: {x: 111.000305, y: 0.9964898, z: -118.78279}
+  m_LocalRotation: {x: 0.026928253, y: 0.0021009366, z: -0.0000565952, w: 0.99963516}
+  m_LocalPosition: {x: 115.2, y: 0.9964898, z: -123.31167}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -459,8 +459,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5556358533096778056}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.013864981, y: -0.67788595, z: 0.05777122, w: -0.7327626}
-  m_LocalPosition: {x: 0.0000514379, y: -0.0000040781506, z: -0.00003909556}
+  m_LocalRotation: {x: -0.019552138, y: -0.064067855, z: 0.005416496, w: 0.99773926}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -574,8 +574,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5556358533144897770}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0005341098, y: -0.676723, z: 0.07009207, w: -0.73289347}
-  m_LocalPosition: {x: 0.0006853525, y: -0.00005997218, z: -0.0005749288}
+  m_LocalRotation: {x: -0.0014005303, y: -0.06395875, z: 0.006580963, w: 0.99792993}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -739,7 +739,7 @@ Transform:
   m_GameObject: {fileID: 5556358533377525086}
   serializedVersion: 2
   m_LocalRotation: {x: 0.05183023, y: 0.066304006, z: -0.0034488074, w: 0.9964465}
-  m_LocalPosition: {x: 111.000305, y: 0.9964898, z: -118.78279}
+  m_LocalPosition: {x: 115.2, y: 0.9964898, z: -123.31167}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1240,7 +1240,7 @@ Transform:
   m_GameObject: {fileID: 5556358534259412728}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 115.56001, y: 0.109999955, z: -124.100006}
+  m_LocalPosition: {x: 115.56, y: 0.109999955, z: -124.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1440,6 +1440,7 @@ GameObject:
   - component: {fileID: 373841888618355543}
   - component: {fileID: 8844857730148805119}
   - component: {fileID: 3980393428066545835}
+  - component: {fileID: 7386972446727127119}
   m_Layer: 10
   m_Name: PlayerModel
   m_TagString: Player
@@ -1555,7 +1556,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.34
   m_Height: 1.39
@@ -1610,6 +1611,7 @@ MonoBehaviour:
   isOnVehicle: 0
   vehicleBelowMe: {fileID: 0}
   isCrouch: 0
+  isHurting: 0
   cameraController: {fileID: 5556358533377525083}
   mainCamera: {fileID: 5556358532959275490}
   freeCamera: {fileID: 5556358533377525084}
@@ -1843,6 +1845,18 @@ MonoBehaviour:
   isInCombatMode: 0
   currentEnemy: {fileID: 0}
   detectedEnemies: []
+--- !u!114 &7386972446727127119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5556358534646836578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 515281b49e4f0d54bb0779474f6a665a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8015512707964215300
 GameObject:
   m_ObjectHideFlags: 0
@@ -1854,7 +1868,7 @@ GameObject:
   - component: {fileID: 4272535333860995790}
   - component: {fileID: 5345205353815986782}
   - component: {fileID: 5776420494707992331}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: EnemyDetectionCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

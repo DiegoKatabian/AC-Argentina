@@ -26,19 +26,25 @@ public class EnemyChase : IState
 
     public void OnUpdate()
     {
-        if (_me.playerDetection.isPlayerInMeleeRange)
+        if (_me.isHurting)
         {
-            _fsm.ChangeState(State.EnemyReadyToAttack);
+            _fsm.ChangeState(State.EnemyHurt);
         }
-        
+
+        if (StealthManager.Instance.currentStatus.status == StealthStatus.Hidden)
+        {
+            _fsm.ChangeState(State.EnemyIdle);
+        }
+
         if (!_me.playerDetection.isPlayerInFOV)
         {
             _fsm.ChangeState(State.EnemyIdle);
         }
 
-        if (_me.isHurting)
+        if (_me.playerDetection.isPlayerInMeleeRange &&
+            StealthManager.Instance.currentStatus.status != StealthStatus.Hidden)
         {
-            _fsm.ChangeState(State.EnemyHurt);
+            _fsm.ChangeState(State.EnemyReadyToAttack);
         }
     }
 

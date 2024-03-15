@@ -39,6 +39,11 @@ public class EnemyReadyToAttack : IState
             _fsm.ChangeState(State.EnemyHurt);
         }
 
+        if (StealthManager.Instance.currentStatus.status == StealthStatus.Hidden)
+        {
+            _fsm.ChangeState(State.EnemyIdle);
+        }
+
         if (!_me.playerDetection.isPlayerInMeleeRange)
         {
             _fsm.ChangeState(State.EnemyChase);

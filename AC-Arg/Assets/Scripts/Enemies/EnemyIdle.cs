@@ -17,6 +17,7 @@ public class EnemyIdle : IState
     public void OnEnter()
     {
         _me.animator.CrossFade("Idle", 0.2f);
+
     }
 
     public void OnExit()
@@ -32,7 +33,8 @@ public class EnemyIdle : IState
             _fsm.ChangeState(State.EnemyHurt);
         }
 
-        if (_me.playerDetection.isPlayerInFOV)
+        if (_me.playerDetection.isPlayerInFOV &&
+            StealthManager.Instance.currentStatus.status != StealthStatus.Hidden)
         {
             _fsm.ChangeState(State.EnemyChase);
         }

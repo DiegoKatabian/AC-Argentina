@@ -89,6 +89,7 @@ public class UnarmedEnemy : Enemy
     public override void CancelChasePlayer()
     {
         CancelInvoke("ChasePlayer");
+        navMeshAgent.SetDestination(transform.position);
     }
     public void ChasePlayer()
     {

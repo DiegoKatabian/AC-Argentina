@@ -125,15 +125,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a2c49a8e6c09e94c8b024655cf6f7e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fieldOfViewAngle: 110
-  viewDistance: 8
-  meleeDistance: 3
+  fieldOfViewAngle: 150
+  viewDistance: 7
+  meleeDistance: 2
   playerLayer:
     serializedVersion: 2
     m_Bits: 1024
   isPlayerInFOV: 0
   isPlayerInMeleeRange: 0
-  checkDelay: 0.5
+  isPlayerInLineOfSight: 0
+  checkDelay: 0.4
 --- !u!114 &6906060185938285435
 MonoBehaviour:
   m_ObjectHideFlags: 0

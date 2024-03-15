@@ -7,7 +7,8 @@ public class StealthManager : Singleton<StealthManager>
 {
     public List<StealthStatusSO> stealthStatuses = new List<StealthStatusSO>();
     public float blendDelay = 2.5f;
-    StealthStatusSO currentStatus;
+    [HideInInspector] public StealthStatusSO currentStatus;
+    BlendZone currentBlendZone;
 
     public void SetStealthStatus(StealthStatusSO newStatus)
     {
@@ -42,31 +43,56 @@ public class StealthManager : Singleton<StealthManager>
     {
         if (currentStatus.status == StealthStatus.Alert)
         {
-            Debug.Log("estas en alerta, no podes entrar a blendear");
+            //Debug.Log("estas en alerta, no podes entrar a blendear");
             return;
         }
-        Debug.Log("entraste a la zona de blend, arranca el timer");
+        //Debug.Log("entraste a la zona de blend, arranca el timer");
+
+        currentBlendZone = blendZone;
+        currentBlendZone.EnterZoneConfirmed();
         StartCoroutine(BlendDelay());
+        
     }
 
     //a coroutine that waits for blendDelay seconds and then activates the blend
     public IEnumerator BlendDelay()
     {
-        Debug.Log("esperando...");
-        yield return new WaitForSeconds(blendDelay);
+        //Debug.Log("esperando...");
+        //yield return new WaitForSeconds(blendDelay);
+        //ActivateBlend();
+
+
+        //wait blenddelay seconds in a while loop. if currentstatus changes, exit the loop and cancel the blend
+        float elapsedTime = 0;
+        while (elapsedTime < blendDelay)
+        {
+            if (currentStatus.status == StealthStatus.Alert)
+            {
+                //Debug.Log("cambio de estado, cancelando blend");
+                currentBlendZone.BlendCanceled();
+                yield break;
+            }
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
         ActivateBlend();
     }
 
     public void ActivateBlend()
     {
-        Debug.Log("blend activado");
-        SetStealthStatus(StealthStatus.Anonymous);
+        //Debug.Log("blend activado");
+        SetStealthStatus(StealthStatus.Hidden);
     }
 
     internal void ExitBlendZone()
     {
         //cancel the blend delay coroutine
+        //Debug.Log("te saliste de la zona de blend, timers cancelados");
         StopAllCoroutines();
-        Debug.Log("te saliste de la zona de blend, timers cancelados");
+
+        if (currentStatus.status == StealthStatus.Hidden)
+        {
+            SetStealthStatus(StealthStatus.Anonymous);
+        }
     }
 }

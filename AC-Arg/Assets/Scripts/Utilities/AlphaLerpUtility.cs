@@ -4,7 +4,6 @@ using System.Collections;
 
 public static class AlphaLerpUtility
 {
-    // Método estático para cambiar gradualmente la transparencia de una imagen
     public static IEnumerator LerpAlpha(Image image, float startAlpha, float targetAlpha, float time)
     {
         float elapsedTime = 0f;
@@ -20,7 +19,35 @@ public static class AlphaLerpUtility
             yield return null;
         }
 
-        // Asegurarse de que la transparencia llegue exactamente al valor objetivo
+        image.color = targetColor;
+    }
+
+    public static IEnumerator LerpColor(Image image, Color startColor, Color targetColor, float time)
+    {
+        float elapsedTime = 0f;
+
+        while (elapsedTime < time)
+        {
+            image.color = Color.Lerp(startColor, targetColor, elapsedTime / time);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        image.color = targetColor;
+    }
+
+    public static IEnumerator LerpColor(Image image, Color startColor, Color targetColor, float time, float alphaCap)
+    {
+        float elapsedTime = 0f;
+        targetColor = new Color(targetColor.r, targetColor.g, targetColor.b, alphaCap);
+
+        while (elapsedTime < time)
+        {
+            image.color = Color.Lerp(startColor, targetColor, elapsedTime / time);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
         image.color = targetColor;
     }
 }

@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Alert
   m_EditorClassIdentifier: 
   statusName: Alert
+  status: 2
   statusColor: {r: 1, g: 0, b: 0, a: 1}

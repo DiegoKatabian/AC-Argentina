@@ -9,8 +9,6 @@ using UnityEngine.UI;
 public class StealthStatusBar : MonoBehaviour
 {
     public TextMeshProUGUI stealthStatusText;
-    public StealthStatusSO[] stealthStatuses;
-    StealthStatusSO currentStealthStatus;
 
     void Start()
     {
@@ -19,10 +17,8 @@ public class StealthStatusBar : MonoBehaviour
 
     private void UpdateStealthStatus(object[] parameters)
     {
-        string newStatusName = (string)parameters[0];
-        currentStealthStatus = Array.Find(stealthStatuses, status => status.statusName == newStatusName);
-        stealthStatusText.text = currentStealthStatus.statusName;
-        stealthStatusText.color = currentStealthStatus.statusColor;
+        stealthStatusText.text = StealthManager.Instance.currentStatus.statusName;
+        stealthStatusText.color = StealthManager.Instance.currentStatus.statusColor;
     }
 
     private void OnDestroy()

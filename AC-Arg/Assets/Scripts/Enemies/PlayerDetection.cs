@@ -10,6 +10,7 @@ public class PlayerDetection : MonoBehaviour
 
     public bool isPlayerInFOV = false; // Variable para detectar si el jugador está en el campo de visión
     public bool isPlayerInMeleeRange = false; // Variable para detectar si el jugador está en distancia melee
+    public bool isPlayerInLineOfSight = false; // Variable para detectar si el jugador está en línea de visión
 
     public float checkDelay = 0.5f; // Tiempo entre chequeos de raycast
 
@@ -29,6 +30,7 @@ public class PlayerDetection : MonoBehaviour
 
     private void CheckPlayerInFOV()
     {
+        
         Collider[] playerColliders = Physics.OverlapSphere(transform.position, viewDistance, playerLayer);
 
         foreach (Collider collider in playerColliders)
