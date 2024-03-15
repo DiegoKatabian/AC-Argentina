@@ -157,6 +157,8 @@ MonoBehaviour:
   finishedHurting: 0
   isAttackingMarker: {fileID: 9206809220957053198}
   isCurrentEnemyMarker: {fileID: 914023734510433902}
+  isRotating: 0
+  rotationTime: 1
   punchHitBox: {fileID: 3881397158163303825}
 --- !u!195 &2894612690020636812
 NavMeshAgent:
@@ -192,8 +194,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38482eebd2667d646855ad583a22e197, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 900
-  currentHealth: 900
+  maxHealth: 10
+  currentHealth: 10
 --- !u!1 &914023734510433902
 GameObject:
   m_ObjectHideFlags: 0

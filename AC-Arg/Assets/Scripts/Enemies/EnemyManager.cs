@@ -179,29 +179,33 @@ public class EnemyManager : Singleton<EnemyManager>
     {
         if (IsAnyEnemyAttackingPlayer())
         {
-            EventManager.Trigger(Evento.OnStealthUpdate, "Alert");
+            StealthManager.Instance.SetStealthStatus("Alert");
             return;
         }
 
         if (IsAnyEnemyChasingPlayer())
         {
-            EventManager.Trigger(Evento.OnStealthUpdate, "Warning");
+            //EventManager.Trigger(Evento.OnStealthUpdate, "Warning");
+            StealthManager.Instance.SetStealthStatus("Warning");
             return;
         }
 
         if (IsAnyEnemyHurting())
         {
-            EventManager.Trigger(Evento.OnStealthUpdate, "Alert");
+            //EventManager.Trigger(Evento.OnStealthUpdate, "Alert");
+            StealthManager.Instance.SetStealthStatus("Alert");
             return;
         }
         
         if (IsAnyEnemyReadyToAttack())
         {
-            EventManager.Trigger(Evento.OnStealthUpdate, "Alert");
+            //EventManager.Trigger(Evento.OnStealthUpdate, "Alert");
+            StealthManager.Instance.SetStealthStatus("Alert");
             return;
         }
 
-        EventManager.Trigger(Evento.OnStealthUpdate, "Anonymous");
+        //EventManager.Trigger(Evento.OnStealthUpdate, "Anonymous");
+        StealthManager.Instance.SetStealthStatus("Anonymous");
     }
 
     public void RotateTowardsPlayer(Enemy enemy)

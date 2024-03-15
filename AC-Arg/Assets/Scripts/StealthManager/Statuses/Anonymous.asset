@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Anonymous
   m_EditorClassIdentifier: 
   statusName: Anonymous
-  statusColor: {r: 0, g: 1, b: 0, a: 1}
+  statusColor: {r: 0.93773586, g: 1, b: 0.93773586, a: 1}
