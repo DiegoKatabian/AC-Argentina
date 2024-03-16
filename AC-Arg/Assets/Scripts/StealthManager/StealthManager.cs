@@ -13,12 +13,13 @@ public class StealthManager : Singleton<StealthManager>
     public override void Awake()
     {
         base.Awake();
-        SetStealthStatus(StealthStatus.Anonymous);
+        //SetStealthStatus(StealthStatus.Anonymous);
     }
 
     private void Start()
     {
         EventManager.Subscribe(Evento.OnPlayerInsideCarUpdate, PlayerInsideCarUpdate);
+        SetStealthStatus(StealthStatus.Anonymous);
 
     }
 
@@ -83,7 +84,7 @@ public class StealthManager : Singleton<StealthManager>
 
     public void PrintStealthStatus()
     {
-        //Debug.Log("Stealth Status: " + currentStatus.statusName);
+        Debug.Log("Stealth Status: " + currentStatus.statusName);
     }
 
     internal void EnterBlendZone(BlendZone blendZone)
@@ -128,6 +129,16 @@ public class StealthManager : Singleton<StealthManager>
         if (currentStatus.status == StealthStatus.Hidden)
         {
             SetStealthStatus(StealthStatus.Anonymous);
+        }
+    }
+
+    //unsubscribe on destroy
+    private void OnDestroy()
+    {
+        if (!gameObject.scene.isLoaded)
+        {
+            StopAllCoroutines();
+            EventManager.Unsubscribe(Evento.OnPlayerInsideCarUpdate, PlayerInsideCarUpdate);
         }
     }
 }

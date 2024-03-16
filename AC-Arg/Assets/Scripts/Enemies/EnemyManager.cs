@@ -47,6 +47,7 @@ public class EnemyManager : Singleton<EnemyManager>
         EventManager.Trigger(Evento.OnEnemyKilled, enemy);
         Destroy(enemy.gameObject);
     }
+
     public void UpdateEnemyState(FiniteStateMachine enemyFSM, IState currentState)
     {
         //Debug.Log("EnemyManager: an enemy has updated its state.");
@@ -102,6 +103,7 @@ public class EnemyManager : Singleton<EnemyManager>
             !IsAnyEnemyAttackingPlayer() && 
             IsEnemyNextInLine(enemy);
     }
+
     public bool IsEnemyNextInLine(Enemy enemy)
     {
         return readyToAttackEnemiesQueue.Count > 0 && 
@@ -140,7 +142,6 @@ public class EnemyManager : Singleton<EnemyManager>
         }
         return false;
     }
-
     public bool AreAllEnemiesIdle()
     {
         foreach (KeyValuePair<Enemy, IState> enemyState in enemyStates)
@@ -154,6 +155,11 @@ public class EnemyManager : Singleton<EnemyManager>
     }
     public void EmitAlarm(IState state)
     {
+        if (StealthManager.Instance == null)
+        {
+            return;
+        }
+
         if (IsAnyEnemyAttackingPlayer())
         {
             StealthManager.Instance.SetStealthStatus("Alert");

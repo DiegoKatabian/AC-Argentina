@@ -18,6 +18,8 @@ public class UnarmedEnemy : Enemy
         EnemyManager.Instance.RegisterEnemy(this, _fsm);
     }
 
+    
+
     private void Update()
     {
         _fsm.Update();
@@ -55,7 +57,6 @@ public class UnarmedEnemy : Enemy
 
         ObjectEnabler.EnableObject(punchHitBox.gameObject, false);
     }
-
    
     //HURT
     public override void StartHurt()
@@ -66,7 +67,6 @@ public class UnarmedEnemy : Enemy
         isHurting = true;
         //StartCoroutine(HurtRecoveryCouroutine());
     }
-
     IEnumerator HurtRecoveryCouroutine()
     {
         Debug.Log("espero 2 segunditos...");
@@ -74,8 +74,6 @@ public class UnarmedEnemy : Enemy
         Debug.Log("...terminado");
         finishedHurting = true;
     }
-
-
     public void ANIMATION_OnHurtEnd() //llamado por la animacion de daño
     {
         finishedHurting = true;
@@ -97,7 +95,6 @@ public class UnarmedEnemy : Enemy
         navMeshAgent.isStopped = false;
         navMeshAgent.SetDestination(EnemyManager.Instance.player.transform.position);
     }
-
 
     //DEATH
     public override void OnDeath()

@@ -64,6 +64,12 @@ public class PlayerDetection : MonoBehaviour
 
     private void CheckPlayerInFOVRaycastOnly()
     {
+        //if enemymanager is null, return
+        if (EnemyManager.Instance == null)
+        {
+            return;
+        }
+
         Collider[] playerColliders = Physics.OverlapSphere(transform.position, viewDistance, playerLayer);
         Vector3 directionToPlayer = (EnemyManager.Instance.player.transform.position - transform.position).normalized;
         float angle = Vector3.Angle(transform.forward, directionToPlayer);
@@ -136,5 +142,15 @@ public class PlayerDetection : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
         }
         
+    }
+
+
+    private void OnDestroy()
+    {
+        if (!gameObject.scene.isLoaded)
+        {
+            CancelInvoke();
+        }
+
     }
 }
