@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class UnarmedEnemy : Enemy
+public class UnarmedEnemy : Enemy, ICrashable
 {
     public Hitbox punchHitBox;
 
@@ -67,13 +67,6 @@ public class UnarmedEnemy : Enemy
         isHurting = true;
         //StartCoroutine(HurtRecoveryCouroutine());
     }
-    IEnumerator HurtRecoveryCouroutine()
-    {
-        Debug.Log("espero 2 segunditos...");
-        yield return new WaitForSeconds(1);
-        Debug.Log("...terminado");
-        finishedHurting = true;
-    }
     public void ANIMATION_OnHurtEnd() //llamado por la animacion de daño
     {
         finishedHurting = true;
@@ -104,4 +97,8 @@ public class UnarmedEnemy : Enemy
         EnemyManager.Instance.KillEnemy(this);
     }
 
+    public void OnCrash(GameObject vehicle, float crashForce)
+    {
+        StartHurt();
+    }
 }

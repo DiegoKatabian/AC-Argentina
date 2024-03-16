@@ -241,11 +241,11 @@ public class CombatController : MonoBehaviour
     //}
     public void UpdateDetectionStatus(Enemy lastDetectedEnemy)
     {
-        Debug.Log("detected enemies count = " + detectedEnemies.Count);
+        //Debug.Log("detected enemies count = " + detectedEnemies.Count);
 
         if (detectedEnemies.Count == 0)
         {
-            Debug.Log("no hay enemies in volume");
+            //Debug.Log("no hay enemies in volume");
             areEnemiesDetected = false;
             ExitCombatMode();
             SetCurrentEnemy(null);
@@ -254,11 +254,11 @@ public class CombatController : MonoBehaviour
         {
             if (areEnemiesDetected)
             {
-                Debug.Log("detecto uno nuevo, pero ya habia enemigos, sigue todo igual");
+                //Debug.Log("detecto uno nuevo, pero ya habia enemigos, sigue todo igual");
             }
             else
             {
-                Debug.Log("primer enemigo detectado");
+                //Debug.Log("primer enemigo detectado");
                 areEnemiesDetected = true;
                 EnterCombatMode();
 
