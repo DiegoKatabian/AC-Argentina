@@ -24,4 +24,10 @@ public class PlayerHandHitbox : Hitbox
             affectedEnemy = null;
         }
     }
+
+    private void OnDisable()
+    {
+        isTaggedInside = false;
+        affectedEnemy = null;
+    }
 }
