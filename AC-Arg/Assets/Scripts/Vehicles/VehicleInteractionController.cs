@@ -88,6 +88,7 @@ namespace Climbing
             StartCoroutine(WaitUntilEnableMesh(false));
             currentInteractableVehicle.OnPlayerHopOn();
             insideCar = true;
+            EventManager.Trigger(Evento.OnPlayerInsideCarUpdate, true);
         }
 
         void TriggerEnterCarAnimation()
@@ -110,6 +111,7 @@ namespace Climbing
             playerController.characterAnimation.switchCameras.FreeLookCam();
             playerController.characterAnimation.EnableMesh(true);
             currentInteractableVehicle.OnPlayerHopOff();
+            EventManager.Trigger(Evento.OnPlayerInsideCarUpdate, false);
         }
 
         public IEnumerator WaitUntilEnableMesh(bool state)

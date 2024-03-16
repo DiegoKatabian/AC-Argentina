@@ -13,7 +13,8 @@ public enum Evento //LOS EVENTOS SE AGREGAN AL FINAL. NO EN EL MEDIO, PORQUE ARR
     OnStealthUpdate, //0 es un string
     OnLeftHandInput,
     OnRightHandInput,
-    OnEnemyKilled //0 es enemy
+    OnEnemyKilled, //0 es enemy
+    OnPlayerInsideCarUpdate //0 es bool
 }
 
 public class EventManager

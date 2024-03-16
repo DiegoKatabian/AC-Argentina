@@ -16,6 +16,44 @@ public class StealthManager : Singleton<StealthManager>
         SetStealthStatus(StealthStatus.Anonymous);
     }
 
+    private void Start()
+    {
+        EventManager.Subscribe(Evento.OnPlayerInsideCarUpdate, PlayerInsideCarUpdate);
+
+    }
+
+    private void PlayerInsideCarUpdate(object[] parameters)
+    {
+ 
+        if ((bool)parameters[0])
+        {
+            Debug.Log("player inside car");
+            StartCoroutine(CoroutineUtilities.DelayedAction(blendDelay, SetStealthStatus, "Hidden"));
+            //SetStealthStatus(StealthStatus.Hidden);
+        }
+        else
+        {
+            Debug.Log("player out of car");
+            SetStealthStatus(StealthStatus.Anonymous);
+        }
+    }
+
+    public void SetStealthStatus(object[] parameters)
+    {
+        string statusName = (string)parameters[0];
+        foreach (StealthStatusSO status in stealthStatuses)
+        {
+            if (status.name == statusName)
+            {
+                currentStatus = status;
+                EventManager.Trigger(Evento.OnStealthUpdate, statusName);
+                PrintStealthStatus();
+                return;
+            }
+        }
+    }
+
+
     public void SetStealthStatus(string statusName)
     {
         foreach (StealthStatusSO status in stealthStatuses)

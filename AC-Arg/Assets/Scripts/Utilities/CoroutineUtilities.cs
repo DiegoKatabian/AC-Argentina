@@ -1,12 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CoroutineUtilities : MonoBehaviour
+public static class CoroutineUtilities
 {
-    public IEnumerator DelayedAction(float delay, System.Action action)
+    public static IEnumerator DelayedAction(float delay, Action<object[]> action, params object[] parameters)
     {
         yield return new WaitForSeconds(delay);
-        action();
+        action(parameters);
     }
 }
