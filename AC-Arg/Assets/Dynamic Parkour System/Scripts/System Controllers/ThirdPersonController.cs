@@ -286,14 +286,7 @@ namespace Climbing
             healthComponent.TakeDamage(fallDamage);
             characterAnimation.animator.CrossFade("TakeFallDamage", 0.1f);
             DisableController();
-            //StartCoroutine(FallDamageCouroutine());
         }
-
-        //public IEnumerator FallDamageCouroutine()
-        //{
-        //    yield return new WaitForSeconds(1);
-        //    EnableController();
-        //}
 
         public void ANIMATION_OnFallDamageEnd()
         {
