@@ -82,12 +82,12 @@ namespace Climbing
             Debug.Log("me subo al coche");
             player.parent = currentInteractableVehicle.transform;
             insideBox = false;
-            insideCar = true;
             playerController.DisableController();
             playerController.characterAnimation.StartEnterVehicleAnimation(currentVehicleIsTaxi);
             playerController.characterAnimation.switchCameras.VehicleCam(currentInteractableVehicle.transform);
             StartCoroutine(WaitUntilEnableMesh(false));
             currentInteractableVehicle.OnPlayerHopOn();
+            insideCar = true;
         }
 
         void TriggerEnterCarAnimation()

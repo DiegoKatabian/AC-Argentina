@@ -46,6 +46,7 @@ namespace Climbing
         [HideInInspector] public VaultingController vaultingController;
         [HideInInspector] public CoverController coverController;
         [HideInInspector] public CombatController combatController;
+        [HideInInspector] public VehicleInteractionController vehicleInteractionController;
         [HideInInspector] public bool isGrounded = false;
         [HideInInspector] public bool allowMovement = true;
         [HideInInspector] public bool onAir = false;
@@ -83,6 +84,7 @@ namespace Climbing
             vaultingController = GetComponent<VaultingController>();
             coverController = GetComponent<CoverController>();
             combatController = GetComponent<CombatController>();
+            vehicleInteractionController = GetComponent<VehicleInteractionController>();
 
             if (cameraController == null)
                 Debug.LogError("Attach the Camera Controller located in the Free Look Camera");
@@ -264,10 +266,19 @@ namespace Climbing
         }
         public void DisableController()
         {
+
             characterMovement.SetKinematic(true);
             characterMovement.enableFeetIK = false;
             dummy = true;
             allowMovement = false;
+
+            Collider[] colliders = GetComponentsInChildren<Collider>();
+            foreach (Collider col in colliders)
+            {
+                col.enabled = false;
+            }
+            
+
         }
         public void EnableController()
         {
@@ -277,6 +288,12 @@ namespace Climbing
             characterMovement.stopMotion = false;
             dummy = false; 
             allowMovement = true;
+
+            Collider[] colliders = GetComponentsInChildren<Collider>();
+            foreach (Collider col in colliders)
+            {
+                col.enabled = true;
+            }
         }
     }
 }

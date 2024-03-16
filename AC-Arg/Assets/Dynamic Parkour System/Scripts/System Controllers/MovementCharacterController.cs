@@ -80,6 +80,11 @@ namespace Climbing
 
         private void FixedUpdate()
         {
+            if (controller.vehicleInteractionController.insideCar)
+            {
+                SnapToPosition(controller.vehicleInteractionController.currentInteractableVehicle.transform.position);
+            }
+
             //Limits player movement to avoid falling
             if (controller.isGrounded)
             {
@@ -114,6 +119,8 @@ namespace Climbing
             //Raycast to Ground
             FeetPositionSolver(rightFootPosition, ref rightFootIKPosition, ref rightFootIKRotation);
             FeetPositionSolver(leftFootPosition, ref leftFootIKPosition, ref leftFootIKRotation);
+
+            
         }
 
         #region Movement
@@ -449,6 +456,13 @@ namespace Climbing
             }
         }
         #endregion
+
+        //a method that snaps the controller position to that of another object, to be used on Update
+        public void SnapToPosition(Vector3 position)
+        {
+            rb.position = position;
+
+        }
     }
 
 }
