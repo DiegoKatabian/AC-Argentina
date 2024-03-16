@@ -175,7 +175,7 @@ public class CombatController : MonoBehaviour
     {
         if (detectedEnemies.Count < 2)
         {
-            Debug.Log("no hay enemigos para ciclar");
+            //Debug.Log("no hay enemigos para ciclar");
             return;
         }
 

@@ -8,7 +8,7 @@ public class Singleton<T> : MonoBehaviour
 
     public static T Instance;
 
-    private void Awake()
+    public virtual void Awake()
     {
         if (Instance == null)
         {

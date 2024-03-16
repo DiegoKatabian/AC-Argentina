@@ -27,15 +27,20 @@ public class EnemyIdle : IState
 
     public void OnUpdate()
     {
-
         if (_me.isHurting)
         {
             _fsm.ChangeState(State.EnemyHurt);
         }
 
-        if (_me.playerDetection.isPlayerInFOV &&
-            StealthManager.Instance.currentStatus.status != StealthStatus.Hidden)
+        if (StealthManager.Instance.currentStatus.status == StealthStatus.Hidden)
         {
+            //Debug.Log("idle update: el player esta hidden asi que ni pregunto de perseguirlo");
+            return;
+        }
+
+        if (_me.playerDetection.isPlayerInFOV)
+        {
+            //Debug.Log("idle update: me paso a chase xq el player esta en fov");
             _fsm.ChangeState(State.EnemyChase);
         }
     }

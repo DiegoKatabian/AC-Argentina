@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -7,16 +8,19 @@ public class PlayerDetection : MonoBehaviour
     public float viewDistance = 30f; // Distancia máxima de visión
     public float meleeDistance = 5f; // Distancia de ataque melee
     public LayerMask playerLayer; // Capa del jugador
+    public LayerMask detectableLayer; // Capa de objetos detectables
 
     public bool isPlayerInFOV = false; // Variable para detectar si el jugador está en el campo de visión
     public bool isPlayerInMeleeRange = false; // Variable para detectar si el jugador está en distancia melee
     public bool isPlayerInLineOfSight = false; // Variable para detectar si el jugador está en línea de visión
 
-    public float checkDelay = 0.5f; // Tiempo entre chequeos de raycast
+    public float checkDelay = 0.045f; // Tiempo entre chequeos de raycast
+    private float lastCheckTime;
+    private float checkInterval = 10;
 
     private void Start()
     {
-        InvokeRepeating("CheckPlayerInFOV", 0f, checkDelay);
+        InvokeRepeating("CheckPlayerInFOVRaycastOnly", 0f, checkDelay);
         InvokeRepeating("CheckPlayerInMeleeDistance", 0f, checkDelay);
     }
 
@@ -26,11 +30,11 @@ public class PlayerDetection : MonoBehaviour
         {
             RotateTowardsPlayer();
         }
+
     }
 
     private void CheckPlayerInFOV()
     {
-        
         Collider[] playerColliders = Physics.OverlapSphere(transform.position, viewDistance, playerLayer);
 
         foreach (Collider collider in playerColliders)
@@ -56,7 +60,33 @@ public class PlayerDetection : MonoBehaviour
         {
             isPlayerInFOV = false;
         }
+    }
 
+    private void CheckPlayerInFOVRaycastOnly()
+    {
+        Collider[] playerColliders = Physics.OverlapSphere(transform.position, viewDistance, playerLayer);
+        Vector3 directionToPlayer = (EnemyManager.Instance.player.transform.position - transform.position).normalized;
+        float angle = Vector3.Angle(transform.forward, directionToPlayer);
+
+        if (angle < fieldOfViewAngle * 0.5f)
+        {
+            if (EnemyManager.Instance.IsPlayerInLineOfSight(transform.position, viewDistance, detectableLayer))
+            {
+                Debug.Log("Está en LoS");
+                isPlayerInFOV = true;
+            }
+        }
+
+        if (Time.time - lastCheckTime > checkInterval)
+        {
+            if (playerColliders.Length == 0 ||
+                !EnemyManager.Instance.IsPlayerInLineOfSight(transform.position, viewDistance, detectableLayer))
+            {
+                isPlayerInFOV = false;
+            }
+
+            lastCheckTime = Time.time; // Actualizar el tiempo de la última comprobación
+        }
     }
 
     private void CheckPlayerInMeleeDistance()
@@ -66,14 +96,15 @@ public class PlayerDetection : MonoBehaviour
         if (playerColliders.Length > 0)
         {
             isPlayerInMeleeRange = true;
-            //isPlayerInFOV = true;
-            //Debug.Log("player in melee distance");
         }
         else
         {
             isPlayerInMeleeRange = false;
         }
     }
+
+    
+
 
     private void OnDrawGizmos()
     {

@@ -33,13 +33,16 @@ public class EnemyChase : IState
 
         if (StealthManager.Instance.currentStatus.status == StealthStatus.Hidden)
         {
+            Debug.Log("me paso a idle xq el player esta hidden");
             _fsm.ChangeState(State.EnemyIdle);
         }
 
         if (!_me.playerDetection.isPlayerInFOV)
         {
+            Debug.Log("me paso a idle xq el player no esta en fov");
             _fsm.ChangeState(State.EnemyIdle);
         }
+
 
         if (_me.playerDetection.isPlayerInMeleeRange &&
             StealthManager.Instance.currentStatus.status != StealthStatus.Hidden)

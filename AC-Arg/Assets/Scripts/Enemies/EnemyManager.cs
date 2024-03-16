@@ -36,7 +36,6 @@ public class EnemyManager : Singleton<EnemyManager>
         enemy.StartHurt();
         Debug.Log("damage enemy: le hiciste " + damage + " al enemy " + enemy);
     }
-
     public void RegisterEnemy(Enemy enemy, FiniteStateMachine enemyFSM)
     {
         enemyFSMs.Add(enemy, enemyFSM);
@@ -45,6 +44,7 @@ public class EnemyManager : Singleton<EnemyManager>
     public void KillEnemy(Enemy enemy)
     {
         //Debug.Log("killing " + enemy.gameObject.name);
+        StopAllCoroutines();
         enemyFSMs.Remove(enemy);
         enemyStates.Remove(enemy);
         if (readyToAttackEnemiesQueue.Contains(enemy))
@@ -70,27 +70,6 @@ public class EnemyManager : Singleton<EnemyManager>
         }
         EmitAlarm(currentState);
     }
-
-    //private void UpdateAttackingEnemiesQueue(Enemy enemy, IState currentState)
-    //{
-    //    if (currentState.GetType() == typeof(EnemyAttack))
-    //    {
-    //        if (!attackingEnemiesQueue.Contains(enemy))
-    //        {
-    //            attackingEnemiesQueue.Enqueue(enemy);
-    //            //Debug.Log("agregué " + enemy + " a la cola");
-    //        }
-    //    }
-    //    else
-    //    {
-    //        if (attackingEnemiesQueue.Contains(enemy))
-    //        {
-    //            attackingEnemiesQueue.Dequeue();
-    //            //Debug.Log("saqué a " + enemy + " de la cola");
-    //        }
-    //    }
-    //}
-
     private void UpdateReadyToAttackEnemiesQueue(Enemy enemy, IState currentState)
     {
         if (currentState.GetType() == typeof(EnemyReadyToAttack))
@@ -110,7 +89,6 @@ public class EnemyManager : Singleton<EnemyManager>
             }
         }
     }
-
     public bool IsAnyEnemyAttackingPlayer()
     {
         foreach (KeyValuePair<Enemy, IState> enemyState in enemyStates)
@@ -136,7 +114,6 @@ public class EnemyManager : Singleton<EnemyManager>
         return readyToAttackEnemiesQueue.Count > 0 && 
             readyToAttackEnemiesQueue.Peek() == enemy;
     }
-
     public bool IsAnyEnemyChasingPlayer()
     {
         foreach (KeyValuePair<Enemy, IState> enemyState in enemyStates)
@@ -148,7 +125,6 @@ public class EnemyManager : Singleton<EnemyManager>
         }
         return false;
     }
-
     public bool IsAnyEnemyHurting()
     {
         foreach (KeyValuePair<Enemy, IState> enemyState in enemyStates)
@@ -160,9 +136,6 @@ public class EnemyManager : Singleton<EnemyManager>
         }
         return false;
     }
-
-    //same for readytoattackstate
-
     public bool IsAnyEnemyReadyToAttack()
     {
         foreach (KeyValuePair<Enemy, IState> enemyState in enemyStates)
@@ -175,6 +148,17 @@ public class EnemyManager : Singleton<EnemyManager>
         return false;
     }
 
+    public bool AreAllEnemiesIdle()
+    {
+        foreach (KeyValuePair<Enemy, IState> enemyState in enemyStates)
+        {
+            if (enemyState.Value.GetType() != typeof(EnemyIdle))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
     public void EmitAlarm(IState state)
     {
         if (IsAnyEnemyAttackingPlayer())
@@ -185,34 +169,34 @@ public class EnemyManager : Singleton<EnemyManager>
 
         if (IsAnyEnemyChasingPlayer())
         {
-            //EventManager.Trigger(Evento.OnStealthUpdate, "Warning");
             StealthManager.Instance.SetStealthStatus("Warning");
             return;
         }
 
         if (IsAnyEnemyHurting())
         {
-            //EventManager.Trigger(Evento.OnStealthUpdate, "Alert");
             StealthManager.Instance.SetStealthStatus("Alert");
             return;
         }
         
         if (IsAnyEnemyReadyToAttack())
         {
-            //EventManager.Trigger(Evento.OnStealthUpdate, "Alert");
             StealthManager.Instance.SetStealthStatus("Alert");
             return;
         }
 
-        //EventManager.Trigger(Evento.OnStealthUpdate, "Anonymous");
-        StealthManager.Instance.SetStealthStatus("Anonymous");
+        if (AreAllEnemiesIdle() && 
+            StealthManager.Instance.currentStatus.status != StealthStatus.Hidden)
+        {
+            StealthManager.Instance.SetStealthStatus("Anonymous");
+            return;
+        }
     }
 
     public void RotateTowardsPlayer(Enemy enemy)
     {
         StartCoroutine(RotateCoroutine(enemy));
     }
-
     private IEnumerator RotateCoroutine(Enemy enemy)
     {
         enemy.isRotating = true;
@@ -245,6 +229,29 @@ public class EnemyManager : Singleton<EnemyManager>
 
         enemy.transform.rotation = targetRotation;
         enemy.isRotating = false;
+    }
+
+    public bool IsPlayerInLineOfSight(Vector3 position, float viewDistance, LayerMask layer)
+    {
+        RaycastHit hit;
+        Vector3 directionToPlayer = (player.transform.position - position).normalized;
+
+        if (Physics.Raycast(position, directionToPlayer, out hit, viewDistance, layer))
+        {
+            if (hit.collider.CompareTag("Player"))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+
     }
 
 

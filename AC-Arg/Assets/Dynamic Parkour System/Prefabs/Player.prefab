@@ -275,7 +275,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5556358532959275495}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.026928253, y: 0.0021009366, z: -0.0000565952, w: 0.99963516}
+  m_LocalRotation: {x: 0.026928253, y: 0.0021009517, z: -0.000056595607, w: 0.99963516}
   m_LocalPosition: {x: 115.2, y: 0.9964898, z: -123.31167}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1868,9 +1868,9 @@ GameObject:
   - component: {fileID: 4272535333860995790}
   - component: {fileID: 5345205353815986782}
   - component: {fileID: 5776420494707992331}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: EnemyDetectionCollider
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1909,7 +1909,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 5
+  m_Radius: 2
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &5776420494707992331
 MonoBehaviour:
