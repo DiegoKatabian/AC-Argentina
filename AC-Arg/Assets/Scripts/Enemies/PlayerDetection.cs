@@ -72,7 +72,7 @@ public class PlayerDetection : MonoBehaviour
         {
             if (EnemyManager.Instance.IsPlayerInLineOfSight(transform.position, viewDistance, detectableLayer))
             {
-                Debug.Log("Está en LoS");
+                //Debug.Log("Está en LoS");
                 isPlayerInFOV = true;
             }
         }

@@ -33,7 +33,7 @@ namespace TrafficSimulation
 
             if (other.CompareTag("AutonomousVehicle") && !busIsInside)
             {
-                Debug.Log("entro el bondi a la parada");
+                //Debug.Log("entro el bondi a la parada");
                 Bus bus = other.GetComponent<Bus>();
                 bus.TriggerStopChance();
                 busIsInside = true;

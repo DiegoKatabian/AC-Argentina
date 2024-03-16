@@ -139,9 +139,7 @@ namespace Climbing
         public void AddMovementInput(Vector2 direction)
         {
             Vector3 translation = Vector3.zero;
-
             translation = GroundMovement(direction);
-
             characterMovement.SetVelocity(Vector3.ClampMagnitude(translation, 1.0f)); //deberia sumar la velocity del auto aca
         }
         Vector3 GroundMovement(Vector2 input)
