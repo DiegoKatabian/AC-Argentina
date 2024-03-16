@@ -8,20 +8,13 @@ public class EnemyManager : Singleton<EnemyManager>
 {
     public ThirdPersonController player;
 
-    PlayerHealthComponent playerHealth;
-
     Dictionary<Enemy, FiniteStateMachine> enemyFSMs = new Dictionary<Enemy, FiniteStateMachine>();
     Dictionary<Enemy, IState> enemyStates = new Dictionary<Enemy, IState>();
     Queue<Enemy> readyToAttackEnemiesQueue = new Queue<Enemy>();
 
-    private void Start()
-    {
-        playerHealth = player.GetComponent<PlayerHealthComponent>();
-    }
-
     internal void DamagePlayer(float attackDamage)
     {
-        playerHealth.TakeDamage(attackDamage);
+        player.healthComponent.TakeDamage(attackDamage);
         player.StartHurt();
     }
     public void DamageEnemy(Enemy enemy, float damage)

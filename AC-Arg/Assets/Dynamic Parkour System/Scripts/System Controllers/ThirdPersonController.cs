@@ -22,6 +22,7 @@ namespace Climbing
         [HideInInspector] public CoverController coverController;
         [HideInInspector] public CombatController combatController;
         [HideInInspector] public VehicleInteractionController vehicleInteractionController;
+        [HideInInspector] public PlayerHealthComponent healthComponent;   
         [HideInInspector] public bool isGrounded = false;
         [HideInInspector] public bool allowMovement = true;
         [HideInInspector] public bool onAir = false;
@@ -61,6 +62,7 @@ namespace Climbing
             coverController = GetComponent<CoverController>();
             combatController = GetComponent<CombatController>();
             vehicleInteractionController = GetComponent<VehicleInteractionController>();
+            healthComponent = GetComponent<PlayerHealthComponent>();
 
             if (cameraController == null)
                 Debug.LogError("Attach the Camera Controller located in the Free Look Camera");
@@ -70,6 +72,7 @@ namespace Climbing
         {
             characterMovement.OnLanded += characterAnimation.Land;
             characterMovement.OnFall += characterAnimation.Fall;
+
         }
 
         void Update()
@@ -240,6 +243,7 @@ namespace Climbing
             Debug.Log("me choco con un auto");
             characterMovement.OnVehicleCrash(vehicle, crashForce);
             characterAnimation.StartCrashAnimation();
+            healthComponent.TakeDamage(crashForce);
             allowMovement = false;
             //DisableController();
         }
