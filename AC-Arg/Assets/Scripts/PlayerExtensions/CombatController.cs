@@ -149,10 +149,9 @@ public class CombatController : MonoBehaviour
     IEnumerator HitboxCouroutine(PlayerHandHitbox hitbox, float damage)
     {
         ObjectEnabler.EnableObject(hitbox.gameObject, true);
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.1f);
         if (hitbox.isTaggedInside)
         {
-            //Debug.Log("daño al enemy");
             EnemyManager.Instance.DamageEnemy(hitbox.affectedEnemy, damage);
         }
         ObjectEnabler.EnableObject(hitbox.gameObject, false);
@@ -160,7 +159,7 @@ public class CombatController : MonoBehaviour
 
     public void CancelAllAttacks() //due to received damage
     {
-        Debug.Log("cancelo los ataques porque recibí daño");
+        //Debug.Log("cancelo los ataques porque recibí daño");
         //controller.EnableController();
         handsAreOnCooldown = true;
         comboWindowOpen = false;
@@ -206,38 +205,93 @@ public class CombatController : MonoBehaviour
     public void EnterCombatMode()
     {
         isInCombatMode = true;
-        //Debug.Log("entro a combat mode");
+        Debug.Log("entro a combat mode");
         //reemplazar anim de idle por idle-fight
     }
     public void ExitCombatMode()
     {
         isInCombatMode = false;
-        //Debug.Log("salio de combat mode");
+        Debug.Log("salgo de combat mode");
         //reemplazar anim de idle-fight por idle
 
     }
+    //public void UpdateDetectionStatus(Enemy lastDetectedEnemy)
+    //{
+    //    Debug.Log("detected enemies count = " + detectedEnemies.Count);
+
+    //    if (detectedEnemies.Count > 0)
+    //    {
+    //        Debug.Log("hay enemies in volume");
+    //        areEnemiesDetected = true;
+    //        EnterCombatMode();
+
+    //        if (currentEnemy == null)
+    //        {
+    //            SetCurrentEnemy(lastDetectedEnemy);
+    //            //Debug.Log("current enemy = " + currentEnemy.name);
+    //        }
+    //    }
+    //    else
+    //    {
+    //        Debug.Log("no hay enemies in volume");
+    //        areEnemiesDetected = false;
+    //        ExitCombatMode();
+    //        SetCurrentEnemy(null);
+    //    }
+    //}
     public void UpdateDetectionStatus(Enemy lastDetectedEnemy)
     {
-        if (detectedEnemies.Count > 0)
-        {
-            areEnemiesDetected = true;
-            EnterCombatMode();
-            //Debug.Log("enemies in volume");
+        Debug.Log("detected enemies count = " + detectedEnemies.Count);
 
-            if (currentEnemy == null)
-            {
-                SetCurrentEnemy(lastDetectedEnemy);
-                //Debug.Log("current enemy = " + currentEnemy.name);
-            }
-        }
-        else
+        if (detectedEnemies.Count == 0)
         {
+            Debug.Log("no hay enemies in volume");
             areEnemiesDetected = false;
             ExitCombatMode();
             SetCurrentEnemy(null);
-            //Debug.Log("no enemies in volume");
+        }
+        else
+        {
+            if (areEnemiesDetected)
+            {
+                Debug.Log("detecto uno nuevo, pero ya habia enemigos, sigue todo igual");
+            }
+            else
+            {
+                Debug.Log("primer enemigo detectado");
+                areEnemiesDetected = true;
+                EnterCombatMode();
+
+                if (currentEnemy == null)
+                {
+                    SetCurrentEnemy(lastDetectedEnemy);
+                    //Debug.Log("current enemy = " + currentEnemy.name);
+                }
+            }
         }
     }
+
+    public void AddEnemyToDetectedList(Enemy detectedEnemy)
+    {
+        //prevent from adding an enemy that is already in the list
+        if (!detectedEnemies.Contains(detectedEnemy))
+        {
+            detectedEnemies.Add(detectedEnemy);
+            UpdateDetectionStatus(detectedEnemy);
+            //Debug.Log("Enemy Detected");
+        }
+    }
+
+    public void RemoveEnemyFromDetectedList(Enemy detectedEnemy)
+    {
+        detectedEnemies.Remove(detectedEnemy);
+        UpdateDetectionStatus(detectedEnemy);
+        //Debug.Log("Enemy Lost");
+    }
+
+
+
+
     public void SetCurrentEnemy(Enemy enemy)
     {
         CurrentEnemyMarkerToggler(false);

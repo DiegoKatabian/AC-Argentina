@@ -15,7 +15,7 @@ public class EnemyHurt : IState
 
     public void OnEnter()
     {
-        Debug.Log("entro a hurt");
+        //Debug.Log("entro a hurt");
         _me.navMeshAgent.SetDestination(_me.transform.position); //me quedo en el lugar
         _me.navMeshAgent.isStopped = true;
         _me.animator.CrossFade("Hurt", 0.05f);
@@ -25,7 +25,7 @@ public class EnemyHurt : IState
 
     public void OnExit()
     {
-        Debug.Log("salgo de hurt");
+        //Debug.Log("salgo de hurt");
         _me.finishedHurting = false;
         EnemyManager.Instance.RotateTowardsPlayer(_me);
     }
