@@ -337,6 +337,17 @@ namespace Climbing
             controller.onAir = false;
         }
 
+        public void OnVehicleCrash(GameObject vehicle, float crashForce)
+        {
+            Debug.Log("movement: on vehicle crash");
+            SetVelocity(Vector3.zero);
+            Vector3 direction = (transform.position - vehicle.transform.position).normalized;
+
+            Vector3 newPosition = transform.position + direction * crashForce;
+            newPosition.y = transform.position.y;
+            rb.MovePosition(newPosition);
+        }
+
         #endregion
 
         #region Foot IK

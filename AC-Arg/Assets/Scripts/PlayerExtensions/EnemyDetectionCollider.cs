@@ -21,10 +21,10 @@ public class EnemyDetectionCollider : MonoBehaviour
     {
         if (other.gameObject.tag == "Enemy")
         {
-            Debug.Log("detecte un tag enemy - " + other.gameObject.name);
+            //Debug.Log("detecte un tag enemy - " + other.gameObject.name);
             if (other.GetComponent<Enemy>() != null)
             {
-                Debug.Log("...y tenia enemy component");
+                //Debug.Log("...y tenia enemy component");
                 Enemy detectedEnemy = other.GetComponent<Enemy>();
                 combatController.AddEnemyToDetectedList(detectedEnemy);
             }
@@ -47,25 +47,4 @@ public class EnemyDetectionCollider : MonoBehaviour
         if (!gameObject.scene.isLoaded)
             EventManager.Unsubscribe(Evento.OnEnemyKilled, RemoveEnemy);
     }
-
-
-    //private void AddEnemyToDetectedList(Enemy detectedEnemy)
-    //{
-    //    combatController.detectedEnemies.Add(detectedEnemy);
-    //    combatController.UpdateDetectionStatus(detectedEnemy);
-    //    //Debug.Log("Enemy Detected");
-    //}
-
-
-
-    //private void RemoveEnemyFromDetectedList(Enemy detectedEnemy)
-    //{
-    //    combatController.detectedEnemies.Remove(detectedEnemy);
-    //    combatController.UpdateDetectionStatus(detectedEnemy);
-    //    //Debug.Log("Enemy Lost");
-    //}
-
-
-
-
 }

@@ -233,6 +233,19 @@ namespace Climbing
             //animator.CrossFade("UnCrouch", 0.1f);
             Debug.Log("uncrouch animation");
         }
+
+        internal void StartCrashAnimation()
+        {
+            Debug.Log("animation: start crash anim");
+            animator.CrossFade("Crashed", 0.1f);
+        }
+
+        internal void EndCrashAnimation()
+        {
+            Debug.Log("animation: end crash anim");
+            animator.CrossFade("Idle", 0.1f);
+            //animator.CrossFade("Standup", 0.1f);
+        }
     }
 
 }

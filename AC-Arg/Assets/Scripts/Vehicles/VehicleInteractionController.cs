@@ -161,5 +161,6 @@ namespace Climbing
                 EventManager.Unsubscribe(Evento.OnPlayerPressedE, TryInteract);
             }
         }
+
     }
 }

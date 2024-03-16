@@ -12,7 +12,7 @@ namespace Climbing
     [RequireComponent(typeof(CameraController))]
     [RequireComponent(typeof(VaultingController))]
 
-    public class ThirdPersonController : MonoBehaviour
+    public class ThirdPersonController : MonoBehaviour, ICrashable
     {
         [HideInInspector] public InputCharacterController characterInput;
         [HideInInspector] public MovementCharacterController characterMovement;
@@ -33,6 +33,7 @@ namespace Climbing
         [HideInInspector] public Rigidbody vehicleBelowMe;
         [HideInInspector] public bool isCrouch = false;
         [HideInInspector] public bool isHurting = false;
+        [HideInInspector] public bool isCrashing = false;
 
         [Header("Cameras")]
         public CameraController cameraController;
@@ -90,14 +91,6 @@ namespace Climbing
                     ToggleRun();
                 }
             }
-
-            //if (combatController.isInCombatMode)
-            //{
-            //    if (combatController.currentEnemy != null)
-            //    {
-            //        RotatePlayerIndependentOfCamera(combatController.currentEnemy.transform.position - transform.position);
-            //    }
-            //}
         }
 
         private void FixedUpdate()
@@ -235,13 +228,36 @@ namespace Climbing
             Debug.Log("is on vehicle false");
         }
 
+        public void OnCrash(GameObject vehicle, float crashForce)
+        {
+            if (isCrashing)
+            {
+                Debug.Log("ya estoy chocado, banca hermano");
+                return;
+            }
+
+            isCrashing = true;
+            Debug.Log("me choco con un auto");
+            characterMovement.OnVehicleCrash(vehicle, crashForce);
+            characterAnimation.StartCrashAnimation();
+            allowMovement = false;
+            //DisableController();
+        }
+
+        public void ANIMATION_OnCrashEnd()
+        {
+            Debug.Log("player: terminó la animacion de crash");
+            characterAnimation.EndCrashAnimation();
+            allowMovement = true;
+            isCrashing = false;
+            //EnableController();
+        }
         public float GetCurrentVelocity()
         {
             return characterMovement.GetVelocity().magnitude;
         }
         public void DisableController()
         {
-
             characterMovement.SetKinematic(true);
             characterMovement.enableFeetIK = false;
             dummy = true;
@@ -252,8 +268,6 @@ namespace Climbing
             {
                 col.enabled = false;
             }
-            
-
         }
         public void EnableController()
         {
