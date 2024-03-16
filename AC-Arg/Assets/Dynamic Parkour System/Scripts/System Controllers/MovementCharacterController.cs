@@ -34,6 +34,8 @@ namespace Climbing
         public float JogSpeed;
         public float RunSpeed;
         public float fallForce;
+        public float fallTimeToDamage = 2;
+        private float fallTimer = 0;
 
         [Header("Feet IK")]
         public bool enableFeetIK = true;
@@ -59,7 +61,6 @@ namespace Climbing
             anim = controller.characterAnimation.animator;
             SetCurrentState(MovementState.Walking);
         }
-
         void Update()
         {
             //Handle Player Jumps and Landings
@@ -77,7 +78,6 @@ namespace Climbing
                 }
             }
         }
-
         private void FixedUpdate()
         {
             if (controller.vehicleInteractionController.insideCar)
@@ -119,8 +119,6 @@ namespace Climbing
             //Raycast to Ground
             FeetPositionSolver(rightFootPosition, ref rightFootIKPosition, ref rightFootIKRotation);
             FeetPositionSolver(leftFootPosition, ref leftFootIKPosition, ref leftFootIKRotation);
-
-            
         }
 
         #region Movement
@@ -257,7 +255,6 @@ namespace Climbing
 
             return false;
         }
-
         public Vector3 GetVelocity() { 
             return rb.velocity; 
         }
@@ -267,17 +264,14 @@ namespace Climbing
             //Debug.Log("Movement Character Controller: velocity Set " + value);
             velocity = value;
         }
-
         public void AddVelocity(Vector3 value)
         {
             velocity += value;
         }
-
         public void ResetSpeed()
         {
             smoothSpeed = 0;
         }
-
         public void SetCurrentState(MovementState state)
         {
             currentState = state;
@@ -293,17 +287,14 @@ namespace Climbing
                     break;
             }
         }
-
         public MovementState GetState()
         {
             return currentState;
         }
-
         public void SetKinematic(bool active)
         {
             rb.isKinematic = active;
         }
-
         public void EnableFeetIK()
         {
             enableFeetIK = true;
@@ -318,23 +309,29 @@ namespace Climbing
             leftFootIKPosition = Vector3.zero;
             rightFootIKPosition = Vector3.zero;
         }
-
         public void ApplyGravity()
         {
             rb.velocity += Vector3.up * -0.300f;
         }
-
         public void Fall()
         {
             controller.onAir = true;
+            fallTimer += Time.deltaTime;
             OnFall();
+            //Debug.Log("fall timer = " + fallTimer);
         }
-
         public void Landed()
         {
+            if (fallTimer >= fallTimeToDamage)
+            {
+                controller.ReceiveFallDamage();
+            }
+
             OnLanded();
             controller.isJumping = false;
             controller.onAir = false;
+
+            fallTimer = 0;
         }
 
         public void OnVehicleCrash(GameObject vehicle, float crashForce)
@@ -342,7 +339,6 @@ namespace Climbing
             Debug.Log("movement: on vehicle crash");
             SetVelocity(Vector3.zero);
             Vector3 direction = (transform.position - vehicle.transform.position).normalized;
-
             Vector3 newPosition = transform.position + direction * crashForce;
             newPosition.y = transform.position.y;
             rb.MovePosition(newPosition);
@@ -475,5 +471,4 @@ namespace Climbing
 
         }
     }
-
 }

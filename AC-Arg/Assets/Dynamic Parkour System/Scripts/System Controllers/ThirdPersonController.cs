@@ -52,6 +52,8 @@ namespace Climbing
         private float turnSmoothTime = 0.1f;
         private float turnSmoothVelocity;
 
+        public float fallDamage = 3;
+
         private void Awake()
         {
             characterInput = GetComponent<InputCharacterController>();
@@ -72,7 +74,6 @@ namespace Climbing
         {
             characterMovement.OnLanded += characterAnimation.Land;
             characterMovement.OnFall += characterAnimation.Fall;
-
         }
 
         void Update()
@@ -209,16 +210,6 @@ namespace Climbing
             EnableController();
         }
 
-        IEnumerator HurtRecoveryCouroutine()
-        {
-            Debug.Log("una lloradita y a seguir...");
-            yield return new WaitForSeconds(1);
-            Debug.Log("bueno listo, ya esta");
-            isHurting = false;
-            combatController.ResetCooldowns();
-            EnableController();
-        }
-
         public void EnterVehicleRoof(Rigidbody veh)
         {
             vehicleBelowMe = veh;
@@ -287,6 +278,29 @@ namespace Climbing
             {
                 col.enabled = true;
             }
+        }
+
+        internal void ReceiveFallDamage()
+        {
+            Debug.Log("recibo daño de caida");
+            healthComponent.TakeDamage(fallDamage);
+            characterAnimation.animator.CrossFade("TakeFallDamage", 0.1f);
+            DisableController();
+            //StartCoroutine(FallDamageCouroutine());
+        }
+
+        //public IEnumerator FallDamageCouroutine()
+        //{
+        //    yield return new WaitForSeconds(1);
+        //    EnableController();
+        //}
+
+        public void ANIMATION_OnFallDamageEnd()
+        {
+            Debug.Log("termina la animacion de take fall damage");
+            EnableController();
+            characterAnimation.animator.CrossFade("Idle", 0.1f);
+
         }
     }
 }

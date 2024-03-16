@@ -192,7 +192,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5556358532925082188}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.037649356, y: -0.06415556, z: 0.004253319, w: 0.99722046}
+  m_LocalRotation: {x: -0.03764919, y: -0.0641556, z: 0.0042533316, w: 0.99722046}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -275,8 +275,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5556358532959275495}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.026928253, y: 0.0021009517, z: -0.000056595607, w: 0.99963516}
-  m_LocalPosition: {x: 115.2, y: 0.9964898, z: -123.31167}
+  m_LocalRotation: {x: 0.026928423, y: 0.0021009627, z: -0.000056596262, w: 0.9996352}
+  m_LocalPosition: {x: 115.2, y: 0.9964905, z: -123.31166}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -459,7 +459,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5556358533096778056}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.019552136, y: -0.06406786, z: 0.0054164957, w: 0.99773926}
+  m_LocalRotation: {x: -0.01955197, y: -0.06406784, z: 0.0054165055, w: 0.99773926}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -739,7 +739,7 @@ Transform:
   m_GameObject: {fileID: 5556358533377525086}
   serializedVersion: 2
   m_LocalRotation: {x: 0.05183023, y: 0.066304006, z: -0.0034488074, w: 0.9964465}
-  m_LocalPosition: {x: 115.2, y: 0.9964898, z: -123.31167}
+  m_LocalPosition: {x: 115.2, y: 0.9964905, z: -123.31166}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1240,7 +1240,7 @@ Transform:
   m_GameObject: {fileID: 5556358534259412728}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 115.56, y: 0.109999955, z: -124.1}
+  m_LocalPosition: {x: 115.56, y: 0.11000061, z: -124.09999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1601,6 +1601,8 @@ MonoBehaviour:
   vaultingController: {fileID: 0}
   coverController: {fileID: 0}
   combatController: {fileID: 0}
+  vehicleInteractionController: {fileID: 0}
+  healthComponent: {fileID: 0}
   isGrounded: 0
   allowMovement: 1
   onAir: 0
@@ -1612,6 +1614,7 @@ MonoBehaviour:
   vehicleBelowMe: {fileID: 0}
   isCrouch: 0
   isHurting: 0
+  isCrashing: 0
   cameraController: {fileID: 5556358533377525083}
   mainCamera: {fileID: 5556358532959275490}
   freeCamera: {fileID: 5556358533377525084}
@@ -1619,6 +1622,7 @@ MonoBehaviour:
   stepVelocity: 0.08
   normalCapsuleCollider: {fileID: 5556358534646836576}
   slidingCapsuleCollider: {fileID: 6941776532399528574}
+  fallDamage: 3
 --- !u!114 &5556358534646836588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1641,6 +1645,7 @@ MonoBehaviour:
   JogSpeed: 4
   RunSpeed: 6
   fallForce: 2.5
+  fallTimeToDamage: 1
   enableFeetIK: 1
   heightFromGroundRaycast: 0.7
   raycastDownDistance: 0.7
