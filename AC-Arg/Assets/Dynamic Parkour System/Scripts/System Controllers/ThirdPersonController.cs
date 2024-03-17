@@ -95,6 +95,14 @@ namespace Climbing
                     ToggleRun();
                 }
             }
+
+            if (combatController.isInCombatMode &&
+                       combatController.currentEnemy != null)
+            {
+                Debug.Log("roto hacia el current enemy");
+                RotatePlayerIndependentOfCamera(combatController.currentEnemy.transform.position - transform.position);
+                characterAnimation.animator.SetBool("Released", false);
+            }
         }
 
         private void FixedUpdate()
@@ -128,10 +136,10 @@ namespace Climbing
             //Detects if player is moving to any direction
             if (translation.magnitude > 0)
             {
-                if (combatController.isInCombatMode)
+                if (combatController.isInCombatMode &&
+                       combatController.currentEnemy != null)
                 {
-                    RotatePlayerIndependentOfCamera(combatController.currentEnemy.transform.position - transform.position);
-                    characterAnimation.animator.SetBool("Released", false);
+                    //Debug.Log("roto hacia el current enemy");
                 }
                 else
                 {

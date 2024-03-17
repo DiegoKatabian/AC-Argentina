@@ -215,30 +215,7 @@ public class CombatController : MonoBehaviour
         //reemplazar anim de idle-fight por idle
 
     }
-    //public void UpdateDetectionStatus(Enemy lastDetectedEnemy)
-    //{
-    //    Debug.Log("detected enemies count = " + detectedEnemies.Count);
-
-    //    if (detectedEnemies.Count > 0)
-    //    {
-    //        Debug.Log("hay enemies in volume");
-    //        areEnemiesDetected = true;
-    //        EnterCombatMode();
-
-    //        if (currentEnemy == null)
-    //        {
-    //            SetCurrentEnemy(lastDetectedEnemy);
-    //            //Debug.Log("current enemy = " + currentEnemy.name);
-    //        }
-    //    }
-    //    else
-    //    {
-    //        Debug.Log("no hay enemies in volume");
-    //        areEnemiesDetected = false;
-    //        ExitCombatMode();
-    //        SetCurrentEnemy(null);
-    //    }
-    //}
+    
     public void UpdateDetectionStatus(Enemy lastDetectedEnemy)
     {
         //Debug.Log("detected enemies count = " + detectedEnemies.Count);
@@ -288,10 +265,6 @@ public class CombatController : MonoBehaviour
         UpdateDetectionStatus(detectedEnemy);
         //Debug.Log("Enemy Lost");
     }
-
-
-
-
     public void SetCurrentEnemy(Enemy enemy)
     {
         CurrentEnemyMarkerToggler(false);
