@@ -31,7 +31,7 @@ public class CrouchController : MonoBehaviour
     {
         Debug.Log("me agacho");
         controller.isCrouch = true;
-        characterAnimation.Crouch();
+        characterAnimation.EnterCrouch();
     }
     private void UnCrouch()
     {

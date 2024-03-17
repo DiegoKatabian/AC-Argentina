@@ -58,7 +58,6 @@ namespace Climbing
             animator.SetBool("Land", false);
             controller.characterMovement.DisableFeetIK();
         }
-
         public void Land()
         {
             animator.SetBool("Jump", false);
@@ -66,7 +65,6 @@ namespace Climbing
             animator.SetBool("Land", true);
             controller.characterMovement.EnableFeetIK();
         }
-
         public void HangLedge(ClimbController.ClimbState state)
         {
             if (state == ClimbController.ClimbState.BHanging)
@@ -139,13 +137,11 @@ namespace Climbing
             animator.SetBool("Hanging", true);
             SetAnimVelocity(Vector3.forward);
         }
-
         public void DropLedge(int state)
         {
             animator.SetBool("Hanging", false);
             animator.SetInteger("Climb State", state);
         }
-
         public void HangMovement(float value, int climbstate)
         {
             animator.SetFloat("Horizontal", Mathf.Lerp(animator.GetFloat("Horizontal"), value, Time.deltaTime * 15));
@@ -167,15 +163,11 @@ namespace Climbing
             animator.CrossFade("Hand Raise", 0.1f);
             StartCoroutine(EnableControllerAfterTime(handRaiseLockDuration));
         }
-
-        //a coroutine that waits before enabling controller again
-
         public IEnumerator EnableControllerAfterTime(float time)
         {
             yield return new WaitForSeconds(time);
             controller.EnableController();
         }
-
         public void StartEnterVehicleAnimation(bool isTaxi)
         {
             Debug.Log("start enter vehicle anim");
@@ -188,7 +180,6 @@ namespace Climbing
                 animator.CrossFade("Entering Bus", 0.1f);
             }
         }
-
         public void StartExitVehicleAnimation()
         {
             Debug.Log("start exit vehicle anim");
@@ -222,15 +213,17 @@ namespace Climbing
             playerMeshesParent.SetActive(state);
         }
 
-        internal void Crouch()
+        internal void EnterCrouch()
         {
-            //animator.CrossFade("Crouch", 0.1f);
+            //animator.CrossFade("EnterCrouch", 0.1f);
+            animator.SetBool("Crouch", true);
             Debug.Log("crouch animation");
         }
 
         internal void UnCrouch()
         {
-            //animator.CrossFade("UnCrouch", 0.1f);
+            //animator.CrossFade("ExitCrouch", 0.1f);
+            animator.SetBool("Crouch", false);
             Debug.Log("uncrouch animation");
         }
 

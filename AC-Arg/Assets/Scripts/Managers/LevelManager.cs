@@ -17,6 +17,12 @@ public class LevelManager : MonoBehaviour
 
     private void PauseMenuTrigger(object[] parameters)
     {
+        if (pauseMenu == null)
+        {
+            Debug.Log("no tengo referencia al pause menu");
+            return;
+        }
+
         if (Time.timeScale == 1)
         {
             Time.timeScale = 0;

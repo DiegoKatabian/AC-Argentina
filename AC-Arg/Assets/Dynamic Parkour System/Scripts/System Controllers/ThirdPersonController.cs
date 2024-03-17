@@ -22,7 +22,9 @@ namespace Climbing
         [HideInInspector] public CoverController coverController;
         [HideInInspector] public CombatController combatController;
         [HideInInspector] public VehicleInteractionController vehicleInteractionController;
-        [HideInInspector] public PlayerHealthComponent healthComponent;   
+        [HideInInspector] public PlayerHealthComponent healthComponent;
+        //[HideInInspector] public CrouchController crouchController;
+
         [HideInInspector] public bool isGrounded = false;
         [HideInInspector] public bool allowMovement = true;
         [HideInInspector] public bool onAir = false;
@@ -48,6 +50,7 @@ namespace Climbing
         [Header("Colliders")]
         public CapsuleCollider normalCapsuleCollider;
         public CapsuleCollider slidingCapsuleCollider;
+        public SphereCollider enemyDetectionCollider;
 
         private float turnSmoothTime = 0.1f;
         private float turnSmoothVelocity;
@@ -65,6 +68,7 @@ namespace Climbing
             combatController = GetComponent<CombatController>();
             vehicleInteractionController = GetComponent<VehicleInteractionController>();
             healthComponent = GetComponent<PlayerHealthComponent>();
+            //crouchController = GetComponent<CrouchController>();
 
             if (cameraController == null)
                 Debug.LogError("Attach the Camera Controller located in the Free Look Camera");
@@ -86,7 +90,7 @@ namespace Climbing
             {
                 AddMovementInput(characterInput.movement);
 
-                if (coverController.isInCover)
+                if (isCrouch)
                 {
                     ToggleWalk();
                 }
@@ -99,7 +103,7 @@ namespace Climbing
             if (combatController.isInCombatMode &&
                        combatController.currentEnemy != null)
             {
-                Debug.Log("roto hacia el current enemy");
+                //Debug.Log("roto hacia el current enemy");
                 RotatePlayerIndependentOfCamera(combatController.currentEnemy.transform.position - transform.position);
                 characterAnimation.animator.SetBool("Released", false);
             }
@@ -210,7 +214,6 @@ namespace Climbing
             characterAnimation.animator.CrossFade("Hurt", 0.1f);
             //StartCoroutine(HurtRecoveryCouroutine());
         }
-
         public void ANIMATION_OnHurtEnd()
         {
             isHurting = false;
@@ -229,7 +232,6 @@ namespace Climbing
             isOnVehicle = false;
             Debug.Log("is on vehicle false");
         }
-
         public void OnCrash(GameObject vehicle, float crashForce)
         {
             if (isCrashing)
@@ -246,7 +248,6 @@ namespace Climbing
             allowMovement = false;
             //DisableController();
         }
-
         public void ANIMATION_OnCrashEnd()
         {
             Debug.Log("player: terminó la animacion de crash");
@@ -255,6 +256,7 @@ namespace Climbing
             isCrashing = false;
             //EnableController();
         }
+
         public float GetCurrentVelocity()
         {
             return characterMovement.GetVelocity().magnitude;
@@ -266,11 +268,8 @@ namespace Climbing
             dummy = true;
             allowMovement = false;
 
-            Collider[] colliders = GetComponentsInChildren<Collider>();
-            foreach (Collider col in colliders)
-            {
-                col.enabled = false;
-            }
+            SetCollidersEnabled(false);
+
         }
         public void EnableController()
         {
@@ -281,11 +280,14 @@ namespace Climbing
             dummy = false; 
             allowMovement = true;
 
-            Collider[] colliders = GetComponentsInChildren<Collider>();
-            foreach (Collider col in colliders)
-            {
-                col.enabled = true;
-            }
+            SetCollidersEnabled(true);
+        }
+
+        public void SetCollidersEnabled(bool state)
+        {
+            normalCapsuleCollider.enabled = state;
+            slidingCapsuleCollider.enabled = state;
+            enemyDetectionCollider.enabled = state;
         }
 
         internal void ReceiveFallDamage()
@@ -295,7 +297,6 @@ namespace Climbing
             characterAnimation.animator.CrossFade("TakeFallDamage", 0.1f);
             DisableController();
         }
-
         public void ANIMATION_OnFallDamageEnd()
         {
             Debug.Log("termina la animacion de take fall damage");
