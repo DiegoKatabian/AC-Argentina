@@ -16,6 +16,8 @@ public class EnemyHurt : IState
     public void OnEnter()
     {
         //Debug.Log("entro a hurt");
+        
+
         _me.navMeshAgent.SetDestination(_me.transform.position); //me quedo en el lugar
         _me.navMeshAgent.isStopped = true;
         _me.animator.CrossFade("Hurt", 0.05f);

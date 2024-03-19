@@ -23,6 +23,7 @@ public class Enemy : MonoBehaviour
     public GameObject isCurrentEnemyMarker; //el cosito blanco en la cabeza del enemy, indica que es el current enemy
     [HideInInspector] public bool isRotating;
     [HideInInspector] public float rotationTime = 1;
+    public bool isDead = false;
 
     public virtual void Start()
     {
@@ -50,12 +51,11 @@ public class Enemy : MonoBehaviour
 
     public virtual void OnDeath()
     {
-        Debug.Log("base enemy on death");
+        //Debug.Log("base enemy on death");
     }
 
     public virtual void StartHurt()
     {
-        Debug.Log("enemy: i was hit");
-        
+        //Debug.Log("enemy: i was hit");
     }
 }

@@ -84,7 +84,7 @@ public class StealthManager : Singleton<StealthManager>
 
     public void PrintStealthStatus()
     {
-        Debug.Log("Stealth Status: " + currentStatus.statusName);
+        //Debug.Log("Stealth Status: " + currentStatus.statusName);
     }
 
     internal void EnterBlendZone(BlendZone blendZone)

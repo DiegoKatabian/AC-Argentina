@@ -17,7 +17,6 @@ public class EnemyIdle : IState
     public void OnEnter()
     {
         _me.animator.CrossFade("Idle", 0.2f);
-
     }
 
     public void OnExit()

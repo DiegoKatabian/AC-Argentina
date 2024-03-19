@@ -16,6 +16,7 @@ public class UnarmedEnemy : Enemy, ICrashable
         _fsm.AddState(State.EnemyHurt, new EnemyHurt(_fsm, this));
         _fsm.ChangeState(State.EnemyIdle);
         EnemyManager.Instance.RegisterEnemy(this, _fsm);
+        isDead = false;
     }
 
     
@@ -61,6 +62,11 @@ public class UnarmedEnemy : Enemy, ICrashable
     //HURT
     public override void StartHurt()
     {
+        //if (isDead)
+        //{
+        //    animator.CrossFade("Death", 0.2f);
+        //    return;
+        //}
         base.StartHurt();
         finishedAttacking = true;
         isAttacking = false;
@@ -92,10 +98,16 @@ public class UnarmedEnemy : Enemy, ICrashable
     //DEATH
     public override void OnDeath()
     {
+        Debug.Log("enemy: isDead = true");
         base.OnDeath();
+        isDead = true;
+        Debug.Log("entro a idle");
         _fsm.ChangeState(State.EnemyIdle);
+        Debug.Log("disparo death anim");
+        animator.CrossFade("Death", 0.1f);
         EnemyManager.Instance.KillEnemy(this);
     }
+
 
     public void OnCrash(GameObject vehicle, float crashForce)
     {
