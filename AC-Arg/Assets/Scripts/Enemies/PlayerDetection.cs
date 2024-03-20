@@ -74,7 +74,7 @@ public class PlayerDetection : MonoBehaviour
         Vector3 directionToPlayer = (EnemyManager.Instance.player.transform.position - transform.position).normalized;
         float angle = Vector3.Angle(transform.forward, directionToPlayer);
 
-        if (angle < fieldOfViewAngle * 0.5f)
+        if (angle < fieldOfViewAngle)
         {
             if (EnemyManager.Instance.IsPlayerInLineOfSight(transform.position, viewDistance, detectableLayer))
             {
