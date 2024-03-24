@@ -2,7 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum State
+{
+    EnemyIdle,
+    EnemyChase,
+    EnemyReadyToAttack,
+    EnemyAttack,
+    EnemyHurt,
+    PedestrianIdle,
+    PedestrianWalk,
+    PedestrianShove,
+    PedestrianCrash,
+    PedestrianDie
 
+}
 public class FiniteStateMachine
 {
     public IState _currentState;

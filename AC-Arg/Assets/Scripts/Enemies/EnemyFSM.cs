@@ -1,14 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public enum State
-{
-    EnemyIdle,
-    EnemyChase,
-    EnemyReadyToAttack,
-    EnemyAttack,
-    EnemyHurt
-}
+
 public class EnemyFSM : FiniteStateMachine
 {
     public override void ChangeState(State state)
