@@ -14,7 +14,8 @@ public enum Evento //LOS EVENTOS SE AGREGAN AL FINAL. NO EN EL MEDIO, PORQUE ARR
     OnLeftHandInput,
     OnRightHandInput,
     OnEnemyKilled, //0 es enemy
-    OnPlayerInsideCarUpdate //0 es bool
+    OnPlayerInsideCarUpdate, //0 es bool
+    OnPedestrianKilled
 }
 
 public class EventManager
