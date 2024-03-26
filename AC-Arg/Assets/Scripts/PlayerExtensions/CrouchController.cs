@@ -29,13 +29,13 @@ public class CrouchController : MonoBehaviour
 
     private void Crouch()
     {
-        Debug.Log("me agacho");
+        //Debug.Log("me agacho");
         controller.isCrouch = true;
         characterAnimation.EnterCrouch();
     }
     private void UnCrouch()
     {
-        Debug.Log("me levanto");
+        //Debug.Log("me levanto");
         controller.isCrouch = false;
         characterAnimation.UnCrouch();
     }

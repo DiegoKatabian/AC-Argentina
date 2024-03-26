@@ -217,14 +217,14 @@ namespace Climbing
         {
             //animator.CrossFade("EnterCrouch", 0.1f);
             animator.SetBool("Crouch", true);
-            Debug.Log("crouch animation");
+            //Debug.Log("crouch animation");
         }
 
         internal void UnCrouch()
         {
             //animator.CrossFade("ExitCrouch", 0.1f);
             animator.SetBool("Crouch", false);
-            Debug.Log("uncrouch animation");
+            //Debug.Log("uncrouch animation");
         }
 
         internal void StartCrashAnimation()

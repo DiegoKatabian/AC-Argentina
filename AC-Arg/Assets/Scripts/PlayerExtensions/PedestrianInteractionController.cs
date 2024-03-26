@@ -2,12 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 
 public class PedestrianInteractionController : MonoBehaviour
 {
     public Pedestrian currentPedestrian;
     public List<Pedestrian> detectedPedestrians = new List<Pedestrian>();
     public bool arePedestriansDetected = false;
+    bool isShowingMarker = false;
 
     internal void AddPedestrianToDetectedList(Pedestrian detectedPedestrian)
     {
@@ -55,5 +57,29 @@ public class PedestrianInteractionController : MonoBehaviour
         //CurrentPedestrianMarkerToggler(false);
         currentPedestrian = pedestrian;
         //CurrentPedestrianMarkerToggler(true);
+    }
+
+    public bool IsBehindCurrentPedestrian()
+    {
+        if (currentPedestrian == null)
+        {
+            Debug.Log("no hay pedestrians");
+            return false;
+        }
+
+        Vector3 pedestrianForward = currentPedestrian.transform.forward;
+        Vector3 pedestrianToPlayer = transform.position - currentPedestrian.transform.position;
+        pedestrianForward.y = 0;
+        pedestrianToPlayer.y = 0;
+        if (Vector3.Angle(pedestrianForward, pedestrianToPlayer) < 90)
+        {
+            Debug.Log("not behind pedestrian");
+            return false;
+        }
+        else
+        {
+            Debug.Log("behind pedestrian");
+            return true;
+        }
     }
 }

@@ -13,14 +13,14 @@ public class PedestrianWalk : IState
     }
     public void OnEnter()
     {
-        Debug.Log("ped: entro a walk");
+        //Debug.Log("ped: entro a walk");
         _me.animator.CrossFade("Walk", 0.1f);
         _me.navMeshAgent.SetDestination(PedestrianManager.Instance.GetRandomWaypointPosition());
     }
 
     public void OnExit()
     {
-        Debug.Log("ped: salgo de walk");
+        //Debug.Log("ped: salgo de walk");
         _me.navMeshAgent.ResetPath();
     }
 

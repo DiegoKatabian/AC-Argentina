@@ -18,6 +18,7 @@ public class Pedestrian : MonoBehaviour, ICrashable
     [HideInInspector] public Vector3 vehiclePosition;
     [HideInInspector] public float _crashForce = 0;
 
+    public GameObject interactionMarker;    
     private void Start()
     {
         //Debug.Log("pedestrian start");
@@ -42,7 +43,7 @@ public class Pedestrian : MonoBehaviour, ICrashable
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("pedestrian hit player");
+            //Debug.Log("pedestrian hit player");
             playerPosition = other.gameObject.transform.position;
             isShoved = true;
         }

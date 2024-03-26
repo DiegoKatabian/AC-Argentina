@@ -11,7 +11,7 @@ namespace TrafficSimulation
         private void Start()
         {
             BusManager.Instance.AddBusStop(this);
-            EventManager.Subscribe(Evento.OnPlayerPressedR, OnStopRequested);
+            EventManager.Subscribe(Evento.OnInputRequestBusStop, OnStopRequested);
         }
 
         private void OnStopRequested(object[] parameters)
@@ -58,7 +58,7 @@ namespace TrafficSimulation
         {
             if (!gameObject.scene.isLoaded)
             {
-                EventManager.Unsubscribe(Evento.OnPlayerPressedR, OnStopRequested);
+                EventManager.Unsubscribe(Evento.OnInputRequestBusStop, OnStopRequested);
             }
         }
     }

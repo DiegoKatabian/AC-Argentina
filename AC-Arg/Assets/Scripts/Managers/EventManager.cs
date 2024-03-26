@@ -4,9 +4,9 @@ using UnityEngine;
 
 public enum Evento //LOS EVENTOS SE AGREGAN AL FINAL. NO EN EL MEDIO, PORQUE ARRUINAN LA NUMERACION
 {
-    OnPlayerPressedEsc,
-    OnPlayerPressedE,
-    OnPlayerPressedR,
+    OnInputRequestPause,
+    OnInputRequestInteract,
+    OnInputRequestBusStop,
     OnPlayerStopsVehicle,
     OnPlayerHealthUpdate,
     OnPlayerDied,
@@ -15,7 +15,9 @@ public enum Evento //LOS EVENTOS SE AGREGAN AL FINAL. NO EN EL MEDIO, PORQUE ARR
     OnRightHandInput,
     OnEnemyKilled, //0 es enemy
     OnPlayerInsideCarUpdate, //0 es bool
-    OnPedestrianKilled
+    OnPedestrianKilled,
+    OnInputRequestSteal,
+    OnInputRequestAssassinate
 }
 
 public class EventManager

@@ -37,7 +37,7 @@ namespace Climbing
             player = transform.parent;
             originalParent = player.parent; //originalparent seria la escena, el padre de Player, no de playermodel
             playerController = GetComponent<ThirdPersonController>();
-            EventManager.Subscribe(Evento.OnPlayerPressedE, TryInteract);
+            EventManager.Subscribe(Evento.OnInputRequestInteract, TryInteract);
         }
 
         private void TryInteract(object[] parameters)
@@ -158,7 +158,7 @@ namespace Climbing
         {
             if (!gameObject.scene.isLoaded)
             {
-                EventManager.Unsubscribe(Evento.OnPlayerPressedE, TryInteract);
+                EventManager.Unsubscribe(Evento.OnInputRequestInteract, TryInteract);
             }
         }
 

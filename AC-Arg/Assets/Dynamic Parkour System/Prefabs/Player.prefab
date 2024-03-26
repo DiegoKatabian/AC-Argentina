@@ -260,7 +260,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5556358532925082188}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.03764932, y: -0.06415556, z: 0.0042533213, w: 0.99722046}
+  m_LocalRotation: {x: -0.037649322, y: -0.0641556, z: 0.0042533237, w: 0.99722046}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1510,6 +1510,7 @@ GameObject:
   - component: {fileID: 3980393428066545835}
   - component: {fileID: 7386972446727127119}
   - component: {fileID: 3728091454048741950}
+  - component: {fileID: 9063302147745552825}
   m_Layer: 10
   m_Name: PlayerModel
   m_TagString: Player
@@ -1948,6 +1949,20 @@ MonoBehaviour:
   currentPedestrian: {fileID: 0}
   detectedPedestrians: []
   arePedestriansDetected: 0
+--- !u!114 &9063302147745552825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5556358534646836578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0db8b6fc66bb9e4196e5832ee3ed44d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pedestrianInteractionController: {fileID: 3728091454048741950}
+  controller: {fileID: 5556358534646836590}
 --- !u!1 &8015512707964215300
 GameObject:
   m_ObjectHideFlags: 0

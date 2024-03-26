@@ -155,6 +155,24 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Steal"",
+                    ""type"": ""Button"",
+                    ""id"": ""4c0c156d-5483-4f31-938f-b2ab11d8fd11"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Assassinate"",
+                    ""type"": ""Button"",
+                    ""id"": ""e11e3bc3-1fd3-4e5b-888c-533ee0c94a54"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -304,7 +322,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""7d5361b3-cda2-4193-ac40-2ef27e76c236"",
-                    ""path"": ""<Keyboard>/r"",
+                    ""path"": ""<Keyboard>/t"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard n Mouse"",
@@ -353,6 +371,28 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard n Mouse"",
                     ""action"": ""RightHand"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d866e074-3900-47ac-910c-945186fe8269"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard n Mouse"",
+                    ""action"": ""Steal"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""20d0b2c8-a299-4120-9c87-eb6c8328f021"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard n Mouse"",
+                    ""action"": ""Assassinate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -432,6 +472,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_ChangeCurrentEnemy = m_Player.FindAction("ChangeCurrentEnemy", throwIfNotFound: true);
         m_Player_LeftHand = m_Player.FindAction("LeftHand", throwIfNotFound: true);
         m_Player_RightHand = m_Player.FindAction("RightHand", throwIfNotFound: true);
+        m_Player_Steal = m_Player.FindAction("Steal", throwIfNotFound: true);
+        m_Player_Assassinate = m_Player.FindAction("Assassinate", throwIfNotFound: true);
         // GameManager
         m_GameManager = asset.FindActionMap("GameManager", throwIfNotFound: true);
         m_GameManager_Exit = m_GameManager.FindAction("Exit", throwIfNotFound: true);
@@ -552,6 +594,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_ChangeCurrentEnemy;
     private readonly InputAction m_Player_LeftHand;
     private readonly InputAction m_Player_RightHand;
+    private readonly InputAction m_Player_Steal;
+    private readonly InputAction m_Player_Assassinate;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -566,6 +610,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @ChangeCurrentEnemy => m_Wrapper.m_Player_ChangeCurrentEnemy;
         public InputAction @LeftHand => m_Wrapper.m_Player_LeftHand;
         public InputAction @RightHand => m_Wrapper.m_Player_RightHand;
+        public InputAction @Steal => m_Wrapper.m_Player_Steal;
+        public InputAction @Assassinate => m_Wrapper.m_Player_Assassinate;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -605,6 +651,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @RightHand.started += instance.OnRightHand;
             @RightHand.performed += instance.OnRightHand;
             @RightHand.canceled += instance.OnRightHand;
+            @Steal.started += instance.OnSteal;
+            @Steal.performed += instance.OnSteal;
+            @Steal.canceled += instance.OnSteal;
+            @Assassinate.started += instance.OnAssassinate;
+            @Assassinate.performed += instance.OnAssassinate;
+            @Assassinate.canceled += instance.OnAssassinate;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -639,6 +691,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @RightHand.started -= instance.OnRightHand;
             @RightHand.performed -= instance.OnRightHand;
             @RightHand.canceled -= instance.OnRightHand;
+            @Steal.started -= instance.OnSteal;
+            @Steal.performed -= instance.OnSteal;
+            @Steal.canceled -= instance.OnSteal;
+            @Assassinate.started -= instance.OnAssassinate;
+            @Assassinate.performed -= instance.OnAssassinate;
+            @Assassinate.canceled -= instance.OnAssassinate;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -736,6 +794,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnChangeCurrentEnemy(InputAction.CallbackContext context);
         void OnLeftHand(InputAction.CallbackContext context);
         void OnRightHand(InputAction.CallbackContext context);
+        void OnSteal(InputAction.CallbackContext context);
+        void OnAssassinate(InputAction.CallbackContext context);
     }
     public interface IGameManagerActions
     {

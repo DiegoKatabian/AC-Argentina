@@ -17,7 +17,7 @@ public class Bus : VehicleAI
         currentStopChance = stopChance;
         //Debug.Log("try to add bus");
         BusManager.Instance.AddBus(this);
-        EventManager.Subscribe(Evento.OnPlayerPressedR, OnStopRequested);
+        EventManager.Subscribe(Evento.OnInputRequestBusStop, OnStopRequested);
     }
 
     private void OnStopRequested(object[] parameters)
@@ -86,7 +86,7 @@ public class Bus : VehicleAI
     {
         if (!gameObject.scene.isLoaded)
         {
-            EventManager.Unsubscribe(Evento.OnPlayerPressedR, OnStopRequested);
+            EventManager.Unsubscribe(Evento.OnInputRequestBusStop, OnStopRequested);
         }
     }
 }

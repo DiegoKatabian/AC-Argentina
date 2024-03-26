@@ -54,6 +54,8 @@ namespace Climbing
             controls.Player.ChangeCurrentEnemy.canceled += ctx => changeCurrentEnemy = ctx.ReadValue<float>();
             controls.Player.LeftHand.performed += ctx => LeftHandInput();
             controls.Player.RightHand.performed += ctx => RightHandInput();
+            controls.Player.Steal.performed += ctx => Steal();
+            controls.Player.Assassinate.performed += ctx => Assassinate();
         }
 
         private void LeftHandInput()
@@ -76,20 +78,32 @@ namespace Climbing
 
         void Pause()
         {
-            //Debug.Log("toque esc");
-            EventManager.Trigger(Evento.OnPlayerPressedEsc);
+            Debug.Log("toque pause button");
+            EventManager.Trigger(Evento.OnInputRequestPause);
         }
 
         void Interact()
         {
-            //Debug.Log("toque E");
-            EventManager.Trigger(Evento.OnPlayerPressedE);
+            Debug.Log("toque interact button");
+            EventManager.Trigger(Evento.OnInputRequestInteract);
         }
 
         void RequestBusStop()
         {
-            Debug.Log("toque R");
-            EventManager.Trigger(Evento.OnPlayerPressedR);
+            Debug.Log("toque RequestBusStop button");
+            EventManager.Trigger(Evento.OnInputRequestBusStop);
+        }
+
+        void Steal()
+        {
+            Debug.Log("toque steal button");
+            EventManager.Trigger(Evento.OnInputRequestSteal);
+        }
+
+        void Assassinate()
+        {
+            Debug.Log("toque assassinate button");
+            EventManager.Trigger(Evento.OnInputRequestAssassinate);
         }
     }
 

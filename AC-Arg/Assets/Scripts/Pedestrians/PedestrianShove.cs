@@ -14,7 +14,7 @@ public class PedestrianShove : IState
     }
     public void OnEnter()
     {
-        Debug.Log("ped: entro a shove");
+        //Debug.Log("ped: entro a shove");
         _me.animator.CrossFade("Shoved", 0.1f);
         
         Vector3 direction = _me.playerPosition - _me.transform.position;
@@ -25,7 +25,7 @@ public class PedestrianShove : IState
 
     public void OnExit()
     {
-        Debug.Log("ped: salgo de shove");
+        //Debug.Log("ped: salgo de shove");
     }
 
     public void OnUpdate()

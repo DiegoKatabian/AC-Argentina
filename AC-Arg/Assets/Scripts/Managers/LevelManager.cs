@@ -11,7 +11,7 @@ public class LevelManager : MonoBehaviour
 
     private void Awake()
     {
-        EventManager.Subscribe(Evento.OnPlayerPressedEsc, PauseMenuTrigger);
+        EventManager.Subscribe(Evento.OnInputRequestPause, PauseMenuTrigger);
         EventManager.Subscribe(Evento.OnPlayerDied, GameOverMenuTrigger);
     }
 

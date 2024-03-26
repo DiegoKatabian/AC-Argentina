@@ -13,14 +13,14 @@ public class PedestrianIdle : IState
     }
     public void OnEnter()
     {
-        Debug.Log("ped: entro a idle");
+        //Debug.Log("ped: entro a idle");
         _me.animator.CrossFade("Idle", 0.1f);
 
     }
 
     public void OnExit()
     {
-        Debug.Log("ped: salgo de idle");
+        //Debug.Log("ped: salgo de idle");
     }
 
     public void OnUpdate()
