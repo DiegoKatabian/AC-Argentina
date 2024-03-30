@@ -17,7 +17,8 @@ public enum Evento //LOS EVENTOS SE AGREGAN AL FINAL. NO EN EL MEDIO, PORQUE ARR
     OnPlayerInsideCarUpdate, //0 es bool
     OnPedestrianKilled,
     OnInputRequestSteal,
-    OnInputRequestAssassinate
+    OnInputRequestAssassinate,
+    OnMoneyUpdate //0 es int currentmoney
 }
 
 public class EventManager

@@ -9,7 +9,7 @@ public class PedestrianInteractionController : MonoBehaviour
     public Pedestrian currentPedestrian;
     public List<Pedestrian> detectedPedestrians = new List<Pedestrian>();
     public bool arePedestriansDetected = false;
-    bool isShowingMarker = false;
+    public bool isAlreadyInteracting = false;
 
     internal void AddPedestrianToDetectedList(Pedestrian detectedPedestrian)
     {

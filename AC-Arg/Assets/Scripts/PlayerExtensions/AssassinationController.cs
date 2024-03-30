@@ -24,6 +24,12 @@ public class AssassinationController : MonoBehaviour
             return;
         }
 
+        if (pedestrianInteractionController.isAlreadyInteracting)
+        {
+            Debug.Log("already interacting");
+            return;
+        }
+
         if (pedestrianInteractionController.IsBehindCurrentPedestrian())
         {
             StartAssassination(pedestrianInteractionController.currentPedestrian);
@@ -36,6 +42,7 @@ public class AssassinationController : MonoBehaviour
         //controller.RotatePlayer(pedestrian.transform.position);
         controller.RotatePlayerIndependentOfCamera(pedestrian.transform.position - transform.position);
         controller.DisableController();
+        pedestrianInteractionController.isAlreadyInteracting = true;
         controller.characterAnimation.animator.CrossFade("Assassinate", 0.2f);
         pedestrian.GetAssassinated();
     }
@@ -52,6 +59,7 @@ public class AssassinationController : MonoBehaviour
     {
         Debug.Log("end assassination");
         controller.EnableController();
+        pedestrianInteractionController.isAlreadyInteracting = false;
         //trigger assassianation completed feedback
     }
 

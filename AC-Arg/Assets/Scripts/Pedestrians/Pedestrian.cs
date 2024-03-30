@@ -90,4 +90,9 @@ public class Pedestrian : MonoBehaviour, ICrashable
         healthComponent.TakeDamage(100);
 
     }
+
+    internal void GetStolenFrom()
+    {
+        Debug.Log("pedestrian: me robaron!");
+    }
 }
