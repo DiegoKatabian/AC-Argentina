@@ -83,4 +83,11 @@ public class Pedestrian : MonoBehaviour, ICrashable
         isDead = false;
         Destroy(gameObject);
     }
+
+    internal void GetAssassinated()
+    {
+        Debug.Log("pedestrian: me asesinaron");
+        healthComponent.TakeDamage(100);
+
+    }
 }

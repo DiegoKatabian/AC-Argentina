@@ -14,8 +14,6 @@ public class AssassinationController : MonoBehaviour
         EventManager.Subscribe(Evento.OnInputRequestAssassinate, TryAssassination);
     }
 
-
-
     private void TryAssassination(params object[] parameters)
     {
         Debug.Log("try assassination...");
@@ -35,31 +33,26 @@ public class AssassinationController : MonoBehaviour
     public void StartAssassination(Pedestrian pedestrian)
     {
         Debug.Log("start assassination");
-        controller.RotatePlayer(pedestrian.transform.position);
-        //controller.RotatePlayerIndependentOfCamera(pedestrian.transform.position);
-        //rotate towards pedestrian
-        //disable movement
-        //controller.characterAnimation.animator.CrossFade("Assassination", 0.2f);
-        //pedestrian.GetAssassinated();
-        StartCoroutine(AssassinationCoroutine());
+        //controller.RotatePlayer(pedestrian.transform.position);
+        controller.RotatePlayerIndependentOfCamera(pedestrian.transform.position - transform.position);
+        controller.DisableController();
+        controller.characterAnimation.animator.CrossFade("Assassinate", 0.2f);
+        pedestrian.GetAssassinated();
     }
+
+    public void ANIMATION_OnAssassinateEnd()
+    {
+        Debug.Log("el animator me dice que terminó la anim de assassinate");
+        EndAssassination();
+    }
+
+
 
     public void EndAssassination()
     {
         Debug.Log("end assassination");
-        //enable movement again
+        controller.EnableController();
         //trigger assassianation completed feedback
-    }
-
-    public IEnumerator AssassinationCoroutine()
-    {
-        //while (controller.characterAnimation.animator.GetCurrentAnimatorStateInfo(0).IsName("Assassination"))
-        //{
-        //    yield return null;
-        //}
-
-        yield return new WaitForSeconds(1f);
-        EndAssassination();
     }
 
     private void OnDestroy()

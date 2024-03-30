@@ -32,7 +32,7 @@ public class PedestrianInteractionController : MonoBehaviour
         }
         else
         {
-            if (!arePedestriansDetected)
+            if (!arePedestriansDetected) //si ya habia pedestrians detected, no se sobreescribe
             {
                 //Debug.Log("primer enemigo detectado");
                 arePedestriansDetected = true;
@@ -54,9 +54,17 @@ public class PedestrianInteractionController : MonoBehaviour
 
     public void SetCurrentPedestrian(Pedestrian pedestrian)
     {
-        //CurrentPedestrianMarkerToggler(false);
+        SetPedestrianMarker(currentPedestrian, false);
         currentPedestrian = pedestrian;
-        //CurrentPedestrianMarkerToggler(true);
+        SetPedestrianMarker(currentPedestrian, true);
+    }
+
+    public void SetPedestrianMarker(Pedestrian pedestrian, bool state)
+    {
+        if (pedestrian != null)
+        {
+            pedestrian.interactionMarker.SetActive(state);
+        }
     }
 
     public bool IsBehindCurrentPedestrian()
