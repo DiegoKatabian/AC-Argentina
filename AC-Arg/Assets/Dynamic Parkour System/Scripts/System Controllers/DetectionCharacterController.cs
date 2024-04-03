@@ -133,15 +133,51 @@ namespace Climbing
             return false;
 
         }
-        public bool ThrowRayToCover(Vector3 origin, out RaycastHit hit)
+        //public bool ThrowRayToCover(Vector3 origin, out RaycastHit hit)
+        //{
+        //    if (showDebug)
+        //    {
+        //        Debug.DrawLine(origin, origin + transform.forward * CoverRayLength, Color.green);
+        //    }
+
+        //    return Physics.Raycast(origin, transform.forward, out hit, CoverRayLength, coverLayer);
+        //}
+
+        public bool ThrowRaysToCover(Vector3 origin, out RaycastHit[] hits, int rayCount, float arcAngle)
         {
-            if (showDebug)
+            hits = new RaycastHit[rayCount];
+            bool hitSomething = false;
+
+            // Calcular el ángulo entre cada rayo en el arco
+            float angleStep = arcAngle / (rayCount - 1);
+
+            // Calcular el ángulo inicial
+            float startAngle = -arcAngle / 2f;
+
+            for (int i = 0; i < rayCount; i++)
             {
-                Debug.DrawLine(origin, origin + transform.forward * CoverRayLength, Color.green);
+                // Calcular la dirección del rayo actual dentro del arco
+                Quaternion rotation = Quaternion.Euler(0f, startAngle + i * angleStep, 0f);
+                Vector3 direction = rotation * transform.forward;
+
+                RaycastHit hit;
+                if (Physics.Raycast(origin, direction, out hit, CoverRayLength, coverLayer))
+                {
+                    hitSomething = true;
+                }
+
+                // Guardar el resultado del Raycast en el array de hits
+                hits[i] = hit;
+
+                if (showDebug)
+                {
+                    Debug.DrawLine(origin, origin + direction * CoverRayLength, hitSomething ? Color.red : Color.green);
+                }
             }
 
-            return Physics.Raycast(origin, transform.forward, out hit, CoverRayLength, coverLayer);
+            return hitSomething;
         }
+
         public bool ThrowClimbRay(Vector3 origin, Vector3 direction, float length, out RaycastHit hit)
         {
 

@@ -14,7 +14,8 @@ namespace Climbing
             None,
             FreeLook,
             Slide,
-            Vehicle // Agregamos el nuevo tipo de cámara
+            Vehicle,
+            Cover
         }
 
         CameraType curCam = CameraType.None;
@@ -22,7 +23,7 @@ namespace Climbing
         [SerializeField] private CinemachineVirtualCameraBase freeLookCamera;
         [SerializeField] private CinemachineVirtualCameraBase slideCamera;
         [SerializeField] private CinemachineVirtualCameraBase vehicleCamera; // Agregamos referencia a la nueva cámara
-
+        [SerializeField] private CinemachineVirtualCameraBase coverCamera; // Agregamos referencia a la nueva cámara
         void Start()
         {
             animator = GetComponent<Animator>();
@@ -37,6 +38,7 @@ namespace Climbing
                 slideCamera.Priority = 0;
                 freeLookCamera.Priority = 1;
                 vehicleCamera.Priority = 0; // Aseguramos que la cámara Vehicle tenga prioridad 0
+                coverCamera.Priority = 0;
                 curCam = CameraType.FreeLook; // Actualizamos el tipo de cámara actual
             }
         }
@@ -49,6 +51,7 @@ namespace Climbing
                 freeLookCamera.Priority = 0;
                 slideCamera.Priority = 1;
                 vehicleCamera.Priority = 0; // Aseguramos que la cámara Vehicle tenga prioridad 0
+                coverCamera.Priority = 0;
                 curCam = CameraType.Slide; // Actualizamos el tipo de cámara actual
             }
         }
@@ -61,10 +64,25 @@ namespace Climbing
                 freeLookCamera.Priority = 0;
                 slideCamera.Priority = 0;
                 vehicleCamera.Priority = 1;
+                coverCamera.Priority = 0;
                 vehicleCamera.Follow = targetVehicle;
                 vehicleCamera.LookAt = targetVehicle;
                 curCam = CameraType.Vehicle; // Actualizamos el tipo de cámara actual
             }
         }
+
+        public void CoverCam()
+        {
+            if (curCam != CameraType.Cover)
+            {
+                Debug.Log("cambio a cover cam");
+                freeLookCamera.Priority = 0;
+                slideCamera.Priority = 0;
+                vehicleCamera.Priority = 0;
+                coverCamera.Priority = 1;
+                curCam = CameraType.Cover; // Actualizamos el tipo de cámara actual
+            }
+        }
+
     }
 }

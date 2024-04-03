@@ -34,8 +34,10 @@ public class CoverController : MonoBehaviour
         }
         else
         {
-            RaycastHit hit;
-            isInCover = characterDetection.ThrowRayToCover(transform.position, out hit);
+            RaycastHit[] hits;
+            //isInCover = characterDetection.ThrowRayToCover(transform.position, out hit);
+            isInCover = characterDetection.ThrowRaysToCover(transform.position, out hits, 5, 90);
+
         }
 
         if (isInCover != wasInCover)
@@ -77,15 +79,15 @@ public class CoverController : MonoBehaviour
     {
         Debug.Log("Player entered cover");
         //animacion
-        //cambio de camara
         //limit movement to only left-right
-        //snap to cover
+        characterAnimation.switchCameras.CoverCam();
         SnapToCover();
     }
 
     private void OnPlayerExitCover()
     {
         Debug.Log("Player exited cover");
+        characterAnimation.switchCameras.FreeLookCam();
         SnapOutOfCover();
     }
 

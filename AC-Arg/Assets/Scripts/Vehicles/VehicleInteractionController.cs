@@ -13,7 +13,7 @@ namespace Climbing
         [HideInInspector] public bool insideCar = false;
         Transform player; //el player general, no el playermodel
         Transform originalParent; //la escena
-        public VehicleAI currentInteractableVehicle;
+        [HideInInspector] public VehicleAI currentInteractableVehicle;
 
         public float hopAnimationLockTime = 2.5f;
 
