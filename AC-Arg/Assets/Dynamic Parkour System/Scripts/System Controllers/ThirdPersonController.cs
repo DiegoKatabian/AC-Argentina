@@ -267,9 +267,7 @@ namespace Climbing
             characterMovement.enableFeetIK = false;
             dummy = true;
             allowMovement = false;
-
             SetCollidersEnabled(false);
-
         }
         public void EnableController()
         {
@@ -279,17 +277,14 @@ namespace Climbing
             characterMovement.stopMotion = false;
             dummy = false; 
             allowMovement = true;
-
             SetCollidersEnabled(true);
         }
-
         public void SetCollidersEnabled(bool state)
         {
             normalCapsuleCollider.enabled = state;
             slidingCapsuleCollider.enabled = state;
             enemyDetectionCollider.enabled = state;
         }
-
         internal void ReceiveFallDamage()
         {
             Debug.Log("recibo daño de caida");

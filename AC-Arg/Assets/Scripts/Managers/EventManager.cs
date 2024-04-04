@@ -18,7 +18,7 @@ public enum Evento //LOS EVENTOS SE AGREGAN AL FINAL. NO EN EL MEDIO, PORQUE ARR
     OnPedestrianKilled,
     OnInputRequestSteal,
     OnInputRequestAssassinate,
-    OnMoneyUpdate //0 es int currentmoney
+    OnMoneyUpdate, //0 es int currentmoney
 }
 
 public class EventManager

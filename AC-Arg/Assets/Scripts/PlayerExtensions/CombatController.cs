@@ -64,7 +64,6 @@ public class CombatController : MonoBehaviour
         controller.characterAnimation.animator.Play("Punch_Left_01", 0, 0);
         handsAreOnCooldown = true;
     }
-
     private void PerformRightHandAttack(object[] parameters)
     {
         if (handsAreOnCooldown)
@@ -90,8 +89,6 @@ public class CombatController : MonoBehaviour
         controller.characterAnimation.animator.Play("Punch_Right_01", 0, 0);
         handsAreOnCooldown = true;
     }
-
-
     private void PerformNextLeftHandComboAttack()
     {
         Debug.Log("ataco mano izquierda 2");
@@ -100,7 +97,6 @@ public class CombatController : MonoBehaviour
         handsAreOnCooldown = true;
         comboWindowOpen = false;
     }
-
     private void PerformNextRightHandComboAttack()
     {
         Debug.Log("ataco mano derecha 2");
@@ -109,7 +105,6 @@ public class CombatController : MonoBehaviour
         handsAreOnCooldown = true;
         comboWindowOpen = false;
     }
-
     public void ANIMATION_OnLeftHandAttackHit()
     {
         //Debug.Log("animation: left hand attack 1 - hit");
@@ -117,7 +112,6 @@ public class CombatController : MonoBehaviour
         handsAreOnCooldown = false;
         comboWindowOpen = true;
     }
-
     public void ANIMATION_OnRightHandAttackHit()
     {
         //Debug.Log("animation: right hand attack 1 - hit");
@@ -125,19 +119,16 @@ public class CombatController : MonoBehaviour
         handsAreOnCooldown = false;
         comboWindowOpen = true;
     }
-
     public void ANIMATION_OnLeftHandAttackHit_EndCombo()
     {
         //Debug.Log("animation: left hand attack 2 - hit  - ends combo");
         StartCoroutine(HitboxCouroutine(leftHandHitBox, leftHandAttackDamage));
     }
-
     public void ANIMATION_OnRightHandAttackHit_EndCombo()
     {
         //Debug.Log("animation: right hand attack 2 - hit - ends combo");
         StartCoroutine(HitboxCouroutine(rightHandHitBox, rightHandAttackDamage));
     }
-
     public void ANIMATION_OnAttackEnd()
     {
         //Debug.Log("animation - attack ended");
@@ -145,7 +136,6 @@ public class CombatController : MonoBehaviour
         handsAreOnCooldown = false;
         comboWindowOpen = false;
     }
-
     IEnumerator HitboxCouroutine(PlayerHandHitbox hitbox, float damage)
     {
         ObjectEnabler.EnableObject(hitbox.gameObject, true);
@@ -156,7 +146,6 @@ public class CombatController : MonoBehaviour
         }
         ObjectEnabler.EnableObject(hitbox.gameObject, false);
     }
-
     public void CancelAllAttacks() //due to received damage
     {
         //Debug.Log("cancelo los ataques porque recibí daño");
@@ -164,7 +153,6 @@ public class CombatController : MonoBehaviour
         handsAreOnCooldown = true;
         comboWindowOpen = false;
     }
-
     public void ResetCooldowns()
     {
         handsAreOnCooldown = false;
@@ -205,17 +193,18 @@ public class CombatController : MonoBehaviour
     public void EnterCombatMode()
     {
         isInCombatMode = true;
+        controller.characterAnimation.switchCameras.CombatCam();
         Debug.Log("entro a combat mode");
         //reemplazar anim de idle por idle-fight
     }
     public void ExitCombatMode()
     {
         isInCombatMode = false;
+        controller.characterAnimation.switchCameras.FreeLookCam();
         Debug.Log("salgo de combat mode");
         //reemplazar anim de idle-fight por idle
 
     }
-    
     public void UpdateDetectionStatus(Enemy lastDetectedEnemy)
     {
         //Debug.Log("detected enemies count = " + detectedEnemies.Count);
@@ -247,7 +236,6 @@ public class CombatController : MonoBehaviour
             }
         }
     }
-
     public void AddEnemyToDetectedList(Enemy detectedEnemy)
     {
         //prevent from adding an enemy that is already in the list
@@ -258,7 +246,6 @@ public class CombatController : MonoBehaviour
             //Debug.Log("Enemy Detected");
         }
     }
-
     public void RemoveEnemyFromDetectedList(Enemy detectedEnemy)
     {
         detectedEnemies.Remove(detectedEnemy);
