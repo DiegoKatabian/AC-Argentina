@@ -30,7 +30,19 @@ public class Pedestrian : MonoBehaviour, ICrashable
         _fsm.AddState(State.PedestrianDie, new PedestrianDie(this, _fsm));
         _fsm.ChangeState(State.PedestrianIdle);
 
-        //isWalking = true;
+        if (isWalking)
+        {
+            StartCoroutine(RandomWalk());
+        }
+    }
+
+    public IEnumerator RandomWalk()
+    {
+        float randomWaitTime = UnityEngine.Random.Range(0f, 1f);
+        isWalking = false;
+        Debug.Log("i waited " + randomWaitTime + "before walking");
+        yield return new WaitForSeconds(randomWaitTime);
+        isWalking = true;
     }
 
     private void Update()
