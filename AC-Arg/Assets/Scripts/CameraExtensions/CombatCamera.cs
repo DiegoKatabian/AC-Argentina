@@ -19,7 +19,7 @@ public class CombatCamera : MonoBehaviour
     {
         if (player.currentEnemy != null)
         {
-            Debug.Log("updateo la posicion del midpoint");
+            //Debug.Log("updateo la posicion del midpoint");
             midPoint.position = (player.transform.position + player.currentEnemy.transform.position) / 2f;
         }
     }

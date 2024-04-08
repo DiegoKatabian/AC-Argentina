@@ -253,5 +253,13 @@ public class EnemyManager : Singleton<EnemyManager>
 
     }
 
+    public float GetDistanceToPlayer(Vector3 enemyPosition)
+    {
+        return Vector3.Distance(player.transform.position, enemyPosition);
+    }
 
+    public Vector3 GetDirectionToPlayer(Vector3 enemyPosition)
+    {
+        return player.transform.position - enemyPosition;
+    }
 }

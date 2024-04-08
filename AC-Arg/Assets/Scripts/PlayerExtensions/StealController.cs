@@ -43,6 +43,12 @@ public class StealController : MonoBehaviour
             return;
         }
 
+        if (!pedestrianInteractionController.currentPedestrian.canInteract)
+        {
+            Debug.Log("cant interact with this pedestrian");
+            return;
+        }
+
         if (pedestrianInteractionController.IsBehindCurrentPedestrian())
         {
             StartSteal(pedestrianInteractionController.currentPedestrian);

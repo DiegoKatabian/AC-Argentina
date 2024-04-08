@@ -18,7 +18,10 @@ public class Pedestrian : MonoBehaviour, ICrashable
     [HideInInspector] public Vector3 vehiclePosition;
     [HideInInspector] public float _crashForce = 0;
 
+
     public GameObject interactionMarker;    
+    public bool canInteract = true;
+
     private void Start()
     {
         //Debug.Log("pedestrian start");
@@ -40,7 +43,7 @@ public class Pedestrian : MonoBehaviour, ICrashable
     {
         float randomWaitTime = UnityEngine.Random.Range(0f, 1f);
         isWalking = false;
-        Debug.Log("i waited " + randomWaitTime + "before walking");
+        //Debug.Log("i waited " + randomWaitTime + "before walking");
         yield return new WaitForSeconds(randomWaitTime);
         isWalking = true;
     }

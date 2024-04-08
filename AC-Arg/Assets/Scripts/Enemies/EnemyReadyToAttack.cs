@@ -32,6 +32,33 @@ public class EnemyReadyToAttack : IState
         //Debug.Log("salgo de ready to attack");
     }
 
+    //public void OnUpdate()
+    //{
+    //    if (_me.isHurting)
+    //    {
+    //        _fsm.ChangeState(State.EnemyHurt);
+    //    }
+
+    //    if (StealthManager.Instance.currentStatus.status == StealthStatus.Hidden)
+    //    {
+    //        _fsm.ChangeState(State.EnemyIdle);
+    //    }
+
+    //    if (!_me.playerDetection.isPlayerInMeleeRange)
+    //    {
+    //        _fsm.ChangeState(State.EnemyChase);
+    //    }
+
+    //    timer += Time.deltaTime;
+
+    //    if (timer >= initialAttackCooldown)
+    //    {
+    //        if (EnemyManager.Instance.CanIAttackPlayerMisterEnemyManager(_me))
+    //        {
+    //            _fsm.ChangeState(State.EnemyAttack);
+    //        }
+    //    }
+    //}
     public void OnUpdate()
     {
         if (_me.isHurting)
@@ -49,6 +76,27 @@ public class EnemyReadyToAttack : IState
             _fsm.ChangeState(State.EnemyChase);
         }
 
+        // Verifica si el enemigo está demasiado cerca del jugador
+        if (EnemyManager.Instance.GetDistanceToPlayer(_me.transform.position) < _me.minimumDistanceToPlayer)
+        {
+            Debug.Log("ENEMY READY TO ATTACK: el player esta demasiado cerca: me alejo un toque");
+            // Calcula la dirección opuesta al jugador
+            Vector3 directionAwayFromPlayer = -EnemyManager.Instance.GetDirectionToPlayer(_me.transform.position);
+            directionAwayFromPlayer.Normalize();
+
+            // Calcula el punto de destino para mantener la distancia mínima
+            Vector3 destination = _me.transform.position + directionAwayFromPlayer * _me.minimumDistanceToPlayer;
+
+            // Establece el destino del NavMeshAgent para moverse hacia atrás y mantener la distancia mínima
+            _me.navMeshAgent.SetDestination(destination);
+            _me.navMeshAgent.isStopped = false;
+        }
+        else
+        {
+            // Si está lo suficientemente lejos, simplemente se queda en su posición
+            _me.navMeshAgent.isStopped = true;
+        }
+
         timer += Time.deltaTime;
 
         if (timer >= initialAttackCooldown)
@@ -59,4 +107,6 @@ public class EnemyReadyToAttack : IState
             }
         }
     }
+
+
 }

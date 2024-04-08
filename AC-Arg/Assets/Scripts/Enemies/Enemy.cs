@@ -24,6 +24,7 @@ public class Enemy : MonoBehaviour
     [HideInInspector] public bool isRotating;
     [HideInInspector] public float rotationTime = 1;
     public bool isDead = false;
+    public float minimumDistanceToPlayer = 3f;
 
     public virtual void Start()
     {
