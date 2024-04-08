@@ -7,24 +7,25 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
     public PlayerDetection playerDetection;
-    public float moveSpeed = 5;
-    //public float attackRecoveryTime = 2; //este es un menitra y no se usa
-    public float attackDamage = 1;
     public NavMeshAgent navMeshAgent;
-    protected EnemyFSM _fsm;
     public Animator animator;
-
-    internal bool isMyTurnToAttack = false; //true solo cuando sea mi turno de atacar
-    public bool isAttacking = false; //true durante attack state
-    public bool finishedAttacking = false; //solo true cuando salgo de attack state
-    public bool isHurting = false; //true durante hurt state
-    public bool finishedHurting = false; //solo true cuando salgo de hurt state
     public GameObject isAttackingMarker; //el cosito rojo en la cabeza del enemy, indica que esta isAttacking
     public GameObject isCurrentEnemyMarker; //el cosito blanco en la cabeza del enemy, indica que es el current enemy
+    public float moveSpeed = 5;
+    public float attackDamage = 1;
+    public float minimumDistanceToPlayer = 3f;
+    public bool isPatroller = false;    //si es idler o patroller
+
+    protected EnemyFSM _fsm;
+
+    [HideInInspector] public bool isMyTurnToAttack = false; //true solo cuando sea mi turno de atacar
+    [HideInInspector] public bool isAttacking = false; //true durante attack state
+    [HideInInspector] public bool finishedAttacking = false; //solo true cuando salgo de attack state
+    [HideInInspector] public bool isHurting = false; //true durante hurt state
+    [HideInInspector] public bool finishedHurting = false; //solo true cuando salgo de hurt state
     [HideInInspector] public bool isRotating;
     [HideInInspector] public float rotationTime = 1;
-    public bool isDead = false;
-    public float minimumDistanceToPlayer = 3f;
+    [HideInInspector] public bool isDead = false;
 
     public virtual void Start()
     {

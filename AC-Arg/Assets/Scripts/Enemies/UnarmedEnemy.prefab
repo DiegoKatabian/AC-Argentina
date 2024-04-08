@@ -151,19 +151,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerDetection: {fileID: 4634813238154738667}
-  moveSpeed: 1
-  attackDamage: 1
   navMeshAgent: {fileID: 2894612690020636812}
   animator: {fileID: 159754844027251173}
+  isAttackingMarker: {fileID: 9206809220957053198}
+  isCurrentEnemyMarker: {fileID: 914023734510433902}
+  moveSpeed: 1
+  attackDamage: 1
+  minimumDistanceToPlayer: 3
+  isPatroller: 0
+  isMyTurnToAttack: 0
   isAttacking: 0
   finishedAttacking: 0
   isHurting: 0
   finishedHurting: 0
-  isAttackingMarker: {fileID: 9206809220957053198}
-  isCurrentEnemyMarker: {fileID: 914023734510433902}
   isRotating: 0
   rotationTime: 1
+  isDead: 0
   punchHitBox: {fileID: 3881397158163303825}
+  waypoints: []
 --- !u!195 &2894612690020636812
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -177,7 +182,7 @@ NavMeshAgent:
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
-  m_AngularSpeed: 120
+  m_AngularSpeed: 360
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1

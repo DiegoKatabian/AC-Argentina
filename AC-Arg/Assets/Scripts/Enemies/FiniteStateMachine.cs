@@ -9,12 +9,12 @@ public enum State
     EnemyReadyToAttack,
     EnemyAttack,
     EnemyHurt,
+    EnemyPatrol,
     PedestrianIdle,
     PedestrianWalk,
     PedestrianShove,
     PedestrianCrash,
     PedestrianDie
-
 }
 public class FiniteStateMachine
 {

@@ -4,12 +4,14 @@ using UnityEngine;
 public class UnarmedEnemy : Enemy, ICrashable
 {
     public Hitbox punchHitBox;
+    public Transform[] waypoints;
 
     public override void Start()
     {
         base.Start();
         _fsm = new EnemyFSM();
         _fsm.AddState(State.EnemyIdle, new EnemyIdle(_fsm, this));
+        _fsm.AddState(State.EnemyPatrol, new EnemyPatrol(_fsm, this, waypoints));
         _fsm.AddState(State.EnemyChase, new EnemyChase(_fsm, this));
         _fsm.AddState(State.EnemyAttack, new EnemyAttack(_fsm, this));
         _fsm.AddState(State.EnemyReadyToAttack, new EnemyReadyToAttack(_fsm, this));
@@ -18,8 +20,6 @@ public class UnarmedEnemy : Enemy, ICrashable
         EnemyManager.Instance.RegisterEnemy(this, _fsm);
         isDead = false;
     }
-
-    
 
     private void Update()
     {
@@ -62,16 +62,10 @@ public class UnarmedEnemy : Enemy, ICrashable
     //HURT
     public override void StartHurt()
     {
-        //if (isDead)
-        //{
-        //    animator.CrossFade("Death", 0.2f);
-        //    return;
-        //}
         base.StartHurt();
         finishedAttacking = true;
         isAttacking = false;
         isHurting = true;
-        //StartCoroutine(HurtRecoveryCouroutine());
     }
     public void ANIMATION_OnHurtEnd() //llamado por la animacion de daño
     {
@@ -98,16 +92,12 @@ public class UnarmedEnemy : Enemy, ICrashable
     //DEATH
     public override void OnDeath()
     {
-        Debug.Log("enemy: isDead = true");
         base.OnDeath();
         isDead = true;
-        Debug.Log("entro a idle");
         _fsm.ChangeState(State.EnemyIdle);
-        Debug.Log("disparo death anim");
         animator.CrossFade("Death", 0.1f);
         EnemyManager.Instance.KillEnemy(this);
     }
-
 
     public void OnCrash(GameObject vehicle, float crashForce)
     {
