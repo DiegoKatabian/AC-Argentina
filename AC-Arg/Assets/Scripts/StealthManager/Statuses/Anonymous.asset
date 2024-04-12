@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59e55ef6cd161364ca34c0bfcf94e21b, type: 3}
   m_Name: Anonymous
   m_EditorClassIdentifier: 
-  statusName: Anonymous
+  statusName: Visible
+  status: 0
   statusColor: {r: 0.93773586, g: 1, b: 0.93773586, a: 1}

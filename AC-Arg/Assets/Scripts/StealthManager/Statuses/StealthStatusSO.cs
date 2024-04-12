@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum StealthStatus
 {
-    Anonymous,
+    Visible,
     Warning,
     Alert,
     Hidden

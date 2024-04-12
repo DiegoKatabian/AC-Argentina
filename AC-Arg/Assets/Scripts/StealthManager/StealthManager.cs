@@ -19,7 +19,7 @@ public class StealthManager : Singleton<StealthManager>
     private void Start()
     {
         EventManager.Subscribe(Evento.OnPlayerInsideCarUpdate, PlayerInsideCarUpdate);
-        SetStealthStatus(StealthStatus.Anonymous);
+        SetStealthStatus(StealthStatus.Visible);
 
     }
 
@@ -35,7 +35,7 @@ public class StealthManager : Singleton<StealthManager>
         else
         {
             Debug.Log("player out of car");
-            SetStealthStatus(StealthStatus.Anonymous);
+            SetStealthStatus(StealthStatus.Visible);
         }
     }
 
@@ -128,7 +128,7 @@ public class StealthManager : Singleton<StealthManager>
         StopAllCoroutines();
         if (currentStatus.status == StealthStatus.Hidden)
         {
-            SetStealthStatus(StealthStatus.Anonymous);
+            SetStealthStatus(StealthStatus.Visible);
         }
     }
 
