@@ -162,32 +162,32 @@ public class EnemyManager : Singleton<EnemyManager>
 
         if (IsAnyEnemyAttackingPlayer())
         {
-            StealthManager.Instance.SetStealthStatus("Alert");
+            StealthManager.Instance.SetStealthStatus(StealthStatus.Alert);
             return;
         }
 
         if (IsAnyEnemyChasingPlayer())
         {
-            StealthManager.Instance.SetStealthStatus("Warning");
+            StealthManager.Instance.SetStealthStatus(StealthStatus.Warning);
             return;
         }
 
         if (IsAnyEnemyHurting())
         {
-            StealthManager.Instance.SetStealthStatus("Alert");
+            StealthManager.Instance.SetStealthStatus(StealthStatus.Alert);
             return;
         }
         
         if (IsAnyEnemyReadyToAttack())
         {
-            StealthManager.Instance.SetStealthStatus("Alert");
+            StealthManager.Instance.SetStealthStatus(StealthStatus.Alert);
             return;
         }
 
-        if (AreAllEnemiesIdle() && 
+        if (AreAllEnemiesIdle() &&
             StealthManager.Instance.currentStatus.status != StealthStatus.Hidden)
         {
-            StealthManager.Instance.SetStealthStatus("Anonymous");
+            StealthManager.Instance.SetStealthStatus(StealthStatus.Hidden);
             return;
         }
     }

@@ -157,8 +157,9 @@ MonoBehaviour:
   isCurrentEnemyMarker: {fileID: 914023734510433902}
   moveSpeed: 1
   attackDamage: 1
-  minimumDistanceToPlayer: 3
+  minimumDistanceToPlayer: 1.2
   isPatroller: 0
+  chasesPlayerOnlyWhileWarning: 0
   isMyTurnToAttack: 0
   isAttacking: 0
   finishedAttacking: 0

@@ -46,7 +46,7 @@ public class EnemyPatrol : IState
 
         if (StealthManager.Instance.currentStatus.status == StealthStatus.Hidden)
         {
-            Debug.Log("patrol update: el player esta hidden asi que ni pregunto de perseguirlo");
+            //Debug.Log("patrol update: el player esta hidden asi que ni pregunto de perseguirlo");
             return;
         }
 

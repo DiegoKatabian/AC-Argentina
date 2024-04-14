@@ -5,6 +5,7 @@ using UnityEngine;
 public class MoneyBar : MonoBehaviour
 {
     public TMPro.TextMeshProUGUI moneyText;
+    public string coinName;
 
     public void Start()
     {
@@ -13,7 +14,7 @@ public class MoneyBar : MonoBehaviour
 
     private void UpdateMoneyStatus(object[] parameters)
     {
-        moneyText.text = (int)parameters[0] + "pmn";
+        moneyText.text = (int)parameters[0] + coinName;
     }
 
     private void OnDestroy()
