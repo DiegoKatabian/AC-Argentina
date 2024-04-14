@@ -13,13 +13,12 @@ public class StealthManager : Singleton<StealthManager>
     public override void Awake()
     {
         base.Awake();
-        //SetStealthStatus(StealthStatus.Anonymous);
+        SetStealthStatus(StealthStatus.Visible);
     }
 
     private void Start()
     {
         EventManager.Subscribe(Evento.OnPlayerInsideCarUpdate, PlayerInsideCarUpdate);
-        SetStealthStatus(StealthStatus.Visible);
 
     }
 
