@@ -19,14 +19,14 @@ public class EnemyPatrol : IState
     public void OnEnter()
     {
         //get next waypoint, set destination towards it
-        Debug.Log("PATROL: enter");
+        //Debug.Log("PATROL: enter");
         _me.navMeshAgent.SetDestination(_waypoints[currentWaypoint].position);
         _me.animator.CrossFade("Patrol", 0.2f);
     }
 
     public void OnExit()
     {
-        Debug.Log("PATROL: exit");
+        //Debug.Log("PATROL: exit");
     }
 
     public void OnUpdate()
@@ -38,7 +38,7 @@ public class EnemyPatrol : IState
 
         if (_me.navMeshAgent.remainingDistance <= 0.1f)
         {
-            Debug.Log("PATROL: llegue a destino");
+            //Debug.Log("PATROL: llegue a destino");
             int nextWaypointIndex = (currentWaypoint + 1) % _waypoints.Length;
             currentWaypoint = nextWaypointIndex;
             _me.navMeshAgent.SetDestination(_waypoints[currentWaypoint].position);
@@ -52,7 +52,7 @@ public class EnemyPatrol : IState
 
         if (_me.playerDetection.isPlayerInFOV)
         {
-            Debug.Log("patrol update: me paso a chase xq el player esta en fov");
+            //Debug.Log("patrol update: me paso a chase xq el player esta en fov");
             _fsm.ChangeState(State.EnemyChase);
         }
     }

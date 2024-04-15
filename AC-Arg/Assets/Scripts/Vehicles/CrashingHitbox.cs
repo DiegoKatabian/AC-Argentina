@@ -9,7 +9,7 @@ public class CrashingHitbox : MonoBehaviour
     {
         if (other.GetComponent<ICrashable>() != null)
         {
-            Debug.Log("le doy a un crashable");
+            //Debug.Log("le doy a un crashable");
             ICrashable crashable = other.GetComponent<ICrashable>();
             crashable.OnCrash(gameObject, crashForce);
         }

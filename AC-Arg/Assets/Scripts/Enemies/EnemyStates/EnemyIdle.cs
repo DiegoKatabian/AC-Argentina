@@ -45,8 +45,7 @@ public class EnemyIdle : IState
 
         if (_me.playerDetection.isPlayerInFOV)
         {
-            //Debug.Log("idle update: me paso a chase xq el player esta en fov");
-            //if chasesplayerwhilewarning is true, then check if player is in warning or alert status
+            Debug.Log("idle update: el player esta en fov");
             if (_me.chasesPlayerOnlyWhileWarning)
             {
                 if (StealthManager.Instance.currentStatus.status == StealthStatus.Warning ||

@@ -13,7 +13,7 @@ public class PedestrianCrash : IState
     }
     public void OnEnter()
     {
-        Debug.Log("ped: entro a crash");
+        //Debug.Log("ped: entro a crash");
         _me.animator.CrossFade("Crash", 0.1f);
 
         Vector3 direction = _me.vehiclePosition - _me.transform.position;
@@ -24,7 +24,7 @@ public class PedestrianCrash : IState
 
     public void OnExit()
     {
-        Debug.Log("ped: salgo de crash");
+        //Debug.Log("ped: salgo de crash");
     }
 
     public void OnUpdate()

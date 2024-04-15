@@ -77,7 +77,7 @@ public class Pedestrian : MonoBehaviour, ICrashable
             return;
 
         isCrashed = true;
-        Debug.Log("pedestrian on crash");
+        //Debug.Log("pedestrian on crash");
         vehiclePosition = vehicle.transform.position;
         _crashForce = crashForce;
 

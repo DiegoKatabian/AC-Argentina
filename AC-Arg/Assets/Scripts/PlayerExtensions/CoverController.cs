@@ -77,7 +77,7 @@ public class CoverController : MonoBehaviour
 
     private void OnPlayerEnterCover()
     {
-        Debug.Log("Player entered cover");
+        //Debug.Log("Player entered cover");
         //animacion
         //limit movement to only left-right
         characterAnimation.switchCameras.CoverCam();
@@ -86,7 +86,7 @@ public class CoverController : MonoBehaviour
 
     private void OnPlayerExitCover()
     {
-        Debug.Log("Player exited cover");
+        //Debug.Log("Player exited cover");
         characterAnimation.switchCameras.FreeLookCam();
         SnapOutOfCover();
     }
@@ -99,6 +99,6 @@ public class CoverController : MonoBehaviour
 
     private void SnapOutOfCover()
     {
-        Debug.Log("Snap out of cover");
+        //Debug.Log("Snap out of cover");
     }
 }

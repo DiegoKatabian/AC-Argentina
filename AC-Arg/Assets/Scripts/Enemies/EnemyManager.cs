@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class EnemyManager : Singleton<EnemyManager>
 {
@@ -47,7 +48,6 @@ public class EnemyManager : Singleton<EnemyManager>
         EventManager.Trigger(Evento.OnEnemyKilled, enemy);
         Destroy(enemy.gameObject);
     }
-
     public void UpdateEnemyState(FiniteStateMachine enemyFSM, IState currentState)
     {
         //Debug.Log("EnemyManager: an enemy has updated its state.");
@@ -103,7 +103,6 @@ public class EnemyManager : Singleton<EnemyManager>
             !IsAnyEnemyAttackingPlayer() && 
             IsEnemyNextInLine(enemy);
     }
-
     public bool IsEnemyNextInLine(Enemy enemy)
     {
         return readyToAttackEnemiesQueue.Count > 0 && 
@@ -153,6 +152,23 @@ public class EnemyManager : Singleton<EnemyManager>
         }
         return true;
     }
+
+    public bool IsAnyEnemyInState<T>() where T : IState
+    {
+        return enemyStates.Any(kv => kv.Value.GetType() == typeof(T));
+    }
+
+    public bool AreAllEnemiesInState(params Type[] stateTypes)
+    {
+        return enemyStates.All(kv => stateTypes.Contains(kv.Value.GetType()));
+    }
+
+    //a method that will return true if all enemies are either in EnemyIdle or EnemyPatrol state
+    public bool AreAllEnemiesIdleOrPatrolling()
+    {
+        return AreAllEnemiesInState(typeof(EnemyIdle), typeof(EnemyPatrol));
+    }
+
     public void EmitAlarm(IState state)
     {
         if (StealthManager.Instance == null)
@@ -160,34 +176,34 @@ public class EnemyManager : Singleton<EnemyManager>
             return;
         }
 
-        if (IsAnyEnemyAttackingPlayer())
+        if (IsAnyEnemyInState<EnemyAttack>())
         {
             StealthManager.Instance.SetStealthStatus(StealthStatus.Alert);
             return;
         }
 
-        if (IsAnyEnemyChasingPlayer())
+        if (IsAnyEnemyInState<EnemyChase>())
         {
             StealthManager.Instance.SetStealthStatus(StealthStatus.Warning);
             return;
         }
 
-        if (IsAnyEnemyHurting())
+        if (IsAnyEnemyInState<EnemyHurt>())
         {
             StealthManager.Instance.SetStealthStatus(StealthStatus.Alert);
             return;
         }
         
-        if (IsAnyEnemyReadyToAttack())
+        if (IsAnyEnemyInState<EnemyReadyToAttack>())
         {
             StealthManager.Instance.SetStealthStatus(StealthStatus.Alert);
             return;
         }
 
-        if (AreAllEnemiesIdle() &&
+        if (AreAllEnemiesIdleOrPatrolling() &&
             StealthManager.Instance.currentStatus.status != StealthStatus.Hidden)
         {
-            StealthManager.Instance.SetStealthStatus(StealthStatus.Hidden);
+            StealthManager.Instance.SetStealthStatus(StealthStatus.Visible);
             return;
         }
     }
@@ -252,12 +268,10 @@ public class EnemyManager : Singleton<EnemyManager>
         }
 
     }
-
     public float GetDistanceToPlayer(Vector3 enemyPosition)
     {
         return Vector3.Distance(player.transform.position, enemyPosition);
     }
-
     public Vector3 GetDirectionToPlayer(Vector3 enemyPosition)
     {
         return player.transform.position - enemyPosition;
