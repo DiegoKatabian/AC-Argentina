@@ -77,18 +77,20 @@ public class CoverController : MonoBehaviour
 
     private void OnPlayerEnterCover()
     {
-        //Debug.Log("Player entered cover");
+        Debug.Log("Player entered cover");
         //animacion
         //limit movement to only left-right
         characterAnimation.switchCameras.CoverCam();
         SnapToCover();
+        StealthManager.Instance.ActivateBlend();
     }
 
     private void OnPlayerExitCover()
     {
-        //Debug.Log("Player exited cover");
+        Debug.Log("Player exited cover");
         characterAnimation.switchCameras.FreeLookCam();
         SnapOutOfCover();
+        StealthManager.Instance.ExitBlendZone();
     }
 
     private void SnapToCover()
