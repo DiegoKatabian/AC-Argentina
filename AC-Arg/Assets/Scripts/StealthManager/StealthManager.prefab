@@ -50,4 +50,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e886bbb89dd739349b0b759ead0bbbd0, type: 2}
   - {fileID: 11400000, guid: 6cdc93c5956f0624f94d15e9632c9380, type: 2}
   blendDelay: 1
-  currentStatus: {fileID: 0}
+  currentStatus: {fileID: 11400000, guid: 4e41e620a331ca14ca6a55e91a113bbf, type: 2}

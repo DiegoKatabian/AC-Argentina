@@ -8,7 +8,7 @@ public class PedestrianDetectionCollider : DetectionCollider
 
     private void Start()
     {
-        EventManager.Subscribe(Evento.OnPedestrianKilled, RemovePedestrian);
+        EventManager.Instance.Subscribe(Evento.OnPedestrianKilled, RemovePedestrian);
     }
 
     public override void OnTagDetectedEnter(Collider other)
@@ -36,7 +36,7 @@ public class PedestrianDetectionCollider : DetectionCollider
     private void OnDestroy()
     {
         if (!gameObject.scene.isLoaded)
-            EventManager.Unsubscribe(Evento.OnPedestrianKilled, RemovePedestrian);
+            EventManager.Instance.Unsubscribe(Evento.OnPedestrianKilled, RemovePedestrian);
     }
 
 }

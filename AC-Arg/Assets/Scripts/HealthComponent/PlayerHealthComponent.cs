@@ -13,7 +13,7 @@ public class PlayerHealthComponent : HealthComponent
     public override void TakeDamage(float damageAmount)
     {
         currentHealth -= damageAmount;
-        EventManager.Trigger(Evento.OnPlayerHealthUpdate, currentHealth, maxHealth);
+        EventManager.Instance.Trigger(Evento.OnPlayerHealthUpdate, currentHealth, maxHealth);
 
         if (currentHealth <= 0)
         {
@@ -24,7 +24,7 @@ public class PlayerHealthComponent : HealthComponent
     public override void Die()
     {
         Debug.Log("you died");
-        EventManager.Trigger(Evento.OnPlayerDied);
+        EventManager.Instance.Trigger(Evento.OnPlayerDied);
     }
 
 }

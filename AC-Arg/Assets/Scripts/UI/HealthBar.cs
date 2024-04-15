@@ -11,7 +11,7 @@ public class HealthBar : MonoBehaviour
 
     void Start()
     {
-        EventManager.Subscribe(Evento.OnPlayerHealthUpdate, UpdateHealthBar);
+        EventManager.Instance.Subscribe(Evento.OnPlayerHealthUpdate, UpdateHealthBar);
     }
 
     private void UpdateHealthBar(object[] parameters)
@@ -23,7 +23,7 @@ public class HealthBar : MonoBehaviour
     {
         if (!gameObject.scene.isLoaded)
         {
-            EventManager.Unsubscribe(Evento.OnPlayerHealthUpdate, UpdateHealthBar);
+            EventManager.Instance.Unsubscribe(Evento.OnPlayerHealthUpdate, UpdateHealthBar);
         }
     }
 }

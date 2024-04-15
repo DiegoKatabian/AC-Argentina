@@ -24,7 +24,7 @@ public class BusManager : Singleton<BusManager>
     {
         //Debug.Log("BusManager: get all buses ready to stop");
 
-        EventManager.Trigger(Evento.OnPlayerStopsVehicle);
+        EventManager.Instance.Trigger(Evento.OnPlayerStopsVehicle);
         foreach (Bus bus in allBuses)
         {
             bus.GetReadyToStop();

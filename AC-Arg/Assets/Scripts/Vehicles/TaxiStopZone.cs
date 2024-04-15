@@ -19,7 +19,7 @@ namespace TrafficSimulation
         {
             currentStopChance = stopChance;
             //Debug.Log("current stop chance: " + currentStopChance);
-            EventManager.Subscribe(Evento.OnInputRequestBusStop, OnStopRequested);
+            EventManager.Instance.Subscribe(Evento.OnInputRequestBusStop, OnStopRequested);
         }
 
         private void OnStopRequested(object[] parameters)
@@ -31,7 +31,7 @@ namespace TrafficSimulation
                 //currentStopChance = 1;
                 TriggerTaxiStop(thisTaxi);
                 wasRequested = true;
-                EventManager.Trigger(Evento.OnPlayerStopsVehicle);
+                EventManager.Instance.Trigger(Evento.OnPlayerStopsVehicle);
             }
         }
 
@@ -83,7 +83,7 @@ namespace TrafficSimulation
         {
             if (!gameObject.scene.isLoaded)
             {
-                EventManager.Unsubscribe(Evento.OnInputRequestBusStop, OnStopRequested);
+                EventManager.Instance.Unsubscribe(Evento.OnInputRequestBusStop, OnStopRequested);
             }
         }
     }

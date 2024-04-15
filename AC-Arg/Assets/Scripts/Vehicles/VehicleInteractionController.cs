@@ -37,7 +37,7 @@ namespace Climbing
             player = transform.parent;
             originalParent = player.parent; //originalparent seria la escena, el padre de Player, no de playermodel
             playerController = GetComponent<ThirdPersonController>();
-            EventManager.Subscribe(Evento.OnInputRequestInteract, TryInteract);
+            EventManager.Instance.Subscribe(Evento.OnInputRequestInteract, TryInteract);
         }
 
         private void TryInteract(object[] parameters)
@@ -88,7 +88,7 @@ namespace Climbing
             StartCoroutine(WaitUntilEnableMesh(false));
             currentInteractableVehicle.OnPlayerHopOn();
             insideCar = true;
-            EventManager.Trigger(Evento.OnPlayerInsideCarUpdate, true);
+            EventManager.Instance.Trigger(Evento.OnPlayerInsideCarUpdate, true);
         }
 
         void TriggerEnterCarAnimation()
@@ -111,7 +111,7 @@ namespace Climbing
             playerController.characterAnimation.switchCameras.FreeLookCam();
             playerController.characterAnimation.EnableMesh(true);
             currentInteractableVehicle.OnPlayerHopOff();
-            EventManager.Trigger(Evento.OnPlayerInsideCarUpdate, false);
+            EventManager.Instance.Trigger(Evento.OnPlayerInsideCarUpdate, false);
         }
 
         public IEnumerator WaitUntilEnableMesh(bool state)
@@ -158,7 +158,7 @@ namespace Climbing
         {
             if (!gameObject.scene.isLoaded)
             {
-                EventManager.Unsubscribe(Evento.OnInputRequestInteract, TryInteract);
+                EventManager.Instance.Unsubscribe(Evento.OnInputRequestInteract, TryInteract);
             }
         }
 

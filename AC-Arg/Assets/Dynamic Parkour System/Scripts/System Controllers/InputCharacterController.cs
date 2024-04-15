@@ -60,12 +60,12 @@ namespace Climbing
 
         private void LeftHandInput()
         {
-            EventManager.Trigger(Evento.OnLeftHandInput);
+            EventManager.Instance.Trigger(Evento.OnLeftHandInput);
         }
 
         private void RightHandInput()
         {
-            EventManager.Trigger(Evento.OnRightHandInput);
+            EventManager.Instance.Trigger(Evento.OnRightHandInput);
         }
 
         void ToggleRun()
@@ -79,31 +79,31 @@ namespace Climbing
         void Pause()
         {
             Debug.Log("toque pause button");
-            EventManager.Trigger(Evento.OnInputRequestPause);
+            EventManager.Instance.Trigger(Evento.OnInputRequestPause);
         }
 
         void Interact()
         {
             Debug.Log("toque interact button");
-            EventManager.Trigger(Evento.OnInputRequestInteract);
+            EventManager.Instance.Trigger(Evento.OnInputRequestInteract);
         }
 
         void RequestBusStop()
         {
             Debug.Log("toque RequestBusStop button");
-            EventManager.Trigger(Evento.OnInputRequestBusStop);
+            EventManager.Instance.Trigger(Evento.OnInputRequestBusStop);
         }
 
         void Steal()
         {
             Debug.Log("toque steal button");
-            EventManager.Trigger(Evento.OnInputRequestSteal);
+            EventManager.Instance.Trigger(Evento.OnInputRequestSteal);
         }
 
         void Assassinate()
         {
             Debug.Log("toque assassinate button");
-            EventManager.Trigger(Evento.OnInputRequestAssassinate);
+            EventManager.Instance.Trigger(Evento.OnInputRequestAssassinate);
         }
     }
 

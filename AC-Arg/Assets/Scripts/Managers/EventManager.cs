@@ -21,13 +21,13 @@ public enum Evento //LOS EVENTOS SE AGREGAN AL FINAL. NO EN EL MEDIO, PORQUE ARR
     OnMoneyUpdate, //0 es int currentmoney
 }
 
-public class EventManager
+public class EventManager : Singleton<EventManager>
 {
     public delegate void EventReceiver(params object[] parameters);
 
-    static Dictionary<Evento, EventReceiver> _events = new Dictionary<Evento, EventReceiver>();
+    public Dictionary<Evento, EventReceiver> _events = new Dictionary<Evento, EventReceiver>();
 
-    public static void Subscribe(Evento evento, EventReceiver metodo)
+    public void Subscribe(Evento evento, EventReceiver metodo)
     {
         if (!_events.ContainsKey(evento))
         {
@@ -39,7 +39,7 @@ public class EventManager
         }
     }
 
-    public static void Unsubscribe(Evento evento, EventReceiver metodo)
+    public void Unsubscribe(Evento evento, EventReceiver metodo)
     {
         if (_events.ContainsKey(evento))
         {
@@ -47,7 +47,7 @@ public class EventManager
         }
     }
 
-    public static void Trigger(Evento evento, params object[] parameters)
+    public void Trigger(Evento evento, params object[] parameters)
     {
         //Debug.Log("event manager - trigger");
         if (_events.ContainsKey(evento))

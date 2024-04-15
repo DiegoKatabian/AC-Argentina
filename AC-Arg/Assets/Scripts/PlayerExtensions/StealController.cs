@@ -19,12 +19,12 @@ public class StealController : MonoBehaviour
         set
         {
             currentMoney = value;
-            EventManager.Trigger(Evento.OnMoneyUpdate, currentMoney);
+            EventManager.Instance.Trigger(Evento.OnMoneyUpdate, currentMoney);
         }
     }
     void Start()
     {
-        EventManager.Subscribe(Evento.OnInputRequestSteal, TrySteal);
+        EventManager.Instance.Subscribe(Evento.OnInputRequestSteal, TrySteal);
     }
 
     private void TrySteal(params object[] parameters)
@@ -83,7 +83,7 @@ public class StealController : MonoBehaviour
     {
         if (!gameObject.scene.isLoaded)
         {
-            EventManager.Unsubscribe(Evento.OnInputRequestSteal, TrySteal);
+            EventManager.Instance.Unsubscribe(Evento.OnInputRequestSteal, TrySteal);
         }
     }
 

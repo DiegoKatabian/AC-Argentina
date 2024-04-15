@@ -9,7 +9,7 @@ public class EnemyDetectionCollider : DetectionCollider
 
     private void Start()
     {
-        EventManager.Subscribe(Evento.OnEnemyKilled, RemoveEnemy);
+        EventManager.Instance.Subscribe(Evento.OnEnemyKilled, RemoveEnemy);
     }
 
     public override void OnTagDetectedEnter(Collider other)
@@ -38,7 +38,7 @@ public class EnemyDetectionCollider : DetectionCollider
     private void OnDestroy()
     {
         if (!gameObject.scene.isLoaded)
-            EventManager.Unsubscribe(Evento.OnEnemyKilled, RemoveEnemy);
+            EventManager.Instance.Unsubscribe(Evento.OnEnemyKilled, RemoveEnemy);
     }
 
    

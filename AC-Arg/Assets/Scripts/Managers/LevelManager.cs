@@ -11,8 +11,8 @@ public class LevelManager : MonoBehaviour
 
     private void Awake()
     {
-        EventManager.Subscribe(Evento.OnInputRequestPause, PauseMenuTrigger);
-        EventManager.Subscribe(Evento.OnPlayerDied, GameOverMenuTrigger);
+        EventManager.Instance.Subscribe(Evento.OnInputRequestPause, PauseMenuTrigger);
+        EventManager.Instance.Subscribe(Evento.OnPlayerDied, GameOverMenuTrigger);
     }
 
     private void PauseMenuTrigger(object[] parameters)
@@ -55,14 +55,14 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    public void RestartGame()
+    public void BUTTON_RestartGame()
     {
         Time.timeScale = 1;
         //gameOverMenu.SetActive(false);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    public void QuitGame()
+    public void BUTTON_QuitGame()
     {
         Debug.Log("quiteo porque toque el boton en el pause menu");
         Application.Quit();

@@ -9,7 +9,7 @@ public class MoneyBar : MonoBehaviour
 
     public void Start()
     {
-        EventManager.Subscribe(Evento.OnMoneyUpdate, UpdateMoneyStatus);
+        EventManager.Instance.Subscribe(Evento.OnMoneyUpdate, UpdateMoneyStatus);
     }
 
     private void UpdateMoneyStatus(object[] parameters)
@@ -21,7 +21,7 @@ public class MoneyBar : MonoBehaviour
     {
         if (!gameObject.scene.isLoaded)
         {
-            EventManager.Unsubscribe(Evento.OnMoneyUpdate, UpdateMoneyStatus);
+            EventManager.Instance.Unsubscribe(Evento.OnMoneyUpdate, UpdateMoneyStatus);
         }
     }
 }

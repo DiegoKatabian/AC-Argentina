@@ -27,7 +27,7 @@ namespace Climbing
             controller = GetComponent<ThirdPersonController>();
             animator = GetComponent<Animator>();
             switchCameras = Camera.main.GetComponent<SwitchCameras>();
-            EventManager.Subscribe(Evento.OnPlayerStopsVehicle, TriggerStopVehicleAnimation);
+            EventManager.Instance.Subscribe(Evento.OnPlayerStopsVehicle, TriggerStopVehicleAnimation);
         }
 
         void Update()

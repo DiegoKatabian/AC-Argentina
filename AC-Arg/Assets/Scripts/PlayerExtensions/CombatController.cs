@@ -27,8 +27,8 @@ public class CombatController : MonoBehaviour
     private void Start()
     {
         controller = GetComponent<ThirdPersonController>();
-        EventManager.Subscribe(Evento.OnLeftHandInput, PerformLeftHandAttack);
-        EventManager.Subscribe(Evento.OnRightHandInput, PerformRightHandAttack);
+        EventManager.Instance.Subscribe(Evento.OnLeftHandInput, PerformLeftHandAttack);
+        EventManager.Instance.Subscribe(Evento.OnRightHandInput, PerformRightHandAttack);
     }
    
     private void Update()
@@ -270,8 +270,8 @@ public class CombatController : MonoBehaviour
     {
         if(!gameObject.scene.isLoaded)
         {
-            EventManager.Unsubscribe(Evento.OnLeftHandInput, PerformLeftHandAttack);
-            EventManager.Unsubscribe(Evento.OnRightHandInput, PerformRightHandAttack);
+            EventManager.Instance.Unsubscribe(Evento.OnLeftHandInput, PerformLeftHandAttack);
+            EventManager.Instance.Unsubscribe(Evento.OnRightHandInput, PerformRightHandAttack);
         }
     }
 }

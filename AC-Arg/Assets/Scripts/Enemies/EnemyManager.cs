@@ -47,7 +47,7 @@ public class EnemyManager : Singleton<EnemyManager>
         {
             readyToAttackEnemiesQueue.Dequeue();
         }
-        EventManager.Trigger(Evento.OnEnemyKilled, enemy);
+        EventManager.Instance.Trigger(Evento.OnEnemyKilled, enemy);
         Destroy(enemy.gameObject);
     }
     public void UpdateEnemyState(FiniteStateMachine enemyFSM, IState currentState)

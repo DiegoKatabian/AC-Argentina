@@ -11,7 +11,7 @@ public class AssassinationController : MonoBehaviour
 
     void Start()
     {
-        EventManager.Subscribe(Evento.OnInputRequestAssassinate, TryAssassination);
+        EventManager.Instance.Subscribe(Evento.OnInputRequestAssassinate, TryAssassination);
     }
 
     private void TryAssassination(params object[] parameters)
@@ -74,7 +74,7 @@ public class AssassinationController : MonoBehaviour
     {
         if (!gameObject.scene.isLoaded)
         {
-            EventManager.Unsubscribe(Evento.OnInputRequestAssassinate, TryAssassination);
+            EventManager.Instance.Unsubscribe(Evento.OnInputRequestAssassinate, TryAssassination);
         }
     }
 }

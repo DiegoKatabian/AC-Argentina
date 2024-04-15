@@ -7,18 +7,19 @@ public class StealthManager : Singleton<StealthManager>
 {
     public List<StealthStatusSO> stealthStatuses = new List<StealthStatusSO>();
     public float blendDelay = 2.5f;
-    [HideInInspector] public StealthStatusSO currentStatus;
+    public StealthStatusSO currentStatus;
     BlendZone currentBlendZone;
 
     public override void Awake()
     {
         base.Awake();
-        SetStealthStatus(StealthStatus.Visible);
+        //SetStealthStatus(StealthStatus.Visible);
+
     }
 
     private void Start()
     {
-        EventManager.Subscribe(Evento.OnPlayerInsideCarUpdate, PlayerInsideCarUpdate);
+        EventManager.Instance.Subscribe(Evento.OnPlayerInsideCarUpdate, PlayerInsideCarUpdate);
 
     }
 
@@ -46,7 +47,7 @@ public class StealthManager : Singleton<StealthManager>
             if (status.name == statusName)
             {
                 currentStatus = status;
-                EventManager.Trigger(Evento.OnStealthUpdate, statusName);
+                EventManager.Instance.Trigger(Evento.OnStealthUpdate, statusName);
                 PrintStealthStatus();
                 return;
             }
@@ -61,7 +62,7 @@ public class StealthManager : Singleton<StealthManager>
             if (status.name == statusName)
             {
                 currentStatus = status;
-                EventManager.Trigger(Evento.OnStealthUpdate, statusName);
+                EventManager.Instance.Trigger(Evento.OnStealthUpdate, statusName);
                 PrintStealthStatus();
                 return;
             }
@@ -74,7 +75,7 @@ public class StealthManager : Singleton<StealthManager>
             if (status.status == stealthStatus)
             {
                 currentStatus = status;
-                EventManager.Trigger(Evento.OnStealthUpdate, status.name);
+                EventManager.Instance.Trigger(Evento.OnStealthUpdate, status.name);
                 PrintStealthStatus();
                 return;
             }
@@ -137,7 +138,7 @@ public class StealthManager : Singleton<StealthManager>
         if (!gameObject.scene.isLoaded)
         {
             StopAllCoroutines();
-            EventManager.Unsubscribe(Evento.OnPlayerInsideCarUpdate, PlayerInsideCarUpdate);
+            EventManager.Instance.Unsubscribe(Evento.OnPlayerInsideCarUpdate, PlayerInsideCarUpdate);
         }
     }
 }
