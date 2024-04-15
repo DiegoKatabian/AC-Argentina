@@ -8,10 +8,12 @@ using System.Linq;
 public class EnemyManager : Singleton<EnemyManager>
 {
     public ThirdPersonController player;
+    public float pedestrianAlarmRadius = 20f;
 
     Dictionary<Enemy, FiniteStateMachine> enemyFSMs = new Dictionary<Enemy, FiniteStateMachine>();
     Dictionary<Enemy, IState> enemyStates = new Dictionary<Enemy, IState>();
     Queue<Enemy> readyToAttackEnemiesQueue = new Queue<Enemy>();
+
 
     internal void DamagePlayer(float attackDamage)
     {
@@ -163,7 +165,6 @@ public class EnemyManager : Singleton<EnemyManager>
         return enemyStates.All(kv => stateTypes.Contains(kv.Value.GetType()));
     }
 
-    //a method that will return true if all enemies are either in EnemyIdle or EnemyPatrol state
     public bool AreAllEnemiesIdleOrPatrolling()
     {
         return AreAllEnemiesInState(typeof(EnemyIdle), typeof(EnemyPatrol));
@@ -275,5 +276,23 @@ public class EnemyManager : Singleton<EnemyManager>
     public Vector3 GetDirectionToPlayer(Vector3 enemyPosition)
     {
         return player.transform.position - enemyPosition;
+    }
+
+    internal void TriggerPedestrianAlarm(Vector3 position)
+    {
+        var enemies = enemyStates.Where(kv => kv.Value.GetType() == typeof(EnemyIdle) || kv.Value.GetType() == typeof(EnemyPatrol))
+                                .Where(kv => Vector3.Distance(kv.Key.transform.position, position) < pedestrianAlarmRadius);
+
+
+        if (enemies.Count() > 0)
+        {
+            StealthManager.Instance.SetStealthStatus(StealthStatus.Warning);
+        }
+
+        foreach (KeyValuePair<Enemy, IState> enemyState in enemies)
+        {
+            enemyState.Key.navMeshAgent.SetDestination(position);
+        }
+
     }
 }

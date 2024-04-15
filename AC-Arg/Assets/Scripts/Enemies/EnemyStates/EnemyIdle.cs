@@ -20,7 +20,7 @@ public class EnemyIdle : IState
 
         if (_me.isPatroller)
         {
-            Debug.Log("IDLE: me insta paso a patrol");
+            //Debug.Log("IDLE: me insta paso a patrol");
             _fsm.ChangeState(State.EnemyPatrol);
         }
     }

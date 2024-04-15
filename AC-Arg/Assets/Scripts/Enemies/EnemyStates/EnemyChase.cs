@@ -17,6 +17,7 @@ public class EnemyChase : IState
     {
         _me.StartChasingPlayer();
         _me.animator.CrossFade("Chase", 0.2f);
+        _me.chasesPlayerOnlyWhileWarning = false;
     }
 
     public void OnExit()

@@ -30,7 +30,8 @@ public class AssassinationController : MonoBehaviour
             return;
         }
 
-        if (!pedestrianInteractionController.currentPedestrian.canInteract)
+        if (pedestrianInteractionController.currentPedestrian != null &&
+            !pedestrianInteractionController.currentPedestrian.canInteract)
         {
             Debug.Log("cant interact with this pedestrian");
             return;

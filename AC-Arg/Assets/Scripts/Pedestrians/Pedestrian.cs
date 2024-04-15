@@ -103,7 +103,7 @@ public class Pedestrian : MonoBehaviour, ICrashable
     {
         Debug.Log("pedestrian: me asesinaron");
         healthComponent.TakeDamage(100);
-
+        PedestrianManager.Instance.TriggerPedestrianAlarm(this);
     }
 
     internal void GetStolenFrom()

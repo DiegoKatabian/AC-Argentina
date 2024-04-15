@@ -21,4 +21,8 @@ public class PedestrianManager : Singleton<PedestrianManager>
         return _waypoints[randomIndex].transform.position;
     }
 
+    public void TriggerPedestrianAlarm(Pedestrian pedestrian)
+    {
+        EnemyManager.Instance.TriggerPedestrianAlarm(pedestrian.transform.position);
+    }
 }
