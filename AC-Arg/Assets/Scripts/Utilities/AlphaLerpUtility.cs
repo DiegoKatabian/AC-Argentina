@@ -22,18 +22,21 @@ public static class AlphaLerpUtility
         image.color = targetColor;
     }
 
-    public static IEnumerator LerpColor(Image image, Color startColor, Color targetColor, float time)
+    public static IEnumerator LerpColorCoroutine(Image image, Color startColor, Color targetColor, float time)
     {
+        Debug.Log("init lerpcolor");
         float elapsedTime = 0f;
 
         while (elapsedTime < time)
         {
+            Debug.Log("lerping...");
             image.color = Color.Lerp(startColor, targetColor, elapsedTime / time);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
         image.color = targetColor;
+        Debug.Log("color = target color");
     }
 
     public static IEnumerator LerpColor(Image image, Color startColor, Color targetColor, float time, float alphaCap)

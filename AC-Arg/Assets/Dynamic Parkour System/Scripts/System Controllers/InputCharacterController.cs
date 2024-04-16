@@ -23,7 +23,7 @@ namespace Climbing
 
         private void OnEnable()
         {
-            if(controls != null)
+            if (controls != null)
                 controls.Enable();
         }
 
@@ -47,15 +47,30 @@ namespace Climbing
             controls.Player.Run.canceled += ctx => run = ctx.ReadValueAsButton();
             controls.GameManager.Exit.performed += ctx => Pause();
             controls.Player.Interact.performed += ctx => Interact();
-            controls.Player.RequestBusStop.performed += ctx => RequestBusStop();
+            controls.Player.RequestBusStop.performed += ctx => OnBusStopButtonPressed();
+            controls.Player.RequestBusStop.canceled += ctx => OnBusStopButtonReleased();
             controls.Player.Crouch.performed += ctx => crouch = ctx.ReadValueAsButton();
             controls.Player.Crouch.canceled += ctx => crouch = ctx.ReadValueAsButton();
+            controls.Player.Crouch.performed += ctx => OnCrouchButtonPressed();
+            controls.Player.Crouch.canceled += ctx => OnCrouchButtonReleased();
             controls.Player.ChangeCurrentEnemy.performed += ctx => changeCurrentEnemy = ctx.ReadValue<float>();
             controls.Player.ChangeCurrentEnemy.canceled += ctx => changeCurrentEnemy = ctx.ReadValue<float>();
             controls.Player.LeftHand.performed += ctx => LeftHandInput();
             controls.Player.RightHand.performed += ctx => RightHandInput();
-            controls.Player.Steal.performed += ctx => Steal();
-            controls.Player.Assassinate.performed += ctx => Assassinate();
+            controls.Player.Steal.performed += ctx => OnStealButtonPressed();
+            controls.Player.Steal.canceled += ctx => OnStealButtonReleased();
+            controls.Player.Assassinate.performed += ctx => OnAssassinateButtonPressed();
+            controls.Player.Assassinate.canceled += ctx => OnAssassinateButtonReleased();
+        }
+
+
+        private void OnCrouchButtonPressed()
+        {
+            EventManager.Instance.Trigger(Evento.OnInputRequestCrouch);
+        }
+        private void OnCrouchButtonReleased()
+        {
+            EventManager.Instance.Trigger(Evento.OnInputReleaseCrouch);
         }
 
         private void LeftHandInput()
@@ -88,23 +103,41 @@ namespace Climbing
             EventManager.Instance.Trigger(Evento.OnInputRequestInteract);
         }
 
-        void RequestBusStop()
+        void OnBusStopButtonPressed()
         {
             Debug.Log("toque RequestBusStop button");
             EventManager.Instance.Trigger(Evento.OnInputRequestBusStop);
         }
 
-        void Steal()
+        void OnStealButtonPressed()
         {
-            Debug.Log("toque steal button");
+            Debug.Log("Steal button pressed");
+            // Lógica para cuando se presiona el botón de robo
             EventManager.Instance.Trigger(Evento.OnInputRequestSteal);
         }
 
-        void Assassinate()
+        void OnStealButtonReleased()
+        {
+            Debug.Log("Steal button released");
+            EventManager.Instance.Trigger(Evento.OnInputReleaseSteal);
+
+        }
+
+        void OnAssassinateButtonPressed()
         {
             Debug.Log("toque assassinate button");
             EventManager.Instance.Trigger(Evento.OnInputRequestAssassinate);
         }
-    }
 
+        void OnAssassinateButtonReleased()
+        {
+            EventManager.Instance.Trigger(Evento.OnInputReleaseAssassinate);
+        }
+
+        void OnBusStopButtonReleased()
+        {
+            Debug.Log("toque RequestBusStop button");
+            EventManager.Instance.Trigger(Evento.OnInputReleaseBusStop);
+        }
+    }
 }

@@ -25,7 +25,7 @@ public class Bus : VehicleAI
         //Debug.Log("on stop requested");
         if (playerIsInside)
         {
-            Debug.Log("PLAYER IS INSIDE, PIDIENDO PARA POR FAVOR");
+            Debug.Log("PLAYER IS INSIDE, PIDIENDO PARADA POR FAVOR");
             GetReadyToStop();
         }
     }

@@ -29,23 +29,29 @@ public class StealController : MonoBehaviour
 
     private void TrySteal(params object[] parameters)
     {
-        Debug.Log("try steal...");
+        //Debug.Log("try steal...");
 
         if (!controller.isCrouch)
         {
-            Debug.Log("not crouching");
+            //Debug.Log("not crouching");
             return;
         }
 
         if (pedestrianInteractionController.isAlreadyInteracting)
         {
-            Debug.Log("already interacting");
+            //Debug.Log("already interacting");
+            return;
+        }
+
+        if (pedestrianInteractionController.currentPedestrian == null)
+        {
+            //Debug.Log("no pedestrian");
             return;
         }
 
         if (!pedestrianInteractionController.currentPedestrian.canInteract)
         {
-            Debug.Log("cant interact with this pedestrian");
+            //Debug.Log("cant interact with this pedestrian");
             return;
         }
 
