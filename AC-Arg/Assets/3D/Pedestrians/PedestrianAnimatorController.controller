@@ -8,7 +8,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Die
-  m_Speed: 0.1
+  m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -5950166252364811821}
@@ -21,7 +21,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 21e6bd4cf16c4664d90b9a779d973b5c, type: 2}
+  m_Motion: {fileID: 7400000, guid: 67bc280c06b8a8b489b0905413f3fe1d, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
