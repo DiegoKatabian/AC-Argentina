@@ -10,7 +10,7 @@ public enum Evento //LOS EVENTOS SE AGREGAN AL FINAL. NO EN EL MEDIO, PORQUE ARR
     OnPlayerStopsVehicle,
     OnPlayerHealthUpdate,
     OnPlayerDied,
-    OnStealthUpdate, //0 es un string
+    OnStealthUpdate, //0 es StealthStatusSO
     OnLeftHandInput,
     OnRightHandInput,
     OnEnemyKilled, //0 es enemy
@@ -24,6 +24,8 @@ public enum Evento //LOS EVENTOS SE AGREGAN AL FINAL. NO EN EL MEDIO, PORQUE ARR
     OnInputReleaseBusStop,
     OnInputRequestCrouch,
     OnInputReleaseCrouch,
+    OnEnterBlendZoneConfirmed,
+    OnActivateBlendZone,
 }
 
 public class EventManager : Singleton<EventManager>

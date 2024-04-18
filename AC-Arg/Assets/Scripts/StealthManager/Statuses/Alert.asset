@@ -15,3 +15,4 @@ MonoBehaviour:
   statusName: Alert
   status: 2
   statusColor: {r: 1, g: 0, b: 0, a: 1}
+  icon: {fileID: 21300000, guid: 44e814e5f23153e498f4e2e4d9c7016a, type: 3}

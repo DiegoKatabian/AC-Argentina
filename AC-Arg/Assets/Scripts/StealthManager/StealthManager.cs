@@ -13,8 +13,6 @@ public class StealthManager : Singleton<StealthManager>
     public override void Awake()
     {
         base.Awake();
-        //SetStealthStatus(StealthStatus.Visible);
-
     }
 
     private void Start()
@@ -30,7 +28,6 @@ public class StealthManager : Singleton<StealthManager>
         {
             Debug.Log("player inside car");
             StartCoroutine(CoroutineUtilities.DelayedAction(blendDelay, SetStealthStatus, "Hidden"));
-            //SetStealthStatus(StealthStatus.Hidden);
         }
         else
         {
@@ -47,7 +44,7 @@ public class StealthManager : Singleton<StealthManager>
             if (status.name == statusName)
             {
                 currentStatus = status;
-                EventManager.Instance.Trigger(Evento.OnStealthUpdate, statusName);
+                EventManager.Instance.Trigger(Evento.OnStealthUpdate, currentStatus);
                 PrintStealthStatus();
                 return;
             }
@@ -62,7 +59,7 @@ public class StealthManager : Singleton<StealthManager>
             if (status.name == statusName)
             {
                 currentStatus = status;
-                EventManager.Instance.Trigger(Evento.OnStealthUpdate, statusName);
+                EventManager.Instance.Trigger(Evento.OnStealthUpdate, currentStatus);
                 PrintStealthStatus();
                 return;
             }
@@ -75,7 +72,7 @@ public class StealthManager : Singleton<StealthManager>
             if (status.status == stealthStatus)
             {
                 currentStatus = status;
-                EventManager.Instance.Trigger(Evento.OnStealthUpdate, status.name);
+                EventManager.Instance.Trigger(Evento.OnStealthUpdate, currentStatus);
                 PrintStealthStatus();
                 return;
             }
@@ -96,6 +93,7 @@ public class StealthManager : Singleton<StealthManager>
         }
         //Debug.Log("entraste a la zona de blend, arranca el timer");
 
+        EventManager.Instance.Trigger(Evento.OnEnterBlendZoneConfirmed);
         currentBlendZone = blendZone;
         currentBlendZone.EnterZoneConfirmed();
         StartCoroutine(BlendDelay());
@@ -121,6 +119,7 @@ public class StealthManager : Singleton<StealthManager>
     {
         Debug.Log("blend activado");
         SetStealthStatus(StealthStatus.Hidden);
+        EventManager.Instance.Trigger(Evento.OnActivateBlendZone);
     }
     internal void ExitBlendZone()
     {

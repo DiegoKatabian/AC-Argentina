@@ -16,4 +16,5 @@ public class StealthStatusSO : ScriptableObject
     public string statusName;
     public StealthStatus status;
     public Color statusColor;
+    public Sprite icon;
 }

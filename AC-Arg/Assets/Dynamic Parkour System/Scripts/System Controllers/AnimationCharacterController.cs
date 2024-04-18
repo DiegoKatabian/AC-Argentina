@@ -28,7 +28,11 @@ namespace Climbing
             animator = GetComponent<Animator>();
             switchCameras = Camera.main.GetComponent<SwitchCameras>();
             EventManager.Instance.Subscribe(Evento.OnPlayerStopsVehicle, TriggerStopVehicleAnimation);
+            EventManager.Instance.Subscribe(Evento.OnEnterBlendZoneConfirmed, TriggerEnterBlendZoneAnimation);
+            EventManager.Instance.Subscribe(Evento.OnActivateBlendZone, TriggerActivateBlendZoneAnimation);
         }
+
+    
 
         void Update()
         {
@@ -238,6 +242,25 @@ namespace Climbing
             Debug.Log("animation: end crash anim");
             animator.CrossFade("Idle", 0.1f);
             //animator.CrossFade("Standup", 0.1f);
+        }
+
+        private void TriggerEnterBlendZoneAnimation(object[] parameters)
+        {
+            //animator.CrossFade("EnterBlendZone", 0.2f);
+        }
+
+        private void TriggerActivateBlendZoneAnimation(object[] parameters)
+        {
+            //animator.CrossFade("ActivateBlendZone", 0.2f);
+        }
+
+        private void OnDestroy()
+        {
+            if (!gameObject.scene.isLoaded)
+            {
+                EventManager.Instance.Unsubscribe(Evento.OnPlayerStopsVehicle, TriggerStopVehicleAnimation);
+                EventManager.Instance.Unsubscribe(Evento.OnEnterBlendZoneConfirmed, TriggerEnterBlendZoneAnimation);
+            }
         }
     }
 

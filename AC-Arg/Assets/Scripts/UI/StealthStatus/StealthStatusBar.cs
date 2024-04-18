@@ -17,8 +17,13 @@ public class StealthStatusBar : MonoBehaviour
 
     private void UpdateStealthStatus(object[] parameters)
     {
-        stealthStatusText.text = StealthManager.Instance.currentStatus.statusName;
-        stealthStatusText.color = StealthManager.Instance.currentStatus.statusColor;
+        //get parameter 0 that is stelathstatusso
+        StealthStatusSO status = (StealthStatusSO)parameters[0];
+
+        //set text and color from status, not from stealthmanager
+
+        stealthStatusText.text = status.statusName;
+        stealthStatusText.color = status.statusColor;
     }
 
     private void OnDestroy()

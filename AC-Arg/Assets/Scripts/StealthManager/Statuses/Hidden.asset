@@ -15,3 +15,4 @@ MonoBehaviour:
   statusName: Hidden
   status: 3
   statusColor: {r: 0.2682805, g: 0.6186344, b: 0.9056604, a: 1}
+  icon: {fileID: 21300000, guid: 428e4f42e36a6614aa6008af548cb729, type: 3}
