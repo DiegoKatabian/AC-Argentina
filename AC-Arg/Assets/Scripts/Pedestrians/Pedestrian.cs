@@ -22,6 +22,9 @@ public class Pedestrian : MonoBehaviour, ICrashable
     public GameObject interactionMarker;    
     public bool canInteract = true;
 
+    public ParticleSystem bloodParticles;
+    public float timeUntilTriggerParticles = 1f;
+
     private void Start()
     {
         //Debug.Log("pedestrian start");
@@ -37,6 +40,7 @@ public class Pedestrian : MonoBehaviour, ICrashable
         {
             StartCoroutine(RandomWalk());
         }
+
     }
 
     public IEnumerator RandomWalk()
@@ -104,6 +108,15 @@ public class Pedestrian : MonoBehaviour, ICrashable
         Debug.Log("pedestrian: me asesinaron");
         healthComponent.TakeDamage(100);
         PedestrianManager.Instance.TriggerPedestrianAlarm(this);
+
+
+        StartCoroutine(CoroutineUtilities.DelayedAction(timeUntilTriggerParticles, TriggerParticles));
+
+    }
+
+    public void TriggerParticles(object[] obj)
+    {
+        bloodParticles.Play();
     }
 
     internal void GetStolenFrom()
