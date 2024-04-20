@@ -51,6 +51,7 @@ public class AssassinationController : MonoBehaviour
         controller.DisableController();
         pedestrianInteractionController.isAlreadyInteracting = true;
         controller.characterAnimation.animator.CrossFade("Assassinate", 0.2f);
+        EventManager.Instance.Trigger(Evento.OnAssassinationStart);
         pedestrian.GetAssassinated();
     }
 

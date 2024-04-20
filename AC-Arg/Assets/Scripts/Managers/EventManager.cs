@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Evento //LOS EVENTOS SE AGREGAN AL FINAL. NO EN EL MEDIO, PORQUE ARRUINAN LA NUMERACION
+public enum Evento
 {
     OnInputRequestPause,
     OnInputRequestInteract,
@@ -26,6 +26,7 @@ public enum Evento //LOS EVENTOS SE AGREGAN AL FINAL. NO EN EL MEDIO, PORQUE ARR
     OnInputReleaseCrouch,
     OnEnterBlendZoneConfirmed,
     OnActivateBlendZone,
+    OnAssassinationStart,
 }
 
 public class EventManager : Singleton<EventManager>
