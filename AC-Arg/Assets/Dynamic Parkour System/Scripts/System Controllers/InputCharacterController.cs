@@ -83,13 +83,13 @@ namespace Climbing
             EventManager.Instance.Trigger(Evento.OnRightHandInput);
         }
 
-        void ToggleRun()
-        {
-            if (movement.magnitude > 0.2f && run == false)
-                run = true;
-            else
-                run = false;
-        }
+        //void ToggleRun()
+        //{
+        //    if (movement.magnitude > 0.2f && run == false)
+        //        run = true;
+        //    else
+        //        run = false;
+        //}
 
         void Pause()
         {

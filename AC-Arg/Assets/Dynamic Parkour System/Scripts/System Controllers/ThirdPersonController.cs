@@ -82,32 +82,76 @@ namespace Climbing
 
         void Update()
         {
-            //Detect if Player is on Ground
+            // Detect if Player is on Ground
             isGrounded = OnGround();
 
-            //Get Input if controller and movement are not disabled
+            // Get Input if controller and movement are not disabled
             if (!dummy && allowMovement)
             {
                 AddMovementInput(characterInput.movement);
 
-                if (isCrouch)
-                {
-                    ToggleWalk();
-                }
-                else if (characterInput.movement.magnitude > 0.5f)
+                // Player is always running unless crouching or in combat mode
+                characterInput.run = !(isCrouch || combatController.isInCombatMode);
+
+                // Detects if Joystick is being pushed hard
+                if (characterInput.run && characterInput.movement.magnitude > 0.5f)
                 {
                     ToggleRun();
                 }
+                else if (!characterInput.run)
+                {
+                    ToggleWalk();
+                }
             }
 
-            if (combatController.isInCombatMode &&
-                       combatController.currentEnemy != null)
+            if (combatController.isInCombatMode && combatController.currentEnemy != null)
             {
-                //Debug.Log("roto hacia el current enemy");
+                // Debug.Log("roto hacia el current enemy");
                 RotatePlayerIndependentOfCamera(combatController.currentEnemy.transform.position - transform.position);
                 characterAnimation.animator.SetBool("Released", false);
             }
         }
+
+
+        //void Update()
+        //{
+        //    //Detect if Player is on Ground
+        //    isGrounded = OnGround();
+
+        //    //Get Input if controller and movement are not disabled
+        //    if (!dummy && allowMovement)
+        //    {
+        //        AddMovementInput(characterInput.movement);
+
+        //        //if (isCrouch)
+        //        //{
+        //        //    ToggleWalk();
+        //        //}
+        //        //else if (characterInput.movement.magnitude > 0.5f)
+        //        //{
+        //        //    ToggleRun();
+        //        //}
+
+
+        //        //Detects if Joystick is being pushed hard
+        //        if (characterInput.run && characterInput.movement.magnitude > 0.5f)
+        //        {
+        //            ToggleRun();
+        //        }
+        //        else if (!characterInput.run)
+        //        {
+        //            ToggleWalk();
+        //        }
+        //    }
+
+        //    if (combatController.isInCombatMode &&
+        //               combatController.currentEnemy != null)
+        //    {
+        //        //Debug.Log("roto hacia el current enemy");
+        //        RotatePlayerIndependentOfCamera(combatController.currentEnemy.transform.position - transform.position);
+        //        characterAnimation.animator.SetBool("Released", false);
+        //    }
+        //}
 
         private void FixedUpdate()
         {
