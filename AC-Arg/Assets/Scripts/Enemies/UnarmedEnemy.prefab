@@ -158,6 +158,7 @@ MonoBehaviour:
   moveSpeed: 1
   attackDamage: 1
   minimumDistanceToPlayer: 1.2
+  initialAttackCooldown: 0.5
   isPatroller: 0
   chasesPlayerOnlyWhileWarning: 0
   isMyTurnToAttack: 0

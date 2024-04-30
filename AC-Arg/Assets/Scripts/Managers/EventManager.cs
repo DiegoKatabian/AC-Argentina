@@ -27,6 +27,8 @@ public enum Evento
     OnEnterBlendZoneConfirmed,
     OnActivateBlendZone,
     OnAssassinationStart,
+    OnInputRequestBlock,
+    OnInputReleaseBlock,
 }
 
 public class EventManager : Singleton<EventManager>

@@ -173,6 +173,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Block"",
+                    ""type"": ""Button"",
+                    ""id"": ""c33bfb8a-de33-4a82-a369-91f84bc1228d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -395,6 +404,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Assassinate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""21bbf81a-cb2a-4f37-a475-be7ee22d5274"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard n Mouse"",
+                    ""action"": ""Block"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -474,6 +494,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_RightHand = m_Player.FindAction("RightHand", throwIfNotFound: true);
         m_Player_Steal = m_Player.FindAction("Steal", throwIfNotFound: true);
         m_Player_Assassinate = m_Player.FindAction("Assassinate", throwIfNotFound: true);
+        m_Player_Block = m_Player.FindAction("Block", throwIfNotFound: true);
         // GameManager
         m_GameManager = asset.FindActionMap("GameManager", throwIfNotFound: true);
         m_GameManager_Exit = m_GameManager.FindAction("Exit", throwIfNotFound: true);
@@ -596,6 +617,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_RightHand;
     private readonly InputAction m_Player_Steal;
     private readonly InputAction m_Player_Assassinate;
+    private readonly InputAction m_Player_Block;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -612,6 +634,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @RightHand => m_Wrapper.m_Player_RightHand;
         public InputAction @Steal => m_Wrapper.m_Player_Steal;
         public InputAction @Assassinate => m_Wrapper.m_Player_Assassinate;
+        public InputAction @Block => m_Wrapper.m_Player_Block;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -657,6 +680,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Assassinate.started += instance.OnAssassinate;
             @Assassinate.performed += instance.OnAssassinate;
             @Assassinate.canceled += instance.OnAssassinate;
+            @Block.started += instance.OnBlock;
+            @Block.performed += instance.OnBlock;
+            @Block.canceled += instance.OnBlock;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -697,6 +723,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Assassinate.started -= instance.OnAssassinate;
             @Assassinate.performed -= instance.OnAssassinate;
             @Assassinate.canceled -= instance.OnAssassinate;
+            @Block.started -= instance.OnBlock;
+            @Block.performed -= instance.OnBlock;
+            @Block.canceled -= instance.OnBlock;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -796,6 +825,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnRightHand(InputAction.CallbackContext context);
         void OnSteal(InputAction.CallbackContext context);
         void OnAssassinate(InputAction.CallbackContext context);
+        void OnBlock(InputAction.CallbackContext context);
     }
     public interface IGameManagerActions
     {

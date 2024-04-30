@@ -17,8 +17,7 @@ public class EnemyManager : Singleton<EnemyManager>
 
     internal void DamagePlayer(float attackDamage)
     {
-        player.healthComponent.TakeDamage(attackDamage);
-        player.StartHurt();
+        player.ReceiveEnemyDamage(attackDamage);
     }
     public void DamageEnemy(Enemy enemy, float damage)
     {

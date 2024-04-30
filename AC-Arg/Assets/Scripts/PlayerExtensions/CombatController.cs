@@ -13,6 +13,7 @@ public class CombatController : MonoBehaviour
     public float rightHandAttackDamage = 2;
     
     [HideInInspector] public bool isInCombatMode = false;
+    [HideInInspector] public bool isBlocking = false;
     [HideInInspector] public Enemy currentEnemy;
     [HideInInspector] public List<Enemy> detectedEnemies = new List<Enemy>();
     ThirdPersonController controller;
@@ -29,8 +30,9 @@ public class CombatController : MonoBehaviour
         controller = GetComponent<ThirdPersonController>();
         EventManager.Instance.Subscribe(Evento.OnLeftHandInput, PerformLeftHandAttack);
         EventManager.Instance.Subscribe(Evento.OnRightHandInput, PerformRightHandAttack);
+        EventManager.Instance.Subscribe(Evento.OnInputRequestBlock, RequestBlock);
+        EventManager.Instance.Subscribe(Evento.OnInputReleaseBlock, ReleaseBlock);
     }
-   
     private void Update()
     {
         if (controller.characterInput.changeCurrentEnemy != 0)
@@ -38,6 +40,42 @@ public class CombatController : MonoBehaviour
             ChangeCurrentEnemy(controller.characterInput.changeCurrentEnemy);
         }
     }
+
+
+    private void ReleaseBlock(object[] parameters)
+    {
+        Debug.Log("suelto el bloqueo");
+        isBlocking = false;
+        controller.characterAnimation.animator.SetBool("isBlocking", isBlocking);
+
+        handsAreOnCooldown = false;
+    }
+
+    private void RequestBlock(object[] parameters)
+    {
+        if (handsAreOnCooldown)
+        {
+            Debug.Log("mano en cooldown");
+            return;
+        }
+        if (!isInCombatMode)
+        {
+            Debug.Log("no estoy en combate");
+            return;
+        }
+        if (isBlocking)
+        {
+            Debug.Log("ya estoy bloqueando");
+            return;
+        }
+
+        Debug.Log("bloqueo");
+        isBlocking = true;
+        handsAreOnCooldown = true;
+        controller.characterAnimation.animator.SetBool("isBlocking", isBlocking);
+    }
+
+    
 
     private void PerformLeftHandAttack(params object[] parameters)
     {

@@ -107,51 +107,11 @@ namespace Climbing
             if (combatController.isInCombatMode && combatController.currentEnemy != null)
             {
                 // Debug.Log("roto hacia el current enemy");
+                //esto deberia no suceder si el poli no me engagea. pero seria copado poder pegarle igual
                 RotatePlayerIndependentOfCamera(combatController.currentEnemy.transform.position - transform.position);
                 characterAnimation.animator.SetBool("Released", false);
             }
         }
-
-
-        //void Update()
-        //{
-        //    //Detect if Player is on Ground
-        //    isGrounded = OnGround();
-
-        //    //Get Input if controller and movement are not disabled
-        //    if (!dummy && allowMovement)
-        //    {
-        //        AddMovementInput(characterInput.movement);
-
-        //        //if (isCrouch)
-        //        //{
-        //        //    ToggleWalk();
-        //        //}
-        //        //else if (characterInput.movement.magnitude > 0.5f)
-        //        //{
-        //        //    ToggleRun();
-        //        //}
-
-
-        //        //Detects if Joystick is being pushed hard
-        //        if (characterInput.run && characterInput.movement.magnitude > 0.5f)
-        //        {
-        //            ToggleRun();
-        //        }
-        //        else if (!characterInput.run)
-        //        {
-        //            ToggleWalk();
-        //        }
-        //    }
-
-        //    if (combatController.isInCombatMode &&
-        //               combatController.currentEnemy != null)
-        //    {
-        //        //Debug.Log("roto hacia el current enemy");
-        //        RotatePlayerIndependentOfCamera(combatController.currentEnemy.transform.position - transform.position);
-        //        characterAnimation.animator.SetBool("Released", false);
-        //    }
-        //}
 
         private void FixedUpdate()
         {
@@ -249,6 +209,18 @@ namespace Climbing
             }
         }
 
+        public void ReceiveEnemyDamage(float attackDamage)
+        {
+            if (combatController.isBlocking)
+            {
+                Debug.Log("bloqueo el ataque");
+                //blocked attack animation
+                return;
+            }
+
+            healthComponent.TakeDamage(attackDamage);
+            StartHurt();
+        }
         public void StartHurt()
         {
             Debug.Log("ouch me pegaron");

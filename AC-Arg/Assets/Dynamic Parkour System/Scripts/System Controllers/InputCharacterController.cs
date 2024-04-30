@@ -19,6 +19,7 @@ namespace Climbing
         [HideInInspector] public bool crouch;
         [HideInInspector] public bool leftHand;
         [HideInInspector] public bool rightHand;
+        [HideInInspector] public bool block;
 
 
         private void OnEnable()
@@ -45,6 +46,10 @@ namespace Climbing
             controls.Player.Drop.canceled += ctx => drop = ctx.ReadValueAsButton();
             controls.Player.Run.performed += ctx => run = ctx.ReadValueAsButton();
             controls.Player.Run.canceled += ctx => run = ctx.ReadValueAsButton();
+            controls.Player.Block.performed += ctx => block = ctx.ReadValueAsButton();
+            controls.Player.Block.canceled += ctx => block = ctx.ReadValueAsButton();
+            controls.Player.Block.performed += ctx => OnBlockButtonPressed();
+            controls.Player.Block.canceled += ctx => OnBlockButtonReleased();
             controls.GameManager.Exit.performed += ctx => Pause();
             controls.Player.Interact.performed += ctx => Interact();
             controls.Player.RequestBusStop.performed += ctx => OnBusStopButtonPressed();
@@ -61,6 +66,15 @@ namespace Climbing
             controls.Player.Steal.canceled += ctx => OnStealButtonReleased();
             controls.Player.Assassinate.performed += ctx => OnAssassinateButtonPressed();
             controls.Player.Assassinate.canceled += ctx => OnAssassinateButtonReleased();
+        }
+
+        private void OnBlockButtonPressed()
+        {
+            EventManager.Instance.Trigger(Evento.OnInputRequestBlock);
+        }
+        private void OnBlockButtonReleased()
+        {
+            EventManager.Instance.Trigger(Evento.OnInputReleaseBlock);
         }
 
 
