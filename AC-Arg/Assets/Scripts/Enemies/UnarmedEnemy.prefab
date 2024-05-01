@@ -155,7 +155,7 @@ MonoBehaviour:
   animator: {fileID: 159754844027251173}
   isAttackingMarker: {fileID: 9206809220957053198}
   isCurrentEnemyMarker: {fileID: 914023734510433902}
-  moveSpeed: 1
+  moveSpeed: 0.8
   attackDamage: 1
   minimumDistanceToPlayer: 1.2
   initialAttackCooldown: 0.5

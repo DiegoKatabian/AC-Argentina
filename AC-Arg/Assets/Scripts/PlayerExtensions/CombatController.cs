@@ -232,13 +232,16 @@ public class CombatController : MonoBehaviour
     {
         isInCombatMode = true;
         controller.characterAnimation.switchCameras.CombatCam();
+        controller.characterAnimation.animator.SetBool("isInCombatMode", isInCombatMode);
         Debug.Log("entro a combat mode");
+
         //reemplazar anim de idle por idle-fight
     }
     public void ExitCombatMode()
     {
         isInCombatMode = false;
         controller.characterAnimation.switchCameras.FreeLookCam();
+        controller.characterAnimation.animator.SetBool("isInCombatMode", isInCombatMode);    
         Debug.Log("salgo de combat mode");
         //reemplazar anim de idle-fight por idle
 
