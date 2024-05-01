@@ -6,10 +6,12 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
+    //en realidad es mas como el ThisLevelCanvasEnabler
+
     [SerializeField] GameObject pauseMenu;
     [SerializeField] GameObject gameOverMenu;
 
-    private void Awake()
+    private void Start()
     {
         EventManager.Instance.Subscribe(Evento.OnInputRequestPause, PauseMenuTrigger);
         EventManager.Instance.Subscribe(Evento.OnPlayerDied, GameOverMenuTrigger);

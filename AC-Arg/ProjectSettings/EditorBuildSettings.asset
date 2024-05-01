@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 4d28a1601d3424947af44e65c37e8d61
+  - enabled: 1
     path: Assets/Scenes/9 de Julio.unity
     guid: 6f530f013e7c82a4ca9ed50219d7be49
+  - enabled: 1
+    path: Assets/Scenes/Varuzhan.unity
+    guid: ebc2896a913f3cb4e8539ccae2aef9c7
   m_configObjects: {}
