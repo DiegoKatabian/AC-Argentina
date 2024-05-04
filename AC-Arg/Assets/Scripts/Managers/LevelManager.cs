@@ -60,7 +60,6 @@ public class LevelManager : MonoBehaviour
     public void BUTTON_RestartGame()
     {
         Time.timeScale = 1;
-        //gameOverMenu.SetActive(false);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
@@ -68,5 +67,12 @@ public class LevelManager : MonoBehaviour
     {
         Debug.Log("quiteo porque toque el boton en el pause menu");
         Application.Quit();
+    }
+
+    //a similar method, but it loads the main menu scene
+    public void BUTTON_LoadMainMenu()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene("MainMenu");
     }
 }
