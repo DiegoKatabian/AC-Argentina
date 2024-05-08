@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Pedestrian : MonoBehaviour, ICrashable
+public class Pedestrian : MonoBehaviour, ICrashable, IPedestrian
 {
     public NavMeshAgent navMeshAgent;
     protected FiniteStateMachine _fsm;
@@ -103,15 +103,12 @@ public class Pedestrian : MonoBehaviour, ICrashable
         Destroy(gameObject);
     }
 
-    internal void GetAssassinated()
+    public void GetAssassinated(GameObject assassin)
     {
         Debug.Log("pedestrian: me asesinaron");
         healthComponent.TakeDamage(100);
         PedestrianManager.Instance.TriggerPedestrianAlarm(this);
-
-
         StartCoroutine(CoroutineUtilities.DelayedAction(timeUntilTriggerParticles, TriggerParticles));
-
     }
 
     public void TriggerParticles(object[] obj)
@@ -119,8 +116,18 @@ public class Pedestrian : MonoBehaviour, ICrashable
         bloodParticles.Play();
     }
 
-    internal void GetStolenFrom()
+    public void GetStolen()
     {
         Debug.Log("pedestrian: me robaron!");
+    }
+
+    public void SetInteractionMarkerActive(bool active)
+    {
+        interactionMarker.SetActive(active);
+    }
+
+    public bool CanInteract()
+    {
+        return canInteract;
     }
 }

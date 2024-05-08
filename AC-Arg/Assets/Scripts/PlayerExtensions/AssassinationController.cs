@@ -31,11 +31,12 @@ public class AssassinationController : MonoBehaviour
         }
 
         if (pedestrianInteractionController.currentPedestrian != null &&
-            !pedestrianInteractionController.currentPedestrian.canInteract)
+            !pedestrianInteractionController.currentPedestrian.CanInteract())
         {
             Debug.Log("cant interact with this pedestrian");
             return;
         }
+
 
         if (pedestrianInteractionController.IsBehindCurrentPedestrian())
         {
@@ -43,16 +44,16 @@ public class AssassinationController : MonoBehaviour
         }
     }
 
-    public void StartAssassination(Pedestrian pedestrian)
+    public void StartAssassination(IPedestrian pedestrian)
     {
         Debug.Log("start assassination");
         //controller.RotatePlayer(pedestrian.transform.position);
-        controller.RotatePlayerIndependentOfCamera(pedestrian.transform.position - transform.position);
+        controller.RotatePlayerIndependentOfCamera(pedestrian.gameObject.transform.position - transform.position);
         controller.DisableController();
         pedestrianInteractionController.isAlreadyInteracting = true;
         controller.characterAnimation.animator.CrossFade("Assassinate", 0.2f);
         EventManager.Instance.Trigger(Evento.OnAssassinationStart);
-        pedestrian.GetAssassinated();
+        pedestrian.GetAssassinated(this.gameObject);
     }
 
     public void ANIMATION_OnAssassinateEnd()

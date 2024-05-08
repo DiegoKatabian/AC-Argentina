@@ -49,7 +49,7 @@ public class StealController : MonoBehaviour
             return;
         }
 
-        if (!pedestrianInteractionController.currentPedestrian.canInteract)
+        if (!pedestrianInteractionController.currentPedestrian.CanInteract())
         {
             //Debug.Log("cant interact with this pedestrian");
             return;
@@ -61,14 +61,14 @@ public class StealController : MonoBehaviour
         }
     }
 
-    public void StartSteal(Pedestrian pedestrian)
+    public void StartSteal(IPedestrian pedestrian)
     {
         Debug.Log("start steal");
-        controller.RotatePlayerIndependentOfCamera(pedestrian.transform.position - transform.position);
+        controller.RotatePlayerIndependentOfCamera(pedestrian.gameObject.transform.position - transform.position);
         controller.DisableController();
         pedestrianInteractionController.isAlreadyInteracting = true;
         animator.CrossFade("Steal", 0.2f);
-        pedestrian.GetStolenFrom();
+        pedestrian.GetStolen();
     }   
 
     public void ANIMATION_OnStealEnd()

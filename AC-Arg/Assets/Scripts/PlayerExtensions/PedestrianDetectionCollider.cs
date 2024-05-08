@@ -13,24 +13,24 @@ public class PedestrianDetectionCollider : DetectionCollider
 
     public override void OnTagDetectedEnter(Collider other)
     {
-        if (other.GetComponent<Pedestrian>() != null)
+        if (other.GetComponent<IPedestrian>() != null)
         {
-            Pedestrian detectedPedestrian = other.GetComponent<Pedestrian>();
+            IPedestrian detectedPedestrian = other.GetComponent<IPedestrian>();
             pedestrianController.AddPedestrianToDetectedList(detectedPedestrian);
         }
     }
 
     public override void OnTagDetectedExit(Collider other)
     {
-        if (other.GetComponent<Pedestrian>() != null)
+        if (other.GetComponent<IPedestrian>() != null)
         {
-            Pedestrian detectedPedestrian = other.GetComponent<Pedestrian>();
+            IPedestrian detectedPedestrian = other.GetComponent<IPedestrian>();
             pedestrianController.RemovePedestrianFromDetectedList(detectedPedestrian);
         }
     }
     private void RemovePedestrian(object[] parameters)
     {
-        pedestrianController.RemovePedestrianFromDetectedList((Pedestrian)parameters[0]);
+        pedestrianController.RemovePedestrianFromDetectedList((IPedestrian)parameters[0]);
     }
 
     private void OnDestroy()
