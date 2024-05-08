@@ -6,7 +6,7 @@ public abstract class DetectionCollider : MonoBehaviour
 {
     public string tagToDetect = "";
 
-    public void OnTriggerEnter(Collider other)
+    public virtual void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == tagToDetect)
         {
@@ -14,7 +14,7 @@ public abstract class DetectionCollider : MonoBehaviour
         }
     }
 
-    public void OnTriggerExit(Collider other)
+    public virtual void OnTriggerExit(Collider other)
     {
         if (other.gameObject.tag == tagToDetect)
         {

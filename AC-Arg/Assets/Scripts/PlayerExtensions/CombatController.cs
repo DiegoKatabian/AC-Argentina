@@ -307,7 +307,7 @@ public class CombatController : MonoBehaviour
     {
         if (currentEnemy != null)
         {
-            ObjectEnabler.EnableObject(currentEnemy.isCurrentEnemyMarker, state);
+            ObjectEnabler.EnableObject(currentEnemy.currentEnemyMarker, state);
         }
     }
 

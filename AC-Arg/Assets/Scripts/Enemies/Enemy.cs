@@ -9,8 +9,8 @@ public class Enemy : MonoBehaviour
     public PlayerDetection playerDetection;
     public NavMeshAgent navMeshAgent;
     public Animator animator;
-    public GameObject isAttackingMarker; //el cosito rojo en la cabeza del enemy, indica que esta isAttacking
-    public GameObject isCurrentEnemyMarker; //el cosito blanco en la cabeza del enemy, indica que es el current enemy
+    public GameObject attackingMarker; //el cosito rojo en la cabeza del enemy, indica que esta isAttacking
+    public GameObject currentEnemyMarker; //el cosito blanco en la cabeza del enemy, indica que es el current enemy
     public float moveSpeed = 5;
     public float attackDamage = 1;
     public float minimumDistanceToPlayer = 3f;

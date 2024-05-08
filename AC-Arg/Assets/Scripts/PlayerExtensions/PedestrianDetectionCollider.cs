@@ -5,13 +5,15 @@ using UnityEngine;
 public class PedestrianDetectionCollider : DetectionCollider
 {
     public PedestrianInteractionController pedestrianController;
+    public bool ignoreTag = true;
 
     private void Start()
     {
         EventManager.Instance.Subscribe(Evento.OnPedestrianKilled, RemovePedestrian);
     }
 
-    public override void OnTagDetectedEnter(Collider other)
+
+    public override void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<IPedestrian>() != null)
         {
@@ -20,7 +22,7 @@ public class PedestrianDetectionCollider : DetectionCollider
         }
     }
 
-    public override void OnTagDetectedExit(Collider other)
+    public override void OnTriggerExit(Collider other)
     {
         if (other.GetComponent<IPedestrian>() != null)
         {
@@ -28,6 +30,8 @@ public class PedestrianDetectionCollider : DetectionCollider
             pedestrianController.RemovePedestrianFromDetectedList(detectedPedestrian);
         }
     }
+
+
     private void RemovePedestrian(object[] parameters)
     {
         pedestrianController.RemovePedestrianFromDetectedList((IPedestrian)parameters[0]);
@@ -39,4 +43,27 @@ public class PedestrianDetectionCollider : DetectionCollider
             EventManager.Instance.Unsubscribe(Evento.OnPedestrianKilled, RemovePedestrian);
     }
 
+    public override void OnTagDetectedEnter(Collider other)
+    {
+        if (ignoreTag)
+        {
+            return;
+        }
+        else
+        {
+            Debug.Log("detecté algo pero no me importa mucho la verdad");
+        }
+    }
+
+    public override void OnTagDetectedExit(Collider other)
+    {
+        if (ignoreTag)
+        {
+            return;
+        }
+        else
+        {
+            Debug.Log("detecté algo pero no me importa mucho la verdad");
+        }
+    }
 }

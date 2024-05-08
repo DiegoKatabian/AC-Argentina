@@ -15,7 +15,7 @@ public class EnemyAttack : IState
 
     public void OnEnter()
     {
-        ObjectEnabler.EnableObject(_me.isAttackingMarker, true);
+        ObjectEnabler.EnableObject(_me.attackingMarker, true);
         _me.StartAttack();
         _me.navMeshAgent.SetDestination(_me.transform.position); //me quedo en el lugar
         _me.navMeshAgent.isStopped = true;
@@ -24,7 +24,7 @@ public class EnemyAttack : IState
 
     public void OnExit()
     {
-        ObjectEnabler.EnableObject(_me.isAttackingMarker, false);
+        ObjectEnabler.EnableObject(_me.attackingMarker, false);
         _me.finishedAttacking = false;
     }
 

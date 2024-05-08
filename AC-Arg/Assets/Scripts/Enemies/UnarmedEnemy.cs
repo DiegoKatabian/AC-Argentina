@@ -1,10 +1,11 @@
 using System.Collections;
 using UnityEngine;
 
-public class UnarmedEnemy : Enemy, ICrashable
+public class UnarmedEnemy : Enemy, ICrashable, IPedestrian
 {
     public Hitbox punchHitBox;
     public Transform[] waypoints;
+    public bool canInteract = true;
 
     public override void Start()
     {
@@ -102,5 +103,25 @@ public class UnarmedEnemy : Enemy, ICrashable
     public void OnCrash(GameObject vehicle, float crashForce)
     {
         StartHurt();
+    }
+
+    public void SetInteractionMarkerActive(bool active)
+    {
+        currentEnemyMarker.SetActive(active);
+    }
+
+    public void GetAssassinated(GameObject assassin)
+    {
+        Debug.Log("enemy: me asesinaron. bah, en realidad me noquearon!");
+    }
+
+    public void GetStolen()
+    {
+        Debug.Log("enemy: me robaron!");
+    }
+
+    public bool CanInteract()
+    {
+        return canInteract;
     }
 }

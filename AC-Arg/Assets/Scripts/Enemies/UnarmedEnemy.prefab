@@ -153,8 +153,8 @@ MonoBehaviour:
   playerDetection: {fileID: 4634813238154738667}
   navMeshAgent: {fileID: 2894612690020636812}
   animator: {fileID: 159754844027251173}
-  isAttackingMarker: {fileID: 9206809220957053198}
-  isCurrentEnemyMarker: {fileID: 914023734510433902}
+  attackingMarker: {fileID: 9206809220957053198}
+  currentEnemyMarker: {fileID: 914023734510433902}
   moveSpeed: 0.8
   attackDamage: 1
   minimumDistanceToPlayer: 1.2
@@ -171,6 +171,7 @@ MonoBehaviour:
   isDead: 0
   punchHitBox: {fileID: 3881397158163303825}
   waypoints: []
+  canInteract: 1
 --- !u!195 &2894612690020636812
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -220,7 +221,7 @@ GameObject:
   - component: {fileID: 7190213605482768937}
   - component: {fileID: 3881410745465059310}
   m_Layer: 0
-  m_Name: IsCurrentEnemyMarker
+  m_Name: CurrentEnemyMarker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -427,7 +428,7 @@ GameObject:
   - component: {fileID: 1522188923724189912}
   - component: {fileID: 6004115999874291106}
   m_Layer: 0
-  m_Name: IsAttackingMarker
+  m_Name: AttackingMarker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

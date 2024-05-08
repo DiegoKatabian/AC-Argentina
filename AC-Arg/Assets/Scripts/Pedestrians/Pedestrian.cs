@@ -20,7 +20,7 @@ public class Pedestrian : MonoBehaviour, ICrashable, IPedestrian
 
 
     public GameObject interactionMarker;    
-    public bool canInteract = true;
+    public bool canInteract = true; //este can interact es solo para setear en escena a alguno q este blockeado o por algun motivo no quiera que se le pueda interactuar. por default es true
 
     public ParticleSystem bloodParticles;
     public float timeUntilTriggerParticles = 1f;
