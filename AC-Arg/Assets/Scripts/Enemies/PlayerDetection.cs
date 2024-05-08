@@ -26,7 +26,7 @@ public class PlayerDetection : MonoBehaviour
 
     private void Update()
     {
-        if (isPlayerInFOV)
+        if (isPlayerInFOV && EnemyManager.Instance.AreEnemiesInCombat())
         {
             RotateTowardsPlayer();
         }

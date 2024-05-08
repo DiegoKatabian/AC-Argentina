@@ -39,6 +39,11 @@ public class CombatController : MonoBehaviour
         {
             ChangeCurrentEnemy(controller.characterInput.changeCurrentEnemy);
         }
+
+        if (AreEnemiesDetected && EnemyManager.Instance.AreEnemiesInCombat())
+        {
+            EnterCombatMode();
+        }
     }
 
 
@@ -230,20 +235,20 @@ public class CombatController : MonoBehaviour
     }
     public void EnterCombatMode()
     {
+        //solo entro a combat si el enemymanager confirma que algun enemigo esta en combate conmigo (es decir, alert o warning)
+       
+
         isInCombatMode = true;
         controller.characterAnimation.switchCameras.CombatCam();
         controller.characterAnimation.animator.SetBool("isInCombatMode", isInCombatMode);
         Debug.Log("entro a combat mode");
-
-        //reemplazar anim de idle por idle-fight
     }
     public void ExitCombatMode()
     {
         isInCombatMode = false;
         controller.characterAnimation.switchCameras.FreeLookCam();
-        controller.characterAnimation.animator.SetBool("isInCombatMode", isInCombatMode);    
+        controller.characterAnimation.animator.SetBool("isInCombatMode", isInCombatMode);
         Debug.Log("salgo de combat mode");
-        //reemplazar anim de idle-fight por idle
 
     }
     public void UpdateDetectionStatus(Enemy lastDetectedEnemy)
@@ -267,7 +272,6 @@ public class CombatController : MonoBehaviour
             {
                 //Debug.Log("primer enemigo detectado");
                 areEnemiesDetected = true;
-                EnterCombatMode();
 
                 if (currentEnemy == null)
                 {

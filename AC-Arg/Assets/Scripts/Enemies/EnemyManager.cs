@@ -294,4 +294,13 @@ public class EnemyManager : Singleton<EnemyManager>
         }
 
     }
+
+    internal bool AreEnemiesInCombat()
+    {
+        if (IsAnyEnemyAttackingPlayer() || IsAnyEnemyChasingPlayer() || IsAnyEnemyHurting())
+        {
+            return true;
+        }
+        return false;
+    }
 }
