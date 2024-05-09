@@ -182,6 +182,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Boleadoras"",
+                    ""type"": ""Button"",
+                    ""id"": ""ed67ef63-3e48-4101-b072-840f9ea832d3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -415,6 +424,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Block"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""521df7df-0afb-4993-bfd4-ac9fd654a323"",
+                    ""path"": ""<Keyboard>/g"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard n Mouse"",
+                    ""action"": ""Boleadoras"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -495,6 +515,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_Steal = m_Player.FindAction("Steal", throwIfNotFound: true);
         m_Player_Assassinate = m_Player.FindAction("Assassinate", throwIfNotFound: true);
         m_Player_Block = m_Player.FindAction("Block", throwIfNotFound: true);
+        m_Player_Boleadoras = m_Player.FindAction("Boleadoras", throwIfNotFound: true);
         // GameManager
         m_GameManager = asset.FindActionMap("GameManager", throwIfNotFound: true);
         m_GameManager_Exit = m_GameManager.FindAction("Exit", throwIfNotFound: true);
@@ -618,6 +639,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Steal;
     private readonly InputAction m_Player_Assassinate;
     private readonly InputAction m_Player_Block;
+    private readonly InputAction m_Player_Boleadoras;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -635,6 +657,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Steal => m_Wrapper.m_Player_Steal;
         public InputAction @Assassinate => m_Wrapper.m_Player_Assassinate;
         public InputAction @Block => m_Wrapper.m_Player_Block;
+        public InputAction @Boleadoras => m_Wrapper.m_Player_Boleadoras;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -683,6 +706,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Block.started += instance.OnBlock;
             @Block.performed += instance.OnBlock;
             @Block.canceled += instance.OnBlock;
+            @Boleadoras.started += instance.OnBoleadoras;
+            @Boleadoras.performed += instance.OnBoleadoras;
+            @Boleadoras.canceled += instance.OnBoleadoras;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -726,6 +752,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Block.started -= instance.OnBlock;
             @Block.performed -= instance.OnBlock;
             @Block.canceled -= instance.OnBlock;
+            @Boleadoras.started -= instance.OnBoleadoras;
+            @Boleadoras.performed -= instance.OnBoleadoras;
+            @Boleadoras.canceled -= instance.OnBoleadoras;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -826,6 +855,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnSteal(InputAction.CallbackContext context);
         void OnAssassinate(InputAction.CallbackContext context);
         void OnBlock(InputAction.CallbackContext context);
+        void OnBoleadoras(InputAction.CallbackContext context);
     }
     public interface IGameManagerActions
     {

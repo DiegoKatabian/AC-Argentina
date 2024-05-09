@@ -29,6 +29,8 @@ public enum Evento
     OnAssassinationStart,
     OnInputRequestBlock,
     OnInputReleaseBlock,
+    OnInputRequestBoleadoras,
+    OnInputReleaseBoleadoras,
 }
 
 public class EventManager : Singleton<EventManager>

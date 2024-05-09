@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class UnarmedEnemy : Enemy, ICrashable, IPedestrian
+public class UnarmedEnemy : Enemy, ICrashable/*, IPedestrian*/
 {
     public Hitbox punchHitBox;
     public Transform[] waypoints;

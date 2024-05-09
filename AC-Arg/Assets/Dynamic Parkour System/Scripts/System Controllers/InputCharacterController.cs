@@ -20,6 +20,7 @@ namespace Climbing
         [HideInInspector] public bool leftHand;
         [HideInInspector] public bool rightHand;
         [HideInInspector] public bool block;
+        [HideInInspector] public bool boleadoras;
 
 
         private void OnEnable()
@@ -66,6 +67,9 @@ namespace Climbing
             controls.Player.Steal.canceled += ctx => OnStealButtonReleased();
             controls.Player.Assassinate.performed += ctx => OnAssassinateButtonPressed();
             controls.Player.Assassinate.canceled += ctx => OnAssassinateButtonReleased();
+            controls.Player.Boleadoras.performed += ctx => OnBoleadorasButtonPressed();
+            controls.Player.Boleadoras.canceled += ctx => OnBoleadorasButtonReleased();
+            controls.Player.Boleadoras.performed += ctx => boleadoras = ctx.ReadValueAsButton();
         }
 
         private void OnBlockButtonPressed()
@@ -152,6 +156,18 @@ namespace Climbing
         {
             Debug.Log("toque RequestBusStop button");
             EventManager.Instance.Trigger(Evento.OnInputReleaseBusStop);
+        }
+
+        void OnBoleadorasButtonPressed()
+        {
+            //Debug.Log("toque Boleadoras button");
+            EventManager.Instance.Trigger(Evento.OnInputRequestBoleadoras);
+        }
+
+        void OnBoleadorasButtonReleased()
+        {
+            //Debug.Log("solté Boleadoras button");
+            EventManager.Instance.Trigger(Evento.OnInputReleaseBoleadoras);
         }
     }
 }
