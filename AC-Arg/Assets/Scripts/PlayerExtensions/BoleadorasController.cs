@@ -13,7 +13,6 @@ public class BoleadorasController : MonoBehaviour
 
     // Tiempo de espera para las boleadoras
     public float boleadorasDuration = 3f;
-    private float boleadorasTimer = 0f;
 
     public void Start()
     {
@@ -50,17 +49,16 @@ public class BoleadorasController : MonoBehaviour
     public void StartBoleadoras(Enemy enemy)
     {
         Debug.Log("start boleadoras");
-        controller.RotatePlayer(enemy.transform.position);
-        //controller.RotatePlayerIndependentOfCamera(enemy.gameObject.transform.position - transform.position);
+        //controller.RotatePlayer(enemy.transform.position);
+        controller.RotatePlayerIndependentOfCamera(enemy.gameObject.transform.position - transform.position);
         controller.DisableController();
         isUsingBoleadoras = true;
         controller.characterAnimation.animator.CrossFade("Boleadoras", 0.2f);
-        boleadorasTimer = 0f; // Reiniciar el temporizador
+        EventManager.Instance.Trigger(Evento.OnBoleadorasStart);
         Invoke("EndBoleadoras", boleadorasDuration); // Invocar EndBoleadoras después de boleadorasDuration segundos
         //enemy.GetBoleadoraed(this.gameObject);
     }
 
-    // Método invocado por el temporizador
     public void EndBoleadoras()
     {
         Debug.Log("end boleadoras");

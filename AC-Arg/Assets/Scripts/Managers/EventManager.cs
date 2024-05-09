@@ -31,6 +31,7 @@ public enum Evento
     OnInputReleaseBlock,
     OnInputRequestBoleadoras,
     OnInputReleaseBoleadoras,
+    OnBoleadorasStart,
 }
 
 public class EventManager : Singleton<EventManager>
