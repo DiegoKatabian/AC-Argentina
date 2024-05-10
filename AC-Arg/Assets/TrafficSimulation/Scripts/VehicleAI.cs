@@ -403,5 +403,10 @@ namespace TrafficSimulation {
         {
             //Debug.Log("TriggerStop");
         }
+
+        public float GetRBVelocity()
+        {
+            return wheelDrive.GetRBVelocity();
+        }
     }
 }

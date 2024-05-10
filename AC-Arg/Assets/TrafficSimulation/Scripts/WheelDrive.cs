@@ -83,6 +83,12 @@ namespace TrafficSimulation{
             }
         }
 
+        public float GetRBVelocity()
+        {
+            Rigidbody rb = this.GetComponent<Rigidbody>();
+            return rb.velocity.magnitude;
+        }
+
         public void Move(float _acceleration, float _steering, float _brake)
         {
 
