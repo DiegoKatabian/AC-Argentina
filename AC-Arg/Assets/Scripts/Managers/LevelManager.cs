@@ -11,10 +11,14 @@ public class LevelManager : MonoBehaviour
     [SerializeField] GameObject pauseMenu;
     [SerializeField] GameObject gameOverMenu;
 
+    [SerializeField] AudioClip thisLevelAmbience;
+
     private void Start()
     {
         EventManager.Instance.Subscribe(Evento.OnInputRequestPause, PauseMenuTrigger);
         EventManager.Instance.Subscribe(Evento.OnPlayerDied, GameOverMenuTrigger);
+
+        AudioManager.Instance.PlaySound(thisLevelAmbience);
     }
 
     private void PauseMenuTrigger(object[] parameters)
@@ -60,6 +64,7 @@ public class LevelManager : MonoBehaviour
     public void BUTTON_RestartGame()
     {
         Time.timeScale = 1;
+        gameOverMenu.SetActive(false);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 

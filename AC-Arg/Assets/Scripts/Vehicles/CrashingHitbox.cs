@@ -6,6 +6,7 @@ using UnityEngine;
 public class CrashingHitbox : MonoBehaviour
 {
     public float crashForce = 10f;
+    public float minimumVelocityNeededToCrash = 2;
     public VehicleAI vehicleAI;
 
     private void Start()
@@ -27,7 +28,7 @@ public class CrashingHitbox : MonoBehaviour
 
     void TryCrash(ICrashable crashable)
     {
-        if (vehicleAI.GetRBVelocity() < 1)
+        if (vehicleAI.GetRBVelocity() < minimumVelocityNeededToCrash)
         {
             Debug.Log("voy demasiado lento para crashear");
             return;

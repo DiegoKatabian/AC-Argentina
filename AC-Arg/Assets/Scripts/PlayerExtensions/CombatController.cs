@@ -241,14 +241,14 @@ public class CombatController : MonoBehaviour
         isInCombatMode = true;
         controller.characterAnimation.switchCameras.CombatCam();
         controller.characterAnimation.animator.SetBool("isInCombatMode", isInCombatMode);
-        Debug.Log("entro a combat mode");
+        //Debug.Log("entro a combat mode");
     }
     public void ExitCombatMode()
     {
         isInCombatMode = false;
         controller.characterAnimation.switchCameras.FreeLookCam();
         controller.characterAnimation.animator.SetBool("isInCombatMode", isInCombatMode);
-        Debug.Log("salgo de combat mode");
+        //Debug.Log("salgo de combat mode");
 
     }
     public void UpdateDetectionStatus(Enemy lastDetectedEnemy)
