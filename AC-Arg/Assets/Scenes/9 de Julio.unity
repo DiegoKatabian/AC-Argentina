@@ -4198,6 +4198,26 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1929954573}
+    - target: {fileID: 2142792138106189398, guid: 0c64ff06f7d87ef49ac02a74e5236b5a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2142792138106189398, guid: 0c64ff06f7d87ef49ac02a74e5236b5a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1815630616}
+    - target: {fileID: 2142792138106189398, guid: 0c64ff06f7d87ef49ac02a74e5236b5a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BUTTON_LoadMainMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 2142792138106189398, guid: 0c64ff06f7d87ef49ac02a74e5236b5a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LevelManager, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 2211700272971990389, guid: 0c64ff06f7d87ef49ac02a74e5236b5a,
         type: 3}
       propertyPath: m_Mesh
@@ -4213,11 +4233,36 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 2077370153}
+    - target: {fileID: 2462990046536246392, guid: 0c64ff06f7d87ef49ac02a74e5236b5a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2675995476246919454, guid: 0c64ff06f7d87ef49ac02a74e5236b5a,
         type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 2077370153}
+    - target: {fileID: 2734604475613076139, guid: 0c64ff06f7d87ef49ac02a74e5236b5a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2734604475613076139, guid: 0c64ff06f7d87ef49ac02a74e5236b5a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1815630616}
+    - target: {fileID: 2734604475613076139, guid: 0c64ff06f7d87ef49ac02a74e5236b5a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BUTTON_RestartGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 2734604475613076139, guid: 0c64ff06f7d87ef49ac02a74e5236b5a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LevelManager, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 2771207287470376195, guid: 0c64ff06f7d87ef49ac02a74e5236b5a,
         type: 3}
       propertyPath: m_Mesh

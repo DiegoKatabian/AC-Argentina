@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class UnarmedEnemy : Enemy, ICrashable, IPedestrian
+public class UnarmedEnemy : Enemy, ICrashable/*, IPedestrian*/
 {
     public Hitbox punchHitBox;
     public Transform[] waypoints;
@@ -112,7 +112,7 @@ public class UnarmedEnemy : Enemy, ICrashable, IPedestrian
 
     public void GetAssassinated(GameObject assassin)
     {
-        Debug.Log("enemy: me asesinaron. bah, en realidad me noquearon!");
+        Debug.Log("enemy: me asesinaron");
     }
 
     public void GetStolen()

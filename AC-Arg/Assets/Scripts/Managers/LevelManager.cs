@@ -65,6 +65,7 @@ public class LevelManager : MonoBehaviour
     {
         Time.timeScale = 1;
         gameOverMenu.SetActive(false);
+        AudioManager.Instance.StopSound(thisLevelAmbience);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
@@ -78,6 +79,7 @@ public class LevelManager : MonoBehaviour
     public void BUTTON_LoadMainMenu()
     {
         Time.timeScale = 1;
+        AudioManager.Instance.StopSound(thisLevelAmbience);
         SceneManager.LoadScene("MainMenu");
     }
 }
