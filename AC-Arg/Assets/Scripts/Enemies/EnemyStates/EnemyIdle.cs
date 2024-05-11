@@ -43,6 +43,12 @@ public class EnemyIdle : IState
             return;
         }
 
+        if (_me.isKnockedOut)
+        {
+            Debug.Log("me paso a knocked out");
+            _fsm.ChangeState(State.EnemyKnockedOut);
+        }
+
         if (_me.playerDetection.isPlayerInFOV)
         {
             //Debug.Log("idle update: el player esta en fov");

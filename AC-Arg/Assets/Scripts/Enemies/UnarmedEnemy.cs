@@ -1,11 +1,12 @@
 using System.Collections;
 using UnityEngine;
 
-public class UnarmedEnemy : Enemy, ICrashable/*, IPedestrian*/
+public class UnarmedEnemy : Enemy, ICrashable
 {
     public Hitbox punchHitBox;
     public Transform[] waypoints;
     public bool canInteract = true;
+
 
     public override void Start()
     {
@@ -17,6 +18,7 @@ public class UnarmedEnemy : Enemy, ICrashable/*, IPedestrian*/
         _fsm.AddState(State.EnemyAttack, new EnemyAttack(_fsm, this));
         _fsm.AddState(State.EnemyReadyToAttack, new EnemyReadyToAttack(_fsm, this));
         _fsm.AddState(State.EnemyHurt, new EnemyHurt(_fsm, this));
+        _fsm.AddState(State.EnemyKnockedOut, new EnemyKnockedOut(_fsm, this));
         _fsm.ChangeState(State.EnemyIdle);
         EnemyManager.Instance.RegisterEnemy(this, _fsm);
         isDead = false;
@@ -124,4 +126,6 @@ public class UnarmedEnemy : Enemy, ICrashable/*, IPedestrian*/
     {
         return canInteract;
     }
+
+    
 }

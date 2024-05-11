@@ -36,6 +36,12 @@ public class EnemyPatrol : IState
             _fsm.ChangeState(State.EnemyHurt);
         }
 
+        if (_me.isKnockedOut)
+        {
+            Debug.Log("me paso a knocked out");
+            _fsm.ChangeState(State.EnemyKnockedOut);
+        }
+
         if (_me.navMeshAgent.remainingDistance <= 0.1f)
         {
             //Debug.Log("PATROL: llegue a destino");
@@ -43,6 +49,8 @@ public class EnemyPatrol : IState
             currentWaypoint = nextWaypointIndex;
             _me.navMeshAgent.SetDestination(_waypoints[currentWaypoint].position);
         }
+
+        
 
         if (StealthManager.Instance.currentStatus.status == StealthStatus.Hidden)
         {

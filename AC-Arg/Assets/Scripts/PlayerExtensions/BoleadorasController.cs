@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class BoleadorasController : MonoBehaviour
 {
@@ -55,8 +56,15 @@ public class BoleadorasController : MonoBehaviour
         isUsingBoleadoras = true;
         controller.characterAnimation.animator.CrossFade("Boleadoras", 0.2f);
         EventManager.Instance.Trigger(Evento.OnBoleadorasStart);
+        StartCoroutine(HitBoleadoras(enemy));
         Invoke("EndBoleadoras", boleadorasDuration); // Invocar EndBoleadoras después de boleadorasDuration segundos
-        //enemy.GetBoleadoraed(this.gameObject);
+    }
+
+    public IEnumerator HitBoleadoras(Enemy enemy)
+    {
+        Debug.Log("hit boleadoras");
+        yield return new WaitForSeconds(0.5f);
+        enemy.GetBoleadoraed();
     }
 
     public void EndBoleadoras()

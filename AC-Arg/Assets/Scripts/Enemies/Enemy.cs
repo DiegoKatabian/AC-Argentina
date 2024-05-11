@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IBoleadorable
 {
     public PlayerDetection playerDetection;
     public NavMeshAgent navMeshAgent;
@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour
     public float attackDamage = 1;
     public float minimumDistanceToPlayer = 3f;
     public float initialAttackCooldown = 1.5f; //cuanto espera hasta hacer el primer ataque
+    public float knockoutTime = 20f; //cuanto tiempo queda KO
     public bool isPatroller = false;    //si es idler o patroller
     public bool chasesPlayerOnlyWhileWarning; //si es true, solo persigue al player si esta en warning. false, persigue al player solo con verlo
 
@@ -28,6 +29,8 @@ public class Enemy : MonoBehaviour
     [HideInInspector] public bool isRotating;
     [HideInInspector] public float rotationTime = 1;
     [HideInInspector] public bool isDead = false;
+    [HideInInspector] public bool isKnockedOut = false;
+
 
     public virtual void Start()
     {
@@ -61,5 +64,11 @@ public class Enemy : MonoBehaviour
     public virtual void StartHurt()
     {
         //Debug.Log("enemy: i was hit");
+    }
+
+    public void GetBoleadoraed()
+    {
+        Debug.Log("me dieron con boleadoras");
+        isKnockedOut = true;
     }
 }
