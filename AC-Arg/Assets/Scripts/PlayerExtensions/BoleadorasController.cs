@@ -50,21 +50,26 @@ public class BoleadorasController : MonoBehaviour
     public void StartBoleadoras(Enemy enemy)
     {
         Debug.Log("start boleadoras");
-        //controller.RotatePlayer(enemy.transform.position);
         controller.RotatePlayerIndependentOfCamera(enemy.gameObject.transform.position - transform.position);
         controller.DisableController();
         isUsingBoleadoras = true;
         controller.characterAnimation.animator.CrossFade("Boleadoras", 0.2f);
         EventManager.Instance.Trigger(Evento.OnBoleadorasStart);
         StartCoroutine(HitBoleadoras(enemy));
-        Invoke("EndBoleadoras", boleadorasDuration); // Invocar EndBoleadoras después de boleadorasDuration segundos
+        //Invoke("EndBoleadoras", boleadorasDuration);
     }
 
     public IEnumerator HitBoleadoras(Enemy enemy)
     {
         Debug.Log("hit boleadoras");
+
         yield return new WaitForSeconds(0.5f);
         enemy.GetBoleadoraed();
+
+        yield return new WaitForSeconds(boleadorasDuration);
+        Debug.Log("end boleadoras");
+        controller.EnableController();
+        isUsingBoleadoras = false;
     }
 
     public void EndBoleadoras()
