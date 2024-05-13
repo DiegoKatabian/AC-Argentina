@@ -46,3 +46,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 0}
   gameOverMenu: {fileID: 0}
+  thisLevelAmbience: {fileID: 0}
+  desyncAudioClip: {fileID: 8300000, guid: 787d23bbd0649e746a0c4f2bb8e5a1f2, type: 3}

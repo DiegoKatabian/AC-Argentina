@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerHealthComponent : HealthComponent
 {
-
     public override  void Start()
     {
         base.Start();

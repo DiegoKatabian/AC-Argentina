@@ -12,11 +12,12 @@ public class LevelManager : MonoBehaviour
     [SerializeField] GameObject gameOverMenu;
 
     [SerializeField] AudioClip thisLevelAmbience;
+    [SerializeField] AudioClip desyncAudioClip;
 
     private void Start()
     {
         EventManager.Instance.Subscribe(Evento.OnInputRequestPause, PauseMenuTrigger);
-        EventManager.Instance.Subscribe(Evento.OnPlayerDied, GameOverMenuTrigger);
+        EventManager.Instance.Subscribe(Evento.OnPlayerDied, DesyncMenuTrigger);
 
         AudioManager.Instance.PlaySound(thisLevelAmbience);
     }
@@ -41,7 +42,7 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    public void GameOverMenuTrigger(object[] parameters)
+    public void DesyncMenuTrigger(object[] parameters)
     {
         if (gameOverMenu == null)
         {
@@ -52,6 +53,7 @@ public class LevelManager : MonoBehaviour
         if (Time.timeScale == 1)
         {
             Time.timeScale = 0;
+            AudioManager.Instance.PlaySound(desyncAudioClip);
             gameOverMenu.SetActive(true);
         }
         else
