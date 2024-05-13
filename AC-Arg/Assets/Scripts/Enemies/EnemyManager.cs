@@ -279,20 +279,35 @@ public class EnemyManager : Singleton<EnemyManager>
 
     internal void TriggerPedestrianAlarm(Vector3 position)
     {
-        var enemies = enemyStates.Where(kv => kv.Value.GetType() == typeof(EnemyIdle) || kv.Value.GetType() == typeof(EnemyPatrol))
+        IEnumerable<KeyValuePair<Enemy, IState>> nearbyEnemies = enemyStates.Where(kv => kv.Value.GetType() == typeof(EnemyIdle) || kv.Value.GetType() == typeof(EnemyPatrol))
                                 .Where(kv => Vector3.Distance(kv.Key.transform.position, position) < pedestrianAlarmRadius);
 
-
-        if (enemies.Count() > 0)
+        if (nearbyEnemies.Count() > 0)
         {
             StealthManager.Instance.SetStealthStatus(StealthStatus.Warning);
         }
 
-        foreach (KeyValuePair<Enemy, IState> enemyState in enemies)
+        foreach (KeyValuePair<Enemy, IState> enemyState in nearbyEnemies)
         {
             enemyState.Key.navMeshAgent.SetDestination(position);
         }
 
+    }
+
+    public void TriggerAlarm(Enemy triggeringEnemy, Vector3 position)
+    {
+        var nearbyEnemies = enemyStates.Where(kv => kv.Value.GetType() == typeof(EnemyIdle) || kv.Value.GetType() == typeof(EnemyPatrol))
+                                .Where(kv => Vector3.Distance(kv.Key.transform.position, position) < pedestrianAlarmRadius);
+
+        if (nearbyEnemies.Count() > 0)
+        {
+            StealthManager.Instance.SetStealthStatus(StealthStatus.Warning);
+        }
+
+        foreach (KeyValuePair<Enemy, IState> enemyState in nearbyEnemies)
+        {
+            enemyState.Key.navMeshAgent.SetDestination(position);
+        }
     }
 
     internal bool AreEnemiesInCombat()

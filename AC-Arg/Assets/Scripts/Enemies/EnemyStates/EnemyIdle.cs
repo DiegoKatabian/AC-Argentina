@@ -37,34 +37,61 @@ public class EnemyIdle : IState
             _fsm.ChangeState(State.EnemyHurt);
         }
 
-        if (StealthManager.Instance.currentStatus.status == StealthStatus.Hidden)
-        {
-            //Debug.Log("idle update: el player esta hidden asi que ni pregunto de perseguirlo");
-            return;
-        }
-
         if (_me.isKnockedOut)
         {
             Debug.Log("me paso a knocked out");
             _fsm.ChangeState(State.EnemyKnockedOut);
         }
 
-        if (_me.playerDetection.isPlayerInFOV)
+        if (StealthManager.Instance.currentStatus.status != StealthStatus.Hidden)
         {
-            //Debug.Log("idle update: el player esta en fov");
-            if (_me.chasesPlayerOnlyWhileWarning)
-            {
-                if (StealthManager.Instance.currentStatus.status == StealthStatus.Warning ||
-                                       StealthManager.Instance.currentStatus.status == StealthStatus.Alert)
-                {
-                    _fsm.ChangeState(State.EnemyChase);
-                }
-            }
-            else
-            {
-                _fsm.ChangeState(State.EnemyChase);
-            }
+            LookForPlayer();
         }
+
+        //if (_me.playerDetection.isPlayerInFOV)
+        //{
+        //    //Debug.Log("idle update: el player esta en fov");
+        //    if (_me.chasesPlayerOnlyWhileWarning)
+        //    {
+        //        if (StealthManager.Instance.currentStatus.status == StealthStatus.Warning ||
+        //                               StealthManager.Instance.currentStatus.status == StealthStatus.Alert)
+        //        {
+        //            _fsm.ChangeState(State.EnemyChase);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        _fsm.ChangeState(State.EnemyChase);
+        //    }
+        //}
+    }
+
+    public void LookForPlayer()
+    {
+        Debug.Log("se busca player...");
+
+        if (!_me.playerDetection.isPlayerInFOV)
+        {
+            Debug.Log("el player no esta en fov");
+            return;
+        }
+
+        if (_me.isKnockedOut)
+        {
+            Debug.Log("no hago nada porque estoy noqueado");
+            return;
+        }
+
+        if (_me.chasesPlayerOnlyWhileWarning && 
+            !(StealthManager.Instance.currentStatus.status == StealthStatus.Warning ||
+                                   StealthManager.Instance.currentStatus.status == StealthStatus.Alert))
+        {
+            Debug.Log("soy pasivo y no hay alerta");
+            return;
+        }
+
+        Debug.Log("persigo");
+        _fsm.ChangeState(State.EnemyChase);
     }
 
 }

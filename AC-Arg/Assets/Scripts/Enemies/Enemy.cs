@@ -69,7 +69,7 @@ public class Enemy : MonoBehaviour, IBoleadorable
     public void GetBoleadoraed()
     {
         Debug.Log("me dieron con boleadoras");
-        EnemyManager.Instance.TriggerPedestrianAlarm(transform.position);
         isKnockedOut = true;
+        EnemyManager.Instance.TriggerPedestrianAlarm(transform.position);
     }
 }

@@ -56,7 +56,6 @@ public class BoleadorasController : MonoBehaviour
         controller.characterAnimation.animator.CrossFade("Boleadoras", 0.2f);
         EventManager.Instance.Trigger(Evento.OnBoleadorasStart);
         StartCoroutine(HitBoleadoras(enemy));
-        //Invoke("EndBoleadoras", boleadorasDuration);
     }
 
     public IEnumerator HitBoleadoras(Enemy enemy)
