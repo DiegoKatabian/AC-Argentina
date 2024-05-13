@@ -68,6 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 628469412990cb143aac72be854e35be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  whistleSound: {fileID: 8300000, guid: 3adb8e03e491f5f47a70777f909ec93e, type: 3}
 --- !u!1 &4461562178622087854
 GameObject:
   m_ObjectHideFlags: 0

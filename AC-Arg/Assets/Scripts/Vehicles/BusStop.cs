@@ -5,6 +5,8 @@ namespace TrafficSimulation
 {
     public class BusStop : MonoBehaviour
     {
+        public AudioClip whistleSound;
+
         bool playerIsInside = false;
         bool busIsInside = false;
 
@@ -19,6 +21,7 @@ namespace TrafficSimulation
             if (playerIsInside)
             {
                 Debug.Log("on stop requested");
+                AudioManager.Instance.PlaySound(whistleSound);
                 BusManager.Instance.StopRequestAccepted();
             }
         }

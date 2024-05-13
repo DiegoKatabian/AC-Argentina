@@ -66,6 +66,7 @@ public class UnarmedEnemy : Enemy, ICrashable
     public override void StartHurt()
     {
         base.StartHurt();
+        AudioManager.Instance.PlayHurtSFX();
         finishedAttacking = true;
         isAttacking = false;
         isHurting = true;
@@ -99,6 +100,7 @@ public class UnarmedEnemy : Enemy, ICrashable
         isDead = true;
         _fsm.ChangeState(State.EnemyIdle);
         animator.CrossFade("Death", 0.1f);
+        AudioManager.Instance.PlayDeathSFX();
         EnemyManager.Instance.KillEnemy(this);
     }
 

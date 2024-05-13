@@ -9,6 +9,8 @@ namespace TrafficSimulation
         public float stopChance = 0.5f;
         public Taxi thisTaxi;
         public float timeUntilResume = 5;
+        public AudioClip whistleSound;
+
         float currentStopChance = 0.5f;
         //bool willStop = true;
         bool playerIsInside = false;
@@ -32,6 +34,7 @@ namespace TrafficSimulation
                 TriggerTaxiStop(thisTaxi);
                 wasRequested = true;
                 EventManager.Instance.Trigger(Evento.OnPlayerStopsVehicle);
+                AudioManager.Instance.PlaySound(whistleSound);
             }
         }
 

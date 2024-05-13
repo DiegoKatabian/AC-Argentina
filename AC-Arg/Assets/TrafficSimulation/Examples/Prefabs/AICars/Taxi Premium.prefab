@@ -142,6 +142,7 @@ MonoBehaviour:
   stopChance: 1
   thisTaxi: {fileID: 6299747281821791559}
   timeUntilResume: 5
+  whistleSound: {fileID: 8300000, guid: 3adb8e03e491f5f47a70777f909ec93e, type: 3}
 --- !u!1 &1979840441457630871
 GameObject:
   m_ObjectHideFlags: 0

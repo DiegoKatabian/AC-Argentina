@@ -56,6 +56,7 @@ namespace Climbing
         private float turnSmoothVelocity;
 
         public float fallDamage = 3;
+        public AudioClip takeDamageSound;
 
         private void Awake()
         {
@@ -227,6 +228,7 @@ namespace Climbing
             isHurting = true;
             combatController.CancelAllAttacks();
             DisableController();
+            AudioManager.Instance.PlaySound(takeDamageSound);
             characterAnimation.animator.CrossFade("Hurt", 0.1f);
             //StartCoroutine(HurtRecoveryCouroutine());
         }

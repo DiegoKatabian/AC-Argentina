@@ -9,6 +9,8 @@ public class AssassinationController : MonoBehaviour
     public PedestrianInteractionController pedestrianInteractionController;
     public ThirdPersonController controller;
 
+    public AudioClip hiddenBladeStabSound, hiddenBladeTakeOutSound;
+
     void Start()
     {
         EventManager.Instance.Subscribe(Evento.OnInputRequestAssassinate, TryAssassination);
@@ -60,6 +62,19 @@ public class AssassinationController : MonoBehaviour
     {
         Debug.Log("el animator me dice que terminó la anim de assassinate");
         EndAssassination();
+    }
+
+    public void ANIMATION_PlayHiddenBladeSound()
+    {
+        AudioManager.Instance.PlaySound(hiddenBladeStabSound);
+        AudioManager.Instance.PlayHurtSFX();
+
+    }
+
+    public void ANIMATION_PlayHiddenBladeTakeOutSound()
+    {
+        AudioManager.Instance.PlaySound(hiddenBladeTakeOutSound);
+        AudioManager.Instance.PlayDeathSFX();
     }
 
 

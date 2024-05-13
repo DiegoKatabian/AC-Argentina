@@ -10,6 +10,8 @@ public class StealController : MonoBehaviour
     [SerializeField] Animator animator;
     [SerializeField] int currentMoney = 0;
 
+    public AudioClip stealStartSound, stealEndSound;
+
     public int Money
     {
         get
@@ -65,11 +67,21 @@ public class StealController : MonoBehaviour
     {
         Debug.Log("start steal");
         controller.RotatePlayerIndependentOfCamera(pedestrian.gameObject.transform.position - transform.position);
-        controller.DisableController();
+        //controller.DisableController();
         pedestrianInteractionController.isAlreadyInteracting = true;
         animator.CrossFade("Steal", 0.2f);
         pedestrian.GetStolen();
-    }   
+    }
+
+    public void ANIMATION_PlayStealStartSound()
+    {
+        AudioManager.Instance.PlaySound(stealStartSound);
+    }
+
+    public void ANIMATION_PlayStealEndSound()
+    {
+        AudioManager.Instance.PlaySound(stealEndSound);
+    }
 
     public void ANIMATION_OnStealEnd()
     {
@@ -84,6 +96,8 @@ public class StealController : MonoBehaviour
         controller.EnableController();
         Money += Random.Range(1, 10); //literal me aumenta la guitarra
     }
+
+
 
     private void OnDestroy()
     {
