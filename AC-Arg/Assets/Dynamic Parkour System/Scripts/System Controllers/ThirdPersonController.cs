@@ -263,6 +263,7 @@ namespace Climbing
             characterMovement.OnVehicleCrash(vehicle, crashForce);
             characterAnimation.StartCrashAnimation();
             healthComponent.TakeDamage(crashForce);
+            AudioManager.Instance.PlaySound(takeDamageSound, 0.9f);
             allowMovement = false;
             //DisableController();
         }
@@ -308,6 +309,9 @@ namespace Climbing
             Debug.Log("recibo daño de caida");
             healthComponent.TakeDamage(fallDamage);
             characterAnimation.animator.CrossFade("TakeFallDamage", 0.1f);
+            AudioManager.Instance.PlaySound(takeDamageSound, 0.95f);
+
+
             DisableController();
         }
         public void ANIMATION_OnFallDamageEnd()

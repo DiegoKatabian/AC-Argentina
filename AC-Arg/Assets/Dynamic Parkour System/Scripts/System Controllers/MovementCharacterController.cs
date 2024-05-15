@@ -54,6 +54,8 @@ namespace Climbing
         private Quaternion leftFootIKRotation, rightFootIKRotation;
         private float lastPelvisPositionY, lastLeftFootPosition, lastRightFootPosition;
 
+        public AudioClip landingSound;
+
         void Start()
         {
             controller = GetComponent<ThirdPersonController>();
@@ -75,6 +77,7 @@ namespace Climbing
                 else if (controller.isGrounded && controller.onAir)
                 {
                     Landed();
+                    AudioManager.Instance.PlaySound(landingSound, 0.6f);
                 }
             }
         }

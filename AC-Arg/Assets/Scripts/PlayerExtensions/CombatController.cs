@@ -105,6 +105,7 @@ public class CombatController : MonoBehaviour
         Debug.Log("ataco mano izquierda 1");
         controller.DisableController();
         controller.characterAnimation.animator.Play("Punch_Left_01", 0, 0);
+        AudioManager.Instance.PlayPunchAirSFX();
         handsAreOnCooldown = true;
     }
     private void PerformRightHandAttack(object[] parameters)
@@ -130,6 +131,7 @@ public class CombatController : MonoBehaviour
         Debug.Log("ataco mano derecha 1");
         controller.DisableController();
         controller.characterAnimation.animator.Play("Punch_Right_01", 0, 0);
+        AudioManager.Instance.PlayPunchAirSFX();
         handsAreOnCooldown = true;
     }
     private void PerformNextLeftHandComboAttack()
@@ -137,6 +139,7 @@ public class CombatController : MonoBehaviour
         Debug.Log("ataco mano izquierda 2");
         controller.DisableController();
         controller.characterAnimation.animator.Play("Punch_Left_02", 0, 0);
+        AudioManager.Instance.PlayPunchAirSFX();
         handsAreOnCooldown = true;
         comboWindowOpen = false;
     }
@@ -145,6 +148,7 @@ public class CombatController : MonoBehaviour
         Debug.Log("ataco mano derecha 2");
         controller.DisableController();
         controller.characterAnimation.animator.Play("Punch_Right_02", 0, 0);
+        AudioManager.Instance.PlayPunchAirSFX();
         handsAreOnCooldown = true;
         comboWindowOpen = false;
     }
@@ -185,6 +189,7 @@ public class CombatController : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         if (hitbox.isTaggedInside)
         {
+            AudioManager.Instance.PlayPunchHitSFX();
             EnemyManager.Instance.DamageEnemy(hitbox.affectedEnemy, damage);
         }
         ObjectEnabler.EnableObject(hitbox.gameObject, false);

@@ -8,6 +8,8 @@ public class AudioManager : Singleton<AudioManager>
     Dictionary<AudioSource, AudioClip> allSounds = new Dictionary<AudioSource, AudioClip>();
 
     public AudioSource[] deathMaleGroup, hurtMaleGroup;
+    public AudioSource[] punchAirGroup, punchHitGroup;
+
 
     public override void Awake()
     {
@@ -33,19 +35,34 @@ public class AudioManager : Singleton<AudioManager>
         }
     }
 
-    //public void PlaySound(AudioClip audioClip, float pitchVariation)
-    //{
-    //    foreach (AudioSource audioSource in allSounds.Keys)
-    //    {
-    //        if (allSounds[audioSource] == audioClip)
-    //        {
-    //            audioSource.pitch = Random.Range(1 - pitchVariation, 1 + pitchVariation);
-    //            audioSource.Play();
-    //            StartCoroutine(WaitTillSoundHasFinishedPlayingAndReturnPitchToOriginal(audioSource));
-    //            return;
-    //        }
-    //    }
-    //}
+    public void PlaySound(AudioClip audioClip, float centralPitch, float pitchVariation)
+    {
+        foreach (AudioSource audioSource in allSounds.Keys)
+        {
+            if (allSounds[audioSource] == audioClip)
+            {
+                audioSource.pitch = Random.Range(centralPitch - pitchVariation, centralPitch + pitchVariation);
+                audioSource.Play();
+                StartCoroutine(WaitTillSoundHasFinishedPlayingAndReturnPitchToOriginal(audioSource));
+                return;
+            }
+        }
+    }
+
+    //similar but parameter is fixed new pitch
+    public void PlaySound(AudioClip audioClip, float newPitch)
+    {
+        foreach (AudioSource audioSource in allSounds.Keys)
+        {
+            if (allSounds[audioSource] == audioClip)
+            {
+                audioSource.pitch = newPitch;
+                audioSource.Play();
+                StartCoroutine(WaitTillSoundHasFinishedPlayingAndReturnPitchToOriginal(audioSource));
+                return;
+            }
+        }
+    }
 
     public void StopSound(AudioClip audioClip)
     {
@@ -67,6 +84,16 @@ public class AudioManager : Singleton<AudioManager>
     public void PlayHurtSFX()
     {
         hurtMaleGroup[Random.Range(0, hurtMaleGroup.Length)].Play();
+    }
+
+    public void PlayPunchHitSFX()
+    {
+        punchHitGroup[Random.Range(0, punchHitGroup.Length)].Play();
+    }
+
+    public void PlayPunchAirSFX()
+    {
+        punchAirGroup[Random.Range(0, punchAirGroup.Length)].Play();
     }
 
     public IEnumerator WaitTillSoundHasFinishedPlayingAndReturnPitchToOriginal(AudioSource audioSource)

@@ -52,6 +52,8 @@ namespace Climbing
 
         [HideInInspector] public Point curPoint = null;
 
+        public AudioClip jumpSound;
+
         private void Start()
         {
             controller = GetComponent<ThirdPersonController>();
@@ -186,6 +188,7 @@ namespace Climbing
                             controller.DisableController();
                             controller.isJumping = true;
                             controller.characterAnimation.animator.SetBool("PredictedJump", true);
+                            AudioManager.Instance.PlaySound(jumpSound, 0.8f);
                         }
                     }
 
@@ -220,6 +223,8 @@ namespace Climbing
                                 controller.characterMovement.stopMotion = true;
                                 controller.DisableController();
                                 controller.isJumping = true;
+                                AudioManager.Instance.PlaySound(jumpSound, 0.8f);
+
                             }
                         }
                     }

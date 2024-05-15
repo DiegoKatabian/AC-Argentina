@@ -56,6 +56,7 @@ public class UnarmedEnemy : Enemy, ICrashable
         yield return new WaitForSeconds(0.1f);
         if (punchHitBox.isTaggedInside)
         {
+            AudioManager.Instance.PlayPunchHitSFX();
             EnemyManager.Instance.DamagePlayer(attackDamage);
         }
 
