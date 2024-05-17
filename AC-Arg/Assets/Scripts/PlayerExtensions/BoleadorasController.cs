@@ -15,6 +15,8 @@ public class BoleadorasController : MonoBehaviour
     // Tiempo de espera para las boleadoras
     public float boleadorasDuration = 3f;
 
+    public AudioClip boleadorasStartSound, boleadorasHitSound;
+
     public void Start()
     {
         combatController = controller.combatController;
@@ -57,6 +59,20 @@ public class BoleadorasController : MonoBehaviour
         EventManager.Instance.Trigger(Evento.OnBoleadorasStart);
         StartCoroutine(HitBoleadoras(enemy));
     }
+
+    public void ANIMATION_PlayBoleadorasStartSound()
+    {
+        AudioManager.Instance.PlaySound(boleadorasStartSound);
+        AudioManager.Instance.PlayHurtSFX();
+
+    }
+
+    public void ANIMATION_PlayBoleadorasHitSound()
+    {
+        AudioManager.Instance.PlaySound(boleadorasHitSound);
+        AudioManager.Instance.PlayDeathSFX();
+    }
+
 
     public IEnumerator HitBoleadoras(Enemy enemy)
     {
