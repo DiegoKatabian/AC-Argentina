@@ -32,6 +32,7 @@ public enum Evento
     OnInputRequestBoleadoras,
     OnInputReleaseBoleadoras,
     OnBoleadorasStart,
+    OnPlayerEnterCutsceneArea,
 }
 
 public class EventManager : Singleton<EventManager>

@@ -68,11 +68,11 @@ MonoBehaviour:
         m_PreInfinity: 0
         m_PostInfinity: 0
         m_RotationOrder: 0
-  - m_From: CombatCam
-    m_To: '**ANY CAMERA**'
+  - m_From: FreeLookCam
+    m_To: RoomCutsceneCam (1)
     m_Blend:
       m_Style: 1
-      m_Time: 3
+      m_Time: 10
       m_CustomCurve:
         serializedVersion: 2
         m_Curve: []

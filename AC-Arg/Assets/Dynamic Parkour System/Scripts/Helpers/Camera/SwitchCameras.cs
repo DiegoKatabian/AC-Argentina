@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
@@ -8,6 +7,7 @@ namespace Climbing
     public class SwitchCameras : MonoBehaviour
     {
         Animator animator;
+        CinemachineFreeLook freeLook;
 
         enum CameraType
         {
@@ -16,92 +16,88 @@ namespace Climbing
             Slide,
             Vehicle,
             Cover,
-            Combat
+            Combat,
+            Cutscene
         }
 
         CameraType curCam = CameraType.None;
 
         [SerializeField] private CinemachineVirtualCameraBase freeLookCamera;
         [SerializeField] private CinemachineVirtualCameraBase slideCamera;
-        [SerializeField] private CinemachineVirtualCameraBase vehicleCamera; // Agregamos referencia a la nueva cámara
-        [SerializeField] private CinemachineVirtualCameraBase coverCamera; // Agregamos referencia a la nueva cámara
-        [SerializeField] private CinemachineVirtualCameraBase combatCamera; // Agregamos referencia a la nueva cámara
+        [SerializeField] private CinemachineVirtualCameraBase vehicleCamera;
+        [SerializeField] private CinemachineVirtualCameraBase coverCamera;
+        [SerializeField] private CinemachineVirtualCameraBase combatCamera;
+        [SerializeField] private CinemachineVirtualCameraBase cutsceneCamera;
+
+        private Dictionary<CameraType, CinemachineVirtualCameraBase> cameraDict;
+
         void Start()
         {
             animator = GetComponent<Animator>();
-            FreeLookCam();
+            freeLook = freeLookCamera.GetComponent<CinemachineFreeLook>();
+
+            cameraDict = new Dictionary<CameraType, CinemachineVirtualCameraBase>
+            {
+                { CameraType.FreeLook, freeLookCamera },
+                { CameraType.Slide, slideCamera },
+                { CameraType.Vehicle, vehicleCamera },
+                { CameraType.Cover, coverCamera },
+                { CameraType.Combat, combatCamera },
+                { CameraType.Cutscene, cutsceneCamera }
+            };
+
+            SwitchCamera(CameraType.FreeLook);
         }
 
-        //Switches To FreeLook Cam
+        private void SwitchCamera(CameraType newCameraType)
+        {
+            if (curCam != newCameraType)
+            {
+                foreach (var cam in cameraDict.Values)
+                {
+                    cam.Priority = 0;
+                }
+
+                cameraDict[newCameraType].Priority = 1;
+                curCam = newCameraType;
+            }
+        }
+
         public void FreeLookCam()
         {
-            if (curCam != CameraType.FreeLook)
-            {
-                slideCamera.Priority = 0;
-                freeLookCamera.Priority = 1;
-                vehicleCamera.Priority = 0; // Aseguramos que la cámara Vehicle tenga prioridad 0
-                coverCamera.Priority = 0;
-                combatCamera.Priority = 0;
-                curCam = CameraType.FreeLook; // Actualizamos el tipo de cámara actual
-            }
+            SwitchCamera(CameraType.FreeLook);
         }
 
-        //Switches To Slide Cam
         public void SlideCam()
         {
-            if (curCam != CameraType.Slide)
-            {
-                freeLookCamera.Priority = 0;
-                slideCamera.Priority = 1;
-                vehicleCamera.Priority = 0; // Aseguramos que la cámara Vehicle tenga prioridad 0
-                coverCamera.Priority = 0;
-                combatCamera.Priority = 0;
-                curCam = CameraType.Slide; // Actualizamos el tipo de cámara actual
-            }
+            SwitchCamera(CameraType.Slide);
         }
 
-        //Switches To Vehicle Cam
         public void VehicleCam(Transform targetVehicle)
         {
             if (curCam != CameraType.Vehicle)
             {
-                freeLookCamera.Priority = 0;
-                slideCamera.Priority = 0;
-                vehicleCamera.Priority = 1;
-                coverCamera.Priority = 0;
-                combatCamera.Priority = 0;
                 vehicleCamera.Follow = targetVehicle;
                 vehicleCamera.LookAt = targetVehicle;
-                curCam = CameraType.Vehicle; // Actualizamos el tipo de cámara actual
+                SwitchCamera(CameraType.Vehicle);
             }
         }
 
         public void CoverCam()
         {
-            if (curCam != CameraType.Cover)
-            {
-                Debug.Log("cambio a cover cam");
-                freeLookCamera.Priority = 0;
-                slideCamera.Priority = 0;
-                vehicleCamera.Priority = 0;
-                coverCamera.Priority = 1;
-                combatCamera.Priority = 0;
-                curCam = CameraType.Cover; // Actualizamos el tipo de cámara actual
-            }
+            SwitchCamera(CameraType.Cover);
         }
 
         public void CombatCam()
         {
-            if (curCam != CameraType.Combat)
-            {
-                freeLookCamera.Priority = 0;
-                slideCamera.Priority = 0;
-                vehicleCamera.Priority = 0;
-                coverCamera.Priority = 0;
-                combatCamera.Priority = 1;
-                curCam = CameraType.Combat; // Actualizamos el tipo de cámara actual
-            }
+            SwitchCamera(CameraType.Combat);
         }
 
+        public void CutsceneCam()
+        {
+            freeLook.m_XAxis.m_MaxSpeed = 0;
+            freeLook.m_YAxis.m_MaxSpeed = 0;
+            SwitchCamera(CameraType.Cutscene);
+        }
     }
 }

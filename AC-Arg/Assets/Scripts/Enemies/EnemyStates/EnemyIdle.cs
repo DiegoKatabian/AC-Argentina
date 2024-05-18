@@ -68,11 +68,11 @@ public class EnemyIdle : IState
 
     public void LookForPlayer()
     {
-        Debug.Log("se busca player...");
+        //Debug.Log("se busca player...");
 
         if (!_me.playerDetection.isPlayerInFOV)
         {
-            Debug.Log("el player no esta en fov");
+            //Debug.Log("el player no esta en fov");
             return;
         }
 

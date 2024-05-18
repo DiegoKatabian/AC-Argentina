@@ -63,14 +63,13 @@ public class BoleadorasController : MonoBehaviour
     public void ANIMATION_PlayBoleadorasStartSound()
     {
         AudioManager.Instance.PlaySound(boleadorasStartSound);
-        AudioManager.Instance.PlayHurtSFX();
 
     }
 
     public void ANIMATION_PlayBoleadorasHitSound()
     {
         AudioManager.Instance.PlaySound(boleadorasHitSound);
-        AudioManager.Instance.PlayDeathSFX();
+        AudioManager.Instance.PlayHurtSFX();
     }
 
 
