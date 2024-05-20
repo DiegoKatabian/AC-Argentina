@@ -16,14 +16,14 @@ public class BoleadorasWeaponAnimatorController : MonoBehaviour
 
     private void OnBoleadorasStart(object[] parameters)
     {
-        Debug.Log("hago aparecer las boleadoras");
+        //Debug.Log("hago aparecer las boleadoras");
         boleadoras.SetActive(true);
         StartCoroutine(CoroutineUtilities.DelayedAction(delayBeforeHidingWeapon, HideBoleadoras));
     }
 
     private void HideBoleadoras(object[] obj)
     {
-        Debug.Log("guardo las boleadoras");
+        //Debug.Log("guardo las boleadoras");
         boleadoras.SetActive(false);
     }
 

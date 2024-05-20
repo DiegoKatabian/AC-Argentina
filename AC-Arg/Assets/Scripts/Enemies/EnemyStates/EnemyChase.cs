@@ -15,6 +15,7 @@ public class EnemyChase : IState
 
     public void OnEnter()
     {
+        Debug.Log("chase: on enter");
         _me.StartChasingPlayer();
         _me.animator.CrossFade("Chase", 0.2f);
         _me.chasesPlayerOnlyWhileWarning = false;
@@ -22,6 +23,7 @@ public class EnemyChase : IState
 
     public void OnExit()
     {
+        Debug.Log("chase: on exit");
         _me.CancelChasePlayer();
     }
 

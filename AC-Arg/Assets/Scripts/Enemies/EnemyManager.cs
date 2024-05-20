@@ -289,7 +289,10 @@ public class EnemyManager : Singleton<EnemyManager>
 
         foreach (KeyValuePair<Enemy, IState> enemyState in nearbyEnemies)
         {
+            Debug.Log("enemy manager: mando a 1 enemigo cercano a investigar");
+            enemyState.Key.navMeshAgent.isStopped = false;
             enemyState.Key.navMeshAgent.SetDestination(position);
+            enemyState.Key.OnPedestrianAlarmEmit();
         }
 
     }

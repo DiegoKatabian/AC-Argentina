@@ -25,23 +25,23 @@ public class BoleadorasController : MonoBehaviour
 
     private void TryBoleadoras(object[] parameters)
     {
-        Debug.Log("try boleadoras...");
+        //Debug.Log("try boleadoras...");
 
         if (combatController.isInCombatMode)
         {
-            Debug.Log("no puedo usar boleadoras en combate");
+            //Debug.Log("no puedo usar boleadoras en combate");
             return;
         }
 
         if (combatController.detectedEnemies.Count == 0)
         {
-            Debug.Log("no hay enemigos detectados");
+            //Debug.Log("no hay enemigos detectados");
             return;
         }
 
         if (isUsingBoleadoras)
         {
-            Debug.Log("ya estoy usando las boleadoras");
+            //Debug.Log("ya estoy usando las boleadoras");
             return;
         }
 
@@ -51,7 +51,7 @@ public class BoleadorasController : MonoBehaviour
 
     public void StartBoleadoras(Enemy enemy)
     {
-        Debug.Log("start boleadoras");
+        //Debug.Log("start boleadoras");
         controller.RotatePlayerIndependentOfCamera(enemy.gameObject.transform.position - transform.position);
         controller.DisableController();
         isUsingBoleadoras = true;
@@ -75,20 +75,20 @@ public class BoleadorasController : MonoBehaviour
 
     public IEnumerator HitBoleadoras(Enemy enemy)
     {
-        Debug.Log("hit boleadoras");
+        //Debug.Log("hit boleadoras");
 
         yield return new WaitForSeconds(0.5f);
         enemy.GetBoleadoraed();
 
         yield return new WaitForSeconds(boleadorasDuration);
-        Debug.Log("end boleadoras");
+        //Debug.Log("end boleadoras");
         controller.EnableController();
         isUsingBoleadoras = false;
     }
 
     public void EndBoleadoras()
     {
-        Debug.Log("end boleadoras");
+        //Debug.Log("end boleadoras");
         controller.EnableController();
         isUsingBoleadoras = false;
     }

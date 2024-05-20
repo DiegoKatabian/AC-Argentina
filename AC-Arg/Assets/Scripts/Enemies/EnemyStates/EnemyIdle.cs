@@ -39,7 +39,7 @@ public class EnemyIdle : IState
 
         if (_me.isKnockedOut)
         {
-            Debug.Log("me paso a knocked out");
+            //Debug.Log("me paso a knocked out");
             _fsm.ChangeState(State.EnemyKnockedOut);
         }
 
@@ -47,23 +47,6 @@ public class EnemyIdle : IState
         {
             LookForPlayer();
         }
-
-        //if (_me.playerDetection.isPlayerInFOV)
-        //{
-        //    //Debug.Log("idle update: el player esta en fov");
-        //    if (_me.chasesPlayerOnlyWhileWarning)
-        //    {
-        //        if (StealthManager.Instance.currentStatus.status == StealthStatus.Warning ||
-        //                               StealthManager.Instance.currentStatus.status == StealthStatus.Alert)
-        //        {
-        //            _fsm.ChangeState(State.EnemyChase);
-        //        }
-        //    }
-        //    else
-        //    {
-        //        _fsm.ChangeState(State.EnemyChase);
-        //    }
-        //}
     }
 
     public void LookForPlayer()
@@ -78,7 +61,7 @@ public class EnemyIdle : IState
 
         if (_me.isKnockedOut)
         {
-            Debug.Log("no hago nada porque estoy noqueado");
+            //Debug.Log("no hago nada porque estoy noqueado");
             return;
         }
 

@@ -28,7 +28,7 @@ public class AudioManager : Singleton<AudioManager>
         {
             if (allSounds[audioSource] == audioClip)
             {
-                Debug.Log("le doy play");
+                //Debug.Log("le doy play");
                 audioSource.Play();
                 return;
             }

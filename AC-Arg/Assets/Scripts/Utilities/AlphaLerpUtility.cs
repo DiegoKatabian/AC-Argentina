@@ -106,4 +106,5 @@ public static class AlphaLerpUtility
 
         text.color = targetColor;
     }
+
 }

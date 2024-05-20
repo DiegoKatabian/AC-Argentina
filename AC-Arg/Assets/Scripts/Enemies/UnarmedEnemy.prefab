@@ -159,6 +159,7 @@ MonoBehaviour:
   attackDamage: 1
   minimumDistanceToPlayer: 1.2
   initialAttackCooldown: 0.5
+  knockoutTime: 300
   isPatroller: 0
   chasesPlayerOnlyWhileWarning: 0
   isMyTurnToAttack: 0
@@ -169,6 +170,7 @@ MonoBehaviour:
   isRotating: 0
   rotationTime: 1
   isDead: 0
+  isKnockedOut: 0
   punchHitBox: {fileID: 3881397158163303825}
   waypoints: []
   canInteract: 1

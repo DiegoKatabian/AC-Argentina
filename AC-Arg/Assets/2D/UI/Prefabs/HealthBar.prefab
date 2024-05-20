@@ -437,3 +437,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slider: {fileID: 2049659025126798974}
+  background: {fileID: 9115679161517427304}
+  flashFrequency: 16
+  flashTime: 2.5
