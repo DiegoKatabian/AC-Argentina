@@ -1,16 +1,16 @@
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 [CreateAssetMenu(fileName = "CameraEvent", menuName = "CutsceneEvents/CameraEvent", order = 2)]
-public class CameraEvent : ScriptableObject, ICutsceneEvent
+public class CameraEvent : CutsceneEvent, ICutsceneEvent
 {
     [SerializeField] private Camera targetCamera;
-    [SerializeField] private float delay;
 
     public Camera TargetCamera => targetCamera;
-    public float Delay => delay;
 
-    public void Execute()
+    public override void Execute()
     {
-        // Implementación del cambio de cámara
+        //SwitchCameras.SetCutsceneCamera(targetCamera);
+        Debug.Log("Camera Event: cambio a la camara " + targetCamera);
     }
 }

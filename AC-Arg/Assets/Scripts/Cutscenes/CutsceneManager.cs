@@ -2,22 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CutsceneManager : MonoBehaviour
+public class CutsceneManager : Singleton<CutsceneManager>
 {
-    public static CutsceneManager Instance { get; private set; }
-
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-
     public void PlayCutscene(Cutscene cutscene)
     {
         if (cutscene == null)
@@ -32,7 +18,7 @@ public class CutsceneManager : MonoBehaviour
         }
     }
 
-    private IEnumerator PlayCutsceneEvent(ICutsceneEvent cutsceneEvent)
+    private IEnumerator PlayCutsceneEvent(CutsceneEvent cutsceneEvent)
     {
         yield return new WaitForSeconds(cutsceneEvent.Delay);
         cutsceneEvent.Execute();

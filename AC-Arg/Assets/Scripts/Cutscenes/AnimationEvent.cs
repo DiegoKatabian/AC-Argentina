@@ -1,18 +1,17 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "AnimationEvent", menuName = "CutsceneEvents/AnimationEvent", order = 1)]
-public class AnimationEvent : ScriptableObject, ICutsceneEvent
+public class AnimationEvent : CutsceneEvent
 {
-    [SerializeField] private GameObject targetModel;
+    [SerializeField] private GameObject targetModel; //tal vez sea mejor pedir un Animator?
     [SerializeField] private string animationName;
-    [SerializeField] private float delay;
 
     public GameObject TargetModel => targetModel;
     public string AnimationName => animationName;
-    public float Delay => delay;
 
-    public void Execute()
+    public override void Execute()
     {
-        // Implementación de la reproducción de animación
+        //targetModel.GetComponent<Animator>().Play(animationName);
+        Debug.Log("Animation Event: playing animation " + animationName + " on " + targetModel);
     }
 }

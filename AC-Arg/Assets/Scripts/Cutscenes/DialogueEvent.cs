@@ -6,19 +6,20 @@ public enum Character
     Varuzhan,
     Mother
 }
-[CreateAssetMenu(fileName = "DialogueEvent", menuName = "CtusceneEvents/DialogueEvent", order = 3)]
-public class DialogueEvent : ScriptableObject, ICutsceneEvent
+[CreateAssetMenu(fileName = "DialogueEvent", menuName = "CutsceneEvents/DialogueEvent", order = 3)]
+public class DialogueEvent : CutsceneEvent
 {
     [SerializeField] private Character character;
     [SerializeField] private AudioClip audioClip;
-    [SerializeField] private float delay;
 
     public Character Character => character;
     public AudioClip AudioClip => audioClip;
-    public float Delay => delay;
 
-    public void Execute()
+    public override void Execute()
     {
-        // Implementación de la reproducción de diálogo
+        //AudioSource auso = AudioManager.Instance.GetAudioSource(character);
+        //auso.clip = audioClip;
+        //auso.Play();
+        Debug.Log("Dialogue Event: disparo el audioclip" + audioClip + " desde el character " + character);
     }
 }

@@ -29,6 +29,8 @@ namespace Climbing
         [SerializeField] private CinemachineVirtualCameraBase combatCamera;
         [SerializeField] private CinemachineVirtualCameraBase cutsceneCamera;
 
+
+
         private Dictionary<CameraType, CinemachineVirtualCameraBase> cameraDict;
 
         void Start()
@@ -98,6 +100,11 @@ namespace Climbing
             freeLook.m_XAxis.m_MaxSpeed = 0;
             freeLook.m_YAxis.m_MaxSpeed = 0;
             SwitchCamera(CameraType.Cutscene);
+        }
+
+        public void SetCutsceneCam(Camera targetCamera)
+        {
+            //todo: setea la current cutscene camera
         }
     }
 }
