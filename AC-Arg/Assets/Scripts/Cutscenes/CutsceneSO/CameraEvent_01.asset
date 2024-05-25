@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eea892eb614fe544a8d2827e1008825, type: 3}
   m_Name: CameraEvent_01
   m_EditorClassIdentifier: 
-  targetCamera: {fileID: 0}
-  delay: 0
+  cameraPrefab: {fileID: 8803695361429123284, guid: ce3c34d03026125498c1c88b13322c2b,
+    type: 3}

@@ -11,8 +11,7 @@ public class AnimationEvent : CutsceneEvent
 
     public override void Execute()
     {
-        //targetModel.GetComponent<Animator>().Play(animationName);
         CutsceneAnimationManager.Instance.PlayCutsceneAnimation(targetModel, animationName);
-        Debug.Log("Animation Event: playing animation " + animationName + " on " + targetModel);
+        //Debug.Log("Animation Event: playing animation " + animationName + " on " + targetModel);
     }
 }

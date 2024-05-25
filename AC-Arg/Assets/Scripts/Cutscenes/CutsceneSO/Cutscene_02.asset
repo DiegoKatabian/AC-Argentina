@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   events:
   - {fileID: 11400000, guid: 578703c1b593f9d459be7836ee86b233, type: 2}
+  Duration: 4

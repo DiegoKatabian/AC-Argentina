@@ -6,105 +6,91 @@ namespace Climbing
 {
     public class SwitchCameras : MonoBehaviour
     {
-        Animator animator;
-        CinemachineFreeLook freeLook;
+        private Animator animator;
+        private CinemachineFreeLook freeLook;
 
-        enum CameraType
-        {
-            None,
-            FreeLook,
-            Slide,
-            Vehicle,
-            Cover,
-            Combat,
-            Cutscene
-        }
-
-        CameraType curCam = CameraType.None;
+        private Dictionary<string, CinemachineVirtualCameraBase> cameraDict = new Dictionary<string, CinemachineVirtualCameraBase>();
+        private string curCam = null;
 
         [SerializeField] private CinemachineVirtualCameraBase freeLookCamera;
         [SerializeField] private CinemachineVirtualCameraBase slideCamera;
         [SerializeField] private CinemachineVirtualCameraBase vehicleCamera;
         [SerializeField] private CinemachineVirtualCameraBase coverCamera;
         [SerializeField] private CinemachineVirtualCameraBase combatCamera;
-        [SerializeField] private CinemachineVirtualCameraBase cutsceneCamera;
-
-
-
-        private Dictionary<CameraType, CinemachineVirtualCameraBase> cameraDict;
 
         void Start()
         {
             animator = GetComponent<Animator>();
             freeLook = freeLookCamera.GetComponent<CinemachineFreeLook>();
 
-            cameraDict = new Dictionary<CameraType, CinemachineVirtualCameraBase>
-            {
-                { CameraType.FreeLook, freeLookCamera },
-                { CameraType.Slide, slideCamera },
-                { CameraType.Vehicle, vehicleCamera },
-                { CameraType.Cover, coverCamera },
-                { CameraType.Combat, combatCamera },
-                { CameraType.Cutscene, cutsceneCamera }
-            };
+            RegisterCamera("FreeLook", freeLookCamera);
+            RegisterCamera("Slide", slideCamera);
+            RegisterCamera("Vehicle", vehicleCamera);
+            RegisterCamera("Cover", coverCamera);
+            RegisterCamera("Combat", combatCamera);
 
-            SwitchCamera(CameraType.FreeLook);
-        }
+            EnableCamera("FreeLook");
 
-        private void SwitchCamera(CameraType newCameraType)
-        {
-            if (curCam != newCameraType)
+            // Set blend style for all cameras
+            foreach (var cam in cameraDict.Values)
             {
-                foreach (var cam in cameraDict.Values)
+                var brain = cam.gameObject.GetComponent<CinemachineBrain>();
+                if (brain != null)
                 {
-                    cam.Priority = 0;
+                    brain.m_DefaultBlend.m_Style = CinemachineBlendDefinition.Style.Cut;
                 }
-
-                cameraDict[newCameraType].Priority = 1;
-                curCam = newCameraType;
             }
         }
 
-        public void FreeLookCam()
+        private void RegisterCamera(string key, CinemachineVirtualCameraBase camera)
         {
-            SwitchCamera(CameraType.FreeLook);
+            if (!cameraDict.ContainsKey(key))
+            {
+                cameraDict.Add(key, camera);
+            }
         }
 
-        public void SlideCam()
+        public void DisableAllCameras()
         {
-            SwitchCamera(CameraType.Slide);
+            Debug.Log("SwitchCamera: deshabilito todas");
+            foreach (var cam in cameraDict.Values)
+            {
+                cam.Priority = 0;
+            }
         }
+
+        public void EnableCamera(string newCameraKey)
+        {
+            if (cameraDict.ContainsKey(newCameraKey))
+            {
+                Debug.Log("SwitchCamera: habilito la camara que me piden");
+
+                DisableAllCameras();
+                cameraDict[newCameraKey].Priority = 1;
+                curCam = newCameraKey;
+            }
+            else
+            {
+                Debug.Log("SwitchCamera: enable camera failed");
+            }
+        }
+
+        public void FreeLookCam() => EnableCamera("FreeLook");
+
+        public void SlideCam() => EnableCamera("Slide");
 
         public void VehicleCam(Transform targetVehicle)
         {
-            if (curCam != CameraType.Vehicle)
+            if (curCam != "Vehicle")
             {
                 vehicleCamera.Follow = targetVehicle;
                 vehicleCamera.LookAt = targetVehicle;
-                SwitchCamera(CameraType.Vehicle);
+                EnableCamera("Vehicle");
             }
         }
 
-        public void CoverCam()
-        {
-            SwitchCamera(CameraType.Cover);
-        }
+        public void CoverCam() => EnableCamera("Cover");
 
-        public void CombatCam()
-        {
-            SwitchCamera(CameraType.Combat);
-        }
-
-        public void CutsceneCam()
-        {
-            freeLook.m_XAxis.m_MaxSpeed = 0;
-            freeLook.m_YAxis.m_MaxSpeed = 0;
-            SwitchCamera(CameraType.Cutscene);
-        }
-
-        public void SetCutsceneCam(Camera targetCamera)
-        {
-            //todo: setea la current cutscene camera
-        }
+        public void CombatCam() => EnableCamera("Combat");
     }
 }

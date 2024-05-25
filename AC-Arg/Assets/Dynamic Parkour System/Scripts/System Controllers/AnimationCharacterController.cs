@@ -35,7 +35,7 @@ namespace Climbing
 
         private void OnEnterCutsceneArea(object[] parameters)
         {
-            switchCameras.CutsceneCam();
+            //switchCameras.CutsceneCam();
             animator.CrossFade("Cutscene", 0.1f);
             StartCoroutine(DisableControllerAfterTime(1.5f));
             //AudioManager.Instance.PlaySound(teEstabaEsperandoSound);

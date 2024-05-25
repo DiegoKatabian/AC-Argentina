@@ -20,6 +20,6 @@ public class DialogueEvent : CutsceneEvent
         //AudioSource auso = AudioManager.Instance.GetAudioSource(character);
         //auso.clip = audioClip;
         //auso.Play();
-        Debug.Log("Dialogue Event: disparo el audioclip" + audioClip + " desde el character " + character);
+        //Debug.Log("Dialogue Event: disparo el audioclip" + audioClip + " desde el character " + character);
     }
 }

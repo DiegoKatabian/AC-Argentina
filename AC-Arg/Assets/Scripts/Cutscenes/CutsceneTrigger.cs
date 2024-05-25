@@ -14,7 +14,7 @@ public class CutsceneTrigger : MonoBehaviour
 
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Cutscene Triggered by player");
+            //Debug.Log("Cutscene Triggered by player");
             CutsceneManager.Instance.PlayCutscene(cutscene);
             hasBeenTriggered = true;
         }

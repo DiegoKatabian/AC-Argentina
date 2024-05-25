@@ -4,6 +4,6 @@ using UnityEngine;
 
 public abstract class CutsceneEvent : ScriptableObject
 {
-    public float Delay { get; }
+    public float Delay = 0;
     public abstract void Execute();
 }

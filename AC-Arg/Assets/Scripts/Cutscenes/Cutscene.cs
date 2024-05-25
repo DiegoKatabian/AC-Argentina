@@ -5,6 +5,7 @@ using UnityEngine;
 public class Cutscene : ScriptableObject
 {
     [SerializeField] private List<CutsceneEvent> events;
+    public float Duration;
 
     public List<CutsceneEvent> Events => events;
 }
