@@ -1,11 +1,21 @@
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class CutsceneTrigger : MonoBehaviour
 {
     public Cutscene cutscene;
     public bool isOneTimeOnly = true;
     bool hasBeenTriggered = false;
-    
+
+    //get the playable director in roder to trigger the timeline ontriggerenter
+
+    private PlayableDirector playableDirector;
+
+    private void Start()
+    {
+        playableDirector = GetComponent<PlayableDirector>();
+
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -14,10 +24,20 @@ public class CutsceneTrigger : MonoBehaviour
 
         if (other.gameObject.CompareTag("Player"))
         {
-            //Debug.Log("Cutscene Triggered by player");
-            CutsceneManager.Instance.PlayCutscene(cutscene);
+            Debug.Log("Triggered by player");
+            StartTimeline();
             hasBeenTriggered = true;
         }
+    }
+
+    public void StartTimeline()
+    {
+        playableDirector.Play();
+    }
+
+    public void TriggerCutscene()
+    {
+        CutsceneManager.Instance.PlayCutscene(cutscene);
     }
 
     
