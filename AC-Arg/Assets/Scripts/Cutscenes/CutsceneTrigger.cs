@@ -3,7 +3,6 @@ using UnityEngine.Playables;
 
 public class CutsceneTrigger : MonoBehaviour
 {
-    public Cutscene cutscene;
     public bool isOneTimeOnly = true;
     bool hasBeenTriggered = false;
 
@@ -33,12 +32,6 @@ public class CutsceneTrigger : MonoBehaviour
     public void StartTimeline()
     {
         playableDirector.Play();
+        EventManager.Instance.Trigger(Evento.OnCutsceneStart);
     }
-
-    public void TriggerCutscene()
-    {
-        CutsceneManager.Instance.PlayCutscene(cutscene);
-    }
-
-    
 }

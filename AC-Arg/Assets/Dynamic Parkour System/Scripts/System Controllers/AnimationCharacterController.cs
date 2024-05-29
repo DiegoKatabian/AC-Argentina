@@ -30,16 +30,8 @@ namespace Climbing
             EventManager.Instance.Subscribe(Evento.OnPlayerStopsVehicle, TriggerStopVehicleAnimation);
             EventManager.Instance.Subscribe(Evento.OnEnterBlendZoneConfirmed, TriggerEnterBlendZoneAnimation);
             EventManager.Instance.Subscribe(Evento.OnActivateBlendZone, TriggerActivateBlendZoneAnimation);
-            EventManager.Instance.Subscribe(Evento.OnPlayerEnterCutsceneArea, OnEnterCutsceneArea);
         }
 
-        private void OnEnterCutsceneArea(object[] parameters)
-        {
-            //switchCameras.CutsceneCam();
-            animator.CrossFade("Cutscene", 0.1f);
-            StartCoroutine(DisableControllerAfterTime(1.5f));
-            //AudioManager.Instance.PlaySound(teEstabaEsperandoSound);
-        }
 
         public IEnumerator DisableControllerAfterTime(float time)
         {
@@ -275,6 +267,7 @@ namespace Climbing
             {
                 EventManager.Instance.Unsubscribe(Evento.OnPlayerStopsVehicle, TriggerStopVehicleAnimation);
                 EventManager.Instance.Unsubscribe(Evento.OnEnterBlendZoneConfirmed, TriggerEnterBlendZoneAnimation);
+                EventManager.Instance.Unsubscribe(Evento.OnActivateBlendZone, TriggerActivateBlendZoneAnimation);
             }
         }
     }
