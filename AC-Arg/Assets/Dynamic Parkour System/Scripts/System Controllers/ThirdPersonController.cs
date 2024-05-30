@@ -79,7 +79,7 @@ namespace Climbing
             characterMovement.OnLanded += characterAnimation.Land;
             characterMovement.OnFall += characterAnimation.Fall;
 
-            //DisableController();
+            OnCutsceneStart(null);
 
             EventManager.Instance.Subscribe(Evento.OnCutsceneStart, OnCutsceneStart);
             EventManager.Instance.Subscribe(Evento.OnCutsceneEnd, OnCutsceneEnd);
@@ -88,7 +88,14 @@ namespace Climbing
         private void OnCutsceneStart(object[] parameters)
         {
             Debug.Log("player: on cutscene start");
-            //DisableController();
+            DisableController();
+            EnableMesh(false);
+        }
+
+        public void EnableMesh(bool value)
+        {
+            Debug.Log("enableo el mesh");
+            characterAnimation.playerMeshesParent.SetActive(value);
         }
 
         private void OnCutsceneEnd(object[] parameters)
@@ -103,6 +110,7 @@ namespace Climbing
 
             Debug.Log("player on cutscene end: enable controller");
             EnableController();
+            EnableMesh(true);
         }
 
        
