@@ -80,7 +80,7 @@ public class UnarmedEnemy : Enemy, ICrashable
     //CHASE
     public override void StartChasingPlayer()
     {
-        Debug.Log("enemy: start chasing player");
+        //Debug.Log("enemy: start chasing player");
         InvokeRepeating("ChasePlayer", 0, playerDetection.checkDelay);
     }
     public override void CancelChasePlayer()
@@ -90,7 +90,7 @@ public class UnarmedEnemy : Enemy, ICrashable
     }
     public void ChasePlayer()
     {
-        Debug.Log("enemy: chase player");
+        //Debug.Log("enemy: chase player");
         navMeshAgent.isStopped = false;
         navMeshAgent.SetDestination(EnemyManager.Instance.player.transform.position);
     }
@@ -135,11 +135,11 @@ public class UnarmedEnemy : Enemy, ICrashable
     {
         if (isKnockedOut)
         {
-            Debug.Log("enemy: onpedestrianalarmemit! pero no hago nada xq esoy noqueado");
+            //Debug.Log("enemy: onpedestrianalarmemit! pero no hago nada xq esoy noqueado");
             return;
         }
 
-        Debug.Log("enemy: onpedestrianalarmemit!");
+        //Debug.Log("enemy: onpedestrianalarmemit!");
         StartChasingPlayer();
         animator.CrossFade("Chase", 0.2f);
         chasesPlayerOnlyWhileWarning = false;

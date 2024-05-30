@@ -40,14 +40,14 @@ public class EnemyManager : Singleton<EnemyManager>
     {
         //Debug.Log("killing " + enemy.gameObject.name);
         StopAllCoroutines();
-        enemyFSMs.Remove(enemy);
-        enemyStates.Remove(enemy);
-        if (readyToAttackEnemiesQueue.Contains(enemy))
-        {
-            readyToAttackEnemiesQueue.Dequeue();
-        }
+        UnregisterEnemy(enemy);
         EventManager.Instance.Trigger(Evento.OnEnemyKilled, enemy);
+
+        //a futuro: cambiar por deathstate en vez de destruir
         Destroy(enemy.gameObject);
+
+
+        EmitAlarm();
     }
     public void UpdateEnemyState(FiniteStateMachine enemyFSM, IState currentState)
     {
@@ -63,7 +63,7 @@ public class EnemyManager : Singleton<EnemyManager>
                 //UpdateAttackingEnemiesQueue(enemyFSMEntry.Key, currentState);
             }
         }
-        EmitAlarm(currentState);
+        EmitAlarm();
     }
     private void UpdateReadyToAttackEnemiesQueue(Enemy enemy, IState currentState)
     {
@@ -166,10 +166,10 @@ public class EnemyManager : Singleton<EnemyManager>
 
     public bool AreAllEnemiesIdleOrPatrolling()
     {
-        return AreAllEnemiesInState(typeof(EnemyIdle), typeof(EnemyPatrol));
+        return AreAllEnemiesInState(typeof(EnemyIdle), typeof(EnemyPatrol), typeof(EnemyKnockedOut));
     }
 
-    public void EmitAlarm(IState state)
+    public void EmitAlarm()
     {
         if (StealthManager.Instance == null)
         {
@@ -178,6 +178,7 @@ public class EnemyManager : Singleton<EnemyManager>
 
         if (IsAnyEnemyInState<EnemyAttack>())
         {
+            Debug.Log("habia enemies en attack, alert");
             StealthManager.Instance.SetStealthStatus(StealthStatus.Alert);
             return;
         }
@@ -190,12 +191,14 @@ public class EnemyManager : Singleton<EnemyManager>
 
         if (IsAnyEnemyInState<EnemyHurt>())
         {
+            Debug.Log("habia enemies en hurt, alert");
             StealthManager.Instance.SetStealthStatus(StealthStatus.Alert);
             return;
         }
         
         if (IsAnyEnemyInState<EnemyReadyToAttack>())
         {
+            Debug.Log("habia enemies en ready to attack, alert");
             StealthManager.Instance.SetStealthStatus(StealthStatus.Alert);
             return;
         }
@@ -289,12 +292,21 @@ public class EnemyManager : Singleton<EnemyManager>
 
         foreach (KeyValuePair<Enemy, IState> enemyState in nearbyEnemies)
         {
-            Debug.Log("enemy manager: mando a 1 enemigo cercano a investigar");
+            //Debug.Log("enemy manager: mando a 1 enemigo cercano a investigar");
             enemyState.Key.navMeshAgent.isStopped = false;
             enemyState.Key.navMeshAgent.SetDestination(position);
             enemyState.Key.OnPedestrianAlarmEmit();
         }
+    }
 
+    public void UnregisterEnemy(Enemy enemy)
+    {
+        enemyFSMs.Remove(enemy);
+        enemyStates.Remove(enemy);
+        if (readyToAttackEnemiesQueue.Contains(enemy))
+        {
+            readyToAttackEnemiesQueue.Dequeue();
+        }
     }
 
     public void TriggerAlarm(Enemy triggeringEnemy, Vector3 position)

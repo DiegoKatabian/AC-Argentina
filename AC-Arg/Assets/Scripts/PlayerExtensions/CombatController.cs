@@ -102,7 +102,7 @@ public class CombatController : MonoBehaviour
             return;
         }
 
-        Debug.Log("ataco mano izquierda 1");
+        //Debug.Log("ataco mano izquierda 1");
         controller.DisableController();
         controller.characterAnimation.animator.Play("Punch_Left_01", 0, 0);
         AudioManager.Instance.PlayPunchAirSFX();
@@ -128,7 +128,7 @@ public class CombatController : MonoBehaviour
             return;
         }
 
-        Debug.Log("ataco mano derecha 1");
+        //Debug.Log("ataco mano derecha 1");
         controller.DisableController();
         controller.characterAnimation.animator.Play("Punch_Right_01", 0, 0);
         AudioManager.Instance.PlayPunchAirSFX();
@@ -136,7 +136,7 @@ public class CombatController : MonoBehaviour
     }
     private void PerformNextLeftHandComboAttack()
     {
-        Debug.Log("ataco mano izquierda 2");
+        //Debug.Log("ataco mano izquierda 2");
         controller.DisableController();
         controller.characterAnimation.animator.Play("Punch_Left_02", 0, 0);
         AudioManager.Instance.PlayPunchAirSFX();
@@ -145,7 +145,7 @@ public class CombatController : MonoBehaviour
     }
     private void PerformNextRightHandComboAttack()
     {
-        Debug.Log("ataco mano derecha 2");
+        //Debug.Log("ataco mano derecha 2");
         controller.DisableController();
         controller.characterAnimation.animator.Play("Punch_Right_02", 0, 0);
         AudioManager.Instance.PlayPunchAirSFX();
@@ -288,7 +288,12 @@ public class CombatController : MonoBehaviour
     }
     public void AddEnemyToDetectedList(Enemy detectedEnemy)
     {
-        //prevent from adding an enemy that is already in the list
+        //return iuf the enbemy is knocked out
+        if (detectedEnemy.isKnockedOut)
+        {
+            return;
+        }
+
         if (!detectedEnemies.Contains(detectedEnemy))
         {
             detectedEnemies.Add(detectedEnemy);
@@ -315,6 +320,16 @@ public class CombatController : MonoBehaviour
             ObjectEnabler.EnableObject(currentEnemy.currentEnemyMarker, state);
         }
     }
+
+    public void HandleEnemyKnockout(Enemy knockedOutEnemy)
+    {
+        RemoveEnemyFromDetectedList(knockedOutEnemy);
+        if (currentEnemy == knockedOutEnemy)
+        {
+            SetCurrentEnemy(detectedEnemies.Count > 0 ? detectedEnemies[0] : null);
+        }
+    }
+
 
     private void OnDestroy()
     {

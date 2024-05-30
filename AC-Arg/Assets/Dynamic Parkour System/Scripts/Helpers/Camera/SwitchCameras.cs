@@ -52,7 +52,7 @@ namespace Climbing
 
         public void DisableAllCameras()
         {
-            Debug.Log("SwitchCamera: deshabilito todas");
+            //Debug.Log("SwitchCamera: deshabilito todas");
             foreach (var cam in cameraDict.Values)
             {
                 cam.Priority = 0;
@@ -63,7 +63,7 @@ namespace Climbing
         {
             if (cameraDict.ContainsKey(newCameraKey))
             {
-                Debug.Log("SwitchCamera: habilito la camara que me piden");
+                //Debug.Log("SwitchCamera: habilito la camara que me piden");
 
                 DisableAllCameras();
                 cameraDict[newCameraKey].Priority = 1;

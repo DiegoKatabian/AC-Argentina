@@ -6,14 +6,20 @@ public class CutsceneTrigger : MonoBehaviour
     public bool isOneTimeOnly = true;
     bool hasBeenTriggered = false;
 
-    //get the playable director in roder to trigger the timeline ontriggerenter
-
     private PlayableDirector playableDirector;
+
+    public bool shouldTeleportPlayer = false;
+    public Transform playerTeleportTarget;
 
     private void Start()
     {
         playableDirector = GetComponent<PlayableDirector>();
 
+        if (playableDirector.playOnAwake)
+        {
+           Debug.Log("trigger: playable director es playonawake, inicializo");
+           InitializeCutscene();
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -24,14 +30,36 @@ public class CutsceneTrigger : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             Debug.Log("Triggered by player");
-            StartTimeline();
-            hasBeenTriggered = true;
+            playableDirector.Play();
+            InitializeCutscene();
         }
     }
 
-    public void StartTimeline()
+    public void InitializeCutscene()
     {
-        playableDirector.Play();
+        Debug.Log("initialize cutscene");
         EventManager.Instance.Trigger(Evento.OnCutsceneStart);
+        playableDirector.stopped += OnPlayableDirectorStopped;
+        hasBeenTriggered = true;
+    }
+
+    private void OnPlayableDirectorStopped(PlayableDirector director)
+    {
+        if (director != playableDirector) return;
+
+        if (shouldTeleportPlayer)
+        {
+            EventManager.Instance.Trigger(Evento.OnCutsceneEnd, playerTeleportTarget.position);
+        }
+        else
+        {
+            EventManager.Instance.Trigger(Evento.OnCutsceneEnd);
+        }
+
+    }
+
+    private void OnDisable()
+    {
+        playableDirector.stopped -= OnPlayableDirectorStopped;
     }
 }

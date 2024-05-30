@@ -69,7 +69,6 @@ namespace Climbing
             combatController = GetComponent<CombatController>();
             vehicleInteractionController = GetComponent<VehicleInteractionController>();
             healthComponent = GetComponent<PlayerHealthComponent>();
-            //crouchController = GetComponent<CrouchController>();
 
             if (cameraController == null)
                 Debug.LogError("Attach the Camera Controller located in the Free Look Camera");
@@ -79,8 +78,34 @@ namespace Climbing
         {
             characterMovement.OnLanded += characterAnimation.Land;
             characterMovement.OnFall += characterAnimation.Fall;
+
+            //DisableController();
+
+            EventManager.Instance.Subscribe(Evento.OnCutsceneStart, OnCutsceneStart);
+            EventManager.Instance.Subscribe(Evento.OnCutsceneEnd, OnCutsceneEnd);
         }
 
+        private void OnCutsceneStart(object[] parameters)
+        {
+            Debug.Log("player: on cutscene start");
+            //DisableController();
+        }
+
+        private void OnCutsceneEnd(object[] parameters)
+        {
+            Debug.Log("player: on ctuscene end");
+            if (parameters.Length > 0) //tpeo al player solo si me pasan un vector3
+            {
+                Debug.Log("player on cutscene end: me pasaron un vector3, asi que me tpeo");
+                Vector3 teleportTargetPosition = (Vector3)parameters[0];
+                TeleportPlayer(teleportTargetPosition);
+            }
+
+            Debug.Log("player on cutscene end: enable controller");
+            EnableController();
+        }
+
+       
         void Update()
         {
             // Detect if Player is on Ground
@@ -321,5 +346,21 @@ namespace Climbing
             characterAnimation.animator.CrossFade("Idle", 0.1f);
 
         }
+
+        public void TeleportPlayer(Vector3 position)
+        {
+            Debug.Log("tpeo al player a " + position);
+            characterMovement.rb.MovePosition(position);
+        }
+
+        private void OnDisable()
+        {
+            if (!gameObject.scene.isLoaded)
+            {
+                EventManager.Instance.Unsubscribe(Evento.OnCutsceneStart, OnCutsceneStart);
+                EventManager.Instance.Unsubscribe(Evento.OnCutsceneEnd, OnCutsceneEnd);
+            }
+        }
+
     }
 }

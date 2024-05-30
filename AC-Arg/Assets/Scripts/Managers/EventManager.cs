@@ -33,6 +33,7 @@ public enum Evento
     OnInputReleaseBoleadoras,
     OnBoleadorasStart,
     OnCutsceneStart,
+    OnCutsceneEnd, //0 es Vector3 playerTeleportTarget
 }
 
 public class EventManager : Singleton<EventManager>
