@@ -33,11 +33,11 @@ public class StealController : MonoBehaviour
     {
         //Debug.Log("try steal...");
 
-        if (!controller.isCrouch)
-        {
-            //Debug.Log("not crouching");
-            return;
-        }
+        //if (!controller.isCrouch)
+        //{
+        //    //Debug.Log("not crouching");
+        //    return;
+        //}
 
         if (pedestrianInteractionController.isAlreadyInteracting)
         {

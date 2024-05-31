@@ -39,11 +39,11 @@ public class BoleadorasController : MonoBehaviour
             return;
         }
 
-        if (isUsingBoleadoras)
-        {
-            //Debug.Log("ya estoy usando las boleadoras");
-            return;
-        }
+        //if (isUsingBoleadoras)
+        //{
+        //    //Debug.Log("ya estoy usando las boleadoras");
+        //    return;
+        //}
 
         StartBoleadoras(combatController.currentEnemy);
     }
