@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour, IBoleadorable
     public float knockoutTime = 20f; //cuanto tiempo queda KO
     public bool isPatroller = false;    //si es idler o patroller
     public bool chasesPlayerOnlyWhileWarning; //si es true, solo persigue al player si esta en warning. false, persigue al player solo con verlo
+    public bool isBlocker = false;
 
     protected EnemyFSM _fsm;
 
@@ -30,6 +31,7 @@ public class Enemy : MonoBehaviour, IBoleadorable
     [HideInInspector] public float rotationTime = 1;
     [HideInInspector] public bool isDead = false;
     [HideInInspector] public bool isKnockedOut = false;
+    [HideInInspector] public bool isBlocking = false;
 
 
     public virtual void Start()

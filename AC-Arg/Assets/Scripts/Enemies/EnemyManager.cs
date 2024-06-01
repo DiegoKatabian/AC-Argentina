@@ -26,6 +26,13 @@ public class EnemyManager : Singleton<EnemyManager>
             Debug.Log("enemy is null");
             return;
         }
+        //si el enemy esta blockeando, no recibe daño
+        if (enemy.isBlocking)
+        {   
+            Debug.Log("enemy is blocking");
+            return;
+        }
+
         HealthComponent enemyHealth = enemy.GetComponent<HealthComponent>();
         enemyHealth.TakeDamage(damage);
         enemy.StartHurt();
@@ -62,7 +69,9 @@ public class EnemyManager : Singleton<EnemyManager>
     }
     private void UpdateReadyToAttackEnemiesQueue(Enemy enemy, IState currentState)
     {
-        if (currentState.GetType() == typeof(EnemyReadyToAttack))
+        //sie sta en ready o blocking ahora
+        if (currentState.GetType() == typeof(EnemyReadyToAttack)
+            || currentState.GetType() == typeof(EnemyBlock))
         {
             if (!readyToAttackEnemiesQueue.Contains(enemy))
             {
@@ -95,7 +104,11 @@ public class EnemyManager : Singleton<EnemyManager>
         //first, the enemy requesting must be in ReadyToAttack state
         //second, there has to be no other enemy already attacking the player
         //third, the enemy must be the first in the queue
-        return enemyStates[enemy].GetType() == typeof(EnemyReadyToAttack) && 
+        bool isInPermittedState = enemyStates[enemy].GetType() == typeof(EnemyReadyToAttack) ||
+                                    enemyStates[enemy].GetType() == typeof(EnemyBlock);
+
+
+        return isInPermittedState && 
             !IsAnyEnemyAttackingPlayer() && 
             IsEnemyNextInLine(enemy);
     }
@@ -130,7 +143,8 @@ public class EnemyManager : Singleton<EnemyManager>
     {
         foreach (KeyValuePair<Enemy, IState> enemyState in enemyStates)
         {
-            if (enemyState.Value.GetType() == typeof(EnemyReadyToAttack))
+            if (enemyState.Value.GetType() == typeof(EnemyReadyToAttack) ||
+                enemyState.Value.GetType() == typeof(EnemyBlock))
             {
                 return true;
             }

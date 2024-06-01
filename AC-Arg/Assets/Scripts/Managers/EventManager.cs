@@ -34,6 +34,7 @@ public enum Evento
     OnBoleadorasStart,
     OnCutsceneStart,
     OnCutsceneEnd, //0 es Vector3 playerTeleportTarget
+    OnVaruzhanDeath,
 }
 
 public class EventManager : Singleton<EventManager>

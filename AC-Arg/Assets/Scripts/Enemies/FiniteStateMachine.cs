@@ -16,7 +16,8 @@ public enum State
     PedestrianCrash,
     PedestrianDie,
     EnemyKnockedOut,
-    EnemyDead
+    EnemyDead,
+    EnemyBlock
 }
 public class FiniteStateMachine
 {

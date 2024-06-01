@@ -10,7 +10,6 @@ public class UnarmedEnemy : Enemy, ICrashable
 
     public override void Start()
     {
-        base.Start();
         _fsm = new EnemyFSM();
         _fsm.AddState(State.EnemyIdle, new EnemyIdle(_fsm, this));
         _fsm.AddState(State.EnemyPatrol, new EnemyPatrol(_fsm, this, waypoints));
@@ -25,7 +24,7 @@ public class UnarmedEnemy : Enemy, ICrashable
         isDead = false;
     }
 
-    private void Update()
+    public void Update()
     {
         _fsm.Update();
     }
@@ -50,7 +49,7 @@ public class UnarmedEnemy : Enemy, ICrashable
         finishedAttacking = true;
         isAttacking = false;
     }
-    IEnumerator HitboxCouroutine()
+    public IEnumerator HitboxCouroutine()
     {
         ObjectEnabler.EnableObject(punchHitBox.gameObject, true);
         punchHitBox.isTaggedInside = false;
