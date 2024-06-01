@@ -17,7 +17,7 @@ public class CutsceneTrigger : MonoBehaviour
 
         if (playableDirector.playOnAwake)
         {
-           Debug.Log("trigger: playable director es playonawake, inicializo");
+           //Debug.Log("trigger: playable director es playonawake, inicializo");
            InitializeCutscene();
         }
     }

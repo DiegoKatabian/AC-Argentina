@@ -87,28 +87,28 @@ namespace Climbing
 
         private void OnCutsceneStart(object[] parameters)
         {
-            Debug.Log("player: on cutscene start");
+            //Debug.Log("player: on cutscene start");
             DisableController();
             EnableMesh(false);
         }
 
         public void EnableMesh(bool value)
         {
-            Debug.Log("enableo el mesh");
+            //Debug.Log("enableo el mesh");
             characterAnimation.playerMeshesParent.SetActive(value);
         }
 
         private void OnCutsceneEnd(object[] parameters)
         {
-            Debug.Log("player: on ctuscene end");
+            //Debug.Log("player: on ctuscene end");
             if (parameters.Length > 0) //tpeo al player solo si me pasan un vector3
             {
-                Debug.Log("player on cutscene end: me pasaron un vector3, asi que me tpeo");
+                //Debug.Log("player on cutscene end: me pasaron un vector3, asi que me tpeo");
                 Vector3 teleportTargetPosition = (Vector3)parameters[0];
                 TeleportPlayer(teleportTargetPosition);
             }
 
-            Debug.Log("player on cutscene end: enable controller");
+            //Debug.Log("player on cutscene end: enable controller");
             EnableController();
             EnableMesh(true);
         }
