@@ -19,6 +19,7 @@ public class UnarmedEnemy : Enemy, ICrashable
         _fsm.AddState(State.EnemyReadyToAttack, new EnemyReadyToAttack(_fsm, this));
         _fsm.AddState(State.EnemyHurt, new EnemyHurt(_fsm, this));
         _fsm.AddState(State.EnemyKnockedOut, new EnemyKnockedOut(_fsm, this));
+        _fsm.AddState(State.EnemyDead, new EnemyDead(_fsm, this));
         _fsm.ChangeState(State.EnemyIdle);
         EnemyManager.Instance.RegisterEnemy(this, _fsm);
         isDead = false;
@@ -99,11 +100,10 @@ public class UnarmedEnemy : Enemy, ICrashable
     public override void OnDeath()
     {
         base.OnDeath();
-        isDead = true;
-        _fsm.ChangeState(State.EnemyIdle);
-        animator.CrossFade("Death", 0.1f);
         AudioManager.Instance.PlayDeathSFX();
         EnemyManager.Instance.KillEnemy(this);
+        isDead = true;
+        _fsm.ChangeState(State.EnemyDead);
     }
 
     public void OnCrash(GameObject vehicle, float crashForce)

@@ -42,11 +42,6 @@ public class EnemyManager : Singleton<EnemyManager>
         StopAllCoroutines();
         UnregisterEnemy(enemy);
         EventManager.Instance.Trigger(Evento.OnEnemyKilled, enemy);
-
-        //a futuro: cambiar por deathstate en vez de destruir
-        Destroy(enemy.gameObject);
-
-
         EmitAlarm();
     }
     public void UpdateEnemyState(FiniteStateMachine enemyFSM, IState currentState)

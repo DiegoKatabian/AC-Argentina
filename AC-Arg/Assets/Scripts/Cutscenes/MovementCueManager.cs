@@ -23,10 +23,10 @@ public class MovementCueManager : Singleton<MovementCueManager>
             Queue<Transform> q = new Queue<Transform>();
             foreach (Transform t in mc.cues)
             {
-                Debug.Log("manager: agrego cue a la queue");
+                //Debug.Log("manager: agrego cue a la queue");
                 q.Enqueue(t);
             }
-            Debug.Log("manager: agrego queue a la lista");
+            //Debug.Log("manager: agrego queue a la lista");
             queues.Add(q);
         }
     }
@@ -37,23 +37,15 @@ public class MovementCueManager : Singleton<MovementCueManager>
         Transform t = null;
         for (int i = 0; i < movementCues.Length; i++)
         {
-            Debug.Log("manager: busco busco");
+            //Debug.Log("manager: busco busco");
             if (movementCues[i].character == character)
             {
-                Debug.Log("manager: encontre el movementCues de " + character);
+                //Debug.Log("manager: encontre el movementCues de " + character);
                 if (queues[i].Count > 0)
                 {
-                    Debug.Log("manager: te doy el siguiente cue");
+                    //Debug.Log("manager: te doy el siguiente cue");
                     t = queues[i].Dequeue();
                 }
-                else
-                {
-                    Debug.Log("manager: encontre a tu character, pero no tiene cues en cola");
-                }
-            }
-            else
-            {
-                Debug.Log("manager: mmm me parece que no tengo a tu character en mi lista de movementcues");
             }
         }
         return t;
