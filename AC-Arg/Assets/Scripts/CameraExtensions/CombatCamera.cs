@@ -6,7 +6,7 @@ using System;
 public class CombatCamera : MonoBehaviour
 {
     public CombatController player;
-    public CinemachineVirtualCamera virtualCamera;
+    [HideInInspector] public CinemachineVirtualCamera virtualCamera;
     public Transform midPoint;
 
     void Start()

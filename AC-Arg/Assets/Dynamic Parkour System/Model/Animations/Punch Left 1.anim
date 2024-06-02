@@ -61906,7 +61906,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0.9
-    functionName: ANIMATION_OnLeftHandAttackHit
+    functionName: ANIMATION_OnAttackHit
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

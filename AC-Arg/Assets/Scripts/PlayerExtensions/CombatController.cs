@@ -9,9 +9,6 @@ public class CombatController : MonoBehaviour
     public PlayerHandHitbox leftHandHitBox;
     public float leftHandAttackDamage = 1;
 
-    public PlayerHandHitbox rightHandHitBox;
-    public float rightHandAttackDamage = 2;
-    
     [HideInInspector] public bool isInCombatMode = false;
     [HideInInspector] public bool isBlocking = false;
     [HideInInspector] public Enemy currentEnemy;
@@ -20,6 +17,7 @@ public class CombatController : MonoBehaviour
     bool areEnemiesDetected = false;
     bool handsAreOnCooldown = false;
     bool comboWindowOpen = false;
+    int leftHandComboStep;
 
     public bool AreEnemiesDetected
     {
@@ -29,7 +27,6 @@ public class CombatController : MonoBehaviour
     {
         controller = GetComponent<ThirdPersonController>();
         EventManager.Instance.Subscribe(Evento.OnLeftHandInput, PerformLeftHandAttack);
-        EventManager.Instance.Subscribe(Evento.OnRightHandInput, PerformRightHandAttack);
         EventManager.Instance.Subscribe(Evento.OnInputRequestBlock, RequestBlock);
         EventManager.Instance.Subscribe(Evento.OnInputReleaseBlock, ReleaseBlock);
     }
@@ -80,19 +77,16 @@ public class CombatController : MonoBehaviour
         controller.characterAnimation.animator.SetBool("isBlocking", isBlocking);
     }
 
-    
 
     private void PerformLeftHandAttack(params object[] parameters)
     {
         if (handsAreOnCooldown)
         {
-            //Debug.Log("mano izquierda en cooldown");
             return;
         }
 
         if (!isInCombatMode || currentEnemy == null)
         {
-            //Debug.Log("no estoy en combate o no tengo enemigos");
             return;
         }
 
@@ -102,86 +96,50 @@ public class CombatController : MonoBehaviour
             return;
         }
 
-        //Debug.Log("ataco mano izquierda 1");
         controller.DisableController();
-        controller.characterAnimation.animator.Play("Punch_Left_01", 0, 0);
+        controller.characterAnimation.animator.CrossFade("Punch_01", 0.1f);
         AudioManager.Instance.PlayPunchAirSFX();
         handsAreOnCooldown = true;
     }
-    private void PerformRightHandAttack(object[] parameters)
-    {
-        if (handsAreOnCooldown)
-        {
-            //Debug.Log("mano izquierda en cooldown");
-            return;
-        }
 
-        if (!isInCombatMode || currentEnemy == null)
-        {
-            //Debug.Log("no estoy en combate o no tengo enemigos");
-            return;
-        }
-
-        if (comboWindowOpen)
-        {
-            PerformNextRightHandComboAttack();
-            return;
-        }
-
-        //Debug.Log("ataco mano derecha 1");
-        controller.DisableController();
-        controller.characterAnimation.animator.Play("Punch_Right_01", 0, 0);
-        AudioManager.Instance.PlayPunchAirSFX();
-        handsAreOnCooldown = true;
-    }
     private void PerformNextLeftHandComboAttack()
     {
-        //Debug.Log("ataco mano izquierda 2");
         controller.DisableController();
-        controller.characterAnimation.animator.Play("Punch_Left_02", 0, 0);
+
+        if (leftHandComboStep == 0)
+        {
+            controller.characterAnimation.animator.CrossFade("Punch_02", 0.1f);
+        }
+        else if (leftHandComboStep == 1)
+        {
+            controller.characterAnimation.animator.CrossFade("Punch_03", 0.1f);
+            comboWindowOpen = false;
+        }
+
         AudioManager.Instance.PlayPunchAirSFX();
         handsAreOnCooldown = true;
-        comboWindowOpen = false;
+        leftHandComboStep++;
     }
-    private void PerformNextRightHandComboAttack()
+
+    public void ANIMATION_OnAttackHit()
     {
-        //Debug.Log("ataco mano derecha 2");
-        controller.DisableController();
-        controller.characterAnimation.animator.Play("Punch_Right_02", 0, 0);
-        AudioManager.Instance.PlayPunchAirSFX();
-        handsAreOnCooldown = true;
-        comboWindowOpen = false;
-    }
-    public void ANIMATION_OnLeftHandAttackHit()
-    {
-        //Debug.Log("animation: left hand attack 1 - hit");
         StartCoroutine(HitboxCouroutine(leftHandHitBox, leftHandAttackDamage));
         handsAreOnCooldown = false;
         comboWindowOpen = true;
+        //leftHandComboStep = 0;
     }
-    public void ANIMATION_OnRightHandAttackHit()
+
+    public void ANIMATION_OnAttackHit_EndCombo()
     {
-        //Debug.Log("animation: right hand attack 1 - hit");
-        StartCoroutine(HitboxCouroutine(rightHandHitBox, rightHandAttackDamage));
-        handsAreOnCooldown = false;
-        comboWindowOpen = true;
-    }
-    public void ANIMATION_OnLeftHandAttackHit_EndCombo()
-    {
-        //Debug.Log("animation: left hand attack 2 - hit  - ends combo");
         StartCoroutine(HitboxCouroutine(leftHandHitBox, leftHandAttackDamage));
     }
-    public void ANIMATION_OnRightHandAttackHit_EndCombo()
-    {
-        //Debug.Log("animation: right hand attack 2 - hit - ends combo");
-        StartCoroutine(HitboxCouroutine(rightHandHitBox, rightHandAttackDamage));
-    }
+
     public void ANIMATION_OnAttackEnd()
     {
-        //Debug.Log("animation - attack ended");
         controller.EnableController();
         handsAreOnCooldown = false;
         comboWindowOpen = false;
+        leftHandComboStep = 0;
     }
     IEnumerator HitboxCouroutine(PlayerHandHitbox hitbox, float damage)
     {
@@ -336,7 +294,6 @@ public class CombatController : MonoBehaviour
         if(!gameObject.scene.isLoaded)
         {
             EventManager.Instance.Unsubscribe(Evento.OnLeftHandInput, PerformLeftHandAttack);
-            EventManager.Instance.Unsubscribe(Evento.OnRightHandInput, PerformRightHandAttack);
         }
     }
 }
