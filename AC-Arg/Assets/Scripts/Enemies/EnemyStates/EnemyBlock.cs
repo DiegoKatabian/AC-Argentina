@@ -12,10 +12,11 @@ public class EnemyBlock : IState
 
 
     FiniteStateMachine _fsm;
-    Enemy _me;
+    BlockingEnemy _me;
 
-    float timer;
-    float initialAttackCooldown; //cuanto espera desde que entra a este state hasta q ataca
+    float _timer;
+    float _initialAttackCooldown; //cuanto espera desde que entra a este state hasta q ataca
+    float _blockTimer;
 
 
     public EnemyBlock(FiniteStateMachine fsm, BlockingEnemy blockingEnemy)
@@ -31,7 +32,8 @@ public class EnemyBlock : IState
         _me.navMeshAgent.isStopped = true;
         _me.animator.CrossFade("Block", 0.2f);
         _me.isBlocking = true;
-        timer = 0;
+        _timer = 0;
+        _blockTimer = 0;
     }
 
     public void OnExit()
@@ -43,22 +45,6 @@ public class EnemyBlock : IState
 
     public void OnUpdate()
     {
-        //if (_me.isHurting)
-        //{
-        //    _fsm.ChangeState(State.EnemyHurt);
-        //}
-
-        //if (StealthManager.Instance.currentStatus.status == StealthStatus.Hidden)
-        //{
-        //    _fsm.ChangeState(State.EnemyIdle);
-        //}
-
-        //if (!_me.playerDetection.isPlayerInMeleeRange)
-        //{
-        //    _fsm.ChangeState(State.EnemyChase);
-        //}
-
-        // Verifica si el enemigo está demasiado cerca del jugador
         if (EnemyManager.Instance.GetDistanceToPlayer(_me.transform.position) < _me.minimumDistanceToPlayer)
         {
             Vector3 directionAwayFromPlayer = -EnemyManager.Instance.GetDirectionToPlayer(_me.transform.position);
@@ -72,9 +58,21 @@ public class EnemyBlock : IState
             _me.navMeshAgent.isStopped = true;
         }
 
-        timer += Time.deltaTime;
+        //rotate towards player
+        Vector3 direction = EnemyManager.Instance.GetDirectionToPlayer(_me.transform.position);
+        direction.y = 0;
+        _me.transform.rotation = Quaternion.Slerp(_me.transform.rotation, Quaternion.LookRotation(direction), Time.deltaTime);
 
-        if (timer >= initialAttackCooldown)
+
+        if (_blockTimer < _me.blockDuration)
+        {
+            _blockTimer += Time.deltaTime;
+            return;
+        }
+
+        _timer += Time.deltaTime;
+
+        if (_timer >= _initialAttackCooldown)
         {
             if (EnemyManager.Instance.CanIAttackPlayerMisterEnemyManager(_me))
             {

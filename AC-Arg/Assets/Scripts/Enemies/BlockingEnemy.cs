@@ -9,7 +9,7 @@ public class BlockingEnemy : UnarmedEnemy
     //    base.OnDeath();
     //    EventManager.Instance.Trigger(Evento.OnVaruzhanDeath);
     //}
-    public float blockDuration = 4;
+    public float blockDuration = 2;
 
     public override void Start()
     {
