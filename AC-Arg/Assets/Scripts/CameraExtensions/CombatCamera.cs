@@ -9,6 +9,8 @@ public class CombatCamera : MonoBehaviour
     [HideInInspector] public CinemachineVirtualCamera virtualCamera;
     public Transform midPoint;
 
+    public bool isMidPointEnabled = false;
+
     void Start()
     {
         virtualCamera = GetComponent<CinemachineVirtualCamera>();
@@ -17,7 +19,7 @@ public class CombatCamera : MonoBehaviour
 
     void Update()
     {
-        if (player.currentEnemy != null)
+        if (player.currentEnemy != null && isMidPointEnabled)
         {
             //Debug.Log("updateo la posicion del midpoint");
             midPoint.position = (player.transform.position + player.currentEnemy.transform.position) / 2f;
