@@ -1465,8 +1465,8 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 3
-    m_ConditionEvent: Velocity
+  - m_ConditionMode: 2
+    m_ConditionEvent: onAir
     m_EventTreshold: 0.5
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -5441508889804567970}
@@ -2079,7 +2079,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -203655887218126122, guid: b28993c9e48e4924490c763ae7e307d9,
+  m_Motion: {fileID: 1827226128182048838, guid: 25d17c2806de2de479bd399ed0466e20,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 

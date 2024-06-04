@@ -204,6 +204,7 @@ namespace Climbing
                                 if (curPoint != null && curPoint.type == PointType.Atalaya)
                                 {
                                     controller.characterAnimation.Leap();
+                                    controller.isLeaping = true;
                                     AudioManager.Instance.PlaySound(leapSound, 0.8f);
                                 }
                                 else
@@ -275,6 +276,8 @@ namespace Climbing
 
         public void hasEndedJump()
         {
+            
+
             if (actualSpeed >= 1.0f && curPoint != null)
             {
                 if (!controller.characterMovement.stopMotion)

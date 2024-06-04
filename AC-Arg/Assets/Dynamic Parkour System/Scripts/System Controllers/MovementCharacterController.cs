@@ -333,6 +333,7 @@ namespace Climbing
             OnLanded();
             controller.isJumping = false;
             controller.onAir = false;
+            controller.isLeaping = false;
 
             fallTimer = 0;
         }

@@ -57,6 +57,7 @@ namespace Climbing
 
         public float fallDamage = 3;
         public AudioClip takeDamageSound;
+        internal bool isLeaping;
 
         private void Awake()
         {
@@ -340,6 +341,12 @@ namespace Climbing
         internal void ReceiveFallDamage()
         {
             Debug.Log("recibo daño de caida");
+
+            if (isLeaping)
+            {
+                Debug.Log("estoy leapeando, no recibo daño");
+                return;
+            }
             healthComponent.TakeDamage(fallDamage);
             characterAnimation.animator.CrossFade("TakeFallDamage", 0.1f);
             AudioManager.Instance.PlaySound(takeDamageSound, 0.95f);
