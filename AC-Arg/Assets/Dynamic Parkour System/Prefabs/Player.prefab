@@ -332,8 +332,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3383123451867061719}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.0010600202, y: 0.43365458, z: -0.044719256, w: 0.89996827}
-  m_LocalPosition: {x: 0.00001916767, y: -0.0000029285175, z: -0.000028074499}
+  m_LocalRotation: {x: -0.0015522786, y: -0.070887, z: 0.0072938344, w: 0.9974565}
+  m_LocalPosition: {x: 3.9043403, y: -0.16743335, z: -1.6051058}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -866,7 +866,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5556358532925082188}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.03375063, y: 0.43499276, z: -0.028937258, w: 0.8993358}
+  m_LocalRotation: {x: -0.03375062, y: 0.43499273, z: -0.02893726, w: 0.89933574}
   m_LocalPosition: {x: 0.00001916767, y: -0.0000029285175, z: -0.000028074499}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1135,7 +1135,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5556358533096778056}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.017429812, y: 0.43439615, z: -0.036823895, w: 0.89980006}
+  m_LocalRotation: {x: -0.01742981, y: 0.43439615, z: -0.0368239, w: 0.89980006}
   m_LocalPosition: {x: 0.00001916767, y: -0.0000029285175, z: -0.000028074499}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1253,7 +1253,7 @@ Transform:
   m_GameObject: {fileID: 5556358533144897770}
   serializedVersion: 2
   m_LocalRotation: {x: -0.0010600202, y: 0.43365458, z: -0.044719256, w: 0.89996827}
-  m_LocalPosition: {x: 0.00001916767, y: -0.0000029285175, z: -0.000028074499}
+  m_LocalPosition: {x: 0.001182778, y: -0.00015928558, z: -0.0015270057}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1918,7 +1918,7 @@ Transform:
   m_GameObject: {fileID: 5556358534259412728}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 115.56002, y: 0.11000061, z: -124.10002}
+  m_LocalPosition: {x: 115.56003, y: 0.11000061, z: -124.10001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2404,7 +2404,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 5556358534646836591}
   switchCameras: {fileID: 5556358532959275488}
-  playerMeshesParent: {fileID: 0}
+  playerMeshesParent: {fileID: 5340506779807698294}
   handRaiseLockDuration: 1.5
 --- !u!114 &5556358534646836585
 MonoBehaviour:
@@ -2421,8 +2421,11 @@ MonoBehaviour:
   showDebug: 0
   maxHeight: 1.25
   maxDistance: 5
+  leapDistance: 10
+  leapHeight: 5
   curPoint: {fileID: 0}
   jumpSound: {fileID: 8300000, guid: 8289b7b377344e345965c9e7e78b7157, type: 3}
+  leapSound: {fileID: 8300000, guid: 34fc9961417df934782374703ff6b95e, type: 3}
 --- !u!114 &5556358534646836584
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2651,7 +2654,7 @@ Transform:
   m_GameObject: {fileID: 6847176854728935827}
   serializedVersion: 2
   m_LocalRotation: {x: 0.05183023, y: 0.066304006, z: -0.0034488074, w: 0.9964465}
-  m_LocalPosition: {x: 111.552605, y: 0.9964905, z: -121.20586}
+  m_LocalPosition: {x: 111.552605, y: 0.99649, z: -121.20586}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2995,7 +2998,7 @@ Transform:
   m_GameObject: {fileID: 7423758506887219374}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 116.31702, y: 0.77000046, z: -121.60001}
+  m_LocalPosition: {x: 116.317024, y: 0.77000046, z: -121.60001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5451,6 +5454,12 @@ GameObject:
 --- !u!4 &4708120001640437708 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: aa67d57bdb60b0d4aa010e5307b58594,
+    type: 3}
+  m_PrefabInstance: {fileID: 5105994900261695527}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5340506779807698294 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: aa67d57bdb60b0d4aa010e5307b58594,
     type: 3}
   m_PrefabInstance: {fileID: 5105994900261695527}
   m_PrefabAsset: {fileID: 0}

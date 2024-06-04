@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8179739440250506326}
   - component: {fileID: 2300656438969781887}
   - component: {fileID: 5709868650307084909}
+  - component: {fileID: 6740084140427813869}
   m_Layer: 0
   m_Name: LeavesParticles
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6317798599028632329}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.37945175, y: 0.23, z: -0.07432556}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4953,3 +4954,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 5.2188797, y: 0.2334047, z: 4.7597656}
   m_Center: {x: -0.43362808, y: -0.09700701, z: 0.06817627}
+--- !u!114 &6740084140427813869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6317798599028632329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1db1c3b2ef2f86a4b85756091f18e902, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetParticleSystem: {fileID: 8179739440250506326}
+  doesPlaySound: 1
+  soundToPlay: {fileID: 8300000, guid: ea880354d98b6da4da0bda05c32544bb, type: 3}
+  doesStopSound: 1
+  soundToStop: {fileID: 8300000, guid: 34fc9961417df934782374703ff6b95e, type: 3}
