@@ -40,7 +40,8 @@ namespace Climbing
     {
         Ledge = 0,
         Pole,
-        Ground
+        Ground,
+        Atalaya
     }
 
     [System.Serializable]

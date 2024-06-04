@@ -163,6 +163,11 @@ namespace Climbing
             controller.characterAnimation.animator.CrossFade("Predicted Jump", 0.1f);
             animator.SetBool("Crouch", state);
         }
+        public void Leap()
+        {
+            controller.characterAnimation.animator.CrossFade("Leap", 0.1f);
+            animator.SetBool("Crouch", false);
+        }
 
         public void TriggerStopVehicleAnimation(params object[] parameters)
         {
