@@ -80,7 +80,7 @@ namespace Climbing
             characterMovement.OnLanded += characterAnimation.Land;
             characterMovement.OnFall += characterAnimation.Fall;
 
-            OnCutsceneStart(null);
+            //OnCutsceneStart(null);
 
             EventManager.Instance.Subscribe(Evento.OnCutsceneStart, OnCutsceneStart);
             EventManager.Instance.Subscribe(Evento.OnCutsceneEnd, OnCutsceneEnd);
