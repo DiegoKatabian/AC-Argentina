@@ -59,6 +59,8 @@ namespace Climbing
         public AudioClip takeDamageSound;
         internal bool isLeaping;
 
+        public bool sceneStartsWithCutscene = false;
+
         private void Awake()
         {
             characterInput = GetComponent<InputCharacterController>();
@@ -80,7 +82,8 @@ namespace Climbing
             characterMovement.OnLanded += characterAnimation.Land;
             characterMovement.OnFall += characterAnimation.Fall;
 
-            //OnCutsceneStart(null);
+            if (sceneStartsWithCutscene)
+                OnCutsceneStart(null);
 
             EventManager.Instance.Subscribe(Evento.OnCutsceneStart, OnCutsceneStart);
             EventManager.Instance.Subscribe(Evento.OnCutsceneEnd, OnCutsceneEnd);

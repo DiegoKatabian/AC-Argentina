@@ -1,15 +1,22 @@
 using UnityEngine;
 using UnityEngine.AI;
 
+public enum PawnName
+{
+    Facundo,
+    Varuzhan
+}
+
 public class CutscenePawnMovement : MonoBehaviour
 {
     private NavMeshAgent agent;
+    public PawnName pawnName;
 
     void Start()
     {
         if (GetComponent<NavMeshAgent>() == null)
         {
-            Debug.LogError("No NavMeshAgent component found in " + gameObject.name);
+            Debug.LogError("No NavMeshAgent component found in " + pawnName);
         }
         else
         {
@@ -20,7 +27,7 @@ public class CutscenePawnMovement : MonoBehaviour
 
     public void MoveToNextQueue(bool isDirectMove)
     {
-        Transform nextCue = MovementCueManager.Instance.GetNextCue(gameObject.name);
+        Transform nextCue = MovementCueManager.Instance.GetNextCue(pawnName);
 
         Debug.Log("character: obtengo el siguiente cue");
 
@@ -28,11 +35,11 @@ public class CutscenePawnMovement : MonoBehaviour
         {
             if (isDirectMove)
             {
-                MoveDirectlyTo(nextCue.position);
+                MoveDirectlyTo(nextCue);
             }
             else
             {
-                MoveTo(nextCue.position);
+                MoveTo(nextCue);
             }
         }
         else
@@ -41,23 +48,26 @@ public class CutscenePawnMovement : MonoBehaviour
         }
     }
 
-    public void MoveTo(Vector3 position)
+    public void MoveTo(Transform nextCue)
     {
         if (agent != null)
         {
             Debug.Log("character: muevo al agente");
-            agent.SetDestination(position);
+            agent.SetDestination(nextCue.position);
+            transform.rotation = nextCue.rotation;
         }
     }
 
-    public void MoveDirectlyTo(Vector3 position)
+    public void MoveDirectlyTo(Transform nextCue)
     {
         if (agent != null)
         {
             agent.enabled = false;
         }
         Debug.Log("character: muevo al agente directamente");
-        transform.position = position;
+        transform.position = nextCue.position;
+        transform.rotation = nextCue.rotation;
+
         if (agent != null)
         {
             agent.enabled = true;

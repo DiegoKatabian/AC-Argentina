@@ -45,7 +45,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 766355716265276903}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.1
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -70,6 +70,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: deeb01a15c2088d47b85da62628bacac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pawnName: 1
 --- !u!114 &6347898003057921041
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1724,7 +1725,7 @@ PrefabInstance:
     - target: {fileID: 5465940246521907071, guid: e9570ce3f361652428152fd145030672,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.0025787354
+      value: 0.0025930393
       objectReference: {fileID: 0}
     - target: {fileID: 5465940246521907071, guid: e9570ce3f361652428152fd145030672,
         type: 3}
@@ -1734,27 +1735,27 @@ PrefabInstance:
     - target: {fileID: 5465940246521907071, guid: e9570ce3f361652428152fd145030672,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.008392334
+      value: -0.008402724
       objectReference: {fileID: 0}
     - target: {fileID: 5465940246521907071, guid: e9570ce3f361652428152fd145030672,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.92409724
+      value: 0.9240972
       objectReference: {fileID: 0}
     - target: {fileID: 5465940246521907071, guid: e9570ce3f361652428152fd145030672,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.039847493
+      value: -0.039847486
       objectReference: {fileID: 0}
     - target: {fileID: 5465940246521907071, guid: e9570ce3f361652428152fd145030672,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.38003087
+      value: 0.38003084
       objectReference: {fileID: 0}
     - target: {fileID: 5465940246521907071, guid: e9570ce3f361652428152fd145030672,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.00575836
+      value: 0.0057583638
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: e9570ce3f361652428152fd145030672,
         type: 3}
