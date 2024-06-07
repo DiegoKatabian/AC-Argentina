@@ -101,9 +101,6 @@ public class EnemyManager : Singleton<EnemyManager>
     }
     public bool CanIAttackPlayerMisterEnemyManager(Enemy enemy)
     {
-        //first, the enemy requesting must be in ReadyToAttack state
-        //second, there has to be no other enemy already attacking the player
-        //third, the enemy must be the first in the queue
         bool isInPermittedState = enemyStates[enemy].GetType() == typeof(EnemyReadyToAttack) ||
                                     enemyStates[enemy].GetType() == typeof(EnemyBlock);
 
