@@ -2,16 +2,17 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
-public enum PawnName
+public enum CharacterName
 {
     Facundo,
-    Varuzhan
+    Varuzhan,
+    None
 }
 
 public class CutscenePawnMovement : MonoBehaviour
 {
     private NavMeshAgent agent;
-    public PawnName pawnName;
+    public CharacterName pawnName;
 
     public float jogSpeed = 1.55f;
 

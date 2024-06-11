@@ -6,7 +6,7 @@ using UnityEngine;
 public struct MovementCues
 {
     public List<Transform> cues;
-    public PawnName pawnName;
+    public CharacterName pawnName;
 }
 
 
@@ -32,7 +32,7 @@ public class MovementCueManager : Singleton<MovementCueManager>
     }
 
     //whenever a character is done with a cue, call this function to get the next cue
-    public Transform GetNextCue(PawnName character)
+    public Transform GetNextCue(CharacterName character)
     {
         Transform t = null;
         for (int i = 0; i < movementCues.Length; i++)

@@ -11,6 +11,8 @@ public class CutsceneTrigger : MonoBehaviour
     public bool shouldTeleportPlayer = false;
     public Transform playerTeleportTarget;
 
+    public SubtitleSetSO subtitleSet;
+
     private void Start()
     {
         playableDirector = GetComponent<PlayableDirector>();
@@ -38,7 +40,7 @@ public class CutsceneTrigger : MonoBehaviour
     public void InitializeCutscene()
     {
         Debug.Log("initialize cutscene");
-        EventManager.Instance.Trigger(Evento.OnCutsceneStart);
+        EventManager.Instance.Trigger(Evento.OnCutsceneStart, subtitleSet);
         playableDirector.stopped += OnPlayableDirectorStopped;
         hasBeenTriggered = true;
     }

@@ -32,9 +32,11 @@ public enum Evento
     OnInputRequestBoleadoras,
     OnInputReleaseBoleadoras,
     OnBoleadorasStart,
-    OnCutsceneStart,
+    OnCutsceneStart, //0 es SubtitleSetSO
     OnCutsceneEnd, //0 es Vector3 playerTeleportTarget
-    OnVaruzhanDeath,
+    OnVaruzhanDeath, 
+    OnSubtitle, //0 es SubtitleLine. no mandar nada para clearsubtitles
+    OnSubtitleClear,
 }
 
 public class EventManager : Singleton<EventManager>
