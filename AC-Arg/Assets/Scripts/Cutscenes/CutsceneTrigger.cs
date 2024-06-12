@@ -55,7 +55,7 @@ public class CutsceneTrigger : MonoBehaviour
         }
         else
         {
-            EventManager.Instance.Trigger(Evento.OnCutsceneEnd);
+            EventManager.Instance.Trigger(Evento.OnCutsceneEnd, Vector3.zero, this);
         }
 
     }

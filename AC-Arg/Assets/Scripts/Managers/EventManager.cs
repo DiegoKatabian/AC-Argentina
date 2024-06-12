@@ -33,7 +33,7 @@ public enum Evento
     OnInputReleaseBoleadoras,
     OnBoleadorasStart,
     OnCutsceneStart, //0 es SubtitleSetSO
-    OnCutsceneEnd, //0 es Vector3 playerTeleportTarget
+    OnCutsceneEnd, //0 es Vector3 playerTeleportTarget, 1 es cutscenetrigger
     OnVaruzhanDeath, 
     OnSubtitle, //0 es SubtitleLine. no mandar nada para clearsubtitles
     OnSubtitleClear,

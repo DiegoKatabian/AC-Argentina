@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
+using UnityEngine.Playables;
+using System;
 
 public class TutorialTrigger : MonoBehaviour
 {
@@ -12,6 +14,31 @@ public class TutorialTrigger : MonoBehaviour
     public Image[] images; //they will show in sequential order
     public float timeToFade = 2;
     public float displayTime = 2; // time each text/image is displayed before fading out
+
+    public bool isTriggeredByEndOfCutscene = false;
+    public CutsceneTrigger cutsceneTrigger;
+
+    private void Start()
+    {
+        if (isTriggeredByEndOfCutscene)
+        {
+            EventManager.Instance.Subscribe(Evento.OnCutsceneEnd, OnCutsceneEnd);
+        }
+    }
+
+    private void OnCutsceneEnd(object[] parameters)
+    {
+        if (isOneTimeOnly && hasBeenTriggered) return;
+
+        if (parameters.Length > 1 && 
+            parameters[1] is CutsceneTrigger && 
+            (CutsceneTrigger)parameters[1] == cutsceneTrigger)
+        {
+            Debug.Log("Triggered by cutscene end");
+            hasBeenTriggered = true;
+            StartCoroutine(StartTutorial());
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
