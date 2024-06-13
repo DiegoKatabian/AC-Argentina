@@ -34,7 +34,7 @@ public class TutorialTrigger : MonoBehaviour
             parameters[1] is CutsceneTrigger && 
             (CutsceneTrigger)parameters[1] == cutsceneTrigger)
         {
-            Debug.Log("Triggered by cutscene end");
+            Debug.Log("tutorial triggered by cutscene end");
             hasBeenTriggered = true;
             StartCoroutine(StartTutorial());
         }

@@ -2,25 +2,20 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
-public enum CharacterName
-{
-    Facundo,
-    Varuzhan,
-    None
-}
 
 public class CutscenePawnMovement : MonoBehaviour
 {
     private NavMeshAgent agent;
-    public CharacterName pawnName;
 
+    public float walkSpeed = 1.1f;
     public float jogSpeed = 1.55f;
+    public float runSpeed = 2f;
 
     void Start()
     {
         if (GetComponent<NavMeshAgent>() == null)
         {
-            Debug.LogError("No NavMeshAgent component found in " + pawnName);
+            Debug.LogError("No NavMeshAgent component found in " + this);
         }
         else
         {
@@ -31,7 +26,7 @@ public class CutscenePawnMovement : MonoBehaviour
 
     public void MoveToNextQueue(bool isDirectMove)
     {
-        Transform nextCue = MovementCueManager.Instance.GetNextCue(pawnName);
+        Transform nextCue = MovementCueManager.Instance.GetNextCue(this);
 
         Debug.Log("character: obtengo el siguiente cue");
 
@@ -82,7 +77,7 @@ public class CutscenePawnMovement : MonoBehaviour
     //these methods should set the navmesh speed to one of three possible values, 1.1, 2, 4, for walk, jog and run respectively
     public void SetWalkSpeed()
     {
-        agent.speed = 1.1f;
+        agent.speed = walkSpeed;
     }
 
     public void SetJogSpeed()
@@ -92,7 +87,7 @@ public class CutscenePawnMovement : MonoBehaviour
 
     public void SetRunSpeed()
     {
-        agent.speed = 2f;
+        agent.speed = runSpeed;
     }
 
 }

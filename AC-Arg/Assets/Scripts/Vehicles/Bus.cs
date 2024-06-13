@@ -16,6 +16,11 @@ public class Bus : VehicleAI
         base.Start();
         currentStopChance = stopChance;
         //Debug.Log("try to add bus");
+        if (!BusManager.Instance)
+        {
+            Debug.Log("bus manager not found");
+            return;
+        }
         BusManager.Instance.AddBus(this);
         EventManager.Instance.Subscribe(Evento.OnInputRequestBusStop, OnStopRequested);
     }

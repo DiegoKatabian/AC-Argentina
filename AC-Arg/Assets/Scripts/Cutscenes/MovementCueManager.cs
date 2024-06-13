@@ -6,7 +6,7 @@ using UnityEngine;
 public struct MovementCues
 {
     public List<Transform> cues;
-    public CharacterName pawnName;
+    public CutscenePawnMovement pawn;
 }
 
 
@@ -32,13 +32,13 @@ public class MovementCueManager : Singleton<MovementCueManager>
     }
 
     //whenever a character is done with a cue, call this function to get the next cue
-    public Transform GetNextCue(CharacterName character)
+    public Transform GetNextCue(CutscenePawnMovement pawn)
     {
         Transform t = null;
         for (int i = 0; i < movementCues.Length; i++)
         {
             //Debug.Log("manager: busco busco");
-            if (movementCues[i].pawnName == character)
+            if (movementCues[i].pawn == pawn)
             {
                 //Debug.Log("manager: encontre el movementCues de " + character);
                 if (queues[i].Count > 0)

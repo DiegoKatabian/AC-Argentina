@@ -3,6 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum CharacterName
+{
+    Facundo,
+    Varuzhan,
+    None
+}
+
 [System.Serializable]
 public struct SubtitleLine
 {

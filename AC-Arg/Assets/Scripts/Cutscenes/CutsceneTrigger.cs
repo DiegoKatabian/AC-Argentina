@@ -19,7 +19,7 @@ public class CutsceneTrigger : MonoBehaviour
 
         if (playableDirector.playOnAwake)
         {
-           //Debug.Log("trigger: playable director es playonawake, inicializo");
+           Debug.Log("cutscene: triggered on awake");
            InitializeCutscene();
         }
     }
@@ -31,7 +31,7 @@ public class CutsceneTrigger : MonoBehaviour
 
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Triggered by player");
+            Debug.Log("cutscene: triggered by player");
             playableDirector.Play();
             InitializeCutscene();
         }
@@ -39,7 +39,7 @@ public class CutsceneTrigger : MonoBehaviour
 
     public void InitializeCutscene()
     {
-        Debug.Log("initialize cutscene");
+        Debug.Log("cutscene: initialize");
         EventManager.Instance.Trigger(Evento.OnCutsceneStart, subtitleSet);
         playableDirector.stopped += OnPlayableDirectorStopped;
         hasBeenTriggered = true;
@@ -48,10 +48,11 @@ public class CutsceneTrigger : MonoBehaviour
     private void OnPlayableDirectorStopped(PlayableDirector director)
     {
         if (director != playableDirector) return;
+        Debug.Log("cutscene: on playable director stopped");
 
         if (shouldTeleportPlayer)
         {
-            EventManager.Instance.Trigger(Evento.OnCutsceneEnd, playerTeleportTarget.position);
+            EventManager.Instance.Trigger(Evento.OnCutsceneEnd, playerTeleportTarget.position, this);
         }
         else
         {
