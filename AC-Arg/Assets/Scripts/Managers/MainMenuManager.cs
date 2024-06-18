@@ -10,10 +10,20 @@ public class MainMenuManager : MonoBehaviour
     public string sceneVaruzhan = "Varuzhan";
     public AudioClip mainMenuMusic;
 
+    public GameObject allMainScreenButtonsParent;
+    public float timeToWaitBeforeButtonsAppear = 1;
+
     private void Start()
     {
         AudioManager.Instance.PlaySound(mainMenuMusic);
+        Invoke("ShowMainScreenButtons", timeToWaitBeforeButtonsAppear);
     }
+
+    public void ShowMainScreenButtons()
+    {
+        allMainScreenButtonsParent.SetActive(true);
+    }
+
     public void ToggleSound()
     {
         soundEnabled = !soundEnabled;
@@ -36,6 +46,10 @@ public class MainMenuManager : MonoBehaviour
     public void BUTTON_QuitGame()
     {
         Application.Quit();
+    }
+
+    public void BUTTON_KimmiArts()
+    {
         Application.OpenURL("https://kimmiarts.itch.io/");
     }
 }
