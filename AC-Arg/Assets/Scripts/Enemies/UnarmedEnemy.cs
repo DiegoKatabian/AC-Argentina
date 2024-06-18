@@ -1,11 +1,14 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering.UI;
 
-public class UnarmedEnemy : Enemy, ICrashable
+public class UnarmedEnemy : Enemy, ICrashable, IPedestrian
 {
     public Hitbox punchHitBox;
     public Transform[] waypoints;
     public bool canInteract = true;
+
+    public GameObject bloodParticlesPrefab;
 
 
     public override void Start()
@@ -99,6 +102,14 @@ public class UnarmedEnemy : Enemy, ICrashable
     public override void OnDeath()
     {
         base.OnDeath();
+        //isntantiate the blood particles
+
+        if (bloodParticlesPrefab != null)
+        {
+            GameObject bloodParticles = Instantiate(bloodParticlesPrefab, transform.position, Quaternion.identity);
+            bloodParticles.GetComponent<ParticleSystem>().Play();
+        }
+        
         AudioManager.Instance.PlayDeathSFX();
         EnemyManager.Instance.KillEnemy(this);
         isDead = true;
@@ -118,7 +129,11 @@ public class UnarmedEnemy : Enemy, ICrashable
     public void GetAssassinated(GameObject assassin)
     {
         Debug.Log("enemy: me asesinaron");
+        animator.CrossFade("GetAssasinated", 0.2f);
+        Invoke("OnDeath", 1f);
     }
+
+
 
     public void GetStolen()
     {

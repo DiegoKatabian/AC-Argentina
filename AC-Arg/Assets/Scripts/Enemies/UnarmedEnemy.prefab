@@ -162,6 +162,7 @@ MonoBehaviour:
   knockoutTime: 300
   isPatroller: 0
   chasesPlayerOnlyWhileWarning: 0
+  isBlocker: 0
   isMyTurnToAttack: 0
   isAttacking: 0
   finishedAttacking: 0
@@ -171,9 +172,12 @@ MonoBehaviour:
   rotationTime: 1
   isDead: 0
   isKnockedOut: 0
+  isBlocking: 0
   punchHitBox: {fileID: 3881397158163303825}
   waypoints: []
   canInteract: 1
+  bloodParticlesPrefab: {fileID: 5591052993385217295, guid: 6d28aff193a50a14a8d9ed408a5c3c45,
+    type: 3}
 --- !u!195 &2894612690020636812
 NavMeshAgent:
   m_ObjectHideFlags: 0
