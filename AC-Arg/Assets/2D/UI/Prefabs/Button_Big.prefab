@@ -256,7 +256,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2716526434745124939}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2749768272161586239}
+        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &1354072016587595162
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -335,6 +347,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3002bddfdcf3d1d47a322f00565e049e, type: 3}
+--- !u!82 &2749768272161586239 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 3811033743994692005, guid: 3002bddfdcf3d1d47a322f00565e049e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1354072016587595162}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5082873339021534310 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6071801228032915964, guid: 3002bddfdcf3d1d47a322f00565e049e,
