@@ -56,6 +56,8 @@ namespace Climbing
         private float turnSmoothVelocity;
 
         public float fallDamage = 3;
+        public float severeFallDamage = 6;
+        public float deadlyFallDamage = 2000;
         public AudioClip takeDamageSound;
         internal bool isLeaping;
 
@@ -345,6 +347,20 @@ namespace Climbing
         }
         internal void ReceiveFallDamage()
         {
+            TakeFallDamage(fallDamage);
+        }
+        internal void ReceiveSevereFallDamage()
+        {
+            TakeFallDamage(severeFallDamage);
+        }
+
+        internal void ReceiveDeadlyFallDamage()
+        {
+            TakeFallDamage(deadlyFallDamage);
+        }
+
+        public void TakeFallDamage(float fallDamage)
+        {
             Debug.Log("recibo daño de caida");
 
             if (isLeaping)
@@ -355,8 +371,6 @@ namespace Climbing
             healthComponent.TakeDamage(fallDamage);
             characterAnimation.animator.CrossFade("TakeFallDamage", 0.1f);
             AudioManager.Instance.PlaySound(takeDamageSound, 0.95f);
-
-
             DisableController();
         }
         public void ANIMATION_OnFallDamageEnd()
