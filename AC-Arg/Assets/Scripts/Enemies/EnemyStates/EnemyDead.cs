@@ -26,16 +26,16 @@ public class EnemyDead : IState
 
     public void OnExit()
     {
-        Debug.Log("salgo de die");
+        //Debug.Log("salgo de die");
     }
 
     public void OnUpdate()
     {
-        Debug.Log("pasa el tiempo...");
+        //Debug.Log("pasa el tiempo...");
         destroyTime -= Time.deltaTime;
         if (destroyTime <= 0)
         {
-            Debug.Log("me deshago del cadaver...");
+            //Debug.Log("me deshago del cadaver...");
 
             _me.gameObject.SetActive(false);
         }
