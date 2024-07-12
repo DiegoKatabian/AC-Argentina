@@ -19,7 +19,7 @@ public class CutscenePawnMovement : MonoBehaviour
         }
         else
         {
-            Debug.Log("character: tengo navmesh");
+            //Debug.Log("character: tengo navmesh");
             agent = GetComponent<NavMeshAgent>();
         }
     }

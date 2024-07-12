@@ -40,7 +40,7 @@ public class SubtitleManager : MonoBehaviour
         {
             subtitlesQueue.Enqueue(s);
         }
-        Debug.Log("subtitle manager: cargo el current subtitle set: " + currentSubtitleSet);
+        //Debug.Log("subtitle manager: cargo el current subtitle set: " + currentSubtitleSet);
     }
 
     public SubtitleLine GetNextSubtitle()
@@ -51,32 +51,32 @@ public class SubtitleManager : MonoBehaviour
 
         if (currentSubtitleSet == null)
         {
-            Debug.LogError("subtitle manager: no hay current subtitle set");
+            //Debug.LogError("subtitle manager: no hay current subtitle set");
             return emptySubtitle;
         }
 
         //return the next subtitle in queue
         if (subtitlesQueue.Count > 0)
         {
-            Debug.Log("toma papu, te dejo aca el subtitle que toca ahora");
+            //Debug.Log("toma papu, te dejo aca el subtitle que toca ahora");
             return subtitlesQueue.Dequeue();
         }
         else
         {
-            Debug.Log("pues ya no hay");
+            //Debug.Log("pues ya no hay");
             return emptySubtitle;
         }
     }
 
     public void TIMELINE_TriggerSubtitle() //disparado por la timeline
     {
-        Debug.Log("subtitle manager: trigger subtitle");
+        //Debug.Log("subtitle manager: trigger subtitle");
         EventManager.Instance.Trigger(Evento.OnSubtitle, GetNextSubtitle());
     }
 
     public void TIMELINE_ClearSubtitles()
     {
-        Debug.Log("subtitle manager: clear subtitles");
+        //Debug.Log("subtitle manager: clear subtitles");
         EventManager.Instance.Trigger(Evento.OnSubtitleClear);
     }
 

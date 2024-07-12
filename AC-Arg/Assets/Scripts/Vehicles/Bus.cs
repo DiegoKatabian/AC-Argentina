@@ -18,7 +18,7 @@ public class Bus : VehicleAI
         //Debug.Log("try to add bus");
         if (!BusManager.Instance)
         {
-            Debug.Log("bus manager not found");
+            //Debug.Log("bus manager not found");
             return;
         }
         BusManager.Instance.AddBus(this);

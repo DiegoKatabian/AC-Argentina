@@ -298,6 +298,8 @@ namespace Climbing
         }
         public void SetKinematic(bool active)
         {
+            if (rb == null)
+                return;
             rb.isKinematic = active;
         }
         public void EnableFeetIK()

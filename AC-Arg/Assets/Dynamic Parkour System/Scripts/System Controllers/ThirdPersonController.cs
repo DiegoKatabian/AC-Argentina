@@ -387,7 +387,7 @@ namespace Climbing
             characterMovement.rb.MovePosition(position);
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             if (!gameObject.scene.isLoaded)
             {

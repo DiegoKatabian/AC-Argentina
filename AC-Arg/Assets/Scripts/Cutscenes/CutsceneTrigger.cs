@@ -28,7 +28,6 @@ public class CutsceneTrigger : MonoBehaviour
     {
         if (isOneTimeOnly && hasBeenTriggered) return;
 
-
         if (other.gameObject.CompareTag("Player"))
         {
             Debug.Log("cutscene: triggered by player");
