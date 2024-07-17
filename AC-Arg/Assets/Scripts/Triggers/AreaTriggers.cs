@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class AreaTriggers : MonoBehaviour
 {
-    public Evento eventToTrigger;
+    [SerializeField] protected Evento eventToTrigger;
 
-    private void OnTriggerEnter(Collider other)
+    protected void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
