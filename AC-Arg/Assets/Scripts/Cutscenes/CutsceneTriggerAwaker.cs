@@ -19,6 +19,8 @@ public class CutsceneTriggerAwaker : MonoBehaviour
     bool isPlayerInside = false;
     bool hasBeenTriggered = false;
 
+    [SerializeField] GameObject particleEffectPreTrigger;
+
     private void Start()
     {
         EventManager.Instance.Subscribe(condition, OnConditionMet);
@@ -29,6 +31,7 @@ public class CutsceneTriggerAwaker : MonoBehaviour
         if (isPlayerInside && !hasBeenTriggered)
         {
             hasBeenTriggered = true;
+            particleEffectPreTrigger.SetActive(false);
             StartCoroutine(AwakeCutsceneTriggerCoroutine());
         }
         else
