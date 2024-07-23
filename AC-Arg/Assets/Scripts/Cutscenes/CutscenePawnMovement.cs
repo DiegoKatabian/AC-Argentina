@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class CutscenePawnMovement : MonoBehaviour
 {
-    //this script should be attached to the dummies that will be moved in the cutscenes
+|||||    //this script should be attached to the dummies that will be moved in the cutscenes
     //these dummies have a navmesh agent, and move from cue to cue or tp directly
 
     private NavMeshAgent agent;

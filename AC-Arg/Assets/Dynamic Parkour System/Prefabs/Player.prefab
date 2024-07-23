@@ -2313,7 +2313,7 @@ MonoBehaviour:
   slidingCapsuleCollider: {fileID: 6941776532399528574}
   enemyDetectionCollider: {fileID: 5345205353815986782}
   fallDamage: 3
-  severeFallDamage: 6
+  severeFallDamage: 1999
   deadlyFallDamage: 2000
   takeDamageSound: {fileID: 8300000, guid: 346d02f61aafa114a9aa04b24c980cef, type: 3}
   sceneStartsWithCutscene: 1
