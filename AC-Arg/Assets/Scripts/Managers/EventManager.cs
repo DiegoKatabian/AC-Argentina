@@ -37,6 +37,8 @@ public enum Evento
     OnVaruzhanDeath, 
     OnSubtitle, //0 es SubtitleLine. no mandar nada para clearsubtitles
     OnSubtitleClear,
+    OnVaruzhanHealthUpdate,
+    OnVaruzhanDie,
 }
 
 public class EventManager : Singleton<EventManager>
