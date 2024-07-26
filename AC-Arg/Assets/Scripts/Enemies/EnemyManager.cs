@@ -30,12 +30,14 @@ public class EnemyManager : Singleton<EnemyManager>
         if (enemy.isBlocking)
         {   
             Debug.Log("enemy is blocking");
+            AudioManager.Instance.PlayPunchBlockedSFX();
             return;
         }
 
         HealthComponent enemyHealth = enemy.GetComponent<HealthComponent>();
         enemyHealth.TakeDamage(damage);
         enemy.StartHurt();
+        AudioManager.Instance.PlayPunchHitSFX();
         //Debug.Log("damage enemy: le hiciste " + damage + " al enemy " + enemy);
     }
     public void RegisterEnemy(Enemy enemy, FiniteStateMachine enemyFSM)

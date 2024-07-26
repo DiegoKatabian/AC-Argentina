@@ -8,7 +8,7 @@ public class AudioManager : Singleton<AudioManager>
     Dictionary<AudioSource, AudioClip> allSounds = new Dictionary<AudioSource, AudioClip>();
 
     public AudioSource[] deathMaleGroup, hurtMaleGroup;
-    public AudioSource[] punchAirGroup, punchHitGroup;
+    public AudioSource[] punchAirGroup, punchHitGroup, punchBlockGroup;
 
 
     public override void Awake()
@@ -104,5 +104,10 @@ public class AudioManager : Singleton<AudioManager>
         }
         audioSource.pitch = 1;
         yield break;
+    }
+
+    internal void PlayPunchBlockedSFX()
+    {
+        PlaySound(allSounds[punchBlockGroup[Random.Range(0, punchBlockGroup.Length)]], 1, 0.1f);
     }
 }

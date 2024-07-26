@@ -59,7 +59,6 @@ public class UnarmedEnemy : Enemy, ICrashable, IPedestrian
         yield return new WaitForSeconds(0.1f);
         if (punchHitBox.isTaggedInside)
         {
-            AudioManager.Instance.PlayPunchHitSFX();
             EnemyManager.Instance.DamagePlayer(attackDamage);
         }
 
@@ -115,36 +114,28 @@ public class UnarmedEnemy : Enemy, ICrashable, IPedestrian
         isDead = true;
         _fsm.ChangeState(State.EnemyDead);
     }
-
     public void OnCrash(GameObject vehicle, float crashForce)
     {
         StartHurt();
     }
-
     public void SetInteractionMarkerActive(bool active)
     {
         currentEnemyMarker.SetActive(active);
     }
-
     public void GetAssassinated(GameObject assassin)
     {
         Debug.Log("enemy: me asesinaron");
         animator.CrossFade("GetAssasinated", 0.2f);
         Invoke("OnDeath", 1f);
     }
-
-
-
     public void GetStolen()
     {
         Debug.Log("enemy: me robaron!");
     }
-
     public bool CanInteract()
     {
         return canInteract;
     }
-
     public override void OnPedestrianAlarmEmit()
     {
         if (isKnockedOut)
@@ -158,6 +149,5 @@ public class UnarmedEnemy : Enemy, ICrashable, IPedestrian
         animator.CrossFade("Chase", 0.2f);
         chasesPlayerOnlyWhileWarning = false;
     }
-
 
 }

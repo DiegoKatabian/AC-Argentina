@@ -17,7 +17,6 @@ public class EnemyDead : IState
     public void OnEnter()
     {
         //Debug.Log("entro a die");
-
         _me.navMeshAgent.SetDestination(_me.transform.position); //me quedo en el lugar
         _me.navMeshAgent.isStopped = true;
         _me.animator.CrossFade("Die", 0.05f);

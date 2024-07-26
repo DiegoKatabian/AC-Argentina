@@ -17,9 +17,7 @@ namespace Climbing
         public AnimatorStateInfo animState;
 
         private MatchTargetWeightMask matchTargetWeightMask = new MatchTargetWeightMask(Vector3.one, 0);
-
         public GameObject playerMeshesParent;
-
         public float handRaiseLockDuration = 2f;
 
         void Start()
@@ -32,19 +30,9 @@ namespace Climbing
             EventManager.Instance.Subscribe(Evento.OnActivateBlendZone, TriggerActivateBlendZoneAnimation);
         }
 
-
-        public IEnumerator DisableControllerAfterTime(float time)
-        {
-            yield return new WaitForSeconds(time);
-            controller.DisableController();
-        }
-
-
-
         void Update()
         {
             animator.SetFloat("Velocity", animVelocity.magnitude);
-
             animState = animator.GetCurrentAnimatorStateInfo(0);
 
             if (animState.IsTag("Root") || animState.IsTag("Drop"))
@@ -60,8 +48,8 @@ namespace Climbing
         public void SetAnimVelocity(Vector3 value) { animVelocity = value; animVelocity.y = 0; }
         public Vector3 GetAnimVelocity() { return animVelocity; }
 
+        //PARKOUR STUFF
         public bool RootMotion() { return animator.applyRootMotion; }
-
         public void Fall()
         {
             animator.SetBool("Jump", false);
@@ -87,7 +75,6 @@ namespace Climbing
             animator.SetInteger("Climb State", (int)state);
             animator.SetBool("Hanging", true);
         }
-
         public void LedgeToLedge(ClimbController.ClimbState state, Vector3 direction, ref float startTime, ref float endTime)
         {
             if (state == ClimbController.ClimbState.BHanging)
@@ -202,6 +189,7 @@ namespace Climbing
             animator.CrossFade("Exiting Car", 0.1f);
         }
 
+        //TOOLS
         public void EnableIKSolver()
         {
             controller.characterMovement.EnableFeetIK();
@@ -228,14 +216,31 @@ namespace Climbing
             //Debug.Log("enable mesh: " + state);
             playerMeshesParent.SetActive(state);
         }
+        public IEnumerator DisableControllerAfterTime(float time)
+        {
+            yield return new WaitForSeconds(time);
+            controller.DisableController();
+        }
 
+        //BLOCK
+        public void StartBlocking()
+        {
+            animator.SetBool("isBlocking", true);
+            animator.CrossFade("Block", 0.2f);
+        }
+
+        public void StopBlocking()
+        {
+            animator.SetBool("isBlocking", false);
+        }
+
+        //CROUCH
         internal void EnterCrouch()
         {
             //animator.CrossFade("EnterCrouch", 0.1f);
             animator.SetBool("Crouch", true);
             //Debug.Log("crouch animation");
         }
-
         internal void UnCrouch()
         {
             //animator.CrossFade("ExitCrouch", 0.1f);
@@ -243,12 +248,12 @@ namespace Climbing
             //Debug.Log("uncrouch animation");
         }
 
+        //CRASH
         internal void StartCrashAnimation()
         {
             Debug.Log("animation: start crash anim");
             animator.CrossFade("Crashed", 0.1f);
         }
-
         internal void EndCrashAnimation()
         {
             Debug.Log("animation: end crash anim");
@@ -256,11 +261,11 @@ namespace Climbing
             //animator.CrossFade("Standup", 0.1f);
         }
 
+        //ENTER BLEND ZONE
         private void TriggerEnterBlendZoneAnimation(object[] parameters)
         {
             //animator.CrossFade("EnterBlendZone", 0.2f);
         }
-
         private void TriggerActivateBlendZoneAnimation(object[] parameters)
         {
             //animator.CrossFade("ActivateBlendZone", 0.2f);

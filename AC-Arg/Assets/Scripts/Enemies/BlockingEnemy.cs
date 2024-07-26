@@ -27,4 +27,6 @@ public class BlockingEnemy : UnarmedEnemy
         EnemyManager.Instance.RegisterEnemy(this, _fsm);
         isDead = false;
     }
+
+    
 }

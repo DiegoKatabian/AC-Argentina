@@ -7,7 +7,7 @@ using UnityEngine;
 public class CombatController : MonoBehaviour
 {
     public PlayerHandHitbox leftHandHitBox;
-    public float leftHandAttackDamage = 1;
+    public float basePunchDamage = 1;
 
     [HideInInspector] public bool isInCombatMode = false;
     [HideInInspector] public bool isBlocking = false;
@@ -44,14 +44,7 @@ public class CombatController : MonoBehaviour
     }
 
 
-    private void ReleaseBlock(object[] parameters)
-    {
-        Debug.Log("suelto el bloqueo");
-        isBlocking = false;
-        controller.characterAnimation.animator.SetBool("isBlocking", isBlocking);
-
-        handsAreOnCooldown = false;
-    }
+   
 
     private void RequestBlock(object[] parameters)
     {
@@ -74,7 +67,14 @@ public class CombatController : MonoBehaviour
         Debug.Log("bloqueo");
         isBlocking = true;
         handsAreOnCooldown = true;
-        controller.characterAnimation.animator.SetBool("isBlocking", isBlocking);
+        controller.characterAnimation.StartBlocking();
+    }
+    private void ReleaseBlock(object[] parameters)
+    {
+        Debug.Log("suelto el bloqueo");
+        isBlocking = false;
+        controller.characterAnimation.StopBlocking();
+        handsAreOnCooldown = false;
     }
 
 
@@ -123,7 +123,7 @@ public class CombatController : MonoBehaviour
 
     public void ANIMATION_OnAttackHit()
     {
-        StartCoroutine(HitboxCouroutine(leftHandHitBox, leftHandAttackDamage));
+        StartCoroutine(HitboxCouroutine(leftHandHitBox, basePunchDamage));
         handsAreOnCooldown = false;
         comboWindowOpen = true;
         //leftHandComboStep = 0;
@@ -131,7 +131,7 @@ public class CombatController : MonoBehaviour
 
     public void ANIMATION_OnAttackHit_EndCombo()
     {
-        StartCoroutine(HitboxCouroutine(leftHandHitBox, leftHandAttackDamage));
+        StartCoroutine(HitboxCouroutine(leftHandHitBox, basePunchDamage * 2));
     }
 
     public void ANIMATION_OnAttackEnd()
@@ -147,7 +147,6 @@ public class CombatController : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         if (hitbox.isTaggedInside)
         {
-            AudioManager.Instance.PlayPunchHitSFX();
             EnemyManager.Instance.DamageEnemy(hitbox.affectedEnemy, damage);
         }
         ObjectEnabler.EnableObject(hitbox.gameObject, false);

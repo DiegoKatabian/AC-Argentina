@@ -256,7 +256,7 @@ namespace Climbing
             if (combatController.isBlocking)
             {
                 Debug.Log("bloqueo el ataque");
-                //blocked attack animation
+                AudioManager.Instance.PlayPunchBlockedSFX();
                 return;
             }
 
