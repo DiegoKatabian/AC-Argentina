@@ -6,7 +6,7 @@ public class EnemyHealthComponent : HealthComponent
 {
     Enemy _me;
 
-    public bool isBoss = false;
+    public bool isVaruzhanBoss = false;
     public override void Start()
     {
         base.Start();
@@ -17,7 +17,7 @@ public class EnemyHealthComponent : HealthComponent
     {
         currentHealth -= damageAmount;
 
-        if (isBoss)
+        if (isVaruzhanBoss)
         {
             EventManager.Instance.Trigger(Evento.OnVaruzhanHealthUpdate, currentHealth, maxHealth);
         }
@@ -31,7 +31,7 @@ public class EnemyHealthComponent : HealthComponent
     public override void Die()
     {
         Debug.Log(gameObject.name + " died");
-        if (isBoss)
+        if (isVaruzhanBoss)
         {
             EventManager.Instance.Trigger(Evento.OnVaruzhanDie);
         }

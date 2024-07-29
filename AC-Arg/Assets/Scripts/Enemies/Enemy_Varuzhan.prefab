@@ -175,6 +175,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 12
   currentHealth: 12
+  isVaruzhanBoss: 1
 --- !u!114 &7681759764203351709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -193,9 +194,9 @@ MonoBehaviour:
   attackingMarker: {fileID: 5636118336525588243}
   currentEnemyMarker: {fileID: 7277189919085058169}
   moveSpeed: 2
-  attackDamage: 2
-  minimumDistanceToPlayer: 1.2
-  initialAttackCooldown: 0.25
+  attackDamage: 3
+  minimumDistanceToPlayer: 1.3
+  initialAttackCooldown: 0.1
   knockoutTime: 20
   isPatroller: 0
   chasesPlayerOnlyWhileWarning: 0
@@ -213,7 +214,12 @@ MonoBehaviour:
   punchHitBox: {fileID: 8445112100380946711}
   waypoints: []
   canInteract: 1
-  blockDuration: 4
+  bloodParticlesPrefab: {fileID: 5591052993385217295, guid: 6d28aff193a50a14a8d9ed408a5c3c45,
+    type: 3}
+  bloodDurationHurt: 0.25
+  bloodDurationDeath: 2
+  blockDuration: 2.5
+  timeUntilDestroyAfterDeath: 0.1
 --- !u!1 &4949859389367020802
 GameObject:
   m_ObjectHideFlags: 0

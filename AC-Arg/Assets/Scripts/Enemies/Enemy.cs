@@ -14,7 +14,7 @@ public class Enemy : MonoBehaviour, IBoleadorable
     public float moveSpeed = 5;
     public float attackDamage = 1;
     public float minimumDistanceToPlayer = 3f;
-    public float initialAttackCooldown = 1.5f; //cuanto espera hasta hacer el primer ataque
+    public float initialAttackCooldown = 1.5f; //cuanto espera hasta hacer el primer ataque (cada vez que entra a readytoattack)
     public float knockoutTime = 20f; //cuanto tiempo queda KO
     public bool isPatroller = false;    //si es idler o patroller
     public bool chasesPlayerOnlyWhileWarning; //si es true, solo persigue al player si esta en warning. false, persigue al player solo con verlo

@@ -103,6 +103,12 @@ public class EnemyManager : Singleton<EnemyManager>
     }
     public bool CanIAttackPlayerMisterEnemyManager(Enemy enemy)
     {
+        if (enemy == null)
+        {
+            Debug.Log("Mr. Enemy Manager says: El enemy que me pasaste era null. fijate.");
+            return false;
+        }
+
         bool isInPermittedState = enemyStates[enemy].GetType() == typeof(EnemyReadyToAttack) ||
                                     enemyStates[enemy].GetType() == typeof(EnemyBlock);
 

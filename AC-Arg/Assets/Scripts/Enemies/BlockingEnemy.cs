@@ -11,6 +11,8 @@ public class BlockingEnemy : UnarmedEnemy
     //}
     public float blockDuration = 2;
 
+    public float timeUntilDestroyAfterDeath = 2;
+
     public override void Start()
     {
         _fsm = new EnemyFSM();
@@ -28,5 +30,26 @@ public class BlockingEnemy : UnarmedEnemy
         isDead = false;
     }
 
-    
+    public override void OnDeath()
+    {
+        if (bloodParticlesPrefab != null)
+        {
+            GameObject bloodParticles = Instantiate(bloodParticlesPrefab, transform.position, Quaternion.identity);
+            bloodParticles.GetComponent<ParticleSystem>().Play();
+        }
+
+        AudioManager.Instance.PlayDeathSFX();
+        EnemyManager.Instance.KillEnemy(this);
+        isDead = true;
+
+        navMeshAgent.SetDestination(transform.position); //me quedo en el lugar
+        navMeshAgent.isStopped = true;
+        //animator.CrossFade("Die", 0.05f);
+        isHurting = false;
+
+        Destroy(gameObject, timeUntilDestroyAfterDeath);
+    }
+
+
+
 }

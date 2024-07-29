@@ -34,11 +34,6 @@ public class CutsceneTriggerAwaker : MonoBehaviour
             particleEffectPreTrigger.SetActive(false);
             StartCoroutine(AwakeCutsceneTriggerCoroutine());
         }
-        else
-        {
-            Debug.Log("cutscene trigger awaker: condition was met, but the player wasnt inside the collider");
-        }
-
     }
 
     IEnumerator AwakeCutsceneTriggerCoroutine()

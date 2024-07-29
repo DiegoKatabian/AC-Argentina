@@ -9,6 +9,8 @@ public class UnarmedEnemy : Enemy, ICrashable, IPedestrian
     public bool canInteract = true;
 
     public GameObject bloodParticlesPrefab;
+    public float bloodDurationHurt = 0.12f;
+    public float bloodDurationDeath = 0.25f;
 
 
     public override void Start()
@@ -73,6 +75,15 @@ public class UnarmedEnemy : Enemy, ICrashable, IPedestrian
         finishedAttacking = true;
         isAttacking = false;
         isHurting = true;
+
+        if (bloodParticlesPrefab != null)
+        {
+            ParticleSystem ps = Instantiate(bloodParticlesPrefab, transform.position, Quaternion.identity).GetComponent<ParticleSystem>();
+            var main = ps.main;
+            main.duration = bloodDurationHurt;
+            main.startSize = 0.25f;
+            ps.Play();
+        }
     }
     public void ANIMATION_OnHurtEnd() //llamado por la animacion de daño
     {
@@ -105,8 +116,10 @@ public class UnarmedEnemy : Enemy, ICrashable, IPedestrian
 
         if (bloodParticlesPrefab != null)
         {
-            GameObject bloodParticles = Instantiate(bloodParticlesPrefab, transform.position, Quaternion.identity);
-            bloodParticles.GetComponent<ParticleSystem>().Play();
+            ParticleSystem ps = Instantiate(bloodParticlesPrefab, transform.position, Quaternion.identity).GetComponent<ParticleSystem>();
+            var main = ps.main;
+            main.duration = bloodDurationDeath;
+            ps.Play();
         }
         
         AudioManager.Instance.PlayDeathSFX();
