@@ -54,7 +54,7 @@ public class CutscenePawnMovement : MonoBehaviour
     {
         if (agent != null)
         {
-            Debug.Log("character: muevo al agente");
+            Debug.Log("character " + gameObject.name + ": muevo al agente");
             agent.SetDestination(nextCue.position);
             //transform.rotation = nextCue.rotation;
         }

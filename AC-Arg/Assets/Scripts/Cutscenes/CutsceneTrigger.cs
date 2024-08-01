@@ -30,7 +30,7 @@ public class CutsceneTrigger : MonoBehaviour
 
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("cutscene: triggered by player");
+            //Debug.Log("cutscene: triggered by player");
             playableDirector.Play();
             InitializeCutscene();
         }
@@ -38,7 +38,7 @@ public class CutsceneTrigger : MonoBehaviour
 
     public void InitializeCutscene()
     {
-        Debug.Log("cutscene: initialize");
+        //Debug.Log("cutscene: initialize");
         EventManager.Instance.Trigger(Evento.OnCutsceneStart, subtitleSet);
         playableDirector.stopped += OnPlayableDirectorStopped;
         hasBeenTriggered = true;
