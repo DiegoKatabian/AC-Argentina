@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: SubtitleSet_03
   m_EditorClassIdentifier: 
   subtitles:
-  - characterName: 1
-    text: C'mon, for real?
+  - characterName: 0
+    text: I'm screwed, damn it.

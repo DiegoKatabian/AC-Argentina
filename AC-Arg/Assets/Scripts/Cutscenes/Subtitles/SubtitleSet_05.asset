@@ -14,4 +14,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   subtitles:
   - characterName: 1
-    text: C'mon, for real?
+    text: Are you done, Facundo? Or do you want to keep going?
+  - characterName: 0
+    text: How do you know my name?
+  - characterName: 1
+    text: Are you going to listen now?
+  - characterName: 1
+    text: I'm not here to kill you, I came to recruit you.
+  - characterName: 0
+    text: What?
+  - characterName: 1
+    text: 'My name is Varuzhan. I worked with your father, Norberto Uccello. '
+  - characterName: 1
+    text: We're members of a bortherhood that has existed for centuries, or even
+      more. The Assassins.
+  - characterName: 1
+    text: We've been watching you and we believe you've got the skills needed to
+      become one inside of you.
+  - characterName: 0
+    text: Skills? Man, I don't even know you, what do you know about my father's
+      death?
+  - characterName: 1
+    text: I can only tell you I was there. But this is not a good place to talk.
+      Many curious ears.
+  - characterName: 1
+    text: I promise I'll answer everything. Just follow me.
+  - characterName: 1
+    text: Trust me.
+  - characterName: 1
+    text: Fine, I'm done with you. Bye.
+  - characterName: 1
+    text: I told you to trust me!
