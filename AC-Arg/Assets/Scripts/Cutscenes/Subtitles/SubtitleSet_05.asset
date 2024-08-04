@@ -24,19 +24,20 @@ MonoBehaviour:
   - characterName: 0
     text: What?
   - characterName: 1
-    text: 'My name is Varuzhan. I worked with your father, Norberto Uccello. '
+    text: 'My name is Varuzhan. I worked with your father, Norberto. '
   - characterName: 1
-    text: We're members of a bortherhood that has existed for centuries, or even
-      more. The Assassins.
+    text: We're members of a brotherhood that has existed for centuries. The Assassins.
   - characterName: 1
     text: We've been watching you and we believe you've got the skills needed to
-      become one inside of you.
+      become one.
   - characterName: 0
-    text: Skills? Man, I don't even know you, what do you know about my father's
-      death?
+    text: Skills? Man, I don't even know you.
+  - characterName: 0
+    text: What do you know about my father's death?
   - characterName: 1
-    text: I can only tell you I was there. But this is not a good place to talk.
-      Many curious ears.
+    text: 'I can only tell you I was there. '
+  - characterName: 1
+    text: But this is not a good place to talk. Many curious ears.
   - characterName: 1
     text: I promise I'll answer everything. Just follow me.
   - characterName: 1
