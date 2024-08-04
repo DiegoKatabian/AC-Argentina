@@ -14,9 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   subtitles:
   - characterName: 1
-    text: "You made me sweat, kid. The old man was right, you're good. But if you
-      had stopped as I asked, you would know that I didn\u2019t come to harm you."
+    text: You made me sweat, kid.
+  - characterName: 1
+    text: 'The old man was right, you''re good. '
+  - characterName: 1
+    text: "But if you had stopped as I asked, you would have known I didn\u2019t
+      come to harm you."
   - characterName: 1
     text: Are you listening or are you deaf? I'm not here to fight.
   - characterName: 1
-    text: Alright, when I'm done with you I'll tell you what I'm here for.
+    text: Fine. When I'm done with you I'll tell you what I'm here for.
