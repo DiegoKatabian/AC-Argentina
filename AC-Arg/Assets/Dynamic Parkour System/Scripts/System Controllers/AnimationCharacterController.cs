@@ -11,6 +11,7 @@ namespace Climbing
     {
         private ThirdPersonController controller;
         private Vector3 animVelocity;
+        private bool isInLeapZone = false;
 
         [HideInInspector] public Animator animator;
         public SwitchCameras switchCameras;
@@ -28,6 +29,14 @@ namespace Climbing
             EventManager.Instance.Subscribe(Evento.OnPlayerStopsVehicle, TriggerStopVehicleAnimation);
             EventManager.Instance.Subscribe(Evento.OnEnterBlendZoneConfirmed, TriggerEnterBlendZoneAnimation);
             EventManager.Instance.Subscribe(Evento.OnActivateBlendZone, TriggerActivateBlendZoneAnimation);
+            EventManager.Instance.Subscribe(Evento.OnLeapZoneEnter, (parameters) => SetLeapZoneState(true));
+            EventManager.Instance.Subscribe(Evento.OnLeapZoneExit, (parameters) => SetLeapZoneState(false));
+        }
+
+        public void SetLeapZoneState(bool state)
+        {
+            Debug.Log("is in leap zone: " + state);
+            isInLeapZone = state;
         }
 
         void Update()
@@ -147,11 +156,21 @@ namespace Climbing
         }
         public void JumpPrediction(bool state)
         {
-            controller.characterAnimation.animator.CrossFade("Predicted Jump", 0.1f);
-            animator.SetBool("Crouch", state);
+            if (isInLeapZone)
+            {
+                Leap();
+            }
+            else
+            {
+                Debug.Log("animated controller: jump prediction");
+                controller.characterAnimation.animator.CrossFade("Predicted Jump", 0.1f);
+                animator.SetBool("Crouch", state);
+            }
         }
+
         public void Leap()
         {
+            Debug.Log("animation controller: leap");
             controller.characterAnimation.animator.CrossFade("Leap", 0.1f);
             animator.SetBool("Crouch", false);
         }
@@ -278,6 +297,8 @@ namespace Climbing
                 EventManager.Instance.Unsubscribe(Evento.OnPlayerStopsVehicle, TriggerStopVehicleAnimation);
                 EventManager.Instance.Unsubscribe(Evento.OnEnterBlendZoneConfirmed, TriggerEnterBlendZoneAnimation);
                 EventManager.Instance.Unsubscribe(Evento.OnActivateBlendZone, TriggerActivateBlendZoneAnimation);
+                EventManager.Instance.Unsubscribe(Evento.OnLeapZoneEnter, (parameters) => { isInLeapZone = true; });
+                EventManager.Instance.Unsubscribe(Evento.OnLeapZoneExit, (parameters) => { isInLeapZone = false; });
             }
         }
     }

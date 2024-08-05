@@ -154,6 +154,7 @@ namespace Climbing
                                     controller.characterAnimation.JumpPrediction(false);
                                     break;
                                 case PointType.Atalaya:
+                                    Debug.Log("jump prediction: point type: atalaya");
                                     controller.characterMovement.stopMotion = true;
                                     controller.characterAnimation.JumpPrediction(true);
                                     break;
@@ -173,6 +174,7 @@ namespace Climbing
                         //if im in an atalaya point, do this same jump but instead of using the player inputDir, just go straight forward
                         if (curPoint != null && curPoint.type == PointType.Atalaya)
                         {
+                            Debug.Log("set End vector to atalaya-kind");
                             end = transform.position + curPoint.transform.forward * 3;
                             //Vector3 end2 = end + Vector3.up * 2;
                             //end = end2;
@@ -203,14 +205,17 @@ namespace Climbing
                                 //if im in an atalaya point, do controller.characterAnimation.Leap() instead of jumpprediction
                                 if (curPoint != null && curPoint.type == PointType.Atalaya)
                                 {
+                                    Debug.Log("jump prediction: im in atalaya point, leap");
                                     controller.characterAnimation.Leap();
                                     controller.isLeaping = true;
                                     AudioManager.Instance.PlaySound(leapSound, 0.8f);
                                 }
                                 else
                                 {
+                                    Debug.Log("jump prediction: jump prediction");
                                     controller.characterAnimation.JumpPrediction(false);
                                     AudioManager.Instance.PlaySound(jumpSound, 0.8f);
+
                                 }
                                 curPoint = null;
                                 controller.characterMovement.stopMotion = true;
@@ -276,8 +281,6 @@ namespace Climbing
 
         public void hasEndedJump()
         {
-            
-
             if (actualSpeed >= 1.0f && curPoint != null)
             {
                 if (!controller.characterMovement.stopMotion)
@@ -288,6 +291,7 @@ namespace Climbing
                 actualSpeed = 0.0f;
                 delay = 0;
                 move = false;
+                //Debug.Log("i stopped at jump end");
 
             }
             else if (actualSpeed >= 0.7f && curPoint == null)
