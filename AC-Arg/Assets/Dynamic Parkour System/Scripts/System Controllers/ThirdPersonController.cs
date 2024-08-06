@@ -93,9 +93,14 @@ namespace Climbing
 
         private void OnCutsceneStart(object[] parameters)
         {
-            //Debug.Log("player: on cutscene start");
-            DisableController();
-            EnableMesh(false);
+            //if the parameter 1 is true, do stuff. 
+            if ((bool)parameters[1])
+            {
+                //Debug.Log("player: on cutscene start");
+                DisableController();
+                EnableMesh(false);
+            }
+
         }
 
         public void EnableMesh(bool value)

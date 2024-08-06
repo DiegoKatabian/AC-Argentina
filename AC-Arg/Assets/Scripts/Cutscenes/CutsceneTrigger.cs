@@ -10,6 +10,7 @@ public class CutsceneTrigger : MonoBehaviour
 
     public bool shouldTeleportPlayer = false;
     public Transform playerTeleportTarget;
+    public bool shouldDisappearPlayer = true;
 
     public SubtitleSetSO subtitleSet;
 
@@ -39,7 +40,7 @@ public class CutsceneTrigger : MonoBehaviour
     public void InitializeCutscene()
     {
         //Debug.Log("cutscene: initialize");
-        EventManager.Instance.Trigger(Evento.OnCutsceneStart, subtitleSet);
+        EventManager.Instance.Trigger(Evento.OnCutsceneStart, subtitleSet, shouldDisappearPlayer);
         playableDirector.stopped += OnPlayableDirectorStopped;
         hasBeenTriggered = true;
     }

@@ -32,7 +32,7 @@ public enum Evento
     OnInputRequestBoleadoras,
     OnInputReleaseBoleadoras,
     OnBoleadorasStart,
-    OnCutsceneStart, //0 es SubtitleSetSO
+    OnCutsceneStart, //0 es SubtitleSetSO, 1 es shouldDisappearPlayer
     OnCutsceneEnd, //0 es Vector3 playerTeleportTarget, 1 es cutscenetrigger
     OnSubtitle, //0 es SubtitleLine. no mandar nada para clearsubtitles
     OnSubtitleClear,

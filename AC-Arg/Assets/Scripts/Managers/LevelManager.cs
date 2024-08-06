@@ -84,4 +84,10 @@ public class LevelManager : MonoBehaviour
         AudioManager.Instance.StopSound(thisLevelAmbience);
         SceneManager.LoadScene("MainMenu");
     }
+
+    public void SIGNAL_LoadMainMenu()
+    {
+        AudioManager.Instance.StopSound(thisLevelAmbience);
+        SceneManager.LoadScene("MainMenu");
+    }
 }
