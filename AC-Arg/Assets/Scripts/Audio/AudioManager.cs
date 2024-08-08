@@ -10,9 +10,8 @@ public class AudioManager : Singleton<AudioManager>
     public AudioSource[] deathMaleGroup, hurtMaleGroup;
     public AudioSource[] punchAirGroup, punchHitGroup, punchBlockGroup;
     public AudioSource[] footstepGroup;
-
     public AudioSource[] musicGroup;
-
+    public AudioSource combatMusic, endCombatMusic;
 
 
     public override void Awake()
@@ -126,5 +125,11 @@ public class AudioManager : Singleton<AudioManager>
         {
             audioSource.Stop();
         }
+    }
+
+    public void EndCombatMusic()
+    {
+        combatMusic.Stop();
+        endCombatMusic.Play();
     }
 }
