@@ -9,10 +9,6 @@ public class AudioManager : Singleton<AudioManager>
 
     public AudioSource[] deathMaleGroup, hurtMaleGroup;
     public AudioSource[] punchAirGroup, punchHitGroup, punchBlockGroup;
-    public AudioSource[] footstepGroup;
-
-    public AudioSource[] musicGroup;
-
 
 
     public override void Awake()
@@ -113,18 +109,5 @@ public class AudioManager : Singleton<AudioManager>
     internal void PlayPunchBlockedSFX()
     {
         PlaySound(allSounds[punchBlockGroup[Random.Range(0, punchBlockGroup.Length)]], 1, 0.1f);
-    }
-
-    internal void PlayFootstepSFX()
-    {
-        footstepGroup[Random.Range(0, footstepGroup.Length)].Play();
-    }
-
-    public void StopAllMusic()
-    {
-        foreach (AudioSource audioSource in musicGroup)
-        {
-            audioSource.Stop();
-        }
     }
 }
