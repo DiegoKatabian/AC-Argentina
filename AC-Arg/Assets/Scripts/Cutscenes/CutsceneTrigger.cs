@@ -14,6 +14,7 @@ public class CutsceneTrigger : MonoBehaviour
 
     public SubtitleSetSO subtitleSet;
 
+
     private void Start()
     {
         playableDirector = GetComponent<PlayableDirector>();

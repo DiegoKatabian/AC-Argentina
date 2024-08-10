@@ -85,13 +85,13 @@ namespace Climbing
             characterMovement.OnFall += characterAnimation.Fall;
 
             if (sceneStartsWithCutscene)
-                OnCutsceneStart(null);
+                OnCutsceneStart(null, true);
 
             EventManager.Instance.Subscribe(Evento.OnCutsceneStart, OnCutsceneStart);
             EventManager.Instance.Subscribe(Evento.OnCutsceneEnd, OnCutsceneEnd);
         }
 
-        private void OnCutsceneStart(object[] parameters)
+        private void OnCutsceneStart(params object[] parameters)
         {
             //if the parameter 1 is true, do stuff. 
             if ((bool)parameters[1])
@@ -276,9 +276,8 @@ namespace Climbing
             DisableController();
             AudioManager.Instance.PlaySound(takeDamageSound);
             characterAnimation.animator.CrossFade("Hurt", 0.1f);
-            //StartCoroutine(HurtRecoveryCouroutine());
         }
-        public void ANIMATION_OnHurtEnd()
+        public void ANIMATION_OnHurtEnd() //disparada por el final de hurt anim
         {
             isHurting = false;
             combatController.ResetCooldowns();

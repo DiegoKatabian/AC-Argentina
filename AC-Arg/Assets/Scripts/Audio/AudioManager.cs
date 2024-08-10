@@ -12,6 +12,7 @@ public class AudioManager : Singleton<AudioManager>
     public AudioSource[] footstepGroup;
     public AudioSource[] musicGroup;
     public AudioSource combatMusic, endCombatMusic;
+    public AudioSource leapSound;
 
 
     public override void Awake()
@@ -131,5 +132,10 @@ public class AudioManager : Singleton<AudioManager>
     {
         combatMusic.Stop();
         endCombatMusic.Play();
+    }
+
+    internal void PlayLeapSFX()
+    {
+        leapSound.Play();
     }
 }

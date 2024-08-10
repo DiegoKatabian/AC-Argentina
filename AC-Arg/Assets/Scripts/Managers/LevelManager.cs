@@ -6,13 +6,15 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
-    //en realidad es mas como el ThisLevelCanvasEnabler
-
     [SerializeField] GameObject pauseMenu;
     [SerializeField] GameObject gameOverMenu;
 
     [SerializeField] AudioClip thisLevelAmbience;
     [SerializeField] AudioClip desyncAudioClip;
+
+    bool hasWatchedIntroCutscene = false;
+    [SerializeField]CutsceneTrigger introCutsceneTrigger;
+
 
     private void Start()
     {

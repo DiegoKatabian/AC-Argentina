@@ -172,6 +172,7 @@ namespace Climbing
         {
             Debug.Log("animation controller: leap");
             controller.characterAnimation.animator.CrossFade("Leap", 0.1f);
+            AudioManager.Instance.PlayLeapSFX();
             animator.SetBool("Crouch", false);
         }
 
