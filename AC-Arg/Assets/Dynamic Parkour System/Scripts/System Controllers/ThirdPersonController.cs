@@ -275,6 +275,7 @@ namespace Climbing
             combatController.CancelAllAttacks();
             DisableController();
             AudioManager.Instance.PlaySound(takeDamageSound);
+            AudioManager.Instance.PlayPunchHitSFX();
             characterAnimation.animator.CrossFade("Hurt", 0.1f);
         }
         public void ANIMATION_OnHurtEnd() //disparada por el final de hurt anim

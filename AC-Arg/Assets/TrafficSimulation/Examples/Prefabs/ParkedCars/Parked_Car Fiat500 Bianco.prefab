@@ -1013,6 +1013,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -2265415478768141648, guid: 61f6fed8e018d604682bc8831b84b1c4,
         type: 3}
+    - target: {fileID: -650433988561056430, guid: 61f6fed8e018d604682bc8831b84b1c4,
+        type: 3}
+      propertyPath: m_Name
+      value: glass fiat
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 61f6fed8e018d604682bc8831b84b1c4,
         type: 3}
       propertyPath: m_Name
