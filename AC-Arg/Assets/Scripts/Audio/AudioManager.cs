@@ -115,8 +115,15 @@ public class AudioManager : Singleton<AudioManager>
         PlaySound(allSounds[punchBlockGroup[Random.Range(0, punchBlockGroup.Length)]], 1, 0.1f);
     }
 
-    internal void PlayFootstepSFX()
+    public void PlayFootstepSFX()
     {
+        footstepGroup[Random.Range(0, footstepGroup.Length)].Play();
+    }
+
+    //y si me pasaras por parametro tu ubicacion, yo te pondria al audiosource ahi
+    public void PlayFootstepAtPosition(Vector3 position)
+    {
+        footstepGroup[Random.Range(0, footstepGroup.Length)].transform.position = position;
         footstepGroup[Random.Range(0, footstepGroup.Length)].Play();
     }
 
