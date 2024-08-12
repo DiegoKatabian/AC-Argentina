@@ -291,6 +291,14 @@ namespace Climbing
             //animator.CrossFade("ActivateBlendZone", 0.2f);
         }
 
+
+        //STEPS
+        public void ANIMATION_PlaySteps()
+        {
+            //Called from Animation Event
+            AudioManager.Instance.PlayFootstepSFX();
+        }
+
         private void OnDestroy()
         {
             if (!gameObject.scene.isLoaded)

@@ -97,6 +97,7 @@ namespace Climbing
             if ((bool)parameters[1])
             {
                 //Debug.Log("player: on cutscene start");
+                characterAnimation.animator.enabled = false;
                 DisableController();
                 EnableMesh(false);
             }
@@ -113,6 +114,7 @@ namespace Climbing
         {
             //Debug.Log("player: on ctuscene end");
             //Debug.Log("player on cutscene end: enable controller");
+            characterAnimation.animator.enabled = true;
             EnableController();
             EnableMesh(true);
 

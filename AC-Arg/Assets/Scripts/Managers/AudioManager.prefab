@@ -127,6 +127,7 @@ MonoBehaviour:
   combatMusic: {fileID: 9103131591432693427}
   endCombatMusic: {fileID: 1991989469734084877}
   leapSound: {fileID: 6064887364963921365}
+  ezioTango: {fileID: 1861785143625677206}
 --- !u!114 &8593269472009612845
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1221,7 +1222,7 @@ PrefabInstance:
     - target: {fileID: 3811033743994692005, guid: 3002bddfdcf3d1d47a322f00565e049e,
         type: 3}
       propertyPath: m_Volume
-      value: 0.9
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 3811033743994692005, guid: 3002bddfdcf3d1d47a322f00565e049e,
         type: 3}
@@ -1288,6 +1289,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3002bddfdcf3d1d47a322f00565e049e, type: 3}
+--- !u!82 &1861785143625677206 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 3811033743994692005, guid: 3002bddfdcf3d1d47a322f00565e049e,
+    type: 3}
+  m_PrefabInstance: {fileID: 3257757599662921779}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8752392154159145423 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6071801228032915964, guid: 3002bddfdcf3d1d47a322f00565e049e,

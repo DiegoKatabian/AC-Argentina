@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class AudioManager : Singleton<AudioManager>
 {
-    //dictionary of audiosources and audioclips
     Dictionary<AudioSource, AudioClip> allSounds = new Dictionary<AudioSource, AudioClip>();
 
     public AudioSource[] deathMaleGroup, hurtMaleGroup;
@@ -13,6 +12,7 @@ public class AudioManager : Singleton<AudioManager>
     public AudioSource[] musicGroup;
     public AudioSource combatMusic, endCombatMusic;
     public AudioSource leapSound;
+    public AudioSource ezioTango;
 
 
     public override void Awake()
@@ -133,6 +133,23 @@ public class AudioManager : Singleton<AudioManager>
         {
             audioSource.Stop();
         }
+    }
+
+    public void SIGNAL_FadeOutEzioTango()
+    {
+        StartCoroutine(FadeOut(ezioTango, 2));
+    }
+
+    private IEnumerator FadeOut(AudioSource audioSource, float fadeTime)
+    {
+        float originalVolume = audioSource.volume;
+        while (audioSource.volume > 0)
+        {
+            audioSource.volume -= Time.deltaTime / fadeTime;
+            yield return null;
+        }
+        audioSource.Stop();
+        audioSource.volume = originalVolume;
     }
 
     public void EndCombatMusic()
