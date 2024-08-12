@@ -13,7 +13,6 @@ public class LevelManager : MonoBehaviour
     [SerializeField] AudioClip desyncAudioClip;
 
     bool hasWatchedIntroCutscene = false;
-    [SerializeField]CutsceneTrigger introCutsceneTrigger;
 
 
     private void Start()
