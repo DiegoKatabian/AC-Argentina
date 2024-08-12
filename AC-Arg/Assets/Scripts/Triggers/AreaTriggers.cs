@@ -6,7 +6,7 @@ public class AreaTriggers : MonoBehaviour
 {
     [SerializeField] protected Evento eventToTrigger;
 
-    protected void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {

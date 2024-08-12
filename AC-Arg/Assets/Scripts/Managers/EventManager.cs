@@ -39,7 +39,8 @@ public enum Evento
     OnVaruzhanHealthUpdate,
     OnVaruzhanDie,
     OnLeapZoneEnter,
-    OnLeapZoneExit
+    OnLeapZoneExit,
+    OnPlayerResetPosition
 }
 
 public class EventManager : Singleton<EventManager>

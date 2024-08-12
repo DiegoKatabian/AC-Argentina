@@ -89,6 +89,16 @@ namespace Climbing
 
             EventManager.Instance.Subscribe(Evento.OnCutsceneStart, OnCutsceneStart);
             EventManager.Instance.Subscribe(Evento.OnCutsceneEnd, OnCutsceneEnd);
+            EventManager.Instance.Subscribe(Evento.OnPlayerResetPosition, RequestTeleport);
+        }
+
+        private void RequestTeleport(object[] parameters)
+        {
+            if (parameters.Length > 0 &&
+                (Vector3)parameters[0] != Vector3.zero)
+            {
+                TeleportPlayer((Vector3)parameters[0]);
+            }
         }
 
         private void OnCutsceneStart(params object[] parameters)
@@ -400,6 +410,7 @@ namespace Climbing
             {
                 EventManager.Instance.Unsubscribe(Evento.OnCutsceneStart, OnCutsceneStart);
                 EventManager.Instance.Unsubscribe(Evento.OnCutsceneEnd, OnCutsceneEnd);
+                EventManager.Instance.Unsubscribe(Evento.OnPlayerResetPosition, RequestTeleport);
             }
         }
 
