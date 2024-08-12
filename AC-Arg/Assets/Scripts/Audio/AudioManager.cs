@@ -117,6 +117,7 @@ public class AudioManager : Singleton<AudioManager>
 
     public void PlayFootstepSFX()
     {
+        Debug.Log("audiomanager: ok, play footstep");
         footstepGroup[Random.Range(0, footstepGroup.Length)].Play();
     }
 
@@ -135,7 +136,7 @@ public class AudioManager : Singleton<AudioManager>
         }
     }
 
-    public void SIGNAL_FadeOutEzioTango()
+    public void FadeOutEzioTango()
     {
         StartCoroutine(FadeOut(ezioTango, 2));
     }
