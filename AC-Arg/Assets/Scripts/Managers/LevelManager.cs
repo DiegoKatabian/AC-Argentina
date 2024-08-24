@@ -84,14 +84,14 @@ public class LevelManager : MonoBehaviour
     {
         Time.timeScale = 1;
         AudioManager.Instance.StopSound(thisLevelAmbience);
-        AudioManager.Instance.StopAllMusic();
+        AudioManager.Instance.StopCombatMusic();
         SceneManager.LoadScene("MainMenu");
     }
 
     public void SIGNAL_LoadMainMenu()
     {
         AudioManager.Instance.StopSound(thisLevelAmbience);
-        AudioManager.Instance.StopAllMusic();
+        AudioManager.Instance.StopCombatMusic();
         SceneManager.LoadScene("MainMenu");
     }
 }

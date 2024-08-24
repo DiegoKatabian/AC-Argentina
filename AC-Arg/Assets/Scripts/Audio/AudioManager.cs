@@ -136,6 +136,16 @@ public class AudioManager : Singleton<AudioManager>
         }
     }
 
+    public void StopEzioTango()
+    {
+       ezioTango.Stop();
+    }
+
+    public void StopCombatMusic()
+    {
+       combatMusic.Stop();
+    }
+
     public void FadeOutEzioTango()
     {
         StartCoroutine(FadeOut(ezioTango, 2));
@@ -162,5 +172,20 @@ public class AudioManager : Singleton<AudioManager>
     internal void PlayLeapSFX()
     {
         leapSound.Play();
+    }
+
+    internal bool IsPlaying(AudioClip audioClip)
+    {
+        //return whether that clip is playing or not
+        foreach (AudioSource audioSource in allSounds.Keys)
+        {
+            if (allSounds[audioSource] == audioClip)
+            {
+                return audioSource.isPlaying;
+            }
+        }
+
+        Debug.Log("audiomanager: isplaying method returned false because there was no audiosource associated to that clip");
+        return false;
     }
 }
