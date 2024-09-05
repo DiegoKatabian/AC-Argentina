@@ -28,7 +28,7 @@ public class CutsceneAudioRelay : MonoBehaviour
 
     public void SIGNAL_PlaySteps()
     {
-        Debug.Log("relay: pls audiomanager play steps");
+        //Debug.Log("relay: pls audiomanager play steps");
         audioManager.PlayFootstepSFX();
     }
 

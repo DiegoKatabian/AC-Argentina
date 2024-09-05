@@ -34,7 +34,7 @@ public class TutorialTrigger : MonoBehaviour
             parameters[1] is CutsceneTrigger && 
             (CutsceneTrigger)parameters[1] == cutsceneTrigger)
         {
-            Debug.Log("tutorial triggered by cutscene end");
+            //Debug.Log("tutorial triggered by cutscene end");
             hasBeenTriggered = true;
             StartCoroutine(StartTutorial());
         }
@@ -46,7 +46,7 @@ public class TutorialTrigger : MonoBehaviour
 
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Triggered by player");
+            //Debug.Log("Triggered by player");
             hasBeenTriggered = true;
             StartCoroutine(StartTutorial());
         }

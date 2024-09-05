@@ -74,12 +74,11 @@ namespace Climbing
 
                 if (!controller.isGrounded)
                 {
-                    Debug.Log("movement: falling!");
                     Fall();
                 }
                 else if (controller.isGrounded && controller.onAir)
                 {
-                    Debug.Log("movement: landed");
+                    //Debug.Log("movement: landed");
                     Landed();
                     AudioManager.Instance.PlaySound(landingSound, 0.6f);
                 }

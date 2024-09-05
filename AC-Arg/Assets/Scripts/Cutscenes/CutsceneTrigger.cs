@@ -14,6 +14,7 @@ public class CutsceneTrigger : MonoBehaviour
 
     public SubtitleSetSO subtitleSet;
 
+    public int CutsceneNumber = 0;
 
     private void Start()
     {
@@ -21,8 +22,7 @@ public class CutsceneTrigger : MonoBehaviour
 
         if (playableDirector.playOnAwake)
         {
-           Debug.Log("cutscene: triggered on awake");
-           InitializeCutscene();
+            InitializeCutscene();
         }
     }
 
@@ -32,7 +32,6 @@ public class CutsceneTrigger : MonoBehaviour
 
         if (other.gameObject.CompareTag("Player"))
         {
-            //Debug.Log("cutscene: triggered by player");
             playableDirector.Play();
             InitializeCutscene();
         }
@@ -40,7 +39,6 @@ public class CutsceneTrigger : MonoBehaviour
 
     public void InitializeCutscene()
     {
-        //Debug.Log("cutscene: initialize");
         EventManager.Instance.Trigger(Evento.OnCutsceneStart, subtitleSet, shouldDisappearPlayer);
         playableDirector.stopped += OnPlayableDirectorStopped;
         hasBeenTriggered = true;
@@ -49,21 +47,13 @@ public class CutsceneTrigger : MonoBehaviour
     private void OnPlayableDirectorStopped(PlayableDirector director)
     {
         if (director != playableDirector) return;
-        Debug.Log("cutscene: on playable director stopped");
-
-        if (shouldTeleportPlayer)
-        {
-            EventManager.Instance.Trigger(Evento.OnCutsceneEnd, playerTeleportTarget.position, this);
-        }
-        else
-        {
-            EventManager.Instance.Trigger(Evento.OnCutsceneEnd, Vector3.zero, this);
-        }
-
+        RespawnManager.Instance.UpdateSpawnPoint(CutsceneNumber);
+        EventManager.Instance.Trigger(Evento.OnCutsceneEnd, playerTeleportTarget.position, this);
     }
 
     private void OnDisable()
     {
+        if (playableDirector != null)
         playableDirector.stopped -= OnPlayableDirectorStopped;
     }
 }

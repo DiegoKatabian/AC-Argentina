@@ -212,7 +212,7 @@ namespace Climbing
                                 }
                                 else
                                 {
-                                    Debug.Log("jump prediction: jump prediction");
+                                    //Debug.Log("jump prediction: jump prediction");
                                     controller.characterAnimation.JumpPrediction(false);
                                     AudioManager.Instance.PlaySound(jumpSound, 0.8f);
 

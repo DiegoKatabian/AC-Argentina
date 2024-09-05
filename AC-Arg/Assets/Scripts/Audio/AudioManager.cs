@@ -117,7 +117,7 @@ public class AudioManager : Singleton<AudioManager>
 
     public void PlayFootstepSFX()
     {
-        Debug.Log("audiomanager: ok, play footstep");
+        //Debug.Log("audiomanager: ok, play footstep");
         footstepGroup[Random.Range(0, footstepGroup.Length)].Play();
     }
 

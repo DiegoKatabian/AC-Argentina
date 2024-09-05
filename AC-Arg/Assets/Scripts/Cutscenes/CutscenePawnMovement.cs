@@ -31,7 +31,7 @@ public class CutscenePawnMovement : MonoBehaviour
     {
         Transform nextCue = MovementCueManager.Instance.GetNextCue(this);
 
-        Debug.Log("character: obtengo el siguiente cue");
+        //Debug.Log("character: obtengo el siguiente cue");
 
         if (nextCue != null)
         {
@@ -54,7 +54,7 @@ public class CutscenePawnMovement : MonoBehaviour
     {
         if (agent != null)
         {
-            Debug.Log("character " + gameObject.name + ": muevo al agente");
+            //Debug.Log("character " + gameObject.name + ": muevo al agente");
             agent.SetDestination(nextCue.position);
             //transform.rotation = nextCue.rotation;
         }
@@ -66,7 +66,7 @@ public class CutscenePawnMovement : MonoBehaviour
         {
             agent.enabled = false;
         }
-        Debug.Log("character: muevo al agente directamente");
+        //Debug.Log("character: muevo al agente directamente");
         transform.position = nextCue.position;
         //transform.rotation = nextCue.rotation;
 

@@ -40,7 +40,7 @@ public enum Evento
     OnVaruzhanDie,
     OnLeapZoneEnter,
     OnLeapZoneExit,
-    OnPlayerResetPosition //0 es Vector3 spawnPoint
+    OnPlayerResetPosition
 }
 
 public class EventManager : Singleton<EventManager>

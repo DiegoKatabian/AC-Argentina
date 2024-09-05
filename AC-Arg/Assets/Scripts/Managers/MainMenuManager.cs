@@ -26,7 +26,7 @@ public class MainMenuManager : MonoBehaviour
         else
         {
             AudioManager.Instance.PlaySound(mainMenuMusic);
-            Debug.Log("MainMenuMusic is not playing, so I'm playing it now");
+            //Debug.Log("MainMenuMusic is not playing, so I'm playing it now");
         }
 
         //AudioManager.Instance.PlaySound(mainMenuMusic);

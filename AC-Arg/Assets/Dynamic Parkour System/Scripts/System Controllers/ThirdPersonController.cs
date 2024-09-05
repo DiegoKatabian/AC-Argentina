@@ -84,7 +84,7 @@ namespace Climbing
             characterMovement.OnLanded += characterAnimation.Land;
             characterMovement.OnFall += characterAnimation.Fall;
 
-            if (sceneStartsWithCutscene)
+            if (sceneStartsWithCutscene && !RespawnManager.Instance.HasSeenAtLeastOneCutscene())
                 OnCutsceneStart(null, true);
 
             EventManager.Instance.Subscribe(Evento.OnCutsceneStart, OnCutsceneStart);
@@ -400,7 +400,7 @@ namespace Climbing
 
         public void TeleportPlayer(Vector3 position)
         {
-            Debug.Log("tpeo al player a " + position);
+            //Debug.Log("tpeo al player a " + position);
             characterMovement.rb.MovePosition(position);
         }
 

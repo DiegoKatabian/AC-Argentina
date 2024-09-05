@@ -41,7 +41,7 @@ public class QuestTrigger : MonoBehaviour
 
     private void OnQuestCompleted(object[] parameters)
     {
-        Debug.Log("hide quest (event)");
+        //Debug.Log("hide quest (event)");
         StartCoroutine(EndQuest());
     }
 
@@ -52,7 +52,7 @@ public class QuestTrigger : MonoBehaviour
             parameters[1] is CutsceneTrigger &&
             (CutsceneTrigger)parameters[1] == cutsceneTrigger)
         {
-            Debug.Log("quest started by cutscene end");
+            //Debug.Log("quest started by cutscene end");
             StartCoroutine(StartQuest());
         }
     }
@@ -68,7 +68,7 @@ public class QuestTrigger : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("hide quest");
+            //Debug.Log("hide quest");
             StartCoroutine(EndQuest());
         }
     }

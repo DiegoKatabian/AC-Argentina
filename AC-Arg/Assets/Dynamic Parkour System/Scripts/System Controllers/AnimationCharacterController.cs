@@ -162,7 +162,7 @@ namespace Climbing
             }
             else
             {
-                Debug.Log("animated controller: jump prediction");
+                //Debug.Log("animated controller: jump prediction");
                 controller.characterAnimation.animator.CrossFade("Predicted Jump", 0.1f);
                 animator.SetBool("Crouch", state);
             }
@@ -170,7 +170,7 @@ namespace Climbing
 
         public void Leap()
         {
-            Debug.Log("animation controller: leap");
+            controller.characterAnimation.animator.CrossFade("Leap", 0.1f);
             controller.characterAnimation.animator.CrossFade("Leap", 0.1f);
             AudioManager.Instance.PlayLeapSFX();
             animator.SetBool("Crouch", false);
