@@ -109,6 +109,7 @@ public class Pedestrian : MonoBehaviour, ICrashable, IPedestrian
     {
         Debug.Log("pedestrian: me asesinaron");
         healthComponent.TakeDamage(100);
+        EventManager.Instance.Trigger(Evento.OnPedestrianKilled, this);
         PedestrianManager.Instance.TriggerPedestrianAlarm(this);
         StartCoroutine(CoroutineUtilities.DelayedAction(timeUntilTriggerParticles, TriggerParticles));
     }

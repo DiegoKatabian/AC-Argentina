@@ -68,7 +68,7 @@ public class Enemy : MonoBehaviour, IBoleadorable
         //Debug.Log("enemy: i was hit");
     }
 
-    public void GetBoleadoraed()
+    public virtual void GetBoleadoraed()
     {
         //Debug.Log("me dieron con boleadoras");
         isKnockedOut = true;

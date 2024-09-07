@@ -15,7 +15,7 @@ public enum Evento
     OnRightHandInput,
     OnEnemyKilled, //0 es enemy
     OnPlayerInsideCarUpdate, //0 es bool
-    OnPedestrianKilled,
+    OnPedestrianKilled, //0 es this pedestrian
     OnInputRequestSteal,
     OnInputRequestAssassinate,
     OnMoneyUpdate, //0 es int currentmoney

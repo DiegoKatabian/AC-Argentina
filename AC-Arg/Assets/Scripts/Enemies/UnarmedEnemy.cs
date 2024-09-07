@@ -139,12 +139,24 @@ public class UnarmedEnemy : Enemy, ICrashable, IPedestrian
     {
         Debug.Log("enemy: me asesinaron");
         animator.CrossFade("GetAssasinated", 0.2f);
+        EventManager.Instance.Trigger(Evento.OnPedestrianKilled, this);
+        canInteract = false;
         Invoke("OnDeath", 1f);
     }
     public void GetStolen()
     {
         Debug.Log("enemy: me robaron!");
     }
+
+    public override void GetBoleadoraed()
+    {
+        //Debug.Log("me dieron con boleadoras");
+        //EnemyManager.Instance.UnregisterEnemy(this);
+        isKnockedOut = true;
+        EnemyManager.Instance.TriggerPedestrianAlarm(transform.position);
+        canInteract = false;
+    }
+
     public bool CanInteract()
     {
         return canInteract;
