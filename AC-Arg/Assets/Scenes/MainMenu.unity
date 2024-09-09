@@ -21552,6 +21552,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1716807728488692522, guid: 59a99ecafbe792d41bb587d3751eab3b,
+        type: 3}
+      propertyPath: m_text
+      value: Store
+      objectReference: {fileID: 0}
     - target: {fileID: 2041252944630337245, guid: 59a99ecafbe792d41bb587d3751eab3b,
         type: 3}
       propertyPath: m_Pivot.x
@@ -22021,7 +22026,7 @@ PrefabInstance:
     - target: {fileID: 5181924971722093302, guid: 59a99ecafbe792d41bb587d3751eab3b,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5242298639966990452, guid: 59a99ecafbe792d41bb587d3751eab3b,
         type: 3}
@@ -22117,6 +22122,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -650
+      objectReference: {fileID: 0}
+    - target: {fileID: 7705662370957287851, guid: 59a99ecafbe792d41bb587d3751eab3b,
+        type: 3}
+      propertyPath: m_text
+      value: News
       objectReference: {fileID: 0}
     - target: {fileID: 7895883233987483327, guid: 59a99ecafbe792d41bb587d3751eab3b,
         type: 3}
