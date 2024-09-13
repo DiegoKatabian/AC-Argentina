@@ -15190,7 +15190,7 @@ PrefabInstance:
     - target: {fileID: 1078770181120577240, guid: 06a62f07b96a2624f8e2be23363c8419,
         type: 3}
       propertyPath: m_text
-      value: Varuzan Tazbazian
+      value: Varuzhan Tazbazian
       objectReference: {fileID: 0}
     - target: {fileID: 1078770181120577240, guid: 06a62f07b96a2624f8e2be23363c8419,
         type: 3}
@@ -22026,7 +22026,7 @@ PrefabInstance:
     - target: {fileID: 5181924971722093302, guid: 59a99ecafbe792d41bb587d3751eab3b,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5242298639966990452, guid: 59a99ecafbe792d41bb587d3751eab3b,
         type: 3}

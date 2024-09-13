@@ -26,10 +26,11 @@ MonoBehaviour:
   - characterName: 1
     text: 'My name is Varuzhan. I worked with your father, Norberto Uccello. '
   - characterName: 1
-    text: We're members of a brotherhood that has existed for centuries. The Assassins.
+    text: We're members of a brotherhood that has existed for centuries. Maybe even
+      more.
   - characterName: 1
     text: We've been watching you and we believe you've got the skills needed to
-      become one.
+      become one of us.
   - characterName: 0
     text: Skills? Man, I don't even know you.
   - characterName: 0
