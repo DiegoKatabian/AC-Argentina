@@ -39,11 +39,11 @@ public class BoleadorasController : MonoBehaviour
             return;
         }
 
-        if (isUsingBoleadoras)
-        {
-            //Debug.Log("ya estoy usando las boleadoras");
-            return;
-        }
+        //if (isUsingBoleadoras)
+        //{
+        //    //Debug.Log("ya estoy usando las boleadoras");
+        //    return;
+        //}
 
         StartBoleadoras(combatController.currentEnemy);
     }
@@ -79,6 +79,9 @@ public class BoleadorasController : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
         enemy.GetBoleadoraed();
+        combatController.HandleEnemyKnockout(enemy);
+        //combatController.currentEnemy = null;
+        
 
         yield return new WaitForSeconds(boleadorasDuration);
         //Debug.Log("end boleadoras");

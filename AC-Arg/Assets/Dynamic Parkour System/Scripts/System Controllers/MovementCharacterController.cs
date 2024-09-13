@@ -34,7 +34,9 @@ namespace Climbing
         public float JogSpeed;
         public float RunSpeed;
         public float fallForce;
-        public float fallTimeToDamage = 2;
+        public float fallTimeToDamage = 1;
+        public float fallTimeToSevereDamage = 2;
+        public float fallTimeToDeadlyDamage = 3;
         private float fallTimer = 0;
 
         [Header("Feet IK")]
@@ -76,6 +78,7 @@ namespace Climbing
                 }
                 else if (controller.isGrounded && controller.onAir)
                 {
+                    //Debug.Log("movement: landed");
                     Landed();
                     AudioManager.Instance.PlaySound(landingSound, 0.6f);
                 }
@@ -296,6 +299,8 @@ namespace Climbing
         }
         public void SetKinematic(bool active)
         {
+            if (rb == null)
+                return;
             rb.isKinematic = active;
         }
         public void EnableFeetIK()
@@ -325,7 +330,15 @@ namespace Climbing
         }
         public void Landed()
         {
-            if (fallTimer >= fallTimeToDamage)
+            if (fallTimer >= fallTimeToDeadlyDamage)
+            {
+                controller.ReceiveDeadlyFallDamage();
+            }
+            else if (fallTimer >= fallTimeToSevereDamage)
+            {
+                controller.ReceiveSevereFallDamage();
+            }
+            else if (fallTimer >= fallTimeToDamage)
             {
                 controller.ReceiveFallDamage();
             }
@@ -333,6 +346,7 @@ namespace Climbing
             OnLanded();
             controller.isJumping = false;
             controller.onAir = false;
+            controller.isLeaping = false;
 
             fallTimer = 0;
         }

@@ -15,7 +15,7 @@ public enum Evento
     OnRightHandInput,
     OnEnemyKilled, //0 es enemy
     OnPlayerInsideCarUpdate, //0 es bool
-    OnPedestrianKilled,
+    OnPedestrianKilled, //0 es this pedestrian
     OnInputRequestSteal,
     OnInputRequestAssassinate,
     OnMoneyUpdate, //0 es int currentmoney
@@ -32,7 +32,15 @@ public enum Evento
     OnInputRequestBoleadoras,
     OnInputReleaseBoleadoras,
     OnBoleadorasStart,
-    OnPlayerEnterCutsceneArea,
+    OnCutsceneStart, //0 es SubtitleSetSO, 1 es shouldDisappearPlayer
+    OnCutsceneEnd, //0 es Vector3 playerTeleportTarget, 1 es cutscenetrigger
+    OnSubtitle, //0 es SubtitleLine. no mandar nada para clearsubtitles
+    OnSubtitleClear,
+    OnVaruzhanHealthUpdate,
+    OnVaruzhanDie,
+    OnLeapZoneEnter,
+    OnLeapZoneExit,
+    OnPlayerResetPosition
 }
 
 public class EventManager : Singleton<EventManager>

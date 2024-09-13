@@ -11,15 +11,14 @@ namespace Climbing
     {
         private ThirdPersonController controller;
         private Vector3 animVelocity;
+        private bool isInLeapZone = false;
 
         [HideInInspector] public Animator animator;
         public SwitchCameras switchCameras;
         public AnimatorStateInfo animState;
 
         private MatchTargetWeightMask matchTargetWeightMask = new MatchTargetWeightMask(Vector3.one, 0);
-
         public GameObject playerMeshesParent;
-
         public float handRaiseLockDuration = 2f;
 
         void Start()
@@ -30,29 +29,19 @@ namespace Climbing
             EventManager.Instance.Subscribe(Evento.OnPlayerStopsVehicle, TriggerStopVehicleAnimation);
             EventManager.Instance.Subscribe(Evento.OnEnterBlendZoneConfirmed, TriggerEnterBlendZoneAnimation);
             EventManager.Instance.Subscribe(Evento.OnActivateBlendZone, TriggerActivateBlendZoneAnimation);
-            EventManager.Instance.Subscribe(Evento.OnPlayerEnterCutsceneArea, OnEnterCutsceneArea);
+            EventManager.Instance.Subscribe(Evento.OnLeapZoneEnter, (parameters) => SetLeapZoneState(true));
+            EventManager.Instance.Subscribe(Evento.OnLeapZoneExit, (parameters) => SetLeapZoneState(false));
         }
 
-        private void OnEnterCutsceneArea(object[] parameters)
+        public void SetLeapZoneState(bool state)
         {
-            switchCameras.CutsceneCam();
-            animator.CrossFade("Cutscene", 0.1f);
-            StartCoroutine(DisableControllerAfterTime(1.5f));
-            //AudioManager.Instance.PlaySound(teEstabaEsperandoSound);
+            Debug.Log("is in leap zone: " + state);
+            isInLeapZone = state;
         }
-
-        public IEnumerator DisableControllerAfterTime(float time)
-        {
-            yield return new WaitForSeconds(time);
-            controller.DisableController();
-        }
-
-
 
         void Update()
         {
             animator.SetFloat("Velocity", animVelocity.magnitude);
-
             animState = animator.GetCurrentAnimatorStateInfo(0);
 
             if (animState.IsTag("Root") || animState.IsTag("Drop"))
@@ -68,8 +57,8 @@ namespace Climbing
         public void SetAnimVelocity(Vector3 value) { animVelocity = value; animVelocity.y = 0; }
         public Vector3 GetAnimVelocity() { return animVelocity; }
 
+        //PARKOUR STUFF
         public bool RootMotion() { return animator.applyRootMotion; }
-
         public void Fall()
         {
             animator.SetBool("Jump", false);
@@ -95,7 +84,6 @@ namespace Climbing
             animator.SetInteger("Climb State", (int)state);
             animator.SetBool("Hanging", true);
         }
-
         public void LedgeToLedge(ClimbController.ClimbState state, Vector3 direction, ref float startTime, ref float endTime)
         {
             if (state == ClimbController.ClimbState.BHanging)
@@ -168,8 +156,24 @@ namespace Climbing
         }
         public void JumpPrediction(bool state)
         {
-            controller.characterAnimation.animator.CrossFade("Predicted Jump", 0.1f);
-            animator.SetBool("Crouch", state);
+            if (isInLeapZone)
+            {
+                Leap();
+            }
+            else
+            {
+                //Debug.Log("animated controller: jump prediction");
+                controller.characterAnimation.animator.CrossFade("Predicted Jump", 0.1f);
+                animator.SetBool("Crouch", state);
+            }
+        }
+
+        public void Leap()
+        {
+            controller.characterAnimation.animator.CrossFade("Leap", 0.1f);
+            controller.characterAnimation.animator.CrossFade("Leap", 0.1f);
+            AudioManager.Instance.PlayLeapSFX();
+            animator.SetBool("Crouch", false);
         }
 
         public void TriggerStopVehicleAnimation(params object[] parameters)
@@ -205,6 +209,7 @@ namespace Climbing
             animator.CrossFade("Exiting Car", 0.1f);
         }
 
+        //TOOLS
         public void EnableIKSolver()
         {
             controller.characterMovement.EnableFeetIK();
@@ -231,14 +236,31 @@ namespace Climbing
             //Debug.Log("enable mesh: " + state);
             playerMeshesParent.SetActive(state);
         }
+        public IEnumerator DisableControllerAfterTime(float time)
+        {
+            yield return new WaitForSeconds(time);
+            controller.DisableController();
+        }
 
+        //BLOCK
+        public void StartBlocking()
+        {
+            animator.SetBool("isBlocking", true);
+            animator.CrossFade("Block", 0.2f);
+        }
+
+        public void StopBlocking()
+        {
+            animator.SetBool("isBlocking", false);
+        }
+
+        //CROUCH
         internal void EnterCrouch()
         {
             //animator.CrossFade("EnterCrouch", 0.1f);
             animator.SetBool("Crouch", true);
             //Debug.Log("crouch animation");
         }
-
         internal void UnCrouch()
         {
             //animator.CrossFade("ExitCrouch", 0.1f);
@@ -246,12 +268,12 @@ namespace Climbing
             //Debug.Log("uncrouch animation");
         }
 
+        //CRASH
         internal void StartCrashAnimation()
         {
             Debug.Log("animation: start crash anim");
             animator.CrossFade("Crashed", 0.1f);
         }
-
         internal void EndCrashAnimation()
         {
             Debug.Log("animation: end crash anim");
@@ -259,14 +281,22 @@ namespace Climbing
             //animator.CrossFade("Standup", 0.1f);
         }
 
+        //ENTER BLEND ZONE
         private void TriggerEnterBlendZoneAnimation(object[] parameters)
         {
             //animator.CrossFade("EnterBlendZone", 0.2f);
         }
-
         private void TriggerActivateBlendZoneAnimation(object[] parameters)
         {
             //animator.CrossFade("ActivateBlendZone", 0.2f);
+        }
+
+
+        //STEPS
+        public void ANIMATION_PlaySteps()
+        {
+            //Called from Animation Event
+            AudioManager.Instance.PlayFootstepSFX();
         }
 
         private void OnDestroy()
@@ -275,6 +305,9 @@ namespace Climbing
             {
                 EventManager.Instance.Unsubscribe(Evento.OnPlayerStopsVehicle, TriggerStopVehicleAnimation);
                 EventManager.Instance.Unsubscribe(Evento.OnEnterBlendZoneConfirmed, TriggerEnterBlendZoneAnimation);
+                EventManager.Instance.Unsubscribe(Evento.OnActivateBlendZone, TriggerActivateBlendZoneAnimation);
+                EventManager.Instance.Unsubscribe(Evento.OnLeapZoneEnter, (parameters) => { isInLeapZone = true; });
+                EventManager.Instance.Unsubscribe(Evento.OnLeapZoneExit, (parameters) => { isInLeapZone = false; });
             }
         }
     }

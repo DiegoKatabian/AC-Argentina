@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class AudioManager : Singleton<AudioManager>
 {
-    //dictionary of audiosources and audioclips
     Dictionary<AudioSource, AudioClip> allSounds = new Dictionary<AudioSource, AudioClip>();
 
     public AudioSource[] deathMaleGroup, hurtMaleGroup;
-    public AudioSource[] punchAirGroup, punchHitGroup;
+    public AudioSource[] punchAirGroup, punchHitGroup, punchBlockGroup;
+    public AudioSource[] footstepGroup;
+    public AudioSource[] musicGroup;
+    public AudioSource combatMusic, endCombatMusic;
+    public AudioSource leapSound;
+    public AudioSource ezioTango;
 
 
     public override void Awake()
@@ -104,5 +108,84 @@ public class AudioManager : Singleton<AudioManager>
         }
         audioSource.pitch = 1;
         yield break;
+    }
+
+    internal void PlayPunchBlockedSFX()
+    {
+        PlaySound(allSounds[punchBlockGroup[Random.Range(0, punchBlockGroup.Length)]], 1, 0.1f);
+    }
+
+    public void PlayFootstepSFX()
+    {
+        //Debug.Log("audiomanager: ok, play footstep");
+        footstepGroup[Random.Range(0, footstepGroup.Length)].Play();
+    }
+
+    //y si me pasaras por parametro tu ubicacion, yo te pondria al audiosource ahi
+    public void PlayFootstepAtPosition(Vector3 position)
+    {
+        footstepGroup[Random.Range(0, footstepGroup.Length)].transform.position = position;
+        footstepGroup[Random.Range(0, footstepGroup.Length)].Play();
+    }
+
+    public void StopAllMusic()
+    {
+        foreach (AudioSource audioSource in musicGroup)
+        {
+            audioSource.Stop();
+        }
+    }
+
+    public void StopEzioTango()
+    {
+       ezioTango.Stop();
+    }
+
+    public void StopCombatMusic()
+    {
+       combatMusic.Stop();
+    }
+
+    public void FadeOutEzioTango()
+    {
+        StartCoroutine(FadeOut(ezioTango, 2));
+    }
+
+    private IEnumerator FadeOut(AudioSource audioSource, float fadeTime)
+    {
+        float originalVolume = audioSource.volume;
+        while (audioSource.volume > 0)
+        {
+            audioSource.volume -= Time.deltaTime / fadeTime;
+            yield return null;
+        }
+        audioSource.Stop();
+        audioSource.volume = originalVolume;
+    }
+
+    public void EndCombatMusic()
+    {
+        combatMusic.Stop();
+        endCombatMusic.Play();
+    }
+
+    internal void PlayLeapSFX()
+    {
+        leapSound.Play();
+    }
+
+    internal bool IsPlaying(AudioClip audioClip)
+    {
+        //return whether that clip is playing or not
+        foreach (AudioSource audioSource in allSounds.Keys)
+        {
+            if (allSounds[audioSource] == audioClip)
+            {
+                return audioSource.isPlaying;
+            }
+        }
+
+        Debug.Log("audiomanager: isplaying method returned false because there was no audiosource associated to that clip");
+        return false;
     }
 }

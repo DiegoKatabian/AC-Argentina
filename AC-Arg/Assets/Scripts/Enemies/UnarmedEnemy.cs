@@ -1,16 +1,20 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering.UI;
 
-public class UnarmedEnemy : Enemy, ICrashable
+public class UnarmedEnemy : Enemy, ICrashable, IPedestrian
 {
     public Hitbox punchHitBox;
     public Transform[] waypoints;
     public bool canInteract = true;
 
+    public GameObject bloodParticlesPrefab;
+    public float bloodDurationHurt = 0.12f;
+    public float bloodDurationDeath = 0.25f;
+
 
     public override void Start()
     {
-        base.Start();
         _fsm = new EnemyFSM();
         _fsm.AddState(State.EnemyIdle, new EnemyIdle(_fsm, this));
         _fsm.AddState(State.EnemyPatrol, new EnemyPatrol(_fsm, this, waypoints));
@@ -19,12 +23,13 @@ public class UnarmedEnemy : Enemy, ICrashable
         _fsm.AddState(State.EnemyReadyToAttack, new EnemyReadyToAttack(_fsm, this));
         _fsm.AddState(State.EnemyHurt, new EnemyHurt(_fsm, this));
         _fsm.AddState(State.EnemyKnockedOut, new EnemyKnockedOut(_fsm, this));
+        _fsm.AddState(State.EnemyDead, new EnemyDead(_fsm, this));
         _fsm.ChangeState(State.EnemyIdle);
         EnemyManager.Instance.RegisterEnemy(this, _fsm);
         isDead = false;
     }
 
-    private void Update()
+    public void Update()
     {
         _fsm.Update();
     }
@@ -49,14 +54,13 @@ public class UnarmedEnemy : Enemy, ICrashable
         finishedAttacking = true;
         isAttacking = false;
     }
-    IEnumerator HitboxCouroutine()
+    public IEnumerator HitboxCouroutine()
     {
         ObjectEnabler.EnableObject(punchHitBox.gameObject, true);
         punchHitBox.isTaggedInside = false;
         yield return new WaitForSeconds(0.1f);
         if (punchHitBox.isTaggedInside)
         {
-            AudioManager.Instance.PlayPunchHitSFX();
             EnemyManager.Instance.DamagePlayer(attackDamage);
         }
 
@@ -71,6 +75,15 @@ public class UnarmedEnemy : Enemy, ICrashable
         finishedAttacking = true;
         isAttacking = false;
         isHurting = true;
+
+        if (bloodParticlesPrefab != null)
+        {
+            ParticleSystem ps = Instantiate(bloodParticlesPrefab, transform.position, Quaternion.identity).GetComponent<ParticleSystem>();
+            var main = ps.main;
+            main.duration = bloodDurationHurt;
+            main.startSize = 0.25f;
+            ps.Play();
+        }
     }
     public void ANIMATION_OnHurtEnd() //llamado por la animacion de daño
     {
@@ -80,7 +93,7 @@ public class UnarmedEnemy : Enemy, ICrashable
     //CHASE
     public override void StartChasingPlayer()
     {
-        Debug.Log("enemy: start chasing player");
+        //Debug.Log("enemy: start chasing player");
         InvokeRepeating("ChasePlayer", 0, playerDetection.checkDelay);
     }
     public override void CancelChasePlayer()
@@ -90,7 +103,7 @@ public class UnarmedEnemy : Enemy, ICrashable
     }
     public void ChasePlayer()
     {
-        Debug.Log("enemy: chase player");
+        //Debug.Log("enemy: chase player");
         navMeshAgent.isStopped = false;
         navMeshAgent.SetDestination(EnemyManager.Instance.player.transform.position);
     }
@@ -99,51 +112,67 @@ public class UnarmedEnemy : Enemy, ICrashable
     public override void OnDeath()
     {
         base.OnDeath();
-        isDead = true;
-        _fsm.ChangeState(State.EnemyIdle);
-        animator.CrossFade("Death", 0.1f);
+        //isntantiate the blood particles
+
+        if (bloodParticlesPrefab != null)
+        {
+            ParticleSystem ps = Instantiate(bloodParticlesPrefab, transform.position, Quaternion.identity).GetComponent<ParticleSystem>();
+            var main = ps.main;
+            main.duration = bloodDurationDeath;
+            ps.Play();
+        }
+        
         AudioManager.Instance.PlayDeathSFX();
         EnemyManager.Instance.KillEnemy(this);
+        isDead = true;
+        _fsm.ChangeState(State.EnemyDead);
     }
-
     public void OnCrash(GameObject vehicle, float crashForce)
     {
         StartHurt();
     }
-
     public void SetInteractionMarkerActive(bool active)
     {
         currentEnemyMarker.SetActive(active);
     }
-
     public void GetAssassinated(GameObject assassin)
     {
         Debug.Log("enemy: me asesinaron");
+        animator.CrossFade("GetAssasinated", 0.2f);
+        EventManager.Instance.Trigger(Evento.OnPedestrianKilled, this);
+        canInteract = false;
+        Invoke("OnDeath", 1f);
     }
-
     public void GetStolen()
     {
         Debug.Log("enemy: me robaron!");
+    }
+
+    public override void GetBoleadoraed()
+    {
+        //Debug.Log("me dieron con boleadoras");
+        //EnemyManager.Instance.UnregisterEnemy(this);
+        isKnockedOut = true;
+        EnemyManager.Instance.TriggerPedestrianAlarm(transform.position);
+        canInteract = false;
     }
 
     public bool CanInteract()
     {
         return canInteract;
     }
-
     public override void OnPedestrianAlarmEmit()
     {
         if (isKnockedOut)
         {
-            Debug.Log("enemy: onpedestrianalarmemit! pero no hago nada xq esoy noqueado");
+            //Debug.Log("enemy: onpedestrianalarmemit! pero no hago nada xq esoy noqueado");
             return;
         }
 
-        Debug.Log("enemy: onpedestrianalarmemit!");
+        //Debug.Log("enemy: onpedestrianalarmemit!");
         StartChasingPlayer();
         animator.CrossFade("Chase", 0.2f);
         chasesPlayerOnlyWhileWarning = false;
     }
-
 
 }

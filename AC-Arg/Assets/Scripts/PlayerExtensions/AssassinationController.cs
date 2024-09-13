@@ -20,11 +20,11 @@ public class AssassinationController : MonoBehaviour
     {
         Debug.Log("try assassination...");
 
-        if (!controller.isCrouch)
-        {
-            Debug.Log("not crouching");
-            return;
-        }
+        //if (!controller.isCrouch)
+        //{
+        //    Debug.Log("not crouching");
+        //    return;
+        //}
 
         if (pedestrianInteractionController.isAlreadyInteracting)
         {

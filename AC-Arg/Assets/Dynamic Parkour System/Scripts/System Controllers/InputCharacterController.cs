@@ -111,39 +111,39 @@ namespace Climbing
 
         void Pause()
         {
-            Debug.Log("toque pause button");
+            //Debug.Log("toque pause button");
             EventManager.Instance.Trigger(Evento.OnInputRequestPause);
         }
 
         void Interact()
         {
-            Debug.Log("toque interact button");
+            //Debug.Log("toque interact button");
             EventManager.Instance.Trigger(Evento.OnInputRequestInteract);
         }
 
         void OnBusStopButtonPressed()
         {
-            Debug.Log("toque RequestBusStop button");
+            //Debug.Log("toque RequestBusStop button");
             EventManager.Instance.Trigger(Evento.OnInputRequestBusStop);
         }
 
         void OnStealButtonPressed()
         {
-            Debug.Log("Steal button pressed");
+            //Debug.Log("Steal button pressed");
             // Lógica para cuando se presiona el botón de robo
             EventManager.Instance.Trigger(Evento.OnInputRequestSteal);
         }
 
         void OnStealButtonReleased()
         {
-            Debug.Log("Steal button released");
+            //Debug.Log("Steal button released");
             EventManager.Instance.Trigger(Evento.OnInputReleaseSteal);
 
         }
 
         void OnAssassinateButtonPressed()
         {
-            Debug.Log("toque assassinate button");
+            //Debug.Log("toque assassinate button");
             EventManager.Instance.Trigger(Evento.OnInputRequestAssassinate);
         }
 
@@ -154,7 +154,7 @@ namespace Climbing
 
         void OnBusStopButtonReleased()
         {
-            Debug.Log("toque RequestBusStop button");
+            //Debug.Log("toque RequestBusStop button");
             EventManager.Instance.Trigger(Evento.OnInputReleaseBusStop);
         }
 

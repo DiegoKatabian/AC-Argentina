@@ -6,8 +6,10 @@ using System;
 public class CombatCamera : MonoBehaviour
 {
     public CombatController player;
-    public CinemachineVirtualCamera virtualCamera;
+    [HideInInspector] public CinemachineVirtualCamera virtualCamera;
     public Transform midPoint;
+
+    public bool isMidPointUsageEnabled = false;
 
     void Start()
     {
@@ -17,7 +19,7 @@ public class CombatCamera : MonoBehaviour
 
     void Update()
     {
-        if (player.currentEnemy != null)
+        if (player.currentEnemy != null && isMidPointUsageEnabled)
         {
             //Debug.Log("updateo la posicion del midpoint");
             midPoint.position = (player.transform.position + player.currentEnemy.transform.position) / 2f;

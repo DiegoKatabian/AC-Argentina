@@ -14,10 +14,11 @@ public class Enemy : MonoBehaviour, IBoleadorable
     public float moveSpeed = 5;
     public float attackDamage = 1;
     public float minimumDistanceToPlayer = 3f;
-    public float initialAttackCooldown = 1.5f; //cuanto espera hasta hacer el primer ataque
+    public float initialAttackCooldown = 1.5f; //cuanto espera hasta hacer el primer ataque (cada vez que entra a readytoattack)
     public float knockoutTime = 20f; //cuanto tiempo queda KO
     public bool isPatroller = false;    //si es idler o patroller
     public bool chasesPlayerOnlyWhileWarning; //si es true, solo persigue al player si esta en warning. false, persigue al player solo con verlo
+    public bool isBlocker = false;
 
     protected EnemyFSM _fsm;
 
@@ -30,6 +31,7 @@ public class Enemy : MonoBehaviour, IBoleadorable
     [HideInInspector] public float rotationTime = 1;
     [HideInInspector] public bool isDead = false;
     [HideInInspector] public bool isKnockedOut = false;
+    [HideInInspector] public bool isBlocking = false;
 
 
     public virtual void Start()
@@ -66,11 +68,12 @@ public class Enemy : MonoBehaviour, IBoleadorable
         //Debug.Log("enemy: i was hit");
     }
 
-    public void GetBoleadoraed()
+    public virtual void GetBoleadoraed()
     {
         //Debug.Log("me dieron con boleadoras");
         isKnockedOut = true;
         EnemyManager.Instance.TriggerPedestrianAlarm(transform.position);
+        //EnemyManager.Instance.UnregisterEnemy(this);
     }
 
     public virtual void OnPedestrianAlarmEmit()

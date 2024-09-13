@@ -7,6 +7,8 @@ public class EnemyAttack : IState
     FiniteStateMachine _fsm;
     Enemy _me;
 
+    string[] attackAnimations = new string[] { "Attack1", "Attack2", "Attack3" };
+
     public EnemyAttack(FiniteStateMachine fsm, Enemy enemy)
     {
         _fsm = fsm;
@@ -19,7 +21,13 @@ public class EnemyAttack : IState
         _me.StartAttack();
         _me.navMeshAgent.SetDestination(_me.transform.position); //me quedo en el lugar
         _me.navMeshAgent.isStopped = true;
-        _me.animator.CrossFade("Attack", 0.2f);
+        //_me.animator.CrossFade("Attack", 0.2f);
+
+        int randomAttack = Random.Range(0, attackAnimations.Length);
+        Debug.Log("random attack: " + randomAttack);
+        _me.animator.CrossFade(attackAnimations[randomAttack], 0.2f);
+
+
     }
 
     public void OnExit()

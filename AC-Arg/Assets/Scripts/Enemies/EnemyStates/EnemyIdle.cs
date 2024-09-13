@@ -69,11 +69,11 @@ public class EnemyIdle : IState
             !(StealthManager.Instance.currentStatus.status == StealthStatus.Warning ||
                                    StealthManager.Instance.currentStatus.status == StealthStatus.Alert))
         {
-            Debug.Log("soy pasivo y no hay alerta");
+            //Debug.Log("soy pasivo y no hay alerta");
             return;
         }
 
-        Debug.Log("persigo");
+        //Debug.Log("persigo");
         _fsm.ChangeState(State.EnemyChase);
     }
 

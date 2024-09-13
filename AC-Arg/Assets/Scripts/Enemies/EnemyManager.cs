@@ -26,9 +26,18 @@ public class EnemyManager : Singleton<EnemyManager>
             Debug.Log("enemy is null");
             return;
         }
+        //si el enemy esta blockeando, no recibe daño
+        if (enemy.isBlocking)
+        {   
+            Debug.Log("enemy is blocking");
+            AudioManager.Instance.PlayPunchBlockedSFX();
+            return;
+        }
+
         HealthComponent enemyHealth = enemy.GetComponent<HealthComponent>();
         enemyHealth.TakeDamage(damage);
         enemy.StartHurt();
+        AudioManager.Instance.PlayPunchHitSFX();
         //Debug.Log("damage enemy: le hiciste " + damage + " al enemy " + enemy);
     }
     public void RegisterEnemy(Enemy enemy, FiniteStateMachine enemyFSM)
@@ -40,14 +49,9 @@ public class EnemyManager : Singleton<EnemyManager>
     {
         //Debug.Log("killing " + enemy.gameObject.name);
         StopAllCoroutines();
-        enemyFSMs.Remove(enemy);
-        enemyStates.Remove(enemy);
-        if (readyToAttackEnemiesQueue.Contains(enemy))
-        {
-            readyToAttackEnemiesQueue.Dequeue();
-        }
+        UnregisterEnemy(enemy);
         EventManager.Instance.Trigger(Evento.OnEnemyKilled, enemy);
-        Destroy(enemy.gameObject);
+        EmitAlarm();
     }
     public void UpdateEnemyState(FiniteStateMachine enemyFSM, IState currentState)
     {
@@ -63,11 +67,13 @@ public class EnemyManager : Singleton<EnemyManager>
                 //UpdateAttackingEnemiesQueue(enemyFSMEntry.Key, currentState);
             }
         }
-        EmitAlarm(currentState);
+        EmitAlarm();
     }
     private void UpdateReadyToAttackEnemiesQueue(Enemy enemy, IState currentState)
     {
-        if (currentState.GetType() == typeof(EnemyReadyToAttack))
+        //sie sta en ready o blocking ahora
+        if (currentState.GetType() == typeof(EnemyReadyToAttack)
+            || currentState.GetType() == typeof(EnemyBlock))
         {
             if (!readyToAttackEnemiesQueue.Contains(enemy))
             {
@@ -97,10 +103,17 @@ public class EnemyManager : Singleton<EnemyManager>
     }
     public bool CanIAttackPlayerMisterEnemyManager(Enemy enemy)
     {
-        //first, the enemy requesting must be in ReadyToAttack state
-        //second, there has to be no other enemy already attacking the player
-        //third, the enemy must be the first in the queue
-        return enemyStates[enemy].GetType() == typeof(EnemyReadyToAttack) && 
+        if (enemy == null)
+        {
+            Debug.Log("Mr. Enemy Manager says: El enemy que me pasaste era null. fijate.");
+            return false;
+        }
+
+        bool isInPermittedState = enemyStates[enemy].GetType() == typeof(EnemyReadyToAttack) ||
+                                    enemyStates[enemy].GetType() == typeof(EnemyBlock);
+
+
+        return isInPermittedState && 
             !IsAnyEnemyAttackingPlayer() && 
             IsEnemyNextInLine(enemy);
     }
@@ -135,7 +148,8 @@ public class EnemyManager : Singleton<EnemyManager>
     {
         foreach (KeyValuePair<Enemy, IState> enemyState in enemyStates)
         {
-            if (enemyState.Value.GetType() == typeof(EnemyReadyToAttack))
+            if (enemyState.Value.GetType() == typeof(EnemyReadyToAttack) ||
+                enemyState.Value.GetType() == typeof(EnemyBlock))
             {
                 return true;
             }
@@ -166,10 +180,10 @@ public class EnemyManager : Singleton<EnemyManager>
 
     public bool AreAllEnemiesIdleOrPatrolling()
     {
-        return AreAllEnemiesInState(typeof(EnemyIdle), typeof(EnemyPatrol));
+        return AreAllEnemiesInState(typeof(EnemyIdle), typeof(EnemyPatrol), typeof(EnemyKnockedOut));
     }
 
-    public void EmitAlarm(IState state)
+    public void EmitAlarm()
     {
         if (StealthManager.Instance == null)
         {
@@ -178,6 +192,7 @@ public class EnemyManager : Singleton<EnemyManager>
 
         if (IsAnyEnemyInState<EnemyAttack>())
         {
+            Debug.Log("habia enemies en attack, alert");
             StealthManager.Instance.SetStealthStatus(StealthStatus.Alert);
             return;
         }
@@ -190,12 +205,14 @@ public class EnemyManager : Singleton<EnemyManager>
 
         if (IsAnyEnemyInState<EnemyHurt>())
         {
+            Debug.Log("habia enemies en hurt, alert");
             StealthManager.Instance.SetStealthStatus(StealthStatus.Alert);
             return;
         }
         
         if (IsAnyEnemyInState<EnemyReadyToAttack>())
         {
+            Debug.Log("habia enemies en ready to attack, alert");
             StealthManager.Instance.SetStealthStatus(StealthStatus.Alert);
             return;
         }
@@ -289,12 +306,21 @@ public class EnemyManager : Singleton<EnemyManager>
 
         foreach (KeyValuePair<Enemy, IState> enemyState in nearbyEnemies)
         {
-            Debug.Log("enemy manager: mando a 1 enemigo cercano a investigar");
+            //Debug.Log("enemy manager: mando a 1 enemigo cercano a investigar");
             enemyState.Key.navMeshAgent.isStopped = false;
             enemyState.Key.navMeshAgent.SetDestination(position);
             enemyState.Key.OnPedestrianAlarmEmit();
         }
+    }
 
+    public void UnregisterEnemy(Enemy enemy)
+    {
+        enemyFSMs.Remove(enemy);
+        enemyStates.Remove(enemy);
+        if (readyToAttackEnemiesQueue.Contains(enemy))
+        {
+            readyToAttackEnemiesQueue.Dequeue();
+        }
     }
 
     public void TriggerAlarm(Enemy triggeringEnemy, Vector3 position)

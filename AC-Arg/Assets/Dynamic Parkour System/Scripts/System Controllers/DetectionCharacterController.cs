@@ -133,15 +133,7 @@ namespace Climbing
             return false;
 
         }
-        //public bool ThrowRayToCover(Vector3 origin, out RaycastHit hit)
-        //{
-        //    if (showDebug)
-        //    {
-        //        Debug.DrawLine(origin, origin + transform.forward * CoverRayLength, Color.green);
-        //    }
 
-        //    return Physics.Raycast(origin, transform.forward, out hit, CoverRayLength, coverLayer);
-        //}
 
         public bool ThrowRaysToCover(Vector3 origin, out RaycastHit[] hits, int rayCount, float arcAngle)
         {

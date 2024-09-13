@@ -15,7 +15,7 @@ public class EnemyChase : IState
 
     public void OnEnter()
     {
-        Debug.Log("chase: on enter");
+        //Debug.Log("chase: on enter");
         _me.StartChasingPlayer();
         _me.animator.CrossFade("Chase", 0.2f);
         _me.chasesPlayerOnlyWhileWarning = false;
@@ -23,7 +23,7 @@ public class EnemyChase : IState
 
     public void OnExit()
     {
-        Debug.Log("chase: on exit");
+        //Debug.Log("chase: on exit");
         _me.CancelChasePlayer();
     }
 
@@ -36,13 +36,13 @@ public class EnemyChase : IState
 
         if (StealthManager.Instance.currentStatus.status == StealthStatus.Hidden)
         {
-            Debug.Log("me paso a idle xq el player esta hidden");
+            //Debug.Log("me paso a idle xq el player esta hidden");
             _fsm.ChangeState(State.EnemyIdle);
         }
 
         if (!_me.playerDetection.isPlayerInFOV)
         {
-            Debug.Log("me paso a idle xq el player no esta en fov");
+            //Debug.Log("me paso a idle xq el player no esta en fov");
             _fsm.ChangeState(State.EnemyIdle);
         }
 

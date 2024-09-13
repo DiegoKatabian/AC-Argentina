@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60a3f8b212786a649aefe54d4368b171, type: 3}
+  m_Name: SubtitleSet_05
+  m_EditorClassIdentifier: 
+  subtitles:
+  - characterName: 1
+    text: Are you done, Facundo? Or do you want to keep going?
+  - characterName: 0
+    text: How do you know my name?
+  - characterName: 1
+    text: Are you going to listen now?
+  - characterName: 1
+    text: I'm not here to kill you, I came to recruit you.
+  - characterName: 0
+    text: What?
+  - characterName: 1
+    text: 'My name is Varuzhan. I worked with your father, Norberto Uccello. '
+  - characterName: 1
+    text: We're members of a brotherhood that has existed for centuries. The Assassins.
+  - characterName: 1
+    text: We've been watching you and we believe you've got the skills needed to
+      become one.
+  - characterName: 0
+    text: Skills? Man, I don't even know you.
+  - characterName: 0
+    text: What do you know about my father's death?
+  - characterName: 1
+    text: 'I can only tell you I was there. '
+  - characterName: 1
+    text: But this is not a good place to talk. Many curious ears.
+  - characterName: 1
+    text: I promise I'll answer everything. Just follow me.
+  - characterName: 1
+    text: Trust me.
+  - characterName: 1
+    text: Fine, I'm done with you. Bye.
+  - characterName: 1
+    text: I told you to trust me!

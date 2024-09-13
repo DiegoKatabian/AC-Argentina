@@ -4,21 +4,23 @@ using UnityEngine;
 
 public class PedestrianManager : Singleton<PedestrianManager>
 {
-    public List<GameObject> _waypoints = new List<GameObject>();
+    [SerializeField] PedestrianWaypointCollection[] pedestrianWaypointCollection;
 
-    private void Start()
+    public Vector3 GetRandomWaypoint()
     {
-        //all children of this object are waypoints
-        foreach (Transform child in transform)
-        {
-            _waypoints.Add(child.gameObject);
-        }
+        return GetRandomWaypointInSpecificCollection(Random.Range(0, pedestrianWaypointCollection.Length));
     }
 
-    public Vector3 GetRandomWaypointPosition()
+    public Vector3 GetRandomWaypointInSpecificCollection(int collectionIndex)
     {
-        int randomIndex = Random.Range(0, _waypoints.Count);
-        return _waypoints[randomIndex].transform.position;
+        return pedestrianWaypointCollection[collectionIndex].GetRandomWaypointPosition();
+    }
+
+    //same but pássing a PedestrianWaypointCollection as paameter
+
+    public Vector3 GetRandomWaypointInSpecificCollection(PedestrianWaypointCollection collection)
+    {
+        return collection.GetRandomWaypointPosition();
     }
 
     public void TriggerPedestrianAlarm(Pedestrian pedestrian)

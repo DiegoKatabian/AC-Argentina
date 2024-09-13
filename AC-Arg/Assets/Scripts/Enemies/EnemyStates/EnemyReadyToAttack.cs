@@ -31,10 +31,19 @@ public class EnemyReadyToAttack : IState
     public void OnExit()
     {
         //Debug.Log("salgo de ready to attack");
+
     }
 
     public void OnUpdate()
     {
+        //si soy blockeador, me paso directo a blockstate
+
+        if (_me.isBlocker)
+        {
+            _fsm.ChangeState(State.EnemyBlock);
+        }
+
+
         if (_me.isHurting)
         {
             _fsm.ChangeState(State.EnemyHurt);

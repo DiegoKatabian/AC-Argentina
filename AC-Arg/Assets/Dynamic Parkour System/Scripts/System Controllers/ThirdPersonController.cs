@@ -56,7 +56,12 @@ namespace Climbing
         private float turnSmoothVelocity;
 
         public float fallDamage = 3;
+        public float severeFallDamage = 6;
+        public float deadlyFallDamage = 2000;
         public AudioClip takeDamageSound;
+        internal bool isLeaping;
+
+        public bool sceneStartsWithCutscene = false;
 
         private void Awake()
         {
@@ -69,7 +74,6 @@ namespace Climbing
             combatController = GetComponent<CombatController>();
             vehicleInteractionController = GetComponent<VehicleInteractionController>();
             healthComponent = GetComponent<PlayerHealthComponent>();
-            //crouchController = GetComponent<CrouchController>();
 
             if (cameraController == null)
                 Debug.LogError("Attach the Camera Controller located in the Free Look Camera");
@@ -79,8 +83,62 @@ namespace Climbing
         {
             characterMovement.OnLanded += characterAnimation.Land;
             characterMovement.OnFall += characterAnimation.Fall;
+
+            if (sceneStartsWithCutscene && !RespawnManager.Instance.HasSeenAtLeastOneCutscene())
+                OnCutsceneStart(null, true);
+
+            EventManager.Instance.Subscribe(Evento.OnCutsceneStart, OnCutsceneStart);
+            EventManager.Instance.Subscribe(Evento.OnCutsceneEnd, OnCutsceneEnd);
+            EventManager.Instance.Subscribe(Evento.OnPlayerResetPosition, RequestTeleport);
         }
 
+        private void RequestTeleport(object[] parameters)
+        {
+            if (parameters.Length > 0 &&
+                (Vector3)parameters[0] != Vector3.zero)
+            {
+                TeleportPlayer((Vector3)parameters[0]);
+            }
+        }
+
+        private void OnCutsceneStart(params object[] parameters)
+        {
+            //if the parameter 1 is true, do stuff. 
+            if ((bool)parameters[1])
+            {
+                //Debug.Log("player: on cutscene start");
+                characterAnimation.animator.enabled = false;
+                DisableController();
+                EnableMesh(false);
+            }
+
+        }
+
+        public void EnableMesh(bool value)
+        {
+            //Debug.Log("player: enableo el mesh " + value);
+            characterAnimation.playerMeshesParent.SetActive(value);
+        }
+
+        private void OnCutsceneEnd(object[] parameters)
+        {
+            //Debug.Log("player: on ctuscene end");
+            //Debug.Log("player on cutscene end: enable controller");
+            characterAnimation.animator.enabled = true;
+            EnableController();
+            EnableMesh(true);
+
+            if (parameters.Length > 0 &&
+                (Vector3)parameters[0] != Vector3.zero)
+            {
+                //Debug.Log("player on cutscene end: me pasaron un vector3, asi que me tpeo");
+                Vector3 teleportTargetPosition = (Vector3)parameters[0];
+                TeleportPlayer(teleportTargetPosition);
+            }
+
+        }
+
+       
         void Update()
         {
             // Detect if Player is on Ground
@@ -215,7 +273,7 @@ namespace Climbing
             if (combatController.isBlocking)
             {
                 Debug.Log("bloqueo el ataque");
-                //blocked attack animation
+                AudioManager.Instance.PlayPunchBlockedSFX();
                 return;
             }
 
@@ -229,10 +287,10 @@ namespace Climbing
             combatController.CancelAllAttacks();
             DisableController();
             AudioManager.Instance.PlaySound(takeDamageSound);
+            AudioManager.Instance.PlayPunchHitSFX();
             characterAnimation.animator.CrossFade("Hurt", 0.1f);
-            //StartCoroutine(HurtRecoveryCouroutine());
         }
-        public void ANIMATION_OnHurtEnd()
+        public void ANIMATION_OnHurtEnd() //disparada por el final de hurt anim
         {
             isHurting = false;
             combatController.ResetCooldowns();
@@ -306,12 +364,30 @@ namespace Climbing
         }
         internal void ReceiveFallDamage()
         {
+            TakeFallDamage(fallDamage);
+        }
+        internal void ReceiveSevereFallDamage()
+        {
+            TakeFallDamage(severeFallDamage);
+        }
+
+        internal void ReceiveDeadlyFallDamage()
+        {
+            TakeFallDamage(deadlyFallDamage);
+        }
+
+        public void TakeFallDamage(float fallDamage)
+        {
             Debug.Log("recibo daño de caida");
+
+            if (isLeaping)
+            {
+                Debug.Log("estoy leapeando, no recibo daño");
+                return;
+            }
             healthComponent.TakeDamage(fallDamage);
             characterAnimation.animator.CrossFade("TakeFallDamage", 0.1f);
             AudioManager.Instance.PlaySound(takeDamageSound, 0.95f);
-
-
             DisableController();
         }
         public void ANIMATION_OnFallDamageEnd()
@@ -321,5 +397,22 @@ namespace Climbing
             characterAnimation.animator.CrossFade("Idle", 0.1f);
 
         }
+
+        public void TeleportPlayer(Vector3 position)
+        {
+            //Debug.Log("tpeo al player a " + position);
+            characterMovement.rb.MovePosition(position);
+        }
+
+        private void OnDestroy()
+        {
+            if (!gameObject.scene.isLoaded)
+            {
+                EventManager.Instance.Unsubscribe(Evento.OnCutsceneStart, OnCutsceneStart);
+                EventManager.Instance.Unsubscribe(Evento.OnCutsceneEnd, OnCutsceneEnd);
+                EventManager.Instance.Unsubscribe(Evento.OnPlayerResetPosition, RequestTeleport);
+            }
+        }
+
     }
 }

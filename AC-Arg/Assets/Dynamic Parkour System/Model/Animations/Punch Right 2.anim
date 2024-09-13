@@ -53302,7 +53302,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0.8333333
-    functionName: ANIMATION_OnRightHandAttackHit_EndCombo
+    functionName: ANIMATION_OnAttackHit
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

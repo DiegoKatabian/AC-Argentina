@@ -30,11 +30,11 @@ public class CrashingHitbox : MonoBehaviour
     {
         if (vehicleAI.GetRBVelocity() < minimumVelocityNeededToCrash)
         {
-            Debug.Log("voy demasiado lento para crashear");
+            //Debug.Log("voy demasiado lento para crashear");
             return;
         }
 
-        Debug.Log("voy rapido, crasheo");
+        //Debug.Log("voy rapido, crasheo");
         crashable.OnCrash(gameObject, crashForce);
     }
 

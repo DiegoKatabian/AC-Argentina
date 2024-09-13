@@ -6,16 +6,18 @@ public class PedestrianWalk : IState
 {
     private Pedestrian _me;
     FiniteStateMachine _fsm;
-    public PedestrianWalk(Pedestrian pedestrian, FiniteStateMachine fsm)
+    PedestrianWaypointCollection _waypointCollection;
+    public PedestrianWalk(Pedestrian pedestrian, FiniteStateMachine fsm, PedestrianWaypointCollection pwc)
     {
         _me = pedestrian;
         _fsm = fsm;
+        _waypointCollection = pwc;
     }
     public void OnEnter()
     {
         //Debug.Log("ped: entro a walk");
         _me.animator.CrossFade("Walk", 0.1f);
-        _me.navMeshAgent.SetDestination(PedestrianManager.Instance.GetRandomWaypointPosition());
+        SetNewDestination();
     }
 
     public void OnExit()
@@ -37,7 +39,7 @@ public class PedestrianWalk : IState
             {
                 while (_me.navMeshAgent.destination == _me.navMeshAgent.pathEndPosition)
                 {
-                    _me.navMeshAgent.SetDestination(PedestrianManager.Instance.GetRandomWaypointPosition());
+                    SetNewDestination();
                 }
             }
         }
@@ -55,6 +57,18 @@ public class PedestrianWalk : IState
         if (_me.isDead)
         {
             _fsm.ChangeState(State.PedestrianDie);
+        }
+    }
+
+    public void SetNewDestination()
+    {
+        if (_waypointCollection != null)
+        {
+            _me.navMeshAgent.SetDestination(_waypointCollection.GetRandomWaypointPosition());
+        }
+        else
+        {
+            _me.navMeshAgent.SetDestination(PedestrianManager.Instance.GetRandomWaypoint());
         }
     }
 }

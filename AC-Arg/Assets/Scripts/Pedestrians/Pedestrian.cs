@@ -11,12 +11,14 @@ public class Pedestrian : MonoBehaviour, ICrashable, IPedestrian
     public Animator animator;
     public HealthComponent healthComponent;
     public bool isWalking = false;
+    [SerializeField] PedestrianWaypointCollection _waypointCollection;
     [HideInInspector] public bool isShoved = false;
     [HideInInspector] public bool isCrashed = false;
     [HideInInspector] public bool isDead = false;
     [HideInInspector] public Vector3 playerPosition;
     [HideInInspector] public Vector3 vehiclePosition;
     [HideInInspector] public float _crashForce = 0;
+
 
 
     public GameObject interactionMarker;    
@@ -30,7 +32,7 @@ public class Pedestrian : MonoBehaviour, ICrashable, IPedestrian
         //Debug.Log("pedestrian start");
         _fsm = new FiniteStateMachine();
         _fsm.AddState(State.PedestrianIdle, new PedestrianIdle(this, _fsm));
-        _fsm.AddState(State.PedestrianWalk, new PedestrianWalk(this, _fsm));
+        _fsm.AddState(State.PedestrianWalk, new PedestrianWalk(this, _fsm, _waypointCollection));
         _fsm.AddState(State.PedestrianShove, new PedestrianShove(this, _fsm));
         _fsm.AddState(State.PedestrianCrash, new PedestrianCrash(this, _fsm));
         _fsm.AddState(State.PedestrianDie, new PedestrianDie(this, _fsm));
@@ -107,6 +109,7 @@ public class Pedestrian : MonoBehaviour, ICrashable, IPedestrian
     {
         Debug.Log("pedestrian: me asesinaron");
         healthComponent.TakeDamage(100);
+        EventManager.Instance.Trigger(Evento.OnPedestrianKilled, this);
         PedestrianManager.Instance.TriggerPedestrianAlarm(this);
         StartCoroutine(CoroutineUtilities.DelayedAction(timeUntilTriggerParticles, TriggerParticles));
     }
